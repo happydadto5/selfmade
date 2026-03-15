@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: add aria-label to mute button for screen-reader support.
 - Fix: preserve batch command exit codes so failed tests or pushes actually stop the iteration and roll it back.
 - UI: hide the overlay when not needed and make Play Again properly reset game state.
 - Accessibility: add aria-labels to touch control buttons for screen-reader support.
