@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.7.0
+- Accessibility: announce pause/game-over overlay to screen readers by adding aria-live and role to #overlay in index.html
+
 ## 1.6.0
 - Mobile: add simple touch zones (left/right edges to move, center to fire) and update in-game tip.
 
