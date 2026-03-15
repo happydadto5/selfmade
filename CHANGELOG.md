@@ -8,7 +8,8 @@
 - Changed model verification to use live GitHub-hosted Copilot availability info instead of repo-local model flags.
 - UI: display current wave number in the in-game HUD.
 - UI: update HUD lives counter to show remaining lives.
-- UI: sync in-game displayed version to match index.html (now v0.1.5).
+- UI: sync in-game displayed version to match index.html (now v0.1.6).
+- UI: synced game.js reported version to v0.1.6 to keep HUD consistent with index.html.
 
 ## 0.1.0 - Initial minimal playable game
 - Player at bottom, waves of enemies, cartoony art.
