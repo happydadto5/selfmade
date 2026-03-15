@@ -2,7 +2,15 @@
   const canvas = document.getElementById('game');
   const ctx = canvas.getContext('2d');
   let cw, ch;
-  function resize() { cw = canvas.width = window.innerWidth; ch = canvas.height = window.innerHeight; }
+  function resize() { 
+  cw = canvas.width = window.innerWidth; 
+  ch = canvas.height = window.innerHeight; 
+  // Keep player anchored to the bottom when the window resizes
+  if (typeof player !== 'undefined') {
+    player.y = ch - 80;
+    player.x = Math.max(20, Math.min(cw - 20, player.x));
+  }
+}
   window.addEventListener('resize', resize);
   resize();
 
