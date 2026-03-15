@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix: sync in-game reported version to v0.1.30.
 - UI: sync in-game reported version to v0.1.29.
 - Accessibility: add Escape key to toggle pause/unpause (same as 'P').
 - Pause: preserve user-initiated pause and only auto-resume when pause was caused by window blur; overlay aria-hidden updated accordingly.
