@@ -8,7 +8,7 @@ RULES (never violate):
 - Never add <script> or <link> tags pointing to external URLs.
 - Never remove or weaken the Content-Security-Policy meta tag in index.html.
 - All code must be vanilla JS — no frameworks, no build tools.
-- Update CHANGELOG.md: add a bullet under the current version heading describing what you changed.
+- Update CHANGELOG.md: add a bullet under the top `## Unreleased` section describing what you changed. The release automation will convert that section into the actual version heading.
 - Keep total JS under 500 lines until version 1.0.
 - Preserve the existing file structure: index.html at root, js/game.js, css/style.css.
 - Do NOT modify VERSION or opus.md.

@@ -19,6 +19,7 @@
 ### Versioning
 - The first version number advances once per day: day one releases are `1.x.0`, the next day becomes `2.x.0`, and so on.
 - Each successful improvement on the same day increments the middle number, so versions progress like `1.0.0`, `1.1.0`, `1.2.0`.
+- During an active iteration, the LLM writes changelog notes under a temporary `## Unreleased` section; the batch script converts that section into the actual released version before commit/push so the newest versioned section stays at the top.
 
 ### suggestion.txt conventions
 - `suggestion.txt` is now a normal tracked repo file, so trusted collaborators can suggest ideas through regular commits or pull requests.

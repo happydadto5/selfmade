@@ -1,6 +1,7 @@
 # Changelog
 
-## Unreleased
+## 1.2.0
+- Automation: finalize changelog notes into real version headings on release so the newest versioned section stays at the top.
 - UI: show lives as hearts in the HUD for clearer at-a-glance status.
 - Audio: resume suspended AudioContext on first pointer or key gesture to improve sound playback reliability.
 - Automation: allow plain suggestion lines to stay in `suggestion.txt` for multiple iterations and remove them only when they are fully used up.
@@ -60,6 +61,3 @@
 - Player at bottom, waves of enemies, cartoony art.
 - Hybrid controls: keyboard + touch.
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
-
-
-

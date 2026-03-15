@@ -64,6 +64,20 @@ if not exist "%~dp0suggestion.txt" (
     call :LOG No suggestion.txt detected for this iteration.
 )
 
+node scripts\prepare_changelog.js > "%TEMP%\selfmade_changelog_prepare.txt" 2>&1
+set "PREP_CHANGELOG_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%TEMP%\selfmade_changelog_prepare.txt" "prepare changelog"
+if not "%PREP_CHANGELOG_EXIT%"=="0" (
+    if exist "%TEMP%\selfmade_changelog_prepare.txt" type "%TEMP%\selfmade_changelog_prepare.txt"
+    echo [!] CHANGELOG preparation failed. Rolling back this iteration.
+    call :LOG CHANGELOG preparation failed.
+    del "%ROLLBACK_LOG%" >nul 2>&1
+    node scripts\rollback_iteration.js "%ROLLBACK_SNAPSHOT%" > "%ROLLBACK_LOG%" 2>&1
+    call :APPEND_FILE "%ROLLBACK_LOG%" "rollback"
+    if exist "%ROLLBACK_LOG%" type "%ROLLBACK_LOG%"
+    goto PAUSE
+)
+
 set PROMPT_EXTRA=ImageStatus:%IMAGE_STATUS%
 set "COPILOT_OUT=%TEMP%\selfmade_copilot.txt"
 set "CHANGE_SUMMARY="
@@ -125,6 +139,19 @@ if not "%SYNC_EXIT%"=="0" (
     if exist "%TEMP%\selfmade_sync_versions.txt" type "%TEMP%\selfmade_sync_versions.txt"
     echo [!] Version metadata sync failed. Rolling back this iteration.
     call :LOG Version metadata sync failed for %NEWVER%.
+    del "%ROLLBACK_LOG%" >nul 2>&1
+    node scripts\rollback_iteration.js "%ROLLBACK_SNAPSHOT%" > "%ROLLBACK_LOG%" 2>&1
+    call :APPEND_FILE "%ROLLBACK_LOG%" "rollback"
+    if exist "%ROLLBACK_LOG%" type "%ROLLBACK_LOG%"
+    goto PAUSE
+)
+node scripts\finalize_changelog.js "%NEWVER%" > "%TEMP%\selfmade_finalize_changelog.txt" 2>&1
+set "FINALIZE_CHANGELOG_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%TEMP%\selfmade_finalize_changelog.txt" "finalize changelog"
+if not "%FINALIZE_CHANGELOG_EXIT%"=="0" (
+    if exist "%TEMP%\selfmade_finalize_changelog.txt" type "%TEMP%\selfmade_finalize_changelog.txt"
+    echo [!] CHANGELOG finalization failed. Rolling back this iteration.
+    call :LOG CHANGELOG finalization failed for %NEWVER%.
     del "%ROLLBACK_LOG%" >nul 2>&1
     node scripts\rollback_iteration.js "%ROLLBACK_SNAPSHOT%" > "%ROLLBACK_LOG%" 2>&1
     call :APPEND_FILE "%ROLLBACK_LOG%" "rollback"
