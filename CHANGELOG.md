@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Automation: write a verbose rolling `selfmade.log` for diagnostics and trim it to the newest 200 lines each iteration.
 - Automation: keep successful loop output very clean and show detailed logs only for errors or rollbacks.
 - Automation: show a clear Waiting / Starting Improvement / Implemented / Tested / Released status flow in selfmade.bat.
 - Automation: run startup smoke tests before commit and roll back failed iterations automatically instead of trying to debug them.
