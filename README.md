@@ -23,6 +23,8 @@
 
 ### suggestion.txt conventions
 - `suggestion.txt` is now a normal tracked repo file, so trusted collaborators can suggest ideas through regular commits or pull requests.
+- `selfmade.bat` now syncs `suggestion.txt` both directions: it pulls remote updates down before each iteration, and it auto-pushes local `suggestion.txt` edits when there are no competing remote commits.
+- If both your local `suggestion.txt` and `origin/main` changed at the same time, the loop pauses instead of guessing how to merge them.
 - Plain lines are temporary suggestions. An iteration may keep reusing one across multiple improvements and should remove it only when it feels fully used up.
 - Lines starting with `+` are persistent guidance. They should stay in `suggestion.txt` and continue influencing future iterations.
 

@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4.0
+- Automation: sync `suggestion.txt` up and down with GitHub before each iteration, while pausing on conflicting local+remote edits instead of guessing.
 - Images: rebalance daily image credits to allow up to 100 small images or 10 large backgrounds per day.
 - Accessibility: announce score and lives updates to screen readers (aria-live)
 

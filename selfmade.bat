@@ -27,6 +27,22 @@ echo.
 :LOOP
 call :LOG ============================================================
 call :LOG Iteration start: %date% %time%
+
+node scripts\sync_suggestion_file.js > "%TEMP%\selfmade_suggestion_sync.txt" 2>&1
+set "SUGGESTION_SYNC_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%TEMP%\selfmade_suggestion_sync.txt" "suggestion sync"
+if not "%SUGGESTION_SYNC_EXIT%"=="0" (
+    if exist "%TEMP%\selfmade_suggestion_sync.txt" type "%TEMP%\selfmade_suggestion_sync.txt"
+    echo [!] suggestion.txt sync failed. Resolve the file sync state and retry.
+    call :LOG suggestion.txt sync failed.
+    goto PAUSE
+)
+if exist "%TEMP%\selfmade_suggestion_sync.txt" (
+    for /f "usebackq delims=" %%A in ("%TEMP%\selfmade_suggestion_sync.txt") do set "SUGGESTION_SYNC_STATUS=%%A"
+    call :LOG suggestion.txt sync status: %SUGGESTION_SYNC_STATUS%
+)
+del "%TEMP%\selfmade_suggestion_sync.txt" >nul 2>&1
+
 REM ── Read current version ───────────────────────────────────────
 set /p CURVER=<VERSION
 call :LOG Current version before improvement: %CURVER%
