@@ -1,7 +1,7 @@
 # Changelog
 
 ## Unreleased
-- UI: synced displayed version to v0.1.11.
+- UI: synced displayed version to v0.1.12.
 - Accessibility: debounce pause on window blur to avoid accidental pauses; do not auto-resume when game over.
 - Automation: write a verbose rolling `selfmade.log` for diagnostics and trim it to the newest 200 lines each iteration.
 - Automation: keep successful loop output very clean and show detailed logs only for errors or rollbacks.
