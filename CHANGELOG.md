@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Automation: run startup smoke tests before commit and roll back failed iterations automatically instead of trying to debug them.
 - Visual: add small gardening-themed pots along the ground and recolor player sprite to green.
 - Automation: allow future iterations to choose visible game changes, behind-the-scenes reliability work, and occasional `selfmade.bat` UI polish.
 - Automation: surface the first-line improvement summary in a large on-screen banner and repeat it after publish.
