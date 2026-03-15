@@ -34,6 +34,10 @@
     btn.addEventListener('mouseup', e => { e.preventDefault(); keys[name] = false; });
   }
   setTouch(leftBtn, 'left'); setTouch(rightBtn, 'right'); setTouch(fireBtn, 'fire');
+  // Pause handling for accessibility: pause when window loses focus
+  let paused = false;
+  window.addEventListener('blur', () => { paused = true; });
+  window.addEventListener('focus', () => { paused = false; });
 
   const player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
   const bullets = []; const enemies = [];
@@ -92,9 +96,29 @@
 
     scoreEl.textContent = 'Score: ' + score + ' — Wave: ' + waveNumber;
     versionEl.textContent = 'v' + version + ' — High: ' + highScore;
+
+    if (paused) {
+      ctx.fillStyle = 'rgba(0,0,0,0.45)';
+      ctx.fillRect(0,0,cw,ch);
+      ctx.fillStyle = '#fff';
+      ctx.font = '48px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Paused', cw/2, ch/2);
+    }
   }
 
-  let last = performance.now(); function loop(t) { const dt = t - last; last = t; update(dt); draw(); requestAnimationFrame(loop); }
+  let last = performance.now();
+  function loop(t) {
+    const dt = t - last; last = t;
+    if (!paused) update(dt);
+    draw();
+    // keep loop running; when paused, run at a lower refresh to save CPU but keep overlay responsive
+    if (!paused) {
+      requestAnimationFrame(loop);
+    } else {
+      setTimeout(() => requestAnimationFrame(loop), 200);
+    }
+  }
   requestAnimationFrame(loop);
 
   canvas.addEventListener('mousedown', e => keys.fire = true);
