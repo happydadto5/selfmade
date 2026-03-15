@@ -37,6 +37,21 @@
     btn.addEventListener('mouseup', e => { e.preventDefault(); keys[name] = false; });
   }
   setTouch(leftBtn, 'left'); setTouch(rightBtn, 'right'); setTouch(fireBtn, 'fire');
+// overlay and replay button
+const overlay = document.getElementById('overlay');
+const replayBtn = document.getElementById('replayBtn');
+if (overlay) overlay.setAttribute('aria-hidden', 'true');
+if (replayBtn) replayBtn.addEventListener('click', () => {
+  gameOver = false;
+  paused = false;
+  score = 0;
+  lives = 3;
+  enemies.length = 0;
+  bullets.length = 0;
+  waveNumber = 0;
+  lastSpawn = Date.now();
+  player.x = cw/2;
+});
   // Pause handling for accessibility: pause when window loses focus
   let paused = false;
   window.addEventListener('blur', () => { paused = true; });
@@ -147,6 +162,8 @@
         ctx.font = '20px sans-serif';
         ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
       }
+      // sync HTML overlay visibility
+      if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (gameOver ? 'false' : 'true'));
     }
   }
 

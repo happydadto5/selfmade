@@ -2,6 +2,7 @@
 
 ## Unreleased`r`n- Automation: show a clear Waiting / Starting Improvement / Implemented / Tested / Released status flow in selfmade.bat.`r`n- Automation: run startup smoke tests before commit and roll back failed iterations automatically instead of trying to debug them.
 - Visual: add small gardening-themed pots along the ground and recolor player sprite to green.
+- UI: add Play Again button on Game Over overlay so player can restart without reloading.
 - Automation: allow future iterations to choose visible game changes, behind-the-scenes reliability work, and occasional `selfmade.bat` UI polish.
 - Automation: surface the first-line improvement summary in a large on-screen banner and repeat it after publish.
 - UI: synced in-game reported version to match index.html (v0.1.7).
