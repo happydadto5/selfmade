@@ -21,6 +21,7 @@
 - Each successful improvement on the same day increments the middle number, so versions progress like `1.0.0`, `1.1.0`, `1.2.0`.
 
 ### suggestion.txt conventions
+- `suggestion.txt` is now a normal tracked repo file, so trusted collaborators can suggest ideas through regular commits or pull requests.
 - Plain lines are one-time suggestions. If an iteration implements one, it should remove that line from `suggestion.txt`.
 - Lines starting with `+` are persistent guidance. They should stay in `suggestion.txt` and continue influencing future iterations.
 

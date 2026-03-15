@@ -16,7 +16,7 @@ RULES (never violate):
 - Before making changes, read suggestion.txt (if present). You may implement at most one suggestion from suggestion.txt.
 - If you implement a normal suggestion line, remove that suggestion line from suggestion.txt.
 - If a suggestion line starts with `+`, treat it as persistent guidance: it should influence future choices, but it must stay in suggestion.txt even after you use it.
-- Do NOT add suggestion.txt to git.
+- suggestion.txt is a tracked repo file. Keep it in git and commit any intentional suggestion-file updates.
 - Do NOT create new HTML files. index.html is the only entry point.
 
 GOOD improvements (pick one per iteration):

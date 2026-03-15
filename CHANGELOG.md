@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Collaboration: track `suggestion.txt` in git so trusted contributors can share and refine guidance through the repo.
 - Automation: switch to daily-major versioning so each new day starts a new `N.x.0` release line while same-day improvements increment the middle number.
 - UX: prevent page scrolling when using arrow keys or space to control the game (preventDefault on key events).
 - Accessibility: added aria-label to mute button for screen-reader support.
