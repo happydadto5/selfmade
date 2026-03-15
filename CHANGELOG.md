@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: sync in-game reported version to v0.1.23.
 - UI: sync in-game reported version to v0.1.22.
 - Audio: add simple WebAudio firing and hit sound effects using oscillators.
 - Fix: show overlay when paused by correcting aria-hidden logic.
