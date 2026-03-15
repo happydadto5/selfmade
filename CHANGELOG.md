@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Automation: push the moving `last-good` tag separately so it updates cleanly without breaking successful releases.
 - Automation: print a visible "Change made this iteration" summary in the batch loop after each Copilot pass.
 - Accessibility: pause game on window blur/focus and show a paused overlay.
 - Fixed the automation loop to use the current `gh copilot` wrapper syntax.

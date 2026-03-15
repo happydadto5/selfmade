@@ -103,9 +103,19 @@ if errorlevel 1 (
     goto PAUSE
 )
 git tag "v%NEWVER%" >nul 2>&1
-git push origin main --tags
+git push origin main
 if errorlevel 1 (
     echo [!] Push failed. Check git/gh auth. Will retry next iteration.
+    goto PAUSE
+)
+git push origin "refs/tags/v%NEWVER%"
+if errorlevel 1 (
+    echo [!] Version tag push failed. Check git/gh auth. Will retry next iteration.
+    goto PAUSE
+)
+git push --force origin "refs/tags/last-good"
+if errorlevel 1 (
+    echo [!] last-good tag update failed, but main and v%NEWVER% were pushed successfully.
 )
 
 REM ── Verify Pages deployment ────────────────────────────────────
