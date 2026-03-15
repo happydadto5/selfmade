@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Audio: add simple WebAudio firing and hit sound effects using oscillators.
 - Fix: show overlay when paused by correcting aria-hidden logic.
 - Mobile: tapping the canvas now fires (touchstart/touchend), improving mobile controls.
 - UI: synced in-game reported version to v0.1.18.

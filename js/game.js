@@ -15,6 +15,26 @@
   let lives = 3;
   let gameOver = false;
   const keys = {left:false,right:false,fire:false};
+
+  // Simple WebAudio effects (oscillators only). Created on first user gesture to satisfy autoplay policies.
+  let audioCtx = null;
+  function ensureAudio() {
+    if (!audioCtx) {
+      try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { audioCtx = null; }
+    }
+  }
+  function playSound(type='blip') {
+    ensureAudio();
+    if (!audioCtx) return;
+    const now = audioCtx.currentTime;
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    if (type === 'fire') { o.type = 'square'; o.frequency.setValueAtTime(880, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.12); }
+    else if (type === 'hit') { o.type = 'sawtooth'; o.frequency.setValueAtTime(220, now); g.gain.setValueAtTime(0.04, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18); }
+    else { o.type='sine'; o.frequency.setValueAtTime(440, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1); }
+    o.start(now); o.stop(now + 0.2);
+  }
   window.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
     if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
@@ -89,6 +109,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
     if (keys.fire && player.cooldown <= 0) {
       bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
       player.cooldown = 180; // ms
+      playSound('fire');
     }
 
     for (let i=bullets.length-1;i>=0;i--) { bullets[i].y += bullets[i].vy; if (bullets[i].y < -10) bullets.splice(i,1); }
@@ -108,7 +129,14 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
       for (let j=bullets.length-1;j>=0;j--) {
         const b = bullets[j];
         if (Math.abs(b.x - e.x) < (e.w/2 + b.r) && Math.abs(b.y - e.y) < (e.h/2 + b.r)) {
-          bullets.splice(j,1); e.hp--; if (e.hp <= 0) { enemies.splice(i,1); score += 10; if (score > highScore) { highScore = score; localStorage.setItem('selfmade_highscore', highScore); } }
+          bullets.splice(j,1);
+          e.hp--;
+          if (e.hp <= 0) {
+            enemies.splice(i,1);
+            score += 10;
+            if (score > highScore) { highScore = score; localStorage.setItem('selfmade_highscore', highScore); }
+            playSound('hit');
+          }
           break;
         }
       }
@@ -190,9 +218,9 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   }
   requestAnimationFrame(loop);
 
-  canvas.addEventListener('mousedown', e => keys.fire = true);
+  canvas.addEventListener('mousedown', e => { keys.fire = true; ensureAudio(); });
   canvas.addEventListener('mouseup', e => keys.fire = false);
-  canvas.addEventListener('touchstart', function(e){ if (e.target === canvas) { e.preventDefault(); keys.fire = true; } }, {passive:false});
+  canvas.addEventListener('touchstart', function(e){ if (e.target === canvas) { e.preventDefault(); ensureAudio(); keys.fire = true; } }, {passive:false});
   canvas.addEventListener('touchend', function(e){ if (e.target === canvas) { e.preventDefault(); keys.fire = false; } }, {passive:false});
   document.body.addEventListener('touchstart', function(e){ if (e.target === canvas) e.preventDefault(); }, {passive:false});
 })();
