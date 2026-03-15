@@ -39,7 +39,7 @@ if not "%SUGGESTION_SYNC_EXIT%"=="0" (
 )
 if exist "%TEMP%\selfmade_suggestion_sync.txt" (
     for /f "usebackq delims=" %%A in ("%TEMP%\selfmade_suggestion_sync.txt") do set "SUGGESTION_SYNC_STATUS=%%A"
-    call :LOG suggestion.txt sync status: %SUGGESTION_SYNC_STATUS%
+    call :LOG suggestion.txt sync status: !SUGGESTION_SYNC_STATUS!
 )
 del "%TEMP%\selfmade_suggestion_sync.txt" >nul 2>&1
 

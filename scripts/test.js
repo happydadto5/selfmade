@@ -16,7 +16,7 @@ for (const id of ['game', 'score', 'lives', 'version', 'muteBtn', 'leftBtn', 'ri
   }
 }
 
-const htmlVersionMatch = html.match(/<div id="version">v([^<]+)<\/div>/);
+const htmlVersionMatch = html.match(/<div\b[^>]*id="version"[^>]*>v([^<]+)<\/div>/);
 if (!htmlVersionMatch) {
   errors.push('index.html is missing the version display');
 } else if (htmlVersionMatch[1] !== version) {

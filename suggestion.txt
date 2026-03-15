@@ -5,7 +5,7 @@
 # Example:
 # Add a new enemy that moves in zig-zag
 
-+This is going to be a garden themed game. Gardening activities could be weeding, killing bugs, planning, splitting, mulching or whatever things you do in an outside garden.  There can be goals, problems (like drought) and other things.  All these are just ideas to general steer the game.  Your role is just to make it better and better with every step.  Controls should remain fairly consistent, but they need to be touch based and mouse based primarily.  It can have difference levels that have different methods of play.  Any new significant change needs to have a corresponding test to ensure it works properly.  It is important the app doesn't just break randomly.   Your goal is a really fun game that will go viral in the gardening community.  
++This is going to be a garden themed game. Gardening activities could be weeding, killing bugs, planning, splitting, mulching or whatever things you do in an outside garden.  There can be goals, problems (like drought) and other things.  All these are just ideas to general steer the game.  Your role is just to make it better and better with every step.  Controls should remain fairly consistent, but they need to be touch based and mouse based primarily.  It can have difference levels that have different methods of play.  Any new significant change needs to have a corresponding test to ensure it works properly.  It is important the app doesn't just break randomly.   Your goal is a really fun game that will go viral in the gardening community.   Always be asking questions like would people find this fun to plan? Addictive to play?  Easy to play?
 
 I want mouse control of the "person", not keyboard.
 
@@ -18,5 +18,7 @@ Move levels would be awesome
 Different oppononents that do different things would be neat.
 
 you be creative. Remember biggest viral hit game on the planet is your goal.
+
+The mobile UX should allow for easy control of the player. When mobile is detected, we can use the whole screen for input. For example, the left 25% of the screen tapped can move left, the right 25% can move right, and the center 50% can fire. A thin dashed vertical line running 1/3 up on the page can make this control discoverable by the user. The simple arrow buttons are not necessary in this mobile touch mode. The dashed lines should be only slightly contrasted to the background.
   
 The mobile UX should allow for easy control of the player. When mobile is detected, we can use the whole screen for input. For example, the left 25% of the screen tapped can move left, the right 25% of the screen tapped can move right. The center 50% can fire. A thin dashed vertical line running 1/3 up on the page can make this control discoverable by the user. The simple arrow buttons are not necessary in this "mobile touch" mode. The dashed lines that allow discoverability should be only slightly contrasted to the background.

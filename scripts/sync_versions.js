@@ -16,11 +16,11 @@ if (!/^\d+\.\d+\.\d+$/.test(version)) {
 }
 
 const html = fs.readFileSync(indexPath, 'utf8');
-if (!/<div id="version">v[^<]+<\/div>/.test(html)) {
+if (!/<div\b[^>]*id="version"[^>]*>v[^<]+<\/div>/.test(html)) {
   console.error('Failed to sync index.html version display');
   process.exit(1);
 }
-const nextHtml = html.replace(/<div id="version">v[^<]+<\/div>/, `<div id="version">v${version}</div>`);
+const nextHtml = html.replace(/(<div\b[^>]*id="version"[^>]*>)v[^<]+(<\/div>)/, `$1v${version}$2`);
 fs.writeFileSync(indexPath, nextHtml, 'utf8');
 
 const gameJs = fs.readFileSync(gamePath, 'utf8');

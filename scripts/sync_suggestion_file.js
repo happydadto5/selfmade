@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const cp = require('child_process');
+const fs = require('fs');
 const path = require('path');
 
 const root = path.join(__dirname, '..');
@@ -26,6 +27,32 @@ function hasRemoteAhead() {
   return head !== remote;
 }
 
+function remoteChangedSuggestion() {
+  return git(`diff --name-only HEAD..origin/main -- ${suggestionPath}`) !== '';
+}
+
+function mergeSuggestionContents(localContent, remoteContent) {
+  const merged = localContent.replace(/\r\n/g, '\n').split('\n');
+  const seen = new Set(
+    merged
+      .map((line) => line.trim())
+      .filter(Boolean)
+  );
+
+  for (const rawLine of remoteContent.replace(/\r\n/g, '\n').split('\n')) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith('#')) continue;
+    if (seen.has(line)) continue;
+    if (merged.length && merged[merged.length - 1].trim() !== '') {
+      merged.push('');
+    }
+    merged.push(rawLine);
+    seen.add(line);
+  }
+
+  return `${merged.join('\n').replace(/\n{3,}/g, '\n\n').trimEnd()}\n`;
+}
+
 try {
   git('rev-parse --is-inside-work-tree');
 } catch {
@@ -42,13 +69,43 @@ try {
 
 const localChanges = hasLocalSuggestionChanges();
 const remoteAhead = hasRemoteAhead();
-
-if (localChanges && remoteAhead) {
-  console.error('suggestion.txt sync blocked: local edits exist and origin/main has new commits. Resolve manually.');
-  process.exit(1);
-}
+const remoteTouchesSuggestion = remoteAhead && remoteChangedSuggestion();
 
 if (localChanges) {
+  const localContent = fs.readFileSync(path.join(root, suggestionPath), 'utf8');
+  if (remoteTouchesSuggestion) {
+    if (dryRun) {
+      console.log('SUGGESTION_SYNC=WOULD_MERGE');
+      process.exit(0);
+    }
+    git(`checkout -- ${suggestionPath}`);
+    try {
+      git('pull --rebase origin main');
+    } catch (error) {
+      fs.writeFileSync(path.join(root, suggestionPath), localContent, 'utf8');
+      console.error(error.stderr || error.message);
+      process.exit(1);
+    }
+    const remoteContent = fs.readFileSync(path.join(root, suggestionPath), 'utf8');
+    const mergedContent = mergeSuggestionContents(localContent, remoteContent);
+    fs.writeFileSync(path.join(root, suggestionPath), mergedContent, 'utf8');
+    git(`add ${suggestionPath}`);
+    if (git(`diff --cached --name-only -- ${suggestionPath}`) === '') {
+      console.log('SUGGESTION_SYNC=MERGED_NO_CHANGES');
+      process.exit(0);
+    }
+    git(`commit -m "docs: merge suggestions [auto]" -m "${coauthor}"`);
+    git('push origin main');
+    console.log('SUGGESTION_SYNC=MERGED_AND_UPLOADED');
+    process.exit(0);
+  }
+  if (remoteAhead) {
+    if (dryRun) {
+      console.log('SUGGESTION_SYNC=WOULD_DOWNLOAD_THEN_UPLOAD');
+      process.exit(0);
+    }
+    git('pull --rebase origin main');
+  }
   if (dryRun) {
     console.log('SUGGESTION_SYNC=WOULD_UPLOAD');
     process.exit(0);
@@ -69,7 +126,7 @@ if (remoteAhead) {
     console.log('SUGGESTION_SYNC=WOULD_DOWNLOAD');
     process.exit(0);
   }
-  git('pull --ff-only origin main');
+  git('pull --rebase origin main');
   console.log('SUGGESTION_SYNC=DOWNLOADED');
   process.exit(0);
 }
