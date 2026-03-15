@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
 REM ── Configuration ──────────────────────────────────────────────
-set MODEL=gpt-4.1
+set MODEL=gpt-5-mini
 set PAUSE_SEC=300
 
 echo ============================================================
@@ -25,12 +25,23 @@ REM ── Tag last-known-good state ──────────────�
 git tag -f last-good >nul 2>&1
 
 REM ── Invoke the LLM to make one improvement ─────────────────────
-echo [1/5] Asking %MODEL% to make an improvement...
-set PROMPT_FILE=%~dp0scripts\prompt.txt
-set /p PROMPT_TEXT=<nul
-for /f "usebackq delims=" %%L in ("%PROMPT_FILE%") do set "PROMPT_TEXT=!PROMPT_TEXT! %%L"
+echo [0/6] Checking model availability...
+node scripts/check_model.js "%MODEL%"
+if errorlevel 1 (
+    echo [!] Model %MODEL% is not verified free. Pausing automatic improvements. Please verify the model or change MODEL in selfmade.bat.
+    goto PAUSE
+)
 
-gh copilot -p "Read scripts/prompt.txt for your instructions, then make exactly one improvement to this game." --model %MODEL% --yolo --no-ask-user -s 2>&1
+echo [1/6] Preparing suggestions...
+if exist "%~dp0suggestion.txt" (
+    echo [*] suggestion.txt found. It will be read by the LLM and is ignored by git.
+    git rm --cached suggestion.txt >nul 2>&1
+) else (
+    echo [*] No suggestions found.
+)
+
+echo [2/6] Asking %MODEL% to make an improvement...
+gh copilot -p "Read scripts/prompt.txt and suggestion.txt for your instructions and suggestions. Make exactly one small incremental improvement. If you implement a suggestion from suggestion.txt, remove that suggestion line from suggestion.txt (do not add suggestion.txt to git). Update CHANGELOG.md with a short entry. Do not add external network calls or dependencies." --model %MODEL% --yolo --no-ask-user -s 2>&1
 if errorlevel 1 (
     echo [!] LLM invocation failed. Reverting and skipping this iteration.
     git checkout . >nul 2>&1

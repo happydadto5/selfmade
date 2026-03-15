@@ -12,6 +12,7 @@ RULES (never violate):
 - Keep total JS under 500 lines until version 1.0.
 - Preserve the existing file structure: index.html at root, js/game.js, css/style.css.
 - Do NOT modify VERSION, selfmade.bat, scripts/, or opus.md.
+- Before making changes, read suggestion.txt (if present). You may implement at most one suggestion from suggestion.txt; if you do, remove that suggestion line from suggestion.txt. Do NOT add suggestion.txt to git.
 - Do NOT create new HTML files. index.html is the only entry point.
 
 GOOD improvements (pick one per iteration):
