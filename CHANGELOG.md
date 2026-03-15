@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.11.0
+- Guard: avoid startup error when canvas #game is missing; script now aborts gracefully.
+
 ## 1.10.0
 - Robustness: guard HUD updates against missing DOM elements to avoid runtime errors.
 
