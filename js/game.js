@@ -98,7 +98,35 @@
     ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch);
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
 
-    ctx.save(); ctx.translate(player.x, player.y); ctx.fillStyle = '#ffcc00'; ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8); ctx.restore();
+    // small gardening-theme pots along the bottom (visual only)
+    const potCount = Math.floor(cw / 100);
+    for (let i = 0; i < potCount; i++) {
+      const px = 50 + i * 100;
+      const py = ch - 60;
+      // pot body
+      ctx.fillStyle = '#8b5a2b';
+      ctx.beginPath();
+      ctx.moveTo(px - 18, py);
+      ctx.lineTo(px + 18, py);
+      ctx.lineTo(px + 14, py + 20);
+      ctx.lineTo(px - 14, py + 20);
+      ctx.closePath();
+      ctx.fill();
+      // soil
+      ctx.fillStyle = '#4b2e2e';
+      ctx.fillRect(px - 12, py - 8, 24, 8);
+      // small plant
+      ctx.strokeStyle = '#2e8b57';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(px, py - 8);
+      ctx.quadraticCurveTo(px - 6, py - 24, px, py - 34);
+      ctx.moveTo(px, py - 8);
+      ctx.quadraticCurveTo(px + 6, py - 24, px, py - 34);
+      ctx.stroke();
+    }
+
+    ctx.save(); ctx.translate(player.x, player.y); ctx.fillStyle = '#2e8b57'; ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8); ctx.restore();
 
     ctx.fillStyle = '#fff'; for (const b of bullets) { ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
 
