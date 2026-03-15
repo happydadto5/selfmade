@@ -192,5 +192,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
 
   canvas.addEventListener('mousedown', e => keys.fire = true);
   canvas.addEventListener('mouseup', e => keys.fire = false);
+  canvas.addEventListener('touchstart', function(e){ if (e.target === canvas) { e.preventDefault(); keys.fire = true; } }, {passive:false});
+  canvas.addEventListener('touchend', function(e){ if (e.target === canvas) { e.preventDefault(); keys.fire = false; } }, {passive:false});
   document.body.addEventListener('touchstart', function(e){ if (e.target === canvas) e.preventDefault(); }, {passive:false});
 })();

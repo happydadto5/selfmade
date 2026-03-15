@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Mobile: tapping the canvas now fires (touchstart/touchend), improving mobile controls.
 - UI: synced in-game reported version to v0.1.18.
 - UI: synced in-game reported version to v0.1.17.
 - Fix: clamp lives at 0 to prevent negative lives when enemies pass the bottom.
