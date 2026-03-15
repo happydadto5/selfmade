@@ -18,7 +18,7 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '1.4.0';
+  const version = '1.5.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -210,7 +210,15 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
       enemies.splice(i,1);
       lives--;
       lives = Math.max(0, lives);
-      if (lives <= 0) { gameOver = true; paused = true; }
+      if (lives <= 0) {
+        gameOver = true;
+        paused = true;
+        // Accessibility: when the game ends, reveal the overlay and focus the Play Again button
+        if (typeof overlay !== 'undefined' && overlay && replayBtn) {
+          overlay.setAttribute('aria-hidden', 'false');
+          try { replayBtn.focus(); } catch (e) { /* ignore focus errors */ }
+        }
+      }
     }
   }
 

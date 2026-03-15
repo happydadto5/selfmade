@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.0
+- Accessibility: focus Play Again button on Game Over so keyboard and screen-reader users can restart the game more easily.
+
 ## 1.4.0
 - Automation: sync `suggestion.txt` up and down with GitHub before each iteration, while pausing on conflicting local+remote edits instead of guessing.
 - Images: rebalance daily image credits to allow up to 100 small images or 10 large backgrounds per day.
