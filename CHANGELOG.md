@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.10.0
+- Robustness: guard HUD updates against missing DOM elements to avoid runtime errors.
+
 ## 1.9.0
 - Controls: add mouse pointer movement to control the player (move mouse to reposition player over canvas)
 
