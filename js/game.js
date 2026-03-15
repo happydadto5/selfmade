@@ -22,6 +22,10 @@
     if (!audioCtx) {
       try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { audioCtx = null; }
     }
+    // If the context is suspended (autoplay policy), try to resume it on first user gesture.
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(() => { /* ignore resume failures */ });
+    }
   }
   function playSound(type='blip') {
     ensureAudio();
