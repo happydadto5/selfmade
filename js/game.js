@@ -116,6 +116,25 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
     if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
   });
 
+  // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (!paused) {
+        if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
+        paused = true;
+        pausedByFocus = true;
+        if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', 'false');
+      }
+    } else {
+      if (pausedByFocus && !gameOver) {
+        paused = false;
+      }
+      pausedByFocus = false;
+      if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
+    }
+  });
+
+
   const player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
   const bullets = []; const enemies = []; const particles = [];
   let lastSpawn = 0; let waveNumber = 0;
