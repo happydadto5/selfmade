@@ -49,11 +49,22 @@ if exist "%~dp0suggestion.txt" (
 echo [3/7] Asking %MODEL% to make an improvement...
 set PROMPT_EXTRA=ImageStatus:%IMAGE_STATUS%
 set "COPILOT_OUT=%TEMP%\selfmade_copilot.txt"
+set "CHANGE_SUMMARY="
 del "%COPILOT_OUT%" >nul 2>&1
 gh copilot -- -p "Read scripts/prompt.txt and suggestion.txt for your instructions and suggestions. %PROMPT_EXTRA% Make exactly one small incremental improvement. If you implement a suggestion from suggestion.txt, remove that suggestion line from suggestion.txt (do not add suggestion.txt to git). Update CHANGELOG.md with a short entry. Do not add external network calls or dependencies. If ImageStatus indicates images are NOT allowed, do not add or modify any image-generation code or references to secrets." --model %MODEL% --yolo --no-ask-user -s > "%COPILOT_OUT%" 2>&1
 set "COPILOT_EXIT=%ERRORLEVEL%"
+if exist "%COPILOT_OUT%" (
+    for /f "usebackq delims=" %%A in ("%COPILOT_OUT%") do (
+        if not defined CHANGE_SUMMARY set "CHANGE_SUMMARY=%%A"
+    )
+)
+if not defined CHANGE_SUMMARY set "CHANGE_SUMMARY=[no change summary returned]"
 echo.
-echo ----- Change made this iteration -----
+echo ============================================================
+echo CHANGE MADE THIS ITERATION
+echo !CHANGE_SUMMARY!
+echo ============================================================
+echo ----- Full Copilot details -----
 if exist "%COPILOT_OUT%" (
     type "%COPILOT_OUT%"
 ) else (
@@ -121,6 +132,7 @@ if errorlevel 1 (
 REM ── Verify Pages deployment ────────────────────────────────────
 echo [5/5] Published v%NEWVER% to GitHub Pages.
 echo       https://happydadto5.github.io/selfmade/
+echo       Latest improvement: !CHANGE_SUMMARY!
 
 :PAUSE
 echo.
