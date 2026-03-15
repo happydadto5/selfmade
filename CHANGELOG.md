@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Automation: keep `+`-prefixed suggestion lines as persistent guidance while removing only one-time suggestions after implementation.
 - UX: show resume hint on pause overlay ('Press P or Esc to resume').
 - Automation: use a dedicated version-sync script so batch version bumps reliably update `VERSION`, `index.html`, and `js/game.js`.
 - Automation: cap Cloudflare image generation at 5,000 Neurons/day (50 percent of the 10,000-Neuron free tier) with a conservative default per-image cost.

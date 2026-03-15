@@ -16,6 +16,10 @@
 5. GitHub Pages automatically deploys the latest version
 6. The loop pauses, then repeats
 
+### suggestion.txt conventions
+- Plain lines are one-time suggestions. If an iteration implements one, it should remove that line from `suggestion.txt`.
+- Lines starting with `+` are persistent guidance. They should stay in `suggestion.txt` and continue influencing future iterations.
+
 ### Safety
 - A strict **Content Security Policy** blocks all external scripts, network calls, and inline code injection
 - A **validation script** scans every change for dangerous patterns (`eval`, `fetch`, external URLs, etc.)
