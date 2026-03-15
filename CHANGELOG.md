@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: added mute toggle button to enable/disable sound (persisted to localStorage).
 - Pause: also handle document.visibilitychange to pause when the tab becomes hidden and resume only when appropriate.
 - Visual: add small particle explosions on enemy destruction.
 - Fix: sync in-game reported version to v0.1.30.

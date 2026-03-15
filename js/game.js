@@ -26,7 +26,11 @@
 
   // Simple WebAudio effects (oscillators only). Created on first user gesture to satisfy autoplay policies.
   let audioCtx = null;
+  // sound toggle persisted in localStorage ('1' = on, '0' = off)
+  let soundEnabled = localStorage.getItem('selfmade_sound');
+  soundEnabled = (soundEnabled === null) ? true : (soundEnabled === '1');
   function ensureAudio() {
+    if (!soundEnabled) return;
     if (!audioCtx) {
       try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { audioCtx = null; }
     }
@@ -36,6 +40,7 @@
     }
   }
   function playSound(type='blip') {
+    if (!soundEnabled) return;
     ensureAudio();
     if (!audioCtx) return;
     const now = audioCtx.currentTime;
@@ -47,6 +52,23 @@
     else { o.type='sine'; o.frequency.setValueAtTime(440, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1); }
     o.start(now); o.stop(now + 0.2);
   }
+  const muteBtn = document.getElementById('muteBtn');
+  function updateMuteUI() {
+    if (!muteBtn) return;
+    muteBtn.textContent = soundEnabled ? '🔊' : '🔇';
+    muteBtn.setAttribute('aria-pressed', (!soundEnabled).toString());
+    muteBtn.title = soundEnabled ? 'Sound: On (click to mute)' : 'Sound: Off (click to unmute)';
+  }
+  if (muteBtn) {
+    muteBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0');
+      if (soundEnabled) ensureAudio();
+      updateMuteUI();
+    });
+    updateMuteUI();
+  }
+
   window.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
     if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
@@ -301,9 +323,9 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   }
   requestAnimationFrame(loop);
 
-  canvas.addEventListener('mousedown', e => { keys.fire = true; ensureAudio(); });
+  canvas.addEventListener('mousedown', e => { keys.fire = true; if (soundEnabled) ensureAudio(); });
   canvas.addEventListener('mouseup', e => keys.fire = false);
-  canvas.addEventListener('touchstart', function(e){ if (e.target === canvas) { e.preventDefault(); ensureAudio(); keys.fire = true; } }, {passive:false});
+  canvas.addEventListener('touchstart', function(e){ if (e.target === canvas) { e.preventDefault(); if (soundEnabled) ensureAudio(); keys.fire = true; } }, {passive:false});
   canvas.addEventListener('touchend', function(e){ if (e.target === canvas) { e.preventDefault(); keys.fire = false; } }, {passive:false});
   document.body.addEventListener('touchstart', function(e){ if (e.target === canvas) e.preventDefault(); }, {passive:false});
 })();
