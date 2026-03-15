@@ -10,7 +10,7 @@
 
 ### How It Works
 1. `selfmade.bat` runs in a loop on the developer's machine
-2. Each iteration, it asks an AI (GitHub Copilot CLI, free tier) to make **one small improvement**
+2. Each iteration, it verifies `gpt-5-mini` against live GitHub-hosted Copilot model info, then asks GitHub Copilot CLI to make **one small improvement**
 3. A validation script checks for syntax errors and security violations
 4. If validation passes, the version is bumped, changes are committed, and pushed to GitHub
 5. GitHub Pages automatically deploys the latest version
@@ -25,5 +25,4 @@
 ### Tech
 - Pure HTML5 Canvas + vanilla JavaScript — no frameworks, no build tools, no dependencies
 - Hosted via GitHub Pages — no server required
-
 
