@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: announce HUD version to screen readers (added aria-live to #version)
+
 ## 1.5.0
 - Accessibility: focus Play Again button on Game Over so keyboard and screen-reader users can restart the game more easily.
 
