@@ -1,4 +1,4 @@
 {
   "gpt-4.1": { "free": true },
-  "gpt-5-mini": { "free": false }
+  "gpt-5-mini": { "free": true }
 }
