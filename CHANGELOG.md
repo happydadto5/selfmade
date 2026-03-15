@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: show lives as hearts in the HUD for clearer at-a-glance status.
 - Audio: resume suspended AudioContext on first pointer or key gesture to improve sound playback reliability.
 - Automation: allow plain suggestion lines to stay in `suggestion.txt` for multiple iterations and remove them only when they are fully used up.
 - Collaboration: track `suggestion.txt` in git so trusted contributors can share and refine guidance through the repo.
