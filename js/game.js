@@ -55,6 +55,8 @@
     if (e.key === 'p' || e.key === 'P') {
       if (!gameOver) {
         paused = !paused;
+        // user toggled pause; clear pausedByFocus so auto-resume doesn't override user's intent
+        pausedByFocus = false;
         if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (!paused && !gameOver) ? 'true' : 'false');
       }
     }
@@ -93,15 +95,25 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
 });
   // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
   let paused = false;
+  let pausedByFocus = false;
   let blurTimeout = null;
   window.addEventListener('blur', () => {
     // wait a short time before pausing to avoid accidental pauses on transient focus loss
-    blurTimeout = setTimeout(() => { paused = true; blurTimeout = null; }, 150);
+    blurTimeout = setTimeout(() => {
+      paused = true;
+      pausedByFocus = true;
+      blurTimeout = null;
+      if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
+    }, 150);
   });
   window.addEventListener('focus', () => {
     if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
-    // only unpause if the game isn't over
-    if (!gameOver) paused = false;
+    // only unpause if the pause was caused by focus loss and the game isn't over
+    if (pausedByFocus && !gameOver) {
+      paused = false;
+    }
+    pausedByFocus = false;
+    if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
   });
 
   const player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
