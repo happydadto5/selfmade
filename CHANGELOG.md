@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6.0
+- Mobile: add simple touch zones (left/right edges to move, center to fire) and update in-game tip.
+
 ## Unreleased
 - Automation: fix suggestion syncing so local suggestion edits can still upload when newer remote commits did not also change `suggestion.txt`, and make version syncing tolerate attributes on the version HUD.
 - Automation: auto-merge trusted local and remote suggestion additions instead of stalling the loop on every shared `suggestion.txt` edit.

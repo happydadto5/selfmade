@@ -18,7 +18,7 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '1.5.0';
+  const version = '1.6.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -326,7 +326,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
       ctx.save();
       ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(12,12,420,44);
       ctx.fillStyle = '#fff'; ctx.font = '14px sans-serif'; ctx.textAlign = 'left';
-      ctx.fillText('Tip: Arrow keys or A/D to move — Space or Tap to fire', 20, 36);
+      ctx.fillText('Tip: Arrow keys or A/D to move — Space, tap center to fire; tap left/right edges to move', 20, 36);
       ctx.restore();
     }
 
@@ -364,7 +364,33 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
 
   canvas.addEventListener('mousedown', e => { keys.fire = true; if (soundEnabled) ensureAudio(); });
   canvas.addEventListener('mouseup', e => keys.fire = false);
-  canvas.addEventListener('touchstart', function(e){ if (e.target === canvas) { e.preventDefault(); if (soundEnabled) ensureAudio(); keys.fire = true; } }, {passive:false});
-  canvas.addEventListener('touchend', function(e){ if (e.target === canvas) { e.preventDefault(); keys.fire = false; } }, {passive:false});
+  // Touch zones: left 25% = move left, right 25% = move right, center = fire. Uses touchstart/touchend for responsive mobile controls.
+  canvas.addEventListener('touchstart', function(e){
+    for (let i=0;i<e.changedTouches.length;i++) {
+      const t = e.changedTouches[i];
+      if (t.target === canvas) {
+        e.preventDefault();
+        if (soundEnabled) ensureAudio();
+        const x = t.clientX;
+        const zone = x / cw;
+        if (zone < 0.25) keys.left = true;
+        else if (zone > 0.75) keys.right = true;
+        else keys.fire = true;
+      }
+    }
+  }, {passive:false});
+  canvas.addEventListener('touchend', function(e){
+    for (let i=0;i<e.changedTouches.length;i++) {
+      const t = e.changedTouches[i];
+      if (t.target === canvas) {
+        e.preventDefault();
+        const x = t.clientX;
+        const zone = x / cw;
+        if (zone < 0.25) keys.left = false;
+        else if (zone > 0.75) keys.right = false;
+        else keys.fire = false;
+      }
+    }
+  }, {passive:false});
   document.body.addEventListener('touchstart', function(e){ if (e.target === canvas) e.preventDefault(); }, {passive:false});
 })();
