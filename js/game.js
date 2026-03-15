@@ -117,7 +117,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   });
 
   const player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
-  const bullets = []; const enemies = [];
+  const bullets = []; const enemies = []; const particles = [];
   let lastSpawn = 0; let waveNumber = 0;
 
   function spawnWave() {
@@ -166,11 +166,36 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
             enemies.splice(i,1);
             score += 10;
             if (score > highScore) { highScore = score; localStorage.setItem('selfmade_highscore', highScore); }
+            // spawn simple particles for a little explosion effect
+            const pc = 12;
+            for (let p=0;p<pc;p++) {
+              const angle = Math.random() * Math.PI * 2;
+              const speed = 1 + Math.random() * 3;
+              particles.push({
+                x: e.x,
+                y: e.y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                r: 2 + Math.random() * 3,
+                life: 600 + Math.random() * 400,
+                born: Date.now()
+              });
+            }
             playSound('hit');
           }
           break;
         }
       }
+    }
+
+    // update particles
+    for (let i=particles.length-1;i>=0;i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.05; // gravity
+      p.life -= dt;
+      if (p.life <= 0) particles.splice(i,1);
     }
 
     if (enemies.length === 0 && Date.now() - lastSpawn > 600) { lastSpawn = Date.now(); spawnWave(); }
@@ -211,6 +236,14 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
 
     ctx.save(); ctx.translate(player.x, player.y); ctx.fillStyle = '#2e8b57'; ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8); ctx.restore();
 
+    // draw particles
+    for (const p of particles) {
+      const alpha = Math.max(0, Math.min(1, p.life / 1000));
+      ctx.fillStyle = 'rgba(255,220,100,' + alpha + ')';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+    }
     ctx.fillStyle = '#fff'; for (const b of bullets) { ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
 
     for (const e of enemies) { const sc = 1 + (e.y / ch) * 0.25; ctx.save(); ctx.translate(e.x,e.y); ctx.scale(sc,sc); ctx.fillStyle='#ff6666'; ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h); ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4); ctx.restore(); }

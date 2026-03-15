@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual: add small particle explosions on enemy destruction.
 - Fix: sync in-game reported version to v0.1.30.
 - UI: sync in-game reported version to v0.1.29.
 - Accessibility: add Escape key to toggle pause/unpause (same as 'P').
