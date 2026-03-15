@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.8.0
+- UI: add dedicated accessible Wave counter in HUD (visible and announced to screen readers)
+
 ## 1.7.0
 - Accessibility: announce pause/game-over overlay to screen readers by adding aria-live and role to #overlay in index.html
 

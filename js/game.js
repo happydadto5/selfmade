@@ -18,7 +18,8 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '1.7.0';
+  const waveEl = document.getElementById('wave');
+  const version = '1.8.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -316,7 +317,8 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
 
     for (const e of enemies) { const sc = 1 + (e.y / ch) * 0.25; ctx.save(); ctx.translate(e.x,e.y); ctx.scale(sc,sc); ctx.fillStyle='#ff6666'; ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h); ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4); ctx.restore(); }
 
-    scoreEl.textContent = 'Score: ' + score + ' — Wave: ' + waveNumber;
+    scoreEl.textContent = 'Score: ' + score;
+    if (waveEl) waveEl.textContent = 'Wave: ' + waveNumber;
     livesEl.textContent = 'Lives: ' + '♥'.repeat(lives);
     livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
     versionEl.textContent = 'v' + version + ' — High: ' + highScore;
