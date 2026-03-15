@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: synced in-game reported version to v0.1.18.
 - UI: synced in-game reported version to v0.1.17.
 - Fix: clamp lives at 0 to prevent negative lives when enemies pass the bottom.
 - UI: synced in-game reported version to v0.1.14.
