@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased`r`n- Automation: surface the first-line improvement summary in a large on-screen banner and repeat it after publish.`r`n- UI: synced in-game reported version to match index.html (v0.1.7).
+## Unreleased
+- Automation: allow future iterations to choose visible game changes, behind-the-scenes reliability work, and occasional `selfmade.bat` UI polish.
+- Automation: surface the first-line improvement summary in a large on-screen banner and repeat it after publish.
+- UI: synced in-game reported version to match index.html (v0.1.7).
 - Automation: push the moving `last-good` tag separately so it updates cleanly without breaking successful releases.
 - Automation: print a visible "Change made this iteration" summary in the batch loop after each Copilot pass.
 - Accessibility: pause game on window blur/focus and show a paused overlay.

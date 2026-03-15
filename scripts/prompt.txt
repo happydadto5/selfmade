@@ -11,11 +11,13 @@ RULES (never violate):
 - Update CHANGELOG.md: add a bullet under the current version heading describing what you changed.
 - Keep total JS under 500 lines until version 1.0.
 - Preserve the existing file structure: index.html at root, js/game.js, css/style.css.
-- Do NOT modify VERSION, selfmade.bat, scripts/, or opus.md.
+- Do NOT modify VERSION or opus.md.
+- Do NOT modify model-verification, version-bump, validation, git-push, tag-push, suggestion-handling, or image-quota logic unless it is required to fix a real bug or the user explicitly asks.
 - Before making changes, read suggestion.txt (if present). You may implement at most one suggestion from suggestion.txt; if you do, remove that suggestion line from suggestion.txt. Do NOT add suggestion.txt to git.
 - Do NOT create new HTML files. index.html is the only entry point.
 
 GOOD improvements (pick one per iteration):
+- Visible game improvements are great, but invisible improvements are also valid.
 - New enemy type (different shape, movement pattern, HP)
 - New visual effect (explosions, particles, screen shake)
 - Sound effects (using Web Audio API oscillators only — no external audio files)
@@ -26,5 +28,9 @@ GOOD improvements (pick one per iteration):
 - Difficulty curve tuning
 - Mobile control improvements
 - Accessibility (pause on blur, colorblind-friendly palette)
+- Reliability/stability improvements (guard edge cases, prevent crashes, safer state transitions)
+- Code quality improvements (simplify logic, remove duplication, improve maintainability)
+- Performance improvements (small rendering or update-loop optimizations)
+- Occasional `selfmade.bat` UX improvements (clearer status text, better summaries, lightweight console UI polish) as long as the automation and safety rails stay intact
 
 After making changes, print exactly one first line in this format: `Change: <one-sentence summary>`. You may include brief supporting detail after that.
