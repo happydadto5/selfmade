@@ -18,7 +18,7 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '0.1.35';
+  const version = '0.1.36';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -306,7 +306,10 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
       ctx.font = '48px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(gameOver ? 'Game Over' : 'Paused', cw/2, ch/2);
-      if (gameOver) {
+      if (!gameOver) {
+        ctx.font = '18px sans-serif';
+        ctx.fillText('Press P or Esc to resume', cw/2, ch/2 + 48);
+      } else {
         ctx.font = '20px sans-serif';
         ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
       }
