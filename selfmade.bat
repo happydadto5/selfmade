@@ -5,6 +5,7 @@ cd /d "%~dp0"
 REM ── Configuration ──────────────────────────────────────────────
 set MODEL=gpt-5-mini
 set PAUSE_SEC=300
+set /a PAUSE_MIN=PAUSE_SEC/60
 
 echo ============================================================
 echo   SELFMADE — Self-Evolving Game Engine
@@ -25,6 +26,7 @@ REM ── Tag last-known-good state ──────────────�
 git tag -f last-good >nul 2>&1
 
 REM ── Invoke the LLM to make one improvement ─────────────────────
+echo Starting Improvement...
 echo [0/6] Checking model availability...
 node scripts/check_model.js "%MODEL%"
 if errorlevel 1 (
@@ -60,10 +62,7 @@ if exist "%COPILOT_OUT%" (
 )
 if not defined CHANGE_SUMMARY set "CHANGE_SUMMARY=[no change summary returned]"
 echo.
-echo ============================================================
-echo CHANGE MADE THIS ITERATION
-echo !CHANGE_SUMMARY!
-echo ============================================================
+echo Implemented: !CHANGE_SUMMARY!
 echo ----- Full Copilot details -----
 if exist "%COPILOT_OUT%" (
     type "%COPILOT_OUT%"
@@ -86,8 +85,17 @@ if errorlevel 1 (
     goto PAUSE
 )
 
+echo [3/6] Running smoke tests...
+node scripts\test.js
+if errorlevel 1 (
+    echo [!] Smoke tests failed. Reverting changes.
+    git checkout . >nul 2>&1
+    goto PAUSE
+)
+echo Tested: validation and smoke tests passed.
+
 REM ── Bump patch version ─────────────────────────────────────────
-echo [3/5] Bumping version...
+echo [4/6] Bumping version...
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$p = Join-Path '%~dp0' 'VERSION';" ^
   "$v = (Get-Content $p).Trim();" ^
@@ -106,7 +114,7 @@ set /p NEWVER=<"%TEMP%\selfmade_newver.txt"
 del "%TEMP%\selfmade_newver.txt" >nul 2>&1
 
 REM ── Commit and push ────────────────────────────────────────────
-echo [4/5] Committing v%NEWVER% and pushing...
+echo [5/6] Committing v%NEWVER% and pushing...
 git add -A
 git commit -m "v%NEWVER%: incremental improvement [auto]" -m "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 if errorlevel 1 (
@@ -130,12 +138,12 @@ if errorlevel 1 (
 )
 
 REM ── Verify Pages deployment ────────────────────────────────────
-echo [5/5] Published v%NEWVER% to GitHub Pages.
-echo       https://happydadto5.github.io/selfmade/
-echo       Latest improvement: !CHANGE_SUMMARY!
+echo Released: v%NEWVER%
+echo https://happydadto5.github.io/selfmade/
+echo Latest improvement: !CHANGE_SUMMARY!
 
 :PAUSE
 echo.
-echo Pausing %PAUSE_SEC% seconds. Press any key to skip...
+echo Waiting (%PAUSE_MIN% minutes). Press any key to skip...
 timeout /t %PAUSE_SEC%
 goto LOOP

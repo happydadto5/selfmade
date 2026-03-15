@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-- Automation: run startup smoke tests before commit and roll back failed iterations automatically instead of trying to debug them.
+## Unreleased`r`n- Automation: show a clear Waiting / Starting Improvement / Implemented / Tested / Released status flow in selfmade.bat.`r`n- Automation: run startup smoke tests before commit and roll back failed iterations automatically instead of trying to debug them.
 - Visual: add small gardening-themed pots along the ground and recolor player sprite to green.
 - Automation: allow future iterations to choose visible game changes, behind-the-scenes reliability work, and occasional `selfmade.bat` UI polish.
 - Automation: surface the first-line improvement summary in a large on-screen banner and repeat it after publish.
@@ -20,4 +19,5 @@
 - Player at bottom, waves of enemies, cartoony art.
 - Hybrid controls: keyboard + touch.
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
+
 
