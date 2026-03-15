@@ -22,6 +22,7 @@
 - Mobile: add simple touch zones (left/right edges to move, center to fire) and update in-game tip.
 
 ## Unreleased
+- Automation: make the batch `Implemented:` line show the actual `Change:` summary from Copilot output instead of the exploratory preamble.
 - Automation: fix suggestion syncing so local suggestion edits can still upload when newer remote commits did not also change `suggestion.txt`, and make version syncing tolerate attributes on the version HUD.
 - Automation: auto-merge trusted local and remote suggestion additions instead of stalling the loop on every shared `suggestion.txt` edit.
 - Accessibility: announce HUD version to screen readers (added aria-live to #version)
