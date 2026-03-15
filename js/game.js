@@ -20,7 +20,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
-  const version = '1.12.0';
+  const version = '1.13.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -355,7 +355,9 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
 
   let last = performance.now();
   function loop(t) {
-    const dt = t - last; last = t;
+    const rawDt = t - last;
+    const dt = Math.max(0, Math.min(50, rawDt));
+    last = t;
     if (!paused && !gameOver) update(dt);
     draw();
     // keep loop running; when paused, run at a lower refresh to save CPU but keep overlay responsive

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.13.0
+- Stability: clamp animation frame delta (dt) to avoid large update steps after tab switches or long pauses.
+
 ## 1.12.0
 - Chore: add short changelog entry for this iteration (updated CHANGELOG.md).
 
