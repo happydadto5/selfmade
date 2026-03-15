@@ -20,7 +20,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
-  const version = '1.13.0';
+  const version = '1.14.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -136,6 +136,16 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   player.cooldown = 0;
   if (overlay) overlay.setAttribute('aria-hidden', 'true');
 });
+// Allow clicking the overlay to resume when paused (but not when game over)
+if (overlay) {
+  overlay.addEventListener('click', (e) => {
+    if (!gameOver && paused) {
+      paused = false;
+      pausedByFocus = false;
+      if (overlay) overlay.setAttribute('aria-hidden', 'true');
+    }
+  });
+}
   // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
   let paused = false;
   let pausedByFocus = false;

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.14.0
+- Allow clicking paused overlay to resume (accessible): clicking the overlay will unpause the game when paused and not game over.
+
 ## 1.13.0
 - Stability: clamp animation frame delta (dt) to avoid large update steps after tab switches or long pauses.
 
