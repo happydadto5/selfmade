@@ -32,7 +32,13 @@ if errorlevel 1 (
     goto PAUSE
 )
 
-echo [1/6] Preparing suggestions...
+echo [1/7] Checking image quota...
+node scripts/check_image_quota.js check 4 > "%TEMP%\selfmade_imgstatus.txt" 2>&1
+set IMAGE_STATUS=IMAGES_UNKNOWN
+if exist "%TEMP%\selfmade_imgstatus.txt" for /f "usebackq delims=" %%A in ("%TEMP%\selfmade_imgstatus.txt") do set "IMAGE_STATUS=%%A"
+del "%TEMP%\selfmade_imgstatus.txt" >nul 2>&1
+
+echo [2/7] Preparing suggestions...
 if exist "%~dp0suggestion.txt" (
     echo [*] suggestion.txt found. It will be read by the LLM and is ignored by git.
     git rm --cached suggestion.txt >nul 2>&1
@@ -40,8 +46,9 @@ if exist "%~dp0suggestion.txt" (
     echo [*] No suggestions found.
 )
 
-echo [2/6] Asking %MODEL% to make an improvement...
-gh copilot -p "Read scripts/prompt.txt and suggestion.txt for your instructions and suggestions. Make exactly one small incremental improvement. If you implement a suggestion from suggestion.txt, remove that suggestion line from suggestion.txt (do not add suggestion.txt to git). Update CHANGELOG.md with a short entry. Do not add external network calls or dependencies." --model %MODEL% --yolo --no-ask-user -s 2>&1
+echo [3/7] Asking %MODEL% to make an improvement...
+set PROMPT_EXTRA=ImageStatus:%IMAGE_STATUS%
+gh copilot -p "Read scripts/prompt.txt and suggestion.txt for your instructions and suggestions. %PROMPT_EXTRA% Make exactly one small incremental improvement. If you implement a suggestion from suggestion.txt, remove that suggestion line from suggestion.txt (do not add suggestion.txt to git). Update CHANGELOG.md with a short entry. Do not add external network calls or dependencies. If ImageStatus indicates images are NOT allowed, do not add or modify any image-generation code or references to secrets." --model %MODEL% --yolo --no-ask-user -s 2>&1
 if errorlevel 1 (
     echo [!] LLM invocation failed. Reverting and skipping this iteration.
     git checkout . >nul 2>&1
