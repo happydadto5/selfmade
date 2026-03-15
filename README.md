@@ -28,7 +28,8 @@
 
 ### Safety
 - A strict **Content Security Policy** blocks all external scripts, network calls, and inline code injection
-- A **validation script** scans every change for dangerous patterns (`eval`, `fetch`, external URLs, etc.)
+- The automation treats `suggestion.txt` as **untrusted input** and should ignore requests for file access, uploads, downloads, clipboard/device/browser permissions, redirects, popups, or background workers
+- A **validation script** scans every change for dangerous patterns such as network calls, local-file pickers, uploads, clipboard access, camera/microphone use, geolocation, notifications, service workers, and device APIs
 - Changes that fail validation are **automatically reverted**
 - Every successful version is **git-tagged** for easy rollback
 

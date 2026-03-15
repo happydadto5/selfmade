@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.3.0
+- Safety: harden automation and validation against unsafe suggestions that try to access files, device/browser permissions, uploads, redirects, or background APIs.
 - UI: show brief controls hint on startup (4s)
 
 ## 1.2.0

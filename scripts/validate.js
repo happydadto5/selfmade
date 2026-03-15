@@ -22,7 +22,28 @@ const dangerous = [
   [/\bfetch\s*\(/, 'fetch()'],
   [/\bXMLHttpRequest/, 'XMLHttpRequest'],
   [/\bWebSocket/, 'WebSocket'],
+  [/\bnavigator\.sendBeacon\s*\(/, 'navigator.sendBeacon()'],
+  [/\bRTCPeerConnection\b/, 'RTCPeerConnection'],
   [/\bimportScripts/, 'importScripts'],
+  [/\bnavigator\.serviceWorker\b/, 'serviceWorker'],
+  [/\bnew\s+Worker\s*\(/, 'Worker()'],
+  [/\bnew\s+SharedWorker\s*\(/, 'SharedWorker()'],
+  [/\bshowOpenFilePicker\s*\(/, 'showOpenFilePicker()'],
+  [/\bshowSaveFilePicker\s*\(/, 'showSaveFilePicker()'],
+  [/\bshowDirectoryPicker\s*\(/, 'showDirectoryPicker()'],
+  [/\bFileReader\b/, 'FileReader'],
+  [/\bnavigator\.clipboard\b/, 'clipboard access'],
+  [/\bnavigator\.share\s*\(/, 'navigator.share()'],
+  [/\bnavigator\.geolocation\b/, 'geolocation'],
+  [/\b(getUserMedia|mediaDevices)\b/, 'camera or microphone access'],
+  [/\b(Notification|PushManager)\b/, 'notifications or push'],
+  [/\bnavigator\.(usb|bluetooth|serial|hid)\b/, 'device access API'],
+  [/\brequestMIDIAccess\s*\(/, 'MIDI access'],
+  [/\bNDEFReader\b/, 'NFC access'],
+  [/\bwindow\.open\s*\(/, 'window.open()'],
+  [/\blocation\.(assign|replace)\s*\(/, 'location redirect'],
+  [/\blocation\.href\s*=/, 'location.href redirect'],
+  [/<input[^>]+type\s*=\s*["']file["']/i, 'file input element'],
   [/src\s*=\s*["']https?:\/\//i, 'external src URL'],
   [/href\s*=\s*["']https?:\/\//i, 'external href URL'],
 ];
@@ -49,6 +70,11 @@ if (!fs.existsSync(path.join(root, 'CHANGELOG.md'))) errors.push('CHANGELOG.md i
 
 // 6. CSP meta tag must be present
 if (!html.includes('Content-Security-Policy')) errors.push('index.html missing Content-Security-Policy meta tag');
+for (const directive of ["connect-src 'none'", "worker-src 'none'", "object-src 'none'", "base-uri 'none'", "form-action 'none'", "manifest-src 'none'"]) {
+  if (!html.includes(directive)) {
+    errors.push(`index.html CSP is missing required directive: ${directive}`);
+  }
+}
 
 if (errors.length) {
   console.error('VALIDATION FAILED:');
