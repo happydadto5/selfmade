@@ -39,8 +39,9 @@ echo Starting Improvement...
 call :LOG Starting Improvement...
 del "%MODEL_LOG%" >nul 2>&1
 node scripts/check_model.js "%MODEL%" > "%MODEL_LOG%" 2>&1
+set "MODEL_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%MODEL_LOG%" "model check"
-if errorlevel 1 (
+if not "%MODEL_EXIT%"=="0" (
     if exist "%MODEL_LOG%" type "%MODEL_LOG%"
     echo [!] Model %MODEL% is not verified free. Pausing automatic improvements. Please verify the model or change MODEL in selfmade.bat.
     call :LOG Model verification failed for %MODEL%.
@@ -71,7 +72,12 @@ set "COPILOT_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%COPILOT_OUT%" "copilot output"
 if exist "%COPILOT_OUT%" (
     for /f "usebackq delims=" %%A in ("%COPILOT_OUT%") do (
-        if not defined CHANGE_SUMMARY set "CHANGE_SUMMARY=%%A"
+        if not defined CHANGE_SUMMARY if /i "%%A" neq "" if /i "%%A:~0,7"=="Change:" set "CHANGE_SUMMARY=%%A"
+    )
+)
+if not defined CHANGE_SUMMARY if exist "%COPILOT_OUT%" (
+    for /f "usebackq delims=" %%A in ("%COPILOT_OUT%") do (
+        if not defined CHANGE_SUMMARY if /i "%%A" neq "" set "CHANGE_SUMMARY=%%A"
     )
 )
 if not defined CHANGE_SUMMARY set "CHANGE_SUMMARY=[no change summary returned]"
@@ -116,8 +122,9 @@ call :LOG Bumped version to %NEWVER%.
 REM ── Validate and test before commit ────────────────────────────
 del "%VALIDATE_LOG%" >nul 2>&1
 node scripts\validate.js > "%VALIDATE_LOG%" 2>&1
+set "VALIDATE_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%VALIDATE_LOG%" "validation"
-if errorlevel 1 (
+if not "%VALIDATE_EXIT%"=="0" (
     if exist "%VALIDATE_LOG%" type "%VALIDATE_LOG%"
     echo [!] Validation failed. Rolling back this iteration.
     call :LOG Validation failed after bump to %NEWVER%.
@@ -130,8 +137,9 @@ if errorlevel 1 (
 
 del "%TEST_LOG%" >nul 2>&1
 node scripts\test.js > "%TEST_LOG%" 2>&1
+set "TEST_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%TEST_LOG%" "smoke tests"
-if errorlevel 1 (
+if not "%TEST_EXIT%"=="0" (
     if exist "%TEST_LOG%" type "%TEST_LOG%"
     echo [!] Smoke tests failed. Rolling back this iteration.
     call :LOG Smoke tests failed after bump to %NEWVER%.
@@ -148,8 +156,9 @@ REM ── Commit and push ─────────────────�
 git add -A
 del "%GIT_LOG%" >nul 2>&1
 git commit -m "v%NEWVER%: incremental improvement [auto]" -m "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>" > "%GIT_LOG%" 2>&1
+set "COMMIT_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%GIT_LOG%" "git commit"
-if errorlevel 1 (
+if not "%COMMIT_EXIT%"=="0" (
     if exist "%GIT_LOG%" type "%GIT_LOG%"
     echo [!] Nothing to commit. Skipping push.
     call :LOG Nothing to commit after tests for %NEWVER%.
@@ -161,24 +170,27 @@ if errorlevel 1 (
 )
 git tag "v%NEWVER%" >nul 2>&1
 git push origin main > "%GIT_LOG%" 2>&1
+set "PUSH_MAIN_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%GIT_LOG%" "git push main"
-if errorlevel 1 (
+if not "%PUSH_MAIN_EXIT%"=="0" (
     if exist "%GIT_LOG%" type "%GIT_LOG%"
     echo [!] Push failed. Check git/gh auth. Will retry next iteration.
     call :LOG Push to origin main failed for %NEWVER%.
     goto PAUSE
 )
 git push origin "refs/tags/v%NEWVER%" > "%GIT_LOG%" 2>&1
+set "PUSH_TAG_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%GIT_LOG%" "git push version tag"
-if errorlevel 1 (
+if not "%PUSH_TAG_EXIT%"=="0" (
     if exist "%GIT_LOG%" type "%GIT_LOG%"
     echo [!] Version tag push failed. Check git/gh auth. Will retry next iteration.
     call :LOG Version tag push failed for %NEWVER%.
     goto PAUSE
 )
 git push --force origin "refs/tags/last-good" > "%GIT_LOG%" 2>&1
+set "PUSH_LASTGOOD_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%GIT_LOG%" "git push last-good"
-if errorlevel 1 (
+if not "%PUSH_LASTGOOD_EXIT%"=="0" (
     if exist "%GIT_LOG%" type "%GIT_LOG%"
     echo [!] last-good tag update failed, but main and v%NEWVER% were pushed successfully.
     call :LOG last-good tag update failed for %NEWVER%.

@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Fix: preserve batch command exit codes so failed tests or pushes actually stop the iteration and roll it back.
+- UI: hide the overlay when not needed and make Play Again properly reset game state.
 - Accessibility: add aria-labels to touch control buttons for screen-reader support.
 - Reliability: fix startup resize handling so the game does not reference `player` before initialization.
 - UI: added mute toggle button to enable/disable sound (persisted to localStorage).

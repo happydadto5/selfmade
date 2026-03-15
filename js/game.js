@@ -18,7 +18,7 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '0.1.34';
+  const version = '0.1.35';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -108,13 +108,18 @@ if (overlay) overlay.setAttribute('aria-hidden', 'true');
 if (replayBtn) replayBtn.addEventListener('click', () => {
   gameOver = false;
   paused = false;
+  pausedByFocus = false;
   score = 0;
   lives = 3;
   enemies.length = 0;
   bullets.length = 0;
+  particles.length = 0;
   waveNumber = 0;
   lastSpawn = Date.now();
   player.x = cw/2;
+  player.y = ch - 80;
+  player.cooldown = 0;
+  if (overlay) overlay.setAttribute('aria-hidden', 'true');
 });
   // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
   let paused = false;
@@ -305,9 +310,8 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
         ctx.font = '20px sans-serif';
         ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
       }
-      // sync HTML overlay visibility
-      if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
     }
+    if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
   }
 
   let last = performance.now();

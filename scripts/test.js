@@ -81,9 +81,12 @@ if (!errors.length) {
       score: makeElement('score'),
       lives: makeElement('lives'),
       version: makeElement('version'),
+      muteBtn: makeElement('muteBtn'),
       leftBtn: makeElement('leftBtn'),
       rightBtn: makeElement('rightBtn'),
       fireBtn: makeElement('fireBtn'),
+      overlay: makeElement('overlay'),
+      replayBtn: makeElement('replayBtn'),
     };
 
     let now = 1000;
