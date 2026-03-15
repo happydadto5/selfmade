@@ -2,6 +2,7 @@
   const canvas = document.getElementById('game');
   const ctx = canvas.getContext('2d');
   let cw, ch;
+  let player;
   function resize() { 
   cw = canvas.width = window.innerWidth; 
   ch = canvas.height = window.innerHeight; 
@@ -17,7 +18,7 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '0.1.30';
+  const version = '0.1.34';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -157,7 +158,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   });
 
 
-  const player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
+  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
   const bullets = []; const enemies = []; const particles = [];
   let lastSpawn = 0; let waveNumber = 0;
 

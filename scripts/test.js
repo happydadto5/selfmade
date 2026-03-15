@@ -10,7 +10,7 @@ const version = fs.readFileSync(path.join(root, 'VERSION'), 'utf8').trim();
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const gameJs = fs.readFileSync(path.join(root, 'js', 'game.js'), 'utf8');
 
-for (const id of ['game', 'score', 'lives', 'version', 'leftBtn', 'rightBtn', 'fireBtn']) {
+for (const id of ['game', 'score', 'lives', 'version', 'muteBtn', 'leftBtn', 'rightBtn', 'fireBtn', 'overlay', 'replayBtn']) {
   if (!html.includes(`id="${id}"`)) {
     errors.push(`index.html is missing required element id="${id}"`);
   }
@@ -64,8 +64,11 @@ if (!errors.length) {
         id,
         textContent: '',
         style: {},
+        title: '',
         addEventListener() {},
         removeEventListener() {},
+        setAttribute() {},
+        removeAttribute() {},
         getContext(type) {
           if (id === 'game' && type === '2d') return context2d;
           return null;
@@ -98,7 +101,10 @@ if (!errors.length) {
         setItem(key, value) { this.store[key] = String(value); },
       },
       document: {
+        hidden: false,
         getElementById(id) { return elements[id] || null; },
+        addEventListener() {},
+        removeEventListener() {},
         body: { addEventListener() {} },
       },
       window: {
