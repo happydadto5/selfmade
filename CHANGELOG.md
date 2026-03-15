@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: add 'P' key to toggle pause/unpause and sync overlay visibility.
 - Fix: reposition player on window resize to keep the player anchored to the bottom and prevent off-screen positions.
 - UI: sync in-game reported version to v0.1.23.
 - Audio: resume suspended AudioContext on first user gesture so in-game sounds play reliably.

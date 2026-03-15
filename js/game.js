@@ -51,6 +51,13 @@
     if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
     if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
     if (e.key === ' ') keys.fire = true;
+    // 'P' toggles pause (accessibility): do not unpause when game is over
+    if (e.key === 'p' || e.key === 'P') {
+      if (!gameOver) {
+        paused = !paused;
+        if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (!paused && !gameOver) ? 'true' : 'false');
+      }
+    }
   });
   window.addEventListener('keyup', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
