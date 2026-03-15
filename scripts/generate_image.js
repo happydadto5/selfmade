@@ -5,6 +5,8 @@ const cp = require('child_process');
 
 const root = path.join(__dirname, '..');
 const secretsPath = path.join(root, 'secrets.txt');
+const dailyBudget = parseInt(process.env.IMAGE_DAILY_BUDGET || '5000', 10);
+const requestCost = parseInt(process.env.IMAGE_REQUEST_COST || '500', 10);
 
 function readSecrets() {
   if (!fs.existsSync(secretsPath)) {
@@ -23,7 +25,7 @@ function readSecrets() {
 
 // Check quota before generating
 try {
-  const status = cp.execSync(`node "${path.join(root, 'scripts', 'check_image_quota.js')}" check 4`, { encoding: 'utf8' });
+  const status = cp.execSync(`node "${path.join(root, 'scripts', 'check_image_quota.js')}" check ${dailyBudget} ${requestCost}`, { encoding: 'utf8' });
   console.log(status.trim());
   if (!status.includes('IMAGES_ALLOWED=1')) {
     console.error('Image quota exhausted or not allowed.');
@@ -49,7 +51,7 @@ fs.writeFileSync(filepath, svg, 'utf8');
 
 // increment quota
 try {
-  cp.execSync(`node "${path.join(root, 'scripts', 'check_image_quota.js')}" inc 4`, { stdio: 'inherit' });
+  cp.execSync(`node "${path.join(root, 'scripts', 'check_image_quota.js')}" inc ${dailyBudget} ${requestCost}`, { stdio: 'inherit' });
 } catch(e) {
   console.error('Failed to increment image quota: ' + e.message);
 }

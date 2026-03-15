@@ -6,6 +6,8 @@ REM ── Configuration ──────────────────�
 set MODEL=gpt-5-mini
 set PAUSE_SEC=300
 set /a PAUSE_MIN=PAUSE_SEC/60
+set IMAGE_DAILY_BUDGET=5000
+set IMAGE_REQUEST_COST=500
 set "LOG_FILE=%~dp0selfmade.log"
 set "MODEL_LOG=%TEMP%\selfmade_model_check.txt"
 set "VALIDATE_LOG=%TEMP%\selfmade_validate.txt"
@@ -49,7 +51,7 @@ if not "%MODEL_EXIT%"=="0" (
 )
 call :LOG Model verification succeeded for %MODEL%.
 
-node scripts/check_image_quota.js check 4 > "%TEMP%\selfmade_imgstatus.txt" 2>&1
+node scripts/check_image_quota.js check %IMAGE_DAILY_BUDGET% %IMAGE_REQUEST_COST% > "%TEMP%\selfmade_imgstatus.txt" 2>&1
 set IMAGE_STATUS=IMAGES_UNKNOWN
 if exist "%TEMP%\selfmade_imgstatus.txt" for /f "usebackq delims=" %%A in ("%TEMP%\selfmade_imgstatus.txt") do set "IMAGE_STATUS=%%A"
 del "%TEMP%\selfmade_imgstatus.txt" >nul 2>&1

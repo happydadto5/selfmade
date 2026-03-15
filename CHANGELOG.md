@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-- Accessibility: add aria-label to mute button for screen-reader support.
+## Unreleased`r`n- Automation: cap Cloudflare image generation at 5,000 Neurons/day (50 percent of the 10,000-Neuron free tier) with a conservative default per-image cost.`r`n- Accessibility: add aria-label to mute button for screen-reader support.
 - Fix: preserve batch command exit codes so failed tests or pushes actually stop the iteration and roll it back.
 - UI: hide the overlay when not needed and make Play Again properly reset game state.
 - Accessibility: add aria-labels to touch control buttons for screen-reader support.
@@ -49,5 +48,6 @@
 - Player at bottom, waves of enemies, cartoony art.
 - Hybrid controls: keyboard + touch.
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
+
 
 

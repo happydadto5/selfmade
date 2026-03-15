@@ -4,7 +4,8 @@ const path = require('path');
 
 const args = process.argv.slice(2);
 const action = args[0] || 'check';
-const limit = parseInt(args[1] || '4', 10);
+const limit = parseInt(args[1] || '5000', 10);
+const amount = parseInt(args[2] || '1', 10);
 const root = path.join(__dirname, '..');
 const quotaPath = path.join(root, 'scripts', 'image_quota.json');
 
@@ -18,25 +19,26 @@ if (data.date !== today) { data.date = today; data.count = 0; }
 
 if (action === 'check') {
   const remaining = Math.max(0, limit - data.count);
-  const allowed = remaining > 0 ? 1 : 0;
-  console.log(`IMAGES_ALLOWED=${allowed};REMAINING=${remaining}`);
+  const allowed = remaining >= amount ? 1 : 0;
+  console.log(`IMAGES_ALLOWED=${allowed};REMAINING=${remaining};LIMIT=${limit};UNIT=neurons;REQUEST_COST=${amount}`);
   process.exit(allowed ? 0 : 1);
 } else if (action === 'inc') {
-  if ((data.count + 1) > limit) {
-    console.log(`IMAGES_ALLOWED=0;REMAINING=0`);
+  if ((data.count + amount) > limit) {
+    const remaining = Math.max(0, limit - data.count);
+    console.log(`IMAGES_ALLOWED=0;REMAINING=${remaining};LIMIT=${limit};UNIT=neurons;REQUEST_COST=${amount}`);
     process.exit(1);
   } else {
-    data.count += 1;
+    data.count += amount;
     save(data);
     const remaining = Math.max(0, limit - data.count);
-    console.log(`IMAGES_ALLOWED=1;REMAINING=${remaining}`);
+    console.log(`IMAGES_ALLOWED=1;REMAINING=${remaining};LIMIT=${limit};UNIT=neurons;REQUEST_COST=${amount}`);
     process.exit(0);
   }
 } else if (action === 'reset') {
   data.date = today;
   data.count = 0;
   save(data);
-  console.log(`IMAGES_ALLOWED=1;REMAINING=${limit}`);
+  console.log(`IMAGES_ALLOWED=1;REMAINING=${limit};LIMIT=${limit};UNIT=neurons;REQUEST_COST=${amount}`);
   process.exit(0);
 } else {
   console.error('Unknown action ' + action);
