@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.2.0
+- Automation: replace `timeout` with a key-consuming pause helper so skipping the wait no longer leaves stray console input like `'ext'` behind.
 - Automation: finalize changelog notes into real version headings on release so the newest versioned section stays at the top.
 - UI: show lives as hearts in the HUD for clearer at-a-glance status.
 - Audio: resume suspended AudioContext on first pointer or key gesture to improve sound playback reliability.

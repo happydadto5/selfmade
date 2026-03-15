@@ -247,7 +247,7 @@ call :LOG URL: https://happydadto5.github.io/selfmade/
 echo.
 echo Waiting (%PAUSE_MIN% minutes). Press any key to skip...
 call :LOG Waiting (%PAUSE_MIN% minutes) before next iteration.
-timeout /t %PAUSE_SEC%
+node scripts\pause_with_skip.js %PAUSE_SEC%
 goto LOOP
 
 :LOG
