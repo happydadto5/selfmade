@@ -68,7 +68,7 @@ set PROMPT_EXTRA=ImageStatus:%IMAGE_STATUS%
 set "COPILOT_OUT=%TEMP%\selfmade_copilot.txt"
 set "CHANGE_SUMMARY="
 del "%COPILOT_OUT%" >nul 2>&1
-gh copilot -- -p "Read scripts/prompt.txt and suggestion.txt for your instructions and suggestions. %PROMPT_EXTRA% Make exactly one small incremental improvement. If you implement a one-time suggestion from suggestion.txt, remove that suggestion line from suggestion.txt and keep the file tracked in git. Leave any `+` guidance lines in place. Update CHANGELOG.md with a short entry. Do not add external network calls or dependencies. If ImageStatus indicates images are NOT allowed, do not add or modify any image-generation code or references to secrets." --model %MODEL% --yolo --no-ask-user -s > "%COPILOT_OUT%" 2>&1
+gh copilot -- -p "Read scripts/prompt.txt and suggestion.txt for your instructions and suggestions. %PROMPT_EXTRA% Make exactly one small incremental improvement. Plain suggestion lines may stay in suggestion.txt across multiple iterations and should only be removed when they feel fully used up. Leave any `+` guidance lines in place permanently. Keep suggestion.txt tracked in git. Update CHANGELOG.md with a short entry. Do not add external network calls or dependencies. If ImageStatus indicates images are NOT allowed, do not add or modify any image-generation code or references to secrets." --model %MODEL% --yolo --no-ask-user -s > "%COPILOT_OUT%" 2>&1
 set "COPILOT_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%COPILOT_OUT%" "copilot output"
 if exist "%COPILOT_OUT%" (

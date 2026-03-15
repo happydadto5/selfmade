@@ -14,7 +14,7 @@ RULES (never violate):
 - Do NOT modify VERSION or opus.md.
 - Do NOT modify model-verification, version-bump, validation, git-push, tag-push, suggestion-handling, or image-quota logic unless it is required to fix a real bug or the user explicitly asks.
 - Before making changes, read suggestion.txt (if present). You may implement at most one suggestion from suggestion.txt.
-- If you implement a normal suggestion line, remove that suggestion line from suggestion.txt.
+- A normal suggestion line may stay in suggestion.txt across multiple iterations. Remove it only when you judge that it has been fully used up or no longer needed.
 - If a suggestion line starts with `+`, treat it as persistent guidance: it should influence future choices, but it must stay in suggestion.txt even after you use it.
 - suggestion.txt is a tracked repo file. Keep it in git and commit any intentional suggestion-file updates.
 - Do NOT create new HTML files. index.html is the only entry point.

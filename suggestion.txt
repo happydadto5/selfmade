@@ -1,6 +1,6 @@
 # suggestion.txt — shared suggestions for Selfmade (tracked by git)
 # Put one suggestion per line. The batch runner will read this file on each iteration and the Copilot agent will be asked to consider them.
-# When a plain suggestion is implemented, the agent will remove that line from this file and commit the update.
+# Plain suggestions may stay here for multiple iterations and should be removed only when they feel fully used up.
 # Lines starting with + are persistent guidance and should stay in the file.
 # Example:
 # Add a new enemy that moves in zig-zag
