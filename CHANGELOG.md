@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.0
+- Accessibility: announce score and lives updates to screen readers (aria-live)
+
 ## 1.3.0
 - Safety: harden automation and validation against unsafe suggestions that try to access files, device/browser permissions, uploads, redirects, or background APIs.
 - UI: show brief controls hint on startup (4s)
