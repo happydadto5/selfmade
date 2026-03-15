@@ -27,4 +27,4 @@ GOOD improvements (pick one per iteration):
 - Mobile control improvements
 - Accessibility (pause on blur, colorblind-friendly palette)
 
-After making changes, briefly explain what you improved in one sentence.
+After making changes, print exactly one first line in this format: `Change: <one-sentence summary>`. You may include brief supporting detail after that.

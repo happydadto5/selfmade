@@ -48,8 +48,19 @@ if exist "%~dp0suggestion.txt" (
 
 echo [3/7] Asking %MODEL% to make an improvement...
 set PROMPT_EXTRA=ImageStatus:%IMAGE_STATUS%
-gh copilot -- -p "Read scripts/prompt.txt and suggestion.txt for your instructions and suggestions. %PROMPT_EXTRA% Make exactly one small incremental improvement. If you implement a suggestion from suggestion.txt, remove that suggestion line from suggestion.txt (do not add suggestion.txt to git). Update CHANGELOG.md with a short entry. Do not add external network calls or dependencies. If ImageStatus indicates images are NOT allowed, do not add or modify any image-generation code or references to secrets." --model %MODEL% --yolo --no-ask-user -s 2>&1
-if errorlevel 1 (
+set "COPILOT_OUT=%TEMP%\selfmade_copilot.txt"
+del "%COPILOT_OUT%" >nul 2>&1
+gh copilot -- -p "Read scripts/prompt.txt and suggestion.txt for your instructions and suggestions. %PROMPT_EXTRA% Make exactly one small incremental improvement. If you implement a suggestion from suggestion.txt, remove that suggestion line from suggestion.txt (do not add suggestion.txt to git). Update CHANGELOG.md with a short entry. Do not add external network calls or dependencies. If ImageStatus indicates images are NOT allowed, do not add or modify any image-generation code or references to secrets." --model %MODEL% --yolo --no-ask-user -s > "%COPILOT_OUT%" 2>&1
+set "COPILOT_EXIT=%ERRORLEVEL%"
+echo.
+echo ----- Change made this iteration -----
+if exist "%COPILOT_OUT%" (
+    type "%COPILOT_OUT%"
+) else (
+    echo [!] No Copilot summary was captured.
+)
+echo --------------------------------------
+if not "%COPILOT_EXIT%"=="0" (
     echo [!] LLM invocation failed. Reverting and skipping this iteration.
     git checkout . >nul 2>&1
     goto PAUSE
