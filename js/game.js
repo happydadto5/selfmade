@@ -18,12 +18,16 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '1.2.0';
+  const version = '1.3.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
   let gameOver = false;
   const keys = {left:false,right:false,fire:false};
+
+  // Transient controls hint: shows briefly on startup (ms)
+  const tipDuration = 4000;
+  let tipExpires = Date.now() + tipDuration;
 
   // Simple WebAudio effects (oscillators only). Created on first user gesture to satisfy autoplay policies.
   let audioCtx = null;
@@ -308,6 +312,15 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
     livesEl.textContent = 'Lives: ' + '♥'.repeat(lives);
     livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
     versionEl.textContent = 'v' + version + ' — High: ' + highScore;
+
+    // transient on-screen controls hint (shows for tipDuration ms after load)
+    if (Date.now() < tipExpires) {
+      ctx.save();
+      ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(12,12,420,44);
+      ctx.fillStyle = '#fff'; ctx.font = '14px sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText('Tip: Arrow keys or A/D to move — Space or Tap to fire', 20, 36);
+      ctx.restore();
+    }
 
     if (paused || gameOver) {
       ctx.fillStyle = 'rgba(0,0,0,0.45)';

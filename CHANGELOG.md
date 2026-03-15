@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.0
+- UI: show brief controls hint on startup (4s)
+
 ## 1.2.0
 - Automation: replace `timeout` with a key-consuming pause helper so skipping the wait no longer leaves stray console input like `'ext'` behind.
 - Automation: finalize changelog notes into real version headings on release so the newest versioned section stays at the top.
