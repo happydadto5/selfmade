@@ -18,7 +18,7 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '0.1.37';
+  const version = '0.1.38';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -73,9 +73,10 @@
   }
 
   window.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
-    if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
-    if (e.key === ' ') keys.fire = true;
+    // prevent arrow keys and space from scrolling the page while playing
+    if (e.key === 'ArrowLeft' || e.key === 'a') { e.preventDefault(); keys.left = true; }
+    if (e.key === 'ArrowRight' || e.key === 'd') { e.preventDefault(); keys.right = true; }
+    if (e.key === ' ') { e.preventDefault(); keys.fire = true; }
     // 'P' or 'Escape' toggles pause (accessibility): do not unpause when game is over
     if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
       if (!gameOver) {
@@ -87,9 +88,9 @@
     }
   });
   window.addEventListener('keyup', e => {
-    if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
-    if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
-    if (e.key === ' ') keys.fire = false;
+    if (e.key === 'ArrowLeft' || e.key === 'a') { e.preventDefault(); keys.left = false; }
+    if (e.key === 'ArrowRight' || e.key === 'd') { e.preventDefault(); keys.right = false; }
+    if (e.key === ' ') { e.preventDefault(); keys.fire = false; }
   });
 
   const leftBtn = document.getElementById('leftBtn');

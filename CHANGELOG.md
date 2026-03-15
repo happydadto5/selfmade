@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UX: prevent page scrolling when using arrow keys or space to control the game (preventDefault on key events).
 - Accessibility: added aria-label to mute button for screen-reader support.
 - Automation: keep `+`-prefixed suggestion lines as persistent guidance while removing only one-time suggestions after implementation.
 - UX: show resume hint on pause overlay ('Press P or Esc to resume').
