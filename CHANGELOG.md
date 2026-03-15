@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: add aria-labels to touch control buttons for screen-reader support.
 - Reliability: fix startup resize handling so the game does not reference `player` before initialization.
 - UI: added mute toggle button to enable/disable sound (persisted to localStorage).
 - Pause: also handle document.visibilitychange to pause when the tab becomes hidden and resume only when appropriate.
