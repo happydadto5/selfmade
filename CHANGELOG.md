@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4.0
+- Images: rebalance daily image credits to allow up to 100 small images or 10 large backgrounds per day.
 - Accessibility: announce score and lives updates to screen readers (aria-live)
 
 ## 1.3.0
