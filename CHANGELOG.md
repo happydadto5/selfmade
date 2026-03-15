@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: add Escape key to toggle pause/unpause (same as 'P').
 - Pause: preserve user-initiated pause and only auto-resume when pause was caused by window blur; overlay aria-hidden updated accordingly.
 - Accessibility: add 'P' key to toggle pause/unpause and sync overlay visibility.
 - Fix: reposition player on window resize to keep the player anchored to the bottom and prevent off-screen positions.

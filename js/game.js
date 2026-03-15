@@ -51,8 +51,8 @@
     if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
     if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
     if (e.key === ' ') keys.fire = true;
-    // 'P' toggles pause (accessibility): do not unpause when game is over
-    if (e.key === 'p' || e.key === 'P') {
+    // 'P' or 'Escape' toggles pause (accessibility): do not unpause when game is over
+    if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
       if (!gameOver) {
         paused = !paused;
         // user toggled pause; clear pausedByFocus so auto-resume doesn't override user's intent
