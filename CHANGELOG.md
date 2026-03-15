@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased`r`n- Automation: cap Cloudflare image generation at 5,000 Neurons/day (50 percent of the 10,000-Neuron free tier) with a conservative default per-image cost.`r`n- Accessibility: add aria-label to mute button for screen-reader support.
+## Unreleased
+- Automation: use a dedicated version-sync script so batch version bumps reliably update `VERSION`, `index.html`, and `js/game.js`.
+- Automation: cap Cloudflare image generation at 5,000 Neurons/day (50 percent of the 10,000-Neuron free tier) with a conservative default per-image cost.
+- Accessibility: add aria-label to mute button for screen-reader support.
 - Fix: preserve batch command exit codes so failed tests or pushes actually stop the iteration and roll it back.
 - UI: hide the overlay when not needed and make Play Again properly reset game state.
 - Accessibility: add aria-labels to touch control buttons for screen-reader support.

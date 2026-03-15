@@ -110,15 +110,22 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$parts[2] = ([int]$parts[2] + 1).ToString();" ^
   "$new = $parts -join '.';" ^
   "Set-Content -Path $p -Value $new;" ^
-  "$js = Get-Content 'js/game.js' -Raw;" ^
-  "$js = $js -replace \"const version = '[^']*'\", \"const version = '$new'\";" ^
-  "Set-Content -Path 'js/game.js' -Value $js -NoNewline;" ^
-  "$html = Get-Content 'index.html' -Raw;" ^
-  "$html = $html -replace 'v\d+\.\d+\.\d+', \"v$new\";" ^
-  "Set-Content -Path 'index.html' -Value $html -NoNewline;" ^
   "Write-Output $new" > "%TEMP%\selfmade_newver.txt"
 set /p NEWVER=<"%TEMP%\selfmade_newver.txt"
 del "%TEMP%\selfmade_newver.txt" >nul 2>&1
+node scripts\sync_versions.js "%NEWVER%" > "%TEMP%\selfmade_sync_versions.txt" 2>&1
+set "SYNC_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%TEMP%\selfmade_sync_versions.txt" "sync versions"
+if not "%SYNC_EXIT%"=="0" (
+    if exist "%TEMP%\selfmade_sync_versions.txt" type "%TEMP%\selfmade_sync_versions.txt"
+    echo [!] Version metadata sync failed. Rolling back this iteration.
+    call :LOG Version metadata sync failed for %NEWVER%.
+    del "%ROLLBACK_LOG%" >nul 2>&1
+    node scripts\rollback_iteration.js "%ROLLBACK_SNAPSHOT%" > "%ROLLBACK_LOG%" 2>&1
+    call :APPEND_FILE "%ROLLBACK_LOG%" "rollback"
+    if exist "%ROLLBACK_LOG%" type "%ROLLBACK_LOG%"
+    goto PAUSE
+)
 call :LOG Bumped version to %NEWVER%.
 
 REM ── Validate and test before commit ────────────────────────────
