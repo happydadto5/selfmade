@@ -102,17 +102,23 @@ if not "%COPILOT_EXIT%"=="0" (
 echo Implemented: !CHANGE_SUMMARY!
 call :LOG Implemented: !CHANGE_SUMMARY!
 
-REM ── Bump patch version ─────────────────────────────────────────
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-  "$p = Join-Path '%~dp0' 'VERSION';" ^
-  "$v = (Get-Content $p).Trim();" ^
-  "$parts = $v.Split('.');" ^
-  "$parts[2] = ([int]$parts[2] + 1).ToString();" ^
-  "$new = $parts -join '.';" ^
-  "Set-Content -Path $p -Value $new;" ^
-  "Write-Output $new" > "%TEMP%\selfmade_newver.txt"
+REM ── Bump version using daily major versioning ──────────────────
+node scripts\next_version.js > "%TEMP%\selfmade_newver.txt" 2> "%TEMP%\selfmade_nextver_error.txt"
+set "NEXTVER_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%TEMP%\selfmade_nextver_error.txt" "next version"
+if not "%NEXTVER_EXIT%"=="0" (
+    if exist "%TEMP%\selfmade_nextver_error.txt" type "%TEMP%\selfmade_nextver_error.txt"
+    echo [!] Version bump failed. Rolling back this iteration.
+    call :LOG Version bump failed.
+    del "%ROLLBACK_LOG%" >nul 2>&1
+    node scripts\rollback_iteration.js "%ROLLBACK_SNAPSHOT%" > "%ROLLBACK_LOG%" 2>&1
+    call :APPEND_FILE "%ROLLBACK_LOG%" "rollback"
+    if exist "%ROLLBACK_LOG%" type "%ROLLBACK_LOG%"
+    goto PAUSE
+)
 set /p NEWVER=<"%TEMP%\selfmade_newver.txt"
 del "%TEMP%\selfmade_newver.txt" >nul 2>&1
+del "%TEMP%\selfmade_nextver_error.txt" >nul 2>&1
 node scripts\sync_versions.js "%NEWVER%" > "%TEMP%\selfmade_sync_versions.txt" 2>&1
 set "SYNC_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%TEMP%\selfmade_sync_versions.txt" "sync versions"

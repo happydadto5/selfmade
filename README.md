@@ -16,6 +16,10 @@
 5. GitHub Pages automatically deploys the latest version
 6. The loop pauses, then repeats
 
+### Versioning
+- The first version number advances once per day: day one releases are `1.x.0`, the next day becomes `2.x.0`, and so on.
+- Each successful improvement on the same day increments the middle number, so versions progress like `1.0.0`, `1.1.0`, `1.2.0`.
+
 ### suggestion.txt conventions
 - Plain lines are one-time suggestions. If an iteration implements one, it should remove that line from `suggestion.txt`.
 - Lines starting with `+` are persistent guidance. They should stay in `suggestion.txt` and continue influencing future iterations.
