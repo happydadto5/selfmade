@@ -9,7 +9,7 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '0.1.12';
+  const version = '0.1.13';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
