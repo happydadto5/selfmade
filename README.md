@@ -1,10 +1,29 @@
-# Selfmade — Minimal Shooter
+# Selfmade — A Self-Evolving Game
 
-This is a tiny, shareable HTML5 Canvas shooter. The preferred hosting for sharing is GitHub Pages (the repo can be set to publish from the `gh-pages` branch or the `main` branch root).
+> **This game is built and continuously improved by an AI.** Every ~5 minutes, GitHub Copilot CLI makes one small improvement — a new enemy type, a visual effect, a power-up, better controls. Watch it evolve.
 
-Controls:
-- Desktop: A/D or Arrow keys to move, Space or mouse click to shoot.
-- Mobile: On-screen buttons at bottom.
+## [▶ Play Now](https://happydadto5.github.io/selfmade/)
 
-To publish: run `selfmade.bat` (requires git & gh configured). The script bumps the patch version, commits & pushes, attempts to publish `dist/` to GitHub Pages, and copies files optionally to G:\\My Drive\\selfmade. Configure gh authentication once using `gh auth login`.
+### Controls
+- **Desktop:** A/D or Arrow keys to move · Space or click to shoot
+- **Mobile:** On-screen buttons at bottom
+
+### How It Works
+1. `selfmade.bat` runs in a loop on the developer's machine
+2. Each iteration, it asks an AI (GitHub Copilot CLI, free tier) to make **one small improvement**
+3. A validation script checks for syntax errors and security violations
+4. If validation passes, the version is bumped, changes are committed, and pushed to GitHub
+5. GitHub Pages automatically deploys the latest version
+6. The loop pauses, then repeats
+
+### Safety
+- A strict **Content Security Policy** blocks all external scripts, network calls, and inline code injection
+- A **validation script** scans every change for dangerous patterns (`eval`, `fetch`, external URLs, etc.)
+- Changes that fail validation are **automatically reverted**
+- Every successful version is **git-tagged** for easy rollback
+
+### Tech
+- Pure HTML5 Canvas + vanilla JavaScript — no frameworks, no build tools, no dependencies
+- Hosted via GitHub Pages — no server required
+
 

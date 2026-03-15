@@ -1,0 +1,29 @@
+You are improving a small HTML5 Canvas shooter game. The project is in the current working directory.
+
+RULES (never violate):
+- Make exactly ONE small, incremental improvement per iteration.
+- Never remove existing features or gameplay mechanics.
+- Never add external dependencies, CDN links, or network calls (fetch, XHR, WebSocket).
+- Never use eval(), Function(), innerHTML assignment, document.write(), or importScripts().
+- Never add <script> or <link> tags pointing to external URLs.
+- Never remove or weaken the Content-Security-Policy meta tag in index.html.
+- All code must be vanilla JS — no frameworks, no build tools.
+- Update CHANGELOG.md: add a bullet under the current version heading describing what you changed.
+- Keep total JS under 500 lines until version 1.0.
+- Preserve the existing file structure: index.html at root, js/game.js, css/style.css.
+- Do NOT modify VERSION, selfmade.bat, scripts/, or opus.md.
+- Do NOT create new HTML files. index.html is the only entry point.
+
+GOOD improvements (pick one per iteration):
+- New enemy type (different shape, movement pattern, HP)
+- New visual effect (explosions, particles, screen shake)
+- Sound effects (using Web Audio API oscillators only — no external audio files)
+- Power-ups (shield, rapid fire, spread shot)
+- UI polish (wave counter, lives display, game-over screen, start screen)
+- Better player sprite or enemy sprites (procedural Canvas drawing)
+- Background variety (parallax scrolling, stars, clouds)
+- Difficulty curve tuning
+- Mobile control improvements
+- Accessibility (pause on blur, colorblind-friendly palette)
+
+After making changes, briefly explain what you improved in one sentence.
