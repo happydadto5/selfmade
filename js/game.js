@@ -8,9 +8,12 @@
 
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
+  const livesEl = document.getElementById('lives');
   const version = '0.1.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
+  let lives = 3;
+  let gameOver = false;
   const keys = {left:false,right:false,fire:false};
   window.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
@@ -66,7 +69,14 @@
     }
 
     for (let i=bullets.length-1;i>=0;i--) { bullets[i].y += bullets[i].vy; if (bullets[i].y < -10) bullets.splice(i,1); }
-    for (let i=enemies.length-1;i>=0;i--) { enemies[i].y += enemies[i].vy; if (enemies[i].y > ch + 50) enemies.splice(i,1); }
+    for (let i=enemies.length-1;i>=0;i--) {
+    enemies[i].y += enemies[i].vy;
+    if (enemies[i].y > ch + 50) {
+      enemies.splice(i,1);
+      lives--;
+      if (lives <= 0) { gameOver = true; paused = true; }
+    }
+  }
 
     // collisions
     for (let i=enemies.length-1;i>=0;i--) {
@@ -97,20 +107,24 @@
     scoreEl.textContent = 'Score: ' + score + ' — Wave: ' + waveNumber;
     versionEl.textContent = 'v' + version + ' — High: ' + highScore;
 
-    if (paused) {
+    if (paused || gameOver) {
       ctx.fillStyle = 'rgba(0,0,0,0.45)';
       ctx.fillRect(0,0,cw,ch);
       ctx.fillStyle = '#fff';
       ctx.font = '48px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('Paused', cw/2, ch/2);
+      ctx.fillText(gameOver ? 'Game Over' : 'Paused', cw/2, ch/2);
+      if (gameOver) {
+        ctx.font = '20px sans-serif';
+        ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
+      }
     }
   }
 
   let last = performance.now();
   function loop(t) {
     const dt = t - last; last = t;
-    if (!paused) update(dt);
+    if (!paused && !gameOver) update(dt);
     draw();
     // keep loop running; when paused, run at a lower refresh to save CPU but keep overlay responsive
     if (!paused) {
