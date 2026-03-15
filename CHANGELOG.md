@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix: clamp lives at 0 to prevent negative lives when enemies pass the bottom.
 - UI: synced in-game reported version to v0.1.14.
 - Accessibility: debounce pause on window blur to avoid accidental pauses; do not auto-resume when game over.
 - Automation: write a verbose rolling `selfmade.log` for diagnostics and trim it to the newest 200 lines each iteration.

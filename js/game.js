@@ -97,6 +97,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
     if (enemies[i].y > ch + 50) {
       enemies.splice(i,1);
       lives--;
+      lives = Math.max(0, lives);
       if (lives <= 0) { gameOver = true; paused = true; }
     }
   }
