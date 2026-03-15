@@ -52,10 +52,18 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   lastSpawn = Date.now();
   player.x = cw/2;
 });
-  // Pause handling for accessibility: pause when window loses focus
+  // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
   let paused = false;
-  window.addEventListener('blur', () => { paused = true; });
-  window.addEventListener('focus', () => { paused = false; });
+  let blurTimeout = null;
+  window.addEventListener('blur', () => {
+    // wait a short time before pausing to avoid accidental pauses on transient focus loss
+    blurTimeout = setTimeout(() => { paused = true; blurTimeout = null; }, 150);
+  });
+  window.addEventListener('focus', () => {
+    if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
+    // only unpause if the game isn't over
+    if (!gameOver) paused = false;
+  });
 
   const player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
   const bullets = []; const enemies = [];
