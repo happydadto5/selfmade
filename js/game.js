@@ -8,7 +8,9 @@
 
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
+  const version = '0.1.0';
   let score = 0;
+  let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   const keys = {left:false,right:false,fire:false};
   window.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
@@ -68,7 +70,7 @@
       for (let j=bullets.length-1;j>=0;j--) {
         const b = bullets[j];
         if (Math.abs(b.x - e.x) < (e.w/2 + b.r) && Math.abs(b.y - e.y) < (e.h/2 + b.r)) {
-          bullets.splice(j,1); e.hp--; if (e.hp <= 0) { enemies.splice(i,1); score += 10; }
+          bullets.splice(j,1); e.hp--; if (e.hp <= 0) { enemies.splice(i,1); score += 10; if (score > highScore) { highScore = score; localStorage.setItem('selfmade_highscore', highScore); } }
           break;
         }
       }
@@ -89,6 +91,7 @@
     for (const e of enemies) { const sc = 1 + (e.y / ch) * 0.25; ctx.save(); ctx.translate(e.x,e.y); ctx.scale(sc,sc); ctx.fillStyle='#ff6666'; ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h); ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4); ctx.restore(); }
 
     scoreEl.textContent = 'Score: ' + score;
+    versionEl.textContent = 'v' + version + ' — High: ' + highScore;
   }
 
   let last = performance.now(); function loop(t) { const dt = t - last; last = t; update(dt); draw(); requestAnimationFrame(loop); }
