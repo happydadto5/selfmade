@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.9.0
+- Controls: add mouse pointer movement to control the player (move mouse to reposition player over canvas)
+
 ## 1.8.0
 - UI: add dedicated accessible Wave counter in HUD (visible and announced to screen readers)
 
