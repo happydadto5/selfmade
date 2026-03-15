@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Audio: resume suspended AudioContext on first pointer or key gesture to improve sound playback reliability.
 - Automation: allow plain suggestion lines to stay in `suggestion.txt` for multiple iterations and remove them only when they are fully used up.
 - Collaboration: track `suggestion.txt` in git so trusted contributors can share and refine guidance through the repo.
 - Automation: switch to daily-major versioning so each new day starts a new `N.x.0` release line while same-day improvements increment the middle number.

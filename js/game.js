@@ -40,6 +40,12 @@
       audioCtx.resume().catch(() => { /* ignore resume failures */ });
     }
   }
+  // Resume suspended AudioContext on first pointer or key gesture for broader reliability
+  if (typeof window !== 'undefined') {
+    const resumeAudioOnGesture = () => { if (soundEnabled) ensureAudio(); };
+    window.addEventListener('pointerdown', resumeAudioOnGesture, { once: true, passive: true });
+    window.addEventListener('keydown', resumeAudioOnGesture, { once: true });
+  }
   function playSound(type='blip') {
     if (!soundEnabled) return;
     ensureAudio();
