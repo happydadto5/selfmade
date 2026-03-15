@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.12.0
+- Chore: add short changelog entry for this iteration (updated CHANGELOG.md).
+
 ## 1.11.0
 - Guard: avoid startup error when canvas #game is missing; script now aborts gracefully.
 
