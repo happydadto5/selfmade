@@ -172,7 +172,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
         ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
       }
       // sync HTML overlay visibility
-      if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (gameOver ? 'false' : 'true'));
+      if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
     }
   }
 
