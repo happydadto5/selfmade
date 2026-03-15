@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: added aria-label to mute button for screen-reader support.
 - Automation: keep `+`-prefixed suggestion lines as persistent guidance while removing only one-time suggestions after implementation.
 - UX: show resume hint on pause overlay ('Press P or Esc to resume').
 - Automation: use a dedicated version-sync script so batch version bumps reliably update `VERSION`, `index.html`, and `js/game.js`.

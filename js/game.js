@@ -18,7 +18,7 @@
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
-  const version = '0.1.36';
+  const version = '0.1.37';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -58,6 +58,8 @@
     if (!muteBtn) return;
     muteBtn.textContent = soundEnabled ? '🔊' : '🔇';
     muteBtn.setAttribute('aria-pressed', (!soundEnabled).toString());
+    // Accessibility: provide a clear aria-label describing current state and action for screen readers
+    muteBtn.setAttribute('aria-label', soundEnabled ? 'Sound: On. Click to mute.' : 'Sound: Off. Click to unmute.');
     muteBtn.title = soundEnabled ? 'Sound: On (click to mute)' : 'Sound: Off (click to unmute)';
   }
   if (muteBtn) {
