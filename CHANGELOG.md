@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: increase auto-pause debounce to 200ms to reduce accidental pauses — 2026-03-16
+
 ## 2.105.0
 - UX: show dashed touch guide briefly after first touch to keep screen uncluttered (tiny) — 2026-03-16
 
