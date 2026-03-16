@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.12.0
+- Fix: accept modern 'Space' key label in keyboard handlers for firing (keyboard compatibility) (small)
+
 ## 2.11.0
 - Accessibility: add aria-label to overlay for screen readers (small)
 
