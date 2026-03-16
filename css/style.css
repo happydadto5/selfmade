@@ -7,6 +7,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 #changesBtn:focus, #changesBtn:focus-visible,
 #replayBtn:focus, #replayBtn:focus-visible,
 #helpBtn:focus, #helpBtn:focus-visible,
+#autopauseBtn:focus, #autopauseBtn:focus-visible,
 #touch-controls button:focus, #touch-controls button:focus-visible {
   outline: 3px solid rgba(30,136,229,0.55);
   outline-offset: 4px;

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.130.0
+- Accessibility: add focus styles for Auto-Pause button to improve keyboard focus visibility (tiny) — 2026-03-16
+
 ## 2.129.0
 - UI: sync Auto-Pause button when toggled via keyboard (O) so HUD updates immediately (tiny)
 
