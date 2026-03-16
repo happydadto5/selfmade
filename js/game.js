@@ -37,7 +37,7 @@
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
   const version = '2.44.0';
   let score = 0;
-  let highScore = (function(){ const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); })();
+  let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
   let gameOver = false;
   const keys = {left:false,right:false,fire:false};
@@ -61,8 +61,14 @@
   // Simple WebAudio effects (oscillators only). Created on first user gesture to satisfy autoplay policies.
   let audioCtx = null;
   // sound toggle persisted in localStorage ('1' = on, '0' = off)
-  let soundEnabled = localStorage.getItem('selfmade_sound');
-  soundEnabled = (soundEnabled === null) ? true : (soundEnabled === '1');
+  let soundEnabled;
+  try {
+    const s = localStorage.getItem('selfmade_sound');
+    soundEnabled = (s === null) ? true : (s === '1');
+  } catch (e) {
+    // localStorage may be disabled; default to sound on
+    soundEnabled = true;
+  }
   function ensureAudio() {
     if (!soundEnabled) return;
     if (!audioCtx) {
@@ -104,7 +110,7 @@
   if (muteBtn) {
     muteBtn.addEventListener('click', () => {
       soundEnabled = !soundEnabled;
-      localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0');
+      try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();
       updateMuteUI();
     });
@@ -130,7 +136,7 @@
     // 'M' toggles sound mute/unmute (persisted)
     if (e.key === 'm' || e.key === 'M') {
       soundEnabled = !soundEnabled;
-      localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0');
+      try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();
       updateMuteUI();
     }
@@ -441,7 +447,7 @@ if (overlay) {
         gameOver = true;
         paused = true;
         // Persist high score when the run ends
-        if (score > highScore) { highScore = score; localStorage.setItem('selfmade_highscore', highScore); }
+        if (score > highScore) { highScore = score; try { localStorage.setItem('selfmade_highscore', highScore); } catch (e) { /* ignore storage errors */ } }
         // Accessibility: when the game ends, reveal the overlay and focus the Play Again button
         if (typeof overlay !== 'undefined' && overlay && replayBtn) {
           overlay.setAttribute('aria-hidden', 'false');
@@ -462,7 +468,7 @@ if (overlay) {
           if (e.hp <= 0) {
             enemies.splice(i,1);
             score += 10;
-            if (score > highScore) { highScore = score; localStorage.setItem('selfmade_highscore', highScore); }
+            if (score > highScore) { highScore = score; try { localStorage.setItem('selfmade_highscore', highScore); } catch (e) { /* ignore storage errors */ } }
             // spawn simple particles for a little explosion effect
             const pc = 12;
             for (let p=0;p<pc;p++) {

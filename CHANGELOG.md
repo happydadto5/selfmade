@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Robustness: guard localStorage reads/writes with try/catch so the game works when localStorage is unavailable; defaults to sensible values (small) — 2026-03-16
+
 ## 2.44.0
 - UI: adjust touch-guide dashed line to left 25% to better match touch-zone layout (small)
 
