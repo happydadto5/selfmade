@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.53.0';
+  const version = '2.54.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -417,6 +417,8 @@ if (overlay) {
     waveNumber++;
     // briefly show a wave banner so players notice wave transitions
     wavePulseUntil = Date.now() + 800;
+    // Play a short chime to audibly signal the new wave (WebAudio oscillator only)
+    try { playSound('blip'); } catch(e) { /* ignore audio errors */ }
     const count = 3 + Math.min(8, Math.floor(waveNumber * 0.6));
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);

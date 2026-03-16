@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.54.0
+- Audio: play short chime on new wave start (small) — 2026-03-16
+
 ## 2.53.0
 - Accessibility: include current wave in document title while playing so users notice progress when tabbed away (small) — 2026-03-16
 
