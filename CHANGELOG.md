@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: clear overlay message on auto-resume to avoid stale ARIA announcements (small) — 2026-03-16
+
 ## 2.54.0
 - Audio: play short chime on new wave start (small) — 2026-03-16
 

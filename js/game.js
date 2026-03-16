@@ -343,7 +343,12 @@ if (overlay) {
     }
     // When focus returns after an auto-pause, restore keyboard focus to the canvas so users can resume with keys immediately.
     try { if (!gameOver && !paused && canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) { /* ignore focus errors */ }
-    if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+    if (typeof overlay !== 'undefined' && overlay) {
+      setOverlayVisible(paused || gameOver);
+      updateOverlayMessage();
+      // Clear any stale overlay message after auto-resume to avoid lingering ARIA announcements
+      if (!paused && !gameOver && typeof overlayMessage !== 'undefined' && overlayMessage) { try { overlayMessage.textContent = ''; } catch (e) {} }
+    }
   });
 
   // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
@@ -379,7 +384,12 @@ if (overlay) {
         }
         suspendedAudioByFocus = false;
       }
-      if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+      if (typeof overlay !== 'undefined' && overlay) {
+        setOverlayVisible(paused || gameOver);
+        updateOverlayMessage();
+        // Clear any stale overlay message after auto-resume to avoid lingering ARIA announcements
+        if (!paused && !gameOver && typeof overlayMessage !== 'undefined' && overlayMessage) { try { overlayMessage.textContent = ''; } catch (e) {} }
+      }
     }
   });
 
