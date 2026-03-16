@@ -60,25 +60,40 @@ if (!errors.length) {
     };
 
     function makeElement(id) {
-      const overlayMessage = {
-        textContent: '',
-        style: {},
-        addEventListener() {},
-        removeEventListener() {},
-        setAttribute() {},
-        removeAttribute() {},
-      };
-      return {
+      const element = {
         id,
         textContent: '',
         style: {},
         title: '',
+        children: [],
+        firstChild: null,
         addEventListener() {},
         removeEventListener() {},
         setAttribute() {},
         removeAttribute() {},
+        appendChild(child) {
+          this.children.push(child);
+          this.firstChild = this.children[0] || null;
+          if (typeof child === 'string') this.textContent += child;
+          else if (child && typeof child.textContent === 'string') this.textContent += child.textContent;
+          return child;
+        },
+        removeChild(child) {
+          this.children = this.children.filter((entry) => entry !== child);
+          this.firstChild = this.children[0] || null;
+          this.textContent = this.children.map((entry) => (entry && typeof entry.textContent === 'string' ? entry.textContent : '')).join('');
+          return child;
+        },
+        insertBefore(child) {
+          this.children.unshift(child);
+          this.firstChild = this.children[0] || null;
+          if (child && typeof child.textContent === 'string') this.textContent = child.textContent + this.textContent;
+          return child;
+        },
         querySelector(selector) {
-          if (id === 'overlay' && selector === '.overlay-message') return overlayMessage;
+          if (selector === '.overlay-message') {
+            return this.children.find((child) => child && child.className === 'overlay-message') || null;
+          }
           return null;
         },
         getContext(type) {
@@ -86,6 +101,7 @@ if (!errors.length) {
           return null;
         },
       };
+      return element;
     }
 
     const elements = {
@@ -118,6 +134,32 @@ if (!errors.length) {
       document: {
         hidden: false,
         getElementById(id) { return elements[id] || null; },
+        createElement(tagName) {
+          return {
+            tagName: String(tagName).toUpperCase(),
+            className: '',
+            textContent: '',
+            style: {},
+            children: [],
+            addEventListener() {},
+            removeEventListener() {},
+            setAttribute(name, value) {
+              this[name] = value;
+            },
+            removeAttribute(name) {
+              delete this[name];
+            },
+            appendChild(child) {
+              this.children.push(child);
+              if (typeof child === 'string') this.textContent += child;
+              else if (child && typeof child.textContent === 'string') this.textContent += child.textContent;
+              return child;
+            },
+          };
+        },
+        createTextNode(text) {
+          return { textContent: String(text) };
+        },
         addEventListener() {},
         removeEventListener() {},
         body: { addEventListener() {} },
