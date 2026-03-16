@@ -41,3 +41,5 @@ Collaboration notes / chat area
 - Note: future sessions can replace this whole section with fresher questions, concerns, or idea fragments.
 
 Collaboration note: Acknowledged persistent suggestion in suggestion.txt to focus on a garden-themed, mobile-first experience. Captured guidance here to prioritize gardening objectives, mobile-first controls, and accessibility in upcoming iterations. (captured 2026-03-16)
+
+Planned next iteration: implement discoverable full-screen touch zones (see Potential next improvements #2) as the first mobile-first UX polish. (planned 2026-03-16)

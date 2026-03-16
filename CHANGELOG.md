@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.136.0
+- Roadmap: captured mobile-first garden guidance in future.md (tiny) — 2026-03-16
+
 ## 2.135.0
 - Accessibility: honor prefers-reduced-motion by reducing non-essential animations and transitions (tiny) — 2026-03-16
 
