@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Removed implemented '! The controls for android ...' suggestion from suggestion.txt after adding touch-zone controls in js/game.js.
+
 ## 1.24.0
 - Add subtle dashed touch-zone guide lines for mobile to make controls more discoverable.
 
