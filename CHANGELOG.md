@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.29.0
+- Focus: focus canvas on initial load so keyboard users can play immediately (small)
+
 ## 2.28.0
 - Accessibility: mark touch-controls aria-hidden to avoid redundant controls for screen readers (small)
 
