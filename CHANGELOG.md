@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.115.0
 - Accessibility: announce wave number to assistive tech when a new wave starts (tiny) — 2026-03-16
 
 ## 2.114.0
