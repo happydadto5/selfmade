@@ -2,7 +2,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 #game{display:block;width:100%;height:100vh;touch-action:none;-ms-touch-action:none;-webkit-user-select:none;user-select:none}
 #ui{position:fixed;left:12px;top:8px;color:#000;font-size:18px;font-weight:700}
 #ui #lives{color:#b71c1c;font-weight:700;}
-#ui #wave{margin-top:4px;font-size:16px;color:#333;font-weight:600}
+#ui #wave{margin-top:4px;font-size:18px;color:#111;font-weight:700}
 #version{position:fixed;right:12px;top:8px;color:#222;font-size:14px}
 #touch-controls{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
 #touch-controls button{font-size:20px;padding:12px 16px;border-radius:10px;background:rgba(255,255,255,0.95);border:1px solid #ddd}

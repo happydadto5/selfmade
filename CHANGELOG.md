@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: increase Wave HUD font-size and contrast to improve readability (small)
+
 ## 2.30.0
 - UI: pulse Lives HUD briefly when a life is lost to provide clearer feedback (small)
 
