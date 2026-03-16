@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Mobile: show a low-contrast dashed guide line near the top third of the screen when touch input is detected (small)
+
 ## 2.64.0
 - Accessibility: add 'S' as an alternate key to toggle sound (small)
 

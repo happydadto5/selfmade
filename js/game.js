@@ -55,6 +55,11 @@
   function clearInputs() { keys.left = keys.right = keys.fire = false; }
   // Detect touch-capable devices to show subtle touch-zone guides for discoverability
   const isTouch = (typeof window !== 'undefined') && (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0));
+  // Show a simple horizontal guide once after the first touch so mobile users discover control zones
+  let touchGuideShown = false;
+  if (typeof window !== 'undefined') {
+    try { window.addEventListener('touchstart', () => { touchGuideShown = true; }, { once: true, passive: true }); } catch (e) { /* ignore */ }
+  }
 
   // Hide on-screen touch control buttons on touch devices so full-screen touch zones are used instead
   const touchControls = document.getElementById('touch-controls');
@@ -597,6 +602,21 @@ if (overlay) {
       ctx.beginPath();
       ctx.moveTo(x1, yStart); ctx.lineTo(x1, yEnd);
       ctx.moveTo(x2, yStart); ctx.lineTo(x2, yEnd);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+
+    // If the user has touched the screen at least once, show a subtle horizontal guide near the top third
+    if (touchGuideShown && cw > 300) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([6,6]);
+      const y = Math.floor(ch * 0.33);
+      ctx.beginPath();
+      ctx.moveTo(0.5, y + 0.5);
+      ctx.lineTo(cw + 0.5, y + 0.5);
       ctx.stroke();
       ctx.setLineDash([]);
       ctx.restore();
