@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Chore: add short changelog entry for this iteration (small incremental improvement).
+
 ## 1.19.0
 - Pause: when auto-paused by window blur/visibility loss, clear input keys to prevent stuck controls.
 
