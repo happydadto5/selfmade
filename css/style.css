@@ -69,3 +69,12 @@ body.colorblind-mode #ui #lives{ color:#b71c1c; }
 body.colorblind-mode #version{ color:#111; }
 body.colorblind-mode #touch-controls button{ background:#fff; border-color:#999; }
 
+@media (prefers-reduced-motion: reduce) {
+  /* Respect user preference to reduce motion: disable HUD pulse animations */
+  #ui #wave.wave-pulse,
+  #ui #lives.lives-pulse {
+    animation: none !important;
+  }
+}
+
+

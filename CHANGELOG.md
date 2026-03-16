@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.98.0
+- Accessibility: respect prefers-reduced-motion for HUD pulse animations (tiny) — 2026-03-16
+
 ## 2.97.0
 - Acknowledge suggestion.txt persistent garden-theme guidance; captured into future.md (tiny) — 2026-03-16
 
