@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.74.0
 - Fix: remove redundant focus handler to avoid duplicate overlay messages on resume (small)
 
 ## 2.73.0
