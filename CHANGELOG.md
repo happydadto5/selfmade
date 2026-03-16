@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.137.0
 - UX: add pointer-event support for touch/pen to map full-screen touch zones (left 25% move left, center fire, right 25% move right) (tiny) — 2026-03-16
 
 ## 2.136.0
