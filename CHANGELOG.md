@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: increase overlay contrast to improve readability (small)
+
 ## 2.24.0
 - Fix: clear touch input on touchcancel to avoid stuck controls (small)
 
