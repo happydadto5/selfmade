@@ -634,6 +634,7 @@ if (overlay) {
     }
   }
   requestAnimationFrame(loop);
+  setTimeout(() => { try { canvas.focus(); } catch (e) {} }, 200);
 
   canvas.addEventListener('mousedown', e => { keys.fire = true; if (soundEnabled) ensureAudio(); }, { passive: true });
   canvas.addEventListener('click', () => { try { canvas.focus(); } catch (e) {} });

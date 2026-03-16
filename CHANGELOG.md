@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: focus canvas on initial load to enable keyboard controls (small)
+
 ## 2.22.0
 - Fix: prevent touchmove scrolling on canvas to improve mobile controls (small)
 
