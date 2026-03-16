@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.27.0
 - Code: declare `wavePulseUntil` to avoid implicit global when spawning waves.
 
 ## 1.26.0
