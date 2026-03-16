@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: add z-index to overlay so pause/game-over overlay sits above other UI elements (small)
+
+## Unreleased
+
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; small incremental update (2026-03-16)
 
 ## Unreleased
