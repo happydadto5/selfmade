@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: add Auto-Pause toggle button to HUD for quick accessibility toggling (tiny) — 2026-03-16
+
 ## 2.118.0
 - Accessibility: respect prefers-reduced-motion by disabling screen shake (tiny) — 2026-03-16
 
