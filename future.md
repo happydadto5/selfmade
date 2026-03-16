@@ -1,5 +1,7 @@
 # Future roadmap
 
+- 2026-03-16: Implemented discoverable full-screen touch zones and subtle vertical separators in-canvas (tiny UX improvement).
+
 Last updated: 2026-03-16
 
 This is a living collaboration document for Selfmade. Any improvement session may update, reorder, replace, or rewrite this file when that helps the project move forward.

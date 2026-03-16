@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- UX: show vertical touch-zone separators when touch detected to make mobile touch zones clearer (tiny) — 2026-03-16
+
+## Unreleased
 - Automation: add a self-tuning process review that analyzes recent changelog history, nudges the prompt toward visible work when needed, and records a lightweight roadmap/process checkpoint about every 10 successful releases.
 - Automation: bias future iterations toward more noticeable gameplay/UI progress when recent changelog history has been dominated by tiny polish, accessibility, or roadmap-only updates.
 - Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).

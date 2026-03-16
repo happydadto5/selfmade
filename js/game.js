@@ -1338,6 +1338,7 @@ if (overlay) {
     if (Date.now() < showTouchGuidesUntil) {
       try {
         ctx.save();
+        // horizontal guide
         ctx.strokeStyle = 'rgba(255,255,255,0.12)';
         ctx.lineWidth = 2;
         ctx.setLineDash([6,6]);
@@ -1345,6 +1346,18 @@ if (overlay) {
         ctx.beginPath();
         ctx.moveTo(12, guideY);
         ctx.lineTo(cw - 12, guideY);
+        ctx.stroke();
+        // subtle vertical separators at 25% and 75% for touch zone clarity
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4,6]);
+        const x1 = Math.round(cw * 0.25);
+        const x2 = Math.round(cw * 0.75);
+        ctx.beginPath();
+        ctx.moveTo(x1, 12);
+        ctx.lineTo(x1, ch - 12);
+        ctx.moveTo(x2, 12);
+        ctx.lineTo(x2, ch - 12);
         ctx.stroke();
         ctx.setLineDash([]);
         ctx.restore();
