@@ -790,7 +790,21 @@ if (overlay) {
     try {
       if (paused && !gameOver) {
         try {
-          overlayMessage = 'Focus regained — press P or Esc to resume';
+          // Avoid overwriting the overlayMessage variable (which references a DOM element).
+          // Update its textContent instead; if it's missing, create a fallback element.
+          if (overlayMessage && typeof overlayMessage === 'object') {
+            try { overlayMessage.textContent = 'Focus regained — press P or Esc to resume'; } catch (e) { /* ignore DOM errors */ }
+          } else if (overlay) {
+            try {
+              overlayMessage = document.createElement('div');
+              overlayMessage.className = 'overlay-message';
+              overlayMessage.setAttribute('role', 'alert');
+              overlayMessage.setAttribute('aria-live', 'assertive');
+              overlayMessage.setAttribute('aria-atomic', 'true');
+              overlay.insertBefore(overlayMessage, overlay.firstChild);
+              overlayMessage.textContent = 'Focus regained — press P or Esc to resume';
+            } catch (e) { /* ignore creation errors */ }
+          }
           setOverlayVisible(true);
         } catch (e) { /* ignore if overlay helpers not available */ }
       }

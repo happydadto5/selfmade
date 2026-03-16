@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix: update overlayMessage safely on window focus to avoid replacing the DOM element and potential runtime errors (small)
+
 ## 2.59.0
 - Fix: remove duplicate blur handler that overwrote overlayMessage and could cause runtime errors when focus is lost (small) — 2026-03-16
 
