@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Increase Wave HUD font-size slightly for better readability (tiny) — 2026-03-16
+
+## Unreleased
+
 - UX: Add brief touch-feedback circle on touch interactions for immediate tactile feedback on mobile (tiny) — 2026-03-16
 
 ## Unreleased
