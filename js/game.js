@@ -653,7 +653,7 @@ if (overlay) {
       if (typeof changesOpen !== 'undefined' && changesOpen) {
         overlayMessage.textContent = 'Recent changes — click or press Esc to close';
       } else if (typeof helpOpen !== 'undefined' && helpOpen) {
-        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I or H to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode.';
+        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; On touch, tap left/right edges to move and tap center to fire; P to pause; I or H to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode.';
       } else if (gameOver) {
         overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
       } else if (pausedByFocus) {

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: Clarify help overlay to include touch controls hint (tiny) — 2026-03-16
+
 ## 2.179.0
 - UI: slightly increase canvas HUD background opacity for improved readability on busy scenes (tiny) — 2026-03-16
 
