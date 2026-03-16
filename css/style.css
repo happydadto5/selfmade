@@ -18,7 +18,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
   body::before {
     content: "";
     position: fixed;
-    left: 25%;
+    left: 33.333%;
     bottom: 12px;
     width: 0;
     height: 33vh; /* runs about one-third up the page */

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.48.0
+- UI: adjust dashed touch-guide line to 1/3 width (small) — 2026-03-16
+
 ## 2.47.0
 - Accessibility: set overlay role to dialog and include aria-modal when overlay is toggled for clearer screen-reader semantics (small) — 2026-03-16
 
