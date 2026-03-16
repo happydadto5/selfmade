@@ -725,6 +725,19 @@ if (overlay) {
           // Refresh the button text/attributes
           try { updateAutoPauseUI(); } catch (e) { /* ignore */ }
         };
+        // Accessibility: allow keyboard activation (Enter / Space) for the Auto-Pause toggle so keyboard users can operate it like other buttons.
+        try {
+          const apBtn = document.getElementById('autopauseBtn');
+          if (apBtn && !apBtn.dataset.keyboardInit) {
+            apBtn.addEventListener('keydown', (evt) => {
+              if (evt.key === 'Enter' || evt.key === ' ' || evt.key === 'Spacebar') {
+                evt.preventDefault();
+                try { apBtn.click(); } catch (e) { /* ignore */ }
+              }
+            });
+            apBtn.dataset.keyboardInit = '1';
+          }
+        } catch (e) { /* ignore keyboard hookup errors */ }
       } catch (e) { /* ignore UI creation errors */ }
     }
     // Initialize the button UI
