@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.149.0
+- UI: add subtle drop shadow to canvas HUD and wave banner for improved readability on busy backgrounds (tiny)
+
 ## 2.148.0
 - UX: show thin dashed guide line near the top third of the canvas when touch is detected to reveal touch zones (tiny) — 2026-03-16
 

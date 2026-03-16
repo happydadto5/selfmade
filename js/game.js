@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.148.0';
+  const version = '2.149.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1259,9 +1259,15 @@ if (overlay) {
       ctx.arcTo(rx, ry, rx + boxW, ry, r);
       ctx.closePath();
       ctx.fill();
+      // Improve readability: add a subtle drop shadow for HUD text (helps on busy backgrounds)
+      ctx.shadowColor = 'rgba(0,0,0,0.6)';
+      ctx.shadowBlur = 6;
       ctx.fillStyle = 'rgba(255,255,255,0.95)';
       ctx.fillText(waveText, rx + pad, ry + 16);
       ctx.fillText(livesText, rx + pad, ry + 16 + lineHeight);
+      // Reset shadow so other drawings are unaffected
+      ctx.shadowBlur = 0;
+      ctx.shadowColor = 'transparent';
       ctx.restore();
     } catch (e) { /* ignore drawing errors */ }
 
@@ -1274,7 +1280,13 @@ if (overlay) {
       ctx.fillStyle = '#fff';
       ctx.font = '32px sans-serif';
       ctx.textAlign = 'center';
+      // Add a subtle shadow to the wave banner for improved contrast on busy backgrounds
+      ctx.shadowColor = 'rgba(0,0,0,0.6)';
+      ctx.shadowBlur = 10;
       ctx.fillText('Wave ' + waveNumber, cw/2, 80);
+      // Clear shadow after drawing so subsequent drawings are unaffected
+      ctx.shadowBlur = 0;
+      ctx.shadowColor = 'transparent';
       ctx.restore();
     }
 
