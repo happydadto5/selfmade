@@ -11,11 +11,9 @@ I want mouse control of the "person", not keyboard.
 
 There should be some sort of logic to make sure any given level is possible.  
 
-level ups would be awesome.
-
 Move levels would be awesome
 
-Different oppononents that do different things would be neat.
+Different opponents that do different things would be neat.
 
 you be creative. Remember biggest viral hit game on the planet is your goal.
 
