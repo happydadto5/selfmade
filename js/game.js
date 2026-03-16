@@ -382,7 +382,7 @@ if (overlay) {
 
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
-  const bullets = []; const enemies = []; const particles = [];
+  const bullets = []; const enemies = []; const particles = []; let screenShake = 0;
   let lastSpawn = 0; let waveNumber = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
@@ -478,6 +478,7 @@ if (overlay) {
                 born: Date.now()
               });
             }
+            screenShake = Math.min(16, screenShake + 8);
             playSound('hit');
           }
           break;
@@ -495,11 +496,14 @@ if (overlay) {
       if (p.life <= 0) particles.splice(i,1);
     }
 
+    screenShake = Math.max(0, screenShake - dt * 0.04);
     if (enemies.length === 0 && Date.now() - lastSpawn > 600) { lastSpawn = Date.now(); spawnWave(); }
   }
 
   function draw() {
     ctx.clearRect(0,0,cw,ch);
+    ctx.save();
+    if (screenShake > 0) { const sx = (Math.random()*2-1)*screenShake; const sy = (Math.random()*2-1)*screenShake; ctx.translate(sx, sy); }
     ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch);
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
 
@@ -613,6 +617,7 @@ if (overlay) {
       ctx.restore();
     }
 
+    ctx.restore();
     if (paused || gameOver) {
       ctx.fillStyle = 'rgba(0,0,0,0.45)';
       ctx.fillRect(0,0,cw,ch);

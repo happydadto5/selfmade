@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: add subtle screen shake on enemy destruction (small visual effect)
+
 ## 2.37.0
 - Pause: clear pending blur/visibility auto-pause timer on unload to avoid stray timeouts (small)
 
