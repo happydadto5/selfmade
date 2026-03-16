@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.21.0
 - UI: update in-game tip to mention garden theme and touch controls (small)
 
 ## 2.20.0
