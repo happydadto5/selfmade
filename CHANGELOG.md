@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.159.0
 - UI: add subtle highlight behind Wave HUD when new wave starts to improve visibility (tiny)
 
 ## 2.158.0
