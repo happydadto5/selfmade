@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.31.0
 - UI: increase Wave HUD font-size and contrast to improve readability (small)
 
 ## 2.30.0
