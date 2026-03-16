@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.25.0
 - Removed implemented '! The controls for android ...' suggestion from suggestion.txt after adding touch-zone controls in js/game.js.
 
 ## 1.24.0
