@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.16.0
 - Controls: clicking with a mouse now repositions the player to the clicked X coordinate (improves mouse control).
 
 ## 1.15.0
