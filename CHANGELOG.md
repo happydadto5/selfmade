@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.167.0
+- UX: show subtle dashed guide line and low-contrast touch-zone overlays on first touch to improve mobile discoverability (tiny)
+
 ## 2.166.0
 - UI: show enemies remaining in HUD (tiny)
 
