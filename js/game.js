@@ -236,20 +236,25 @@ if (overlay) {
   // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
+      // Debounce visibility auto-pause to match blur behavior and avoid accidental pauses on quick tab switches
       if (!paused) {
         if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
-        paused = true;
-        pausedByFocus = true;
-        // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
-        keys.left = keys.right = keys.fire = false;
-        // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
-        if (audioCtx && audioCtx.state === 'running') {
-          try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
-          suspendedAudioByFocus = true;
-        }
-        if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(true);
+        blurTimeout = setTimeout(() => {
+          paused = true;
+          pausedByFocus = true;
+          // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
+          keys.left = keys.right = keys.fire = false;
+          // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
+          if (audioCtx && audioCtx.state === 'running') {
+            try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
+            suspendedAudioByFocus = true;
+          }
+          if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(true);
+          blurTimeout = null;
+        }, 150);
       }
     } else {
+      if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
       if (pausedByFocus && !gameOver) {
         paused = false;
       }
