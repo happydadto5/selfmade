@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: focus overlay when auto-paused so screen readers are notified.
+
+## Unreleased
 - Accessibility: add aria-label to canvas for screen-reader clarity.
 
 ## Unreleased

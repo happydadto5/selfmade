@@ -156,10 +156,14 @@ if (overlay) {
       overlay.setAttribute('role', 'dialog');
       overlay.setAttribute('aria-modal', 'true');
       overlay.style.pointerEvents = 'auto';
+      // Make the overlay focusable and move focus to it so screen readers announce the pause/overlay state
+      overlay.setAttribute('tabindex', '-1');
+      try { overlay.focus(); } catch (e) { /* ignore focus errors */ }
     } else {
       overlay.setAttribute('role', 'status');
       overlay.removeAttribute('aria-modal');
       overlay.style.pointerEvents = 'none';
+      overlay.removeAttribute('tabindex');
     }
   }
   setOverlayVisible(false);
