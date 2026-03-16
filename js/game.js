@@ -143,6 +143,32 @@
     } catch (e) { /* ignore */ }
   }
 
+  // Full-screen touch zones (left 25% move left, center 50% fire, right 25% move right).
+  // These listeners only act on touch input and intentionally avoid interfering with mouse/keyboard.
+  try {
+    if (isTouch) {
+      const clearTouchInputs = () => { keys.left = keys.right = keys.fire = false; };
+      const handlePointer = (ev) => {
+        try {
+          if (ev && ev.pointerType && ev.pointerType !== 'touch') return;
+          const x = (typeof ev.clientX !== 'undefined') ? ev.clientX : (ev.touches && ev.touches[0] && ev.touches[0].clientX);
+          if (typeof x === 'undefined' || x === null) return;
+          const pct = x / window.innerWidth;
+          if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; }
+          else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; }
+          else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} }
+          try { canvas.focus(); } catch (e) {}
+        } catch (e) { /* ignore */ }
+      };
+      window.addEventListener('pointerdown', handlePointer, { passive: true });
+      window.addEventListener('pointermove', handlePointer, { passive: true });
+      window.addEventListener('pointerup', clearTouchInputs, { passive: true });
+      window.addEventListener('pointercancel', clearTouchInputs, { passive: true });
+      window.addEventListener('touchstart', (ev) => { try { const t = ev.touches && ev.touches[0]; if (!t) return; const x = t.clientX; const pct = x / window.innerWidth; if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; } else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; } else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} } try { canvas.focus(); } catch (e) {} } catch (e) {} }, { passive: true });
+      window.addEventListener('touchend', clearTouchInputs, { passive: true });
+    }
+  } catch (e) { /* ignore touch-zone binding errors */ }
+
   // Hide on-screen touch control buttons on touch devices so full-screen touch zones are used instead
   const touchControls = document.getElementById('touch-controls');
   if (isTouch && touchControls) {

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Implement discoverable full-screen touch zones (left 25% = left, center 50% = fire, right 25% = right) and show a low-contrast dashed guide on first touch (tiny) — 2026-03-16
+
+## Unreleased
+
 ## Unreleased
 
 - UX: Ensure touch-guide preview (T key) shows in-canvas separators and guides (tiny) — 2026-03-16
