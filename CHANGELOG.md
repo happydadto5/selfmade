@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.10.0
 - Chore: add short changelog entry for this iteration (accessibility/overlay/pause note) (2026-03-16)
 
 ## 2.9.0
