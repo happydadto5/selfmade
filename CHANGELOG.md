@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.147.0
+- Accessibility: announce new wave number via ARIA live region (tiny) — 2026-03-16
+
 ## 2.146.0
 - UI: increase Wave HUD font size slightly for readability (tiny) — 2026-03-16
 
