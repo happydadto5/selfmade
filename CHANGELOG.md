@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UX: show thin dashed guide line near the top third of the canvas when touch is detected to reveal touch zones (tiny) — 2026-03-16
+
 ## 2.147.0
 - Accessibility: announce new wave number via ARIA live region (tiny) — 2026-03-16
 

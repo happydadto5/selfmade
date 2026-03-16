@@ -675,6 +675,8 @@ if (overlay) {
   let blurTimeout = null;
   // Track whether a pointer/touch is currently active (prevents auto-pausing while user is holding touch or pointer)
   let pointerActive = false;
+  // When a touch is first detected, show low-contrast dashed guides for a short time so touch zones are discoverable.
+  let showTouchGuidesUntil = 0;
   // Respect user's reduced-motion preference by disabling screen shake when requested.
   const prefersReducedMotion = (typeof window !== 'undefined') && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Preference: allow the user to disable auto-pause on blur/visibility (toggled with O). Defaults to enabled for safety.
@@ -733,7 +735,7 @@ if (overlay) {
     window.addEventListener('pointerdown', () => { pointerActive = true; }, { passive: true });
     window.addEventListener('pointerup', () => { pointerActive = false; }, { passive: true });
     window.addEventListener('pointercancel', () => { pointerActive = false; }, { passive: true });
-    document.addEventListener('touchstart', () => { pointerActive = true; }, { passive: true });
+    document.addEventListener('touchstart', () => { pointerActive = true; showTouchGuidesUntil = Date.now() + 5000; }, { passive: true });
     document.addEventListener('touchend', () => { pointerActive = false; }, { passive: true });
     document.addEventListener('touchcancel', () => { pointerActive = false; }, { passive: true });
   } catch (e) { /* ignore if environment doesn't support these events */ }
@@ -1285,6 +1287,23 @@ if (overlay) {
       ctx.fillStyle = '#fff'; ctx.font = '14px sans-serif'; ctx.textAlign = 'left';
       ctx.fillText(tipText, 20, 36, Math.max(80, tipW - 24));
       ctx.restore();
+    }
+
+    // Show low-contrast dashed guide line near the top third of the canvas after the first touch
+    if (Date.now() < showTouchGuidesUntil) {
+      try {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6,6]);
+        const guideY = Math.round(ch / 3);
+        ctx.beginPath();
+        ctx.moveTo(12, guideY);
+        ctx.lineTo(cw - 12, guideY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+      } catch (e) { /* ignore drawing errors on older browsers */ }
     }
 
     ctx.restore();
