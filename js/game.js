@@ -374,6 +374,9 @@ if (overlay) {
 
   // handle pagehide/navigation away: pause immediately and clear input so background navigation doesn't leave running game
   window.addEventListener('pagehide', () => {
+    // Clear any pending auto-pause timers and restore title so no stray timers or paused title remain after navigation
+    try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
+    try { restoreTitle(); } catch (e) {}
     paused = true;
     pausedByFocus = true;
     // Clear transient input state when auto-paused to avoid stuck controls
