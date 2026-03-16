@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.103.0
+- Accessibility: clarify auto-pause overlay message to include Space/click resume hint (tiny) — 2026-03-16
+
 ## 2.102.0
 - Accessibility: fix Auto-Pause toggle aria-pressed state to reflect current setting (tiny) — 2026-03-16
 

@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.102.0';
+  const version = '2.103.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -499,7 +499,7 @@ if (overlay) {
       } else if (typeof helpOpen !== 'undefined' && helpOpen) {
         overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode.';
       } else if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
-      else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — return to this tab to resume';
+      else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — press Space, click, or return to this tab to resume';
       else if (paused) overlayMessage.textContent = 'Paused — press P or Esc to resume';
       else overlayMessage.textContent = '';
     } catch (e) { /* ignore DOM race conditions */ }
