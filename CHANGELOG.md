@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.140.0
 - Roadmap: add last-updated timestamp to future.md and note suggestion handling (tiny) — 2026-03-16
 
 ## 2.139.0
