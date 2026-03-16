@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.69.0
+- UI: increase Wave HUD font-size for better readability (small)
+
 ## 2.68.0
 - Add visual feedback (particles and small screen shake) when player loses a life (small)
 
