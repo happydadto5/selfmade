@@ -26,6 +26,8 @@
   let lives = 3;
   let gameOver = false;
   const keys = {left:false,right:false,fire:false};
+  // Detect touch-capable devices to show subtle touch-zone guides for discoverability
+  const isTouch = (typeof window !== 'undefined') && (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0));
 
   // Transient controls hint: shows briefly on startup (ms)
   const tipDuration = 4000;
@@ -292,6 +294,26 @@ if (overlay) {
     ctx.clearRect(0,0,cw,ch);
     ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch);
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
+
+    // Subtle dashed touch-zone guide lines for touch-capable devices. These lines run up approximately 1/3 of the viewport height
+    // and indicate the left/center/right touch regions (left 25% = left, center 50% = fire, right 25% = right).
+    if (isTouch && cw > 300) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([6,6]);
+      const guideHeight = Math.max(60, Math.floor(ch * 0.33));
+      const yStart = ch - 10;
+      const yEnd = ch - guideHeight;
+      const x1 = Math.floor(cw * 0.25);
+      const x2 = Math.floor(cw * 0.75);
+      ctx.beginPath();
+      ctx.moveTo(x1, yStart); ctx.lineTo(x1, yEnd);
+      ctx.moveTo(x2, yStart); ctx.lineTo(x2, yEnd);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
 
     // small gardening-theme pots along the bottom (visual only)
     const potCount = Math.floor(cw / 100);

@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Add subtle dashed touch-zone guide lines for mobile to make controls more discoverable.
+
+## Unreleased
 - Collaboration: `!` suggestion lines now mean do next if safe, then remove after they are materially used.
 
 ## 1.23.0
