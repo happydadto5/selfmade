@@ -39,3 +39,5 @@ Collaboration notes / chat area
 - Question: should player movement become pointer-following, drag-based, or tap-to-reposition on touch devices?
 - Suggestion: keep mobile controls discoverable, but only show extra guide visuals when touch is detected.
 - Note: future sessions can replace this whole section with fresher questions, concerns, or idea fragments.
+
+Collaboration note: Acknowledged persistent suggestion in suggestion.txt to focus on a garden-themed, mobile-first experience. Captured guidance here to prioritize gardening objectives, mobile-first controls, and accessibility in upcoming iterations. (captured 2026-03-16)

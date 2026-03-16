@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Acknowledge suggestion.txt persistent garden-theme guidance; captured into future.md (tiny) — 2026-03-16
+
 ## 2.96.0
 - Add refreshVersionHUD helper and call it when toggling auto-pause to update the HUD (tiny) — 2026-03-16
 
