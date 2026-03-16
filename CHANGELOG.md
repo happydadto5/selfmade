@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 2.148.0
 - UX: show thin dashed guide line near the top third of the canvas when touch is detected to reveal touch zones (tiny) — 2026-03-16
 
 ## 2.147.0
