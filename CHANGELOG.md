@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: mark touch-controls aria-hidden to avoid redundant controls for screen readers (small)
+
 ## 2.27.0
 - Fix: clear touch inputs on touchend/touchcancel to avoid stuck controls on some Android devices (small)
 
