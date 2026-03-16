@@ -6,7 +6,7 @@
   // keyboard and screen-reader users can discover how to play without editing HTML.
   try {
     canvas.setAttribute('role', 'application');
-    canvas.setAttribute('aria-label', 'Garden shooter game canvas — use arrow keys or A/D to move; Space or tap center to fire.');
+    canvas.setAttribute('aria-label', 'Garden shooter game canvas — use arrow keys or A/D to move; Space or tap center to fire. Press I for help.');
     canvas.setAttribute('tabindex', '0');
   } catch (e) { /* ignore attribute errors in older browsers */ }
   let cw, ch;
@@ -134,6 +134,22 @@
     try { muteBtn.setAttribute('aria-live', 'polite'); } catch (e) {}
     updateMuteUI();
   }
+  // Help button: toggle help overlay
+  const helpBtn = document.getElementById('helpBtn');
+  if (helpBtn) {
+    helpBtn.addEventListener('click', () => {
+      try {
+        helpOpen = !helpOpen;
+        if (helpOpen) {
+          if (replayBtn) try { replayBtn.style.display = 'none'; } catch (err) {}
+          if (typeof overlay !== 'undefined' && overlay) { overlay.setAttribute('aria-label', 'Help'); setOverlayVisible(true); updateOverlayMessage(); }
+        } else {
+          if (replayBtn) try { replayBtn.style.display = ''; } catch (err) {}
+          if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+        }
+      } catch (e) { /* ignore */ }
+    });
+  }
 
   window.addEventListener('keydown', e => {
     // prevent arrow keys and space from scrolling the page while playing
@@ -142,6 +158,13 @@
     if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space') { e.preventDefault(); keys.fire = true; }
     // 'P' or 'Escape' toggles pause (accessibility): do not unpause when game is over
     if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
+      // If Escape is pressed while Help overlay is open, close help instead of toggling pause
+      if ((e.key === 'Escape') && typeof helpOpen !== 'undefined' && helpOpen) {
+        helpOpen = false;
+        if (replayBtn) try { replayBtn.style.display = ''; } catch (err) {}
+        if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+        return;
+      }
       if (!gameOver) {
         paused = !paused;
         // user toggled pause; clear pausedByFocus so auto-resume doesn't override user's intent
@@ -196,6 +219,20 @@
             }
             try { announcer.textContent = 'HUD hidden'; } catch (e) {}
           }
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    // 'I' toggles a brief help overlay describing controls. Closes when pressed again or when Escape is pressed.
+    if (e.key === 'i' || e.key === 'I') {
+      try {
+        helpOpen = !helpOpen;
+        if (helpOpen) {
+          if (replayBtn) try { replayBtn.style.display = 'none'; } catch (err) {}
+          if (typeof overlay !== 'undefined' && overlay) { overlay.setAttribute('aria-label', 'Help'); setOverlayVisible(true); updateOverlayMessage(); }
+        } else {
+          if (replayBtn) try { replayBtn.style.display = ''; } catch (err) {}
+          if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
         }
       } catch (e) { /* ignore */ }
     }
@@ -300,7 +337,9 @@ if (overlay) {
   function updateOverlayMessage() {
     if (!overlayMessage) return;
     try {
-      if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
+      if (typeof helpOpen !== 'undefined' && helpOpen) {
+        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I to toggle this help.';
+      } else if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
       else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — return to this tab to resume';
       else if (paused) overlayMessage.textContent = 'Paused — press P or Esc to resume';
       else overlayMessage.textContent = '';
@@ -337,6 +376,14 @@ if (overlay) {
       if (replayBtn) { try { replayBtn.click(); } catch (err) { /* ignore click errors */ } }
       return;
     }
+    // If help is open, close it on click
+    if (typeof helpOpen !== 'undefined' && helpOpen) {
+      helpOpen = false;
+      if (replayBtn) try { replayBtn.style.display = ''; } catch (err) {}
+      if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+      try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
+      return;
+    }
     if (!gameOver && paused) {
       paused = false;
       pausedByFocus = false;
@@ -349,6 +396,7 @@ if (overlay) {
   // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
   let paused = false;
   let pausedByFocus = false;
+  let helpOpen = false;
   // whether we suspended the AudioContext in response to an auto-pause so we can resume on focus/visibility restore
   let suspendedAudioByFocus = false;
   let blurTimeout = null;
