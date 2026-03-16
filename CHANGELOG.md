@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.172.0
 - Docs: add a short Unreleased bullet noting a tiny changelog update (this iteration).
 
 ## 2.169.0
