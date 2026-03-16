@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: add subtle highlight behind Wave HUD when new wave starts to improve visibility (tiny)
+
 ## 2.158.0
 - UX: add keyboard shortcut 'T' to briefly show touch-zone guides for preview (tiny)
 
