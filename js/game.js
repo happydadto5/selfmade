@@ -493,6 +493,52 @@
     btn.addEventListener('pointercancel', e => { e.preventDefault(); keys[name] = false; });
   }
   setTouch(leftBtn, 'left'); setTouch(rightBtn, 'right'); setTouch(fireBtn, 'fire');
+// Full-screen touch zones: left 25% = left, center 50% = fire, right 25% = right.
+// Use Pointer Events for broad device support; update on pointerdown/move and clear on up/cancel.
+(function setupFullScreenTouchZones(){
+  try {
+    if (!canvas) return;
+    const activeTouches = new Map();
+    function updateKeysFromX(clientX){
+      const rect = canvas.getBoundingClientRect();
+      const pct = rect.width ? (clientX - rect.left) / rect.width : 0.5;
+      // Reset inputs then set the appropriate control for the primary touch
+      keys.left = keys.right = keys.fire = false;
+      if (pct < 0.25) keys.left = true;
+      else if (pct > 0.75) keys.right = true;
+      else keys.fire = true;
+    }
+    canvas.addEventListener('pointerdown', ev => {
+      try {
+        if (ev.pointerType !== 'touch') return;
+        ev.preventDefault();
+        activeTouches.set(ev.pointerId, ev);
+        updateKeysFromX(ev.clientX);
+      } catch (e) { /* ignore */ }
+    }, { passive: false });
+    canvas.addEventListener('pointermove', ev => {
+      try {
+        if (ev.pointerType !== 'touch') return;
+        if (!activeTouches.has(ev.pointerId)) return;
+        ev.preventDefault();
+        updateKeysFromX(ev.clientX);
+      } catch (e) { /* ignore */ }
+    }, { passive: false });
+    function clearPointer(ev){
+      try {
+        if (ev.pointerType !== 'touch') return;
+        activeTouches.delete(ev.pointerId);
+        if (activeTouches.size === 0) { keys.left = keys.right = keys.fire = false; }
+        else {
+          const last = Array.from(activeTouches.values()).pop();
+          if (last) updateKeysFromX(last.clientX);
+        }
+      } catch (e) { /* ignore */ }
+    }
+    canvas.addEventListener('pointerup', clearPointer, { passive: true });
+    canvas.addEventListener('pointercancel', clearPointer, { passive: true });
+  } catch (e) { /* ignore setup errors */ }
+})();
 // overlay and replay button
 const overlay = document.getElementById('overlay');
 const replayBtn = document.getElementById('replayBtn');

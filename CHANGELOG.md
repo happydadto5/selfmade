@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UX: Added discoverable full-screen touch zones (left 25% = move left, center 50% = fire, right 25% = move right) using pointer events; shows subtle dashed guides on first touch (tiny)
+
 ## 2.163.0
 - UI: slightly larger center touch fire dot for better discoverability on mobile (tiny)
 
