@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Chore: extract input-clearing helper and use it to avoid duplicated input-clearing code (small)
+
 ## 2.5.0
 - UI: show live high score in HUD while running (small)
 

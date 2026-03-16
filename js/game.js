@@ -39,6 +39,7 @@
   let lives = 3;
   let gameOver = false;
   const keys = {left:false,right:false,fire:false};
+  function clearInputs() { keys.left = keys.right = keys.fire = false; }
   // Detect touch-capable devices to show subtle touch-zone guides for discoverability
   const isTouch = (typeof window !== 'undefined') && (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0));
 
@@ -250,7 +251,7 @@ if (overlay) {
       paused = true;
       pausedByFocus = true;
       // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
-      keys.left = keys.right = keys.fire = false;
+      clearInputs();
       // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
       if (audioCtx && audioCtx.state === 'running') {
         try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
@@ -289,7 +290,7 @@ if (overlay) {
           paused = true;
           pausedByFocus = true;
           // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
-          keys.left = keys.right = keys.fire = false;
+          clearInputs();
           // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
           if (audioCtx && audioCtx.state === 'running') {
             try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
@@ -321,7 +322,7 @@ if (overlay) {
     paused = true;
     pausedByFocus = true;
     // Clear transient input state when auto-paused to avoid stuck controls
-    keys.left = keys.right = keys.fire = false;
+    clearInputs();
     // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
     if (audioCtx && audioCtx.state === 'running') {
       try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
@@ -618,7 +619,7 @@ if (overlay) {
   }, { passive: true });
   // Some platforms may emit pointercancel/touchcancel when input is interrupted (e.g., OS gestures). Clear transient input there to avoid stuck controls.
   canvas.addEventListener('pointercancel', function(e){
-    keys.left = keys.right = keys.fire = false;
+    clearInputs();
   }, { passive: true });
   // Touch zones: left 25% = move left, right 25% = move right, center = fire. Uses touchstart/touchend for responsive mobile controls.
   canvas.addEventListener('touchstart', function(e){
