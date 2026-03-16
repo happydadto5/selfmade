@@ -629,6 +629,8 @@ if (overlay) {
     // keep loop running; when paused, run at a lower refresh to save CPU but keep overlay responsive
     if (!paused) {
       requestAnimationFrame(loop);
+      // Best-effort: focus the canvas shortly after start so keyboard users can play without an extra click
+      setTimeout(() => { try { canvas.focus(); } catch (e) {} }, 50);
     } else {
       setTimeout(() => requestAnimationFrame(loop), 200);
     }
