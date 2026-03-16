@@ -1302,16 +1302,24 @@ if (overlay) {
       player.x = Math.max(20, Math.min(cw - 20, x));
     }
   });
-  // Mouse click: pointerdown repositions player for mouse users (click to move) and also starts firing while pressed
+  // Pointer down: mouse repositions/fires; touch/pen map to full-screen touch zones (left 25% move left, center fire, right 25% move right)
   canvas.addEventListener('pointerdown', function(e){
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
     if (e.pointerType === 'mouse') {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
       player.x = Math.max(20, Math.min(cw - 20, x));
       keys.fire = true;
       if (soundEnabled) ensureAudio();
+    } else if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+      // Map pointer position to the same full-screen touch zones as touchstart for better pointer-event compatibility
+      const zone = x / rect.width;
+      if (zone < 0.25) keys.left = true;
+      else if (zone > 0.75) keys.right = true;
+      else keys.fire = true;
+      if (soundEnabled) ensureAudio();
+      try { e.preventDefault(); } catch (err) { /* ignore */ }
     }
-  }, { passive: true });
+  }, { passive: false });
   // Some platforms may emit pointercancel/touchcancel when input is interrupted (e.g., OS gestures). Clear transient input there to avoid stuck controls.
   canvas.addEventListener('pointercancel', function(e){
     clearInputs();

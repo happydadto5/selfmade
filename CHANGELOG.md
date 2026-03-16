@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: add pointer-event support for touch/pen to map full-screen touch zones (left 25% move left, center fire, right 25% move right) (tiny) — 2026-03-16
+
 ## 2.136.0
 - Roadmap: captured mobile-first garden guidance in future.md (tiny) — 2026-03-16
 
