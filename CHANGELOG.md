@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.38.0
 - Visual: add subtle screen shake on enemy destruction (small visual effect)
 
 ## 2.37.0
