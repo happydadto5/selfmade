@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.13.0';
+  const version = '2.14.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -596,11 +596,11 @@ if (overlay) {
   }
   requestAnimationFrame(loop);
 
-  canvas.addEventListener('mousedown', e => { keys.fire = true; if (soundEnabled) ensureAudio(); });
+  canvas.addEventListener('mousedown', e => { keys.fire = true; if (soundEnabled) ensureAudio(); }, { passive: true });
   canvas.addEventListener('click', () => { try { canvas.focus(); } catch (e) {} });
   canvas.addEventListener('mouseup', e => keys.fire = false);
   // Also clear firing state on mouseup anywhere to avoid stuck fire if mouse is released outside the canvas
-  window.addEventListener('mouseup', () => { keys.fire = false; });
+  window.addEventListener('mouseup', () => { keys.fire = false; }, { passive: true });
   // Mouse movement control: move player to the pointer X position (improves mouse playability)
   canvas.addEventListener('pointermove', function(e){
     if (e.pointerType === 'mouse') {

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.14.0
+- Perf: mark mousedown and global mouseup listeners as passive to improve input responsiveness on touch devices (small)
+
 ## 2.13.0
 - Tweak: increase auto-pause debounce from 250ms to 300ms to reduce accidental pauses when quickly switching tabs (small)
 
