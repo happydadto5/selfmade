@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.65.0
 - Mobile: show a low-contrast dashed guide line near the top third of the screen when touch input is detected (small)
 
 ## 2.64.0
