@@ -27,6 +27,8 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
+  // Accessibility: announce wave changes to assistive tech
+  if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
   const version = '1.29.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);

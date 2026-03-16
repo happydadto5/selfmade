@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- UI: add aria-live to Wave HUD for screen-reader announcements (small)
+
+## Unreleased
 
 ## Unreleased
 
