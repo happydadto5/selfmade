@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: add colorblind-mode toggle (press C) — small — 2026-03-16
+
 ## 2.124.0
 - Accessibility: add 'auto-paused' body class when auto-paused due to focus/visibility to enable CSS hooks for paused state (tiny) — 2026-03-16
 

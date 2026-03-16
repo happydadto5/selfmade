@@ -186,6 +186,9 @@
     updateMuteUI();
     // Ensure HUD reflects initial values (lives, wave, version) on load
     try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
+    // Restore colorblind-friendly palette preference (accessibility)
+    let colorblindMode = (function(){ try { const v = localStorage.getItem('selfmade_colorblind'); return v === '1'; } catch (e) { return false; } })();
+    try { if (colorblindMode) document.body.classList.add('colorblind-mode'); } catch (e) { /* ignore */ }
   }
   // Help button: toggle help overlay
   const helpBtn = document.getElementById('helpBtn');
@@ -335,6 +338,26 @@
       }
       try { announcer.textContent = autoPauseEnabled ? 'Auto-pause enabled' : 'Auto-pause disabled'; } catch (err) { /* ignore */ }
       try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) { /* ignore */ }
+    }
+    // 'C' toggles colorblind-friendly palette (accessibility). Persisted to localStorage and announced to assistive tech.
+    if (e.key === 'c' || e.key === 'C') {
+      try {
+        const enabled = document.body.classList.toggle('colorblind-mode');
+        try { localStorage.setItem('selfmade_colorblind', enabled ? '1' : '0'); } catch (err) { /* ignore */ }
+        let announcer = document.getElementById('colorblind-announcer');
+        if (!announcer) {
+          announcer = document.createElement('div');
+          announcer.id = 'colorblind-announcer';
+          announcer.style.position = 'absolute';
+          announcer.style.left = '-9999px';
+          announcer.style.width = '1px';
+          announcer.style.height = '1px';
+          announcer.setAttribute('aria-live','polite');
+          announcer.setAttribute('aria-atomic','true');
+          document.body.appendChild(announcer);
+        }
+        try { announcer.textContent = enabled ? 'Colorblind mode enabled' : 'Colorblind mode disabled'; } catch (err) { /* ignore */ }
+      } catch (e) { /* ignore */ }
     }
     // 'H' toggles HUD visibility (accessibility / distraction-free). Announces state to assistive tech.
     if (e.key === 'h' || e.key === 'H') {
