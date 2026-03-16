@@ -215,7 +215,20 @@
     // prevent arrow keys and space from scrolling the page while playing
     if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { e.preventDefault(); keys.left = true; }
     if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { e.preventDefault(); keys.right = true; }
-    if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space') { e.preventDefault(); keys.fire = true; }
+    if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space') {
+      e.preventDefault();
+      // Convenience: allow Space to resume the game when paused (but not when game over).
+      // Otherwise, when playing, Space fires as before.
+      if (paused && !gameOver) {
+        paused = false;
+        pausedByFocus = false;
+        if (typeof blurTimeout !== 'undefined' && blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
+        if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+        try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
+      } else {
+        keys.fire = true;
+      }
+    }
     // 'P' or 'Escape' toggles pause (accessibility): do not unpause when game is over
     if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
       // If Escape is pressed while Help overlay is open, close help instead of toggling pause

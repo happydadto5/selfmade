@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: allow Space to resume when paused (keyboard convenience) (small)
+
 ## 2.78.0
 - Accessibility: centralize auto-pause debounce constant and use it for blur/visibility handlers (small)
 
