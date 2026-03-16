@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.92.0
+- Accessibility: reduce auto-pause debounce to 220ms for snappier resume (tiny) — 2026-03-16
+
 ## 2.91.0
 - Accessibility: make 'Changes' button keyboard accessible (role, tabindex, Enter/Space activation) (small) — 2026-03-16
 

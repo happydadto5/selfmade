@@ -48,7 +48,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.91.0';
+  const version = '2.92.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -531,7 +531,7 @@ if (overlay) {
   });
 }
   // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
-  const AUTO_PAUSE_DEBOUNCE = 300; // ms used for blur/visibility auto-pause debounce
+  const AUTO_PAUSE_DEBOUNCE = 220; // ms used for blur/visibility auto-pause debounce (reduced for snappier resume)
   let paused = false;
   let pausedByFocus = false;
   let helpOpen = false;
