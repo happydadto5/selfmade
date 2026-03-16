@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.3.0';
+  const version = '2.4.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -218,6 +218,8 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   player.y = ch - 80;
   player.cooldown = 0;
   if (overlay) setOverlayVisible(false);
+  // After restarting, restore keyboard focus to the canvas so users can continue with keys.
+  try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
 });
 // Allow clicking the overlay to resume when paused (but not when game over)
 if (overlay) {

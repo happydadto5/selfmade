@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.0
+- Accessibility: focus canvas on restart so keyboard users regain control (small)
+
 ## 2.3.0
 - UI: clarify touch controls tip and mention dashed touch-guide lines (small)
 
