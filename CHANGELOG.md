@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.128.0
 - Accessibility: keep HUD aria-hidden in sync when toggling HUD visibility so screen readers reflect the change (tiny) — 2026-03-16
 
 ## 2.127.0
