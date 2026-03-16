@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.55.0
 - Accessibility: clear overlay message on auto-resume to avoid stale ARIA announcements (small) — 2026-03-16
 
 ## 2.54.0
