@@ -12,12 +12,13 @@ const protectedPaths = new Set([
   'selfmade.log',
 ]);
 
-function git(args) {
-  return cp.execFileSync('git', args, {
+function git(args, trimOutput = true) {
+  const output = cp.execFileSync('git', args, {
     cwd: root,
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
-  }).trim();
+  });
+  return trimOutput ? output.trim() : output;
 }
 
 function normalize(relativePath) {
@@ -33,7 +34,7 @@ function removeTarget(targetPath) {
   fs.rmSync(targetPath, { recursive: true, force: true });
 }
 
-const statusLines = git(['status', '--porcelain=v1']).split(/\r?\n/).filter(Boolean);
+const statusLines = git(['status', '--porcelain=v1'], false).split(/\r?\n/).filter(Boolean);
 const restoreTracked = [];
 const removeUntracked = [];
 
@@ -43,11 +44,8 @@ for (const line of statusLines) {
   const relativePath = normalize(rawPath.includes(' -> ') ? rawPath.split(' -> ').pop() : rawPath);
   if (isProtected(relativePath)) continue;
 
-  if (code === '??') {
-    removeUntracked.push(relativePath);
-  } else {
-    restoreTracked.push(relativePath);
-  }
+  if (code === '??') removeUntracked.push(relativePath);
+  else restoreTracked.push(relativePath);
 }
 
 if (!restoreTracked.length && !removeUntracked.length) {

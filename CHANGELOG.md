@@ -1,22 +1,13 @@
 # Changelog
 
-## 2.0.0
-- Accessibility: improve overlay message readability when paused (small) — 2026-03-16
-
 ## Unreleased
 - Automation: clean up unfinished prior-iteration files at startup before starting a new loop, while preserving collaborator-managed files like `suggestion.txt`.
-
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; added small changelog entry (2026-03-16)
-
-## Unreleased
-
 - Perf: debounce window resize handler to reduce layout thrash on rapid resizes (small)
-
-## Unreleased
-
 - UI: add z-index to overlay so pause/game-over overlay sits above other UI elements (small)
 
-## Unreleased
+## 2.0.0
+- Accessibility: improve overlay message readability when paused (small) — 2026-03-16
 
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; small incremental update (2026-03-16)
 
