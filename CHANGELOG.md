@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.7.0
+- Accessibility/UX: prevent touch scrolling on the game canvas (touch-action: none) to improve mobile controls (small)
+
 ## 2.6.0
 - Chore: extract input-clearing helper and use it to avoid duplicated input-clearing code (small)
 
