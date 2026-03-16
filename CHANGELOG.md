@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.78.0
 - Accessibility: centralize auto-pause debounce constant and use it for blur/visibility handlers (small)
 
 ## 2.77.0
