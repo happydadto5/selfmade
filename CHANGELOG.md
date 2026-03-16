@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.79.0
 - Accessibility: allow Space to resume when paused (keyboard convenience) (small)
 
 ## 2.78.0
