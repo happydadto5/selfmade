@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.66.0
+- Accessibility: add a colorblind-friendly palette toggle (press C) and persist preference (small)
+
 ## 2.65.0
 - Mobile: show a low-contrast dashed guide line near the top third of the screen when touch input is detected (small)
 

@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.65.0';
+  const version = '2.66.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -197,6 +197,27 @@
             try { announcer.textContent = 'HUD hidden'; } catch (e) {}
           }
         }
+      } catch (e) { /* ignore */ }
+    }
+
+    // 'C' toggles a colorblind-friendly palette for better accessibility. Preference is persisted.
+    if (e.key === 'c' || e.key === 'C') {
+      try {
+        const enabled = document.body.classList.toggle('colorblind-mode');
+        try { localStorage.setItem('selfmade_colorblind', enabled ? '1' : '0'); } catch (err) { /* ignore storage errors */ }
+        // Announce the change to assistive tech
+        let announcer = document.getElementById('color-mode-announcer');
+        if (!announcer) {
+          announcer = document.createElement('div');
+          announcer.id = 'color-mode-announcer';
+          announcer.style.position = 'absolute';
+          announcer.style.left = '-9999px';
+          announcer.style.width = '1px';
+          announcer.style.height = '1px';
+          announcer.setAttribute('aria-live','polite');
+          document.body.appendChild(announcer);
+        }
+        try { announcer.textContent = enabled ? 'Colorblind mode enabled' : 'Colorblind mode disabled'; } catch (err) { /* ignore */ }
       } catch (e) { /* ignore */ }
     }
     // Allow Enter/Return to resume when the game is paused (but not when it's game over)

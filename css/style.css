@@ -59,3 +59,11 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 #overlay[aria-hidden="false"] .overlay-message {
   max-width: 90%;
 }
+
+/* Colorblind-friendly palette toggle: subtle, high-contrast UI colors for accessibility */
+body.colorblind-mode{ background:#f6f6e9; }
+body.colorblind-mode #ui{ color:#111; }
+body.colorblind-mode #ui #lives{ color:#b71c1c; }
+body.colorblind-mode #version{ color:#111; }
+body.colorblind-mode #touch-controls button{ background:#fff; border-color:#999; }
+
