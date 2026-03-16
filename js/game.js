@@ -286,6 +286,20 @@ if (overlay) {
     }
   });
 
+  // handle pagehide/navigation away: pause immediately and clear input so background navigation doesn't leave running game
+  window.addEventListener('pagehide', () => {
+    paused = true;
+    pausedByFocus = true;
+    // Clear transient input state when auto-paused to avoid stuck controls
+    keys.left = keys.right = keys.fire = false;
+    // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
+    if (audioCtx && audioCtx.state === 'running') {
+      try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
+      suspendedAudioByFocus = true;
+    }
+    if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(true);
+  });
+
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
   const bullets = []; const enemies = []; const particles = [];

@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Pause: pause on pagehide to handle navigation away (small)
+
+## Unreleased
 - Mobile: hide redundant on-screen buttons on touch devices to prefer full-screen touch zones (small)
 
 ## Unreleased
