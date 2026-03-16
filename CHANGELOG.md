@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.17.0
+- Chore: add brief Unreleased entry describing this iteration's small change (CHANGELOG updated).
+
 ## 1.16.0
 - Controls: clicking with a mouse now repositions the player to the clicked X coordinate (improves mouse control).
 
