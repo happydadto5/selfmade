@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+- Accessibility: honor prefers-reduced-motion by reducing non-essential animations and transitions (tiny) — 2026-03-16
+
+
 ## 2.134.0
 - Accessibility: focus Resume button when overlay appears for pause so keyboard and touch users can quickly resume (tiny) — 2026-03-16
 

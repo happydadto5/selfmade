@@ -83,10 +83,17 @@ body.colorblind-mode #version{ color:#111; }
 body.colorblind-mode #touch-controls button{ background:#fff; border-color:#999; }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Respect user preference to reduce motion: disable HUD pulse animations */
+  /* Respect user preference to reduce motion: disable HUD pulse animations and other non-essential motion */
   #ui #wave.wave-pulse,
   #ui #lives.lives-pulse {
     animation: none !important;
+  }
+  /* Also minimize generic animations/transitions and scrolling behavior for users who prefer reduced motion */
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
