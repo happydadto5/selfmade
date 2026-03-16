@@ -155,6 +155,8 @@ if (overlay) {
     blurTimeout = setTimeout(() => {
       paused = true;
       pausedByFocus = true;
+      // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
+      keys.left = keys.right = keys.fire = false;
       blurTimeout = null;
       if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
     }, 150);
