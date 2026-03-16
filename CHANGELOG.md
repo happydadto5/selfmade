@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Chore: add short changelog entry for this iteration (2026-03-16) (small)
+
+## Unreleased
+
 - Accessibility: add tabindex and aria-label to the main canvas for keyboard and screen-reader users (small)
 
 ## Unreleased
