@@ -1,8 +1,7 @@
 # Changelog
 
-## Unreleased
+## 2.109.0
 - UI: initialize HUD on load so Lives and Wave counters show current values and ARIA attributes are set (tiny) — 2026-03-16
-
 
 ## 2.108.0
 - Accessibility: clear transient input state when manually pausing to avoid stuck controls (tiny)
