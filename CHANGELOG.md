@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.146.0
+- UI: increase Wave HUD font size slightly for readability (tiny) — 2026-03-16
+
 ## 2.145.0
 - Accessibility: clarify paused message when auto-paused due to focus loss (tiny) — 2026-03-16
 
