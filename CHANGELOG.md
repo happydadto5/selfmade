@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.18.0
+- Pause: clear input keys when auto-paused (prevents stuck controls on focus loss)
+
 ## 1.17.0
 - Chore: add brief Unreleased entry describing this iteration's small change (CHANGELOG updated).
 
