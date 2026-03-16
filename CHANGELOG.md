@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Accessibility: mark autopause announcer aria-atomic for reliable screen reader announcements (tiny) — 2026-03-16
+
 ## 2.92.0
 - Accessibility: reduce auto-pause debounce to 220ms for snappier resume (tiny) — 2026-03-16
 

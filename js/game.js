@@ -283,7 +283,10 @@
         announcer.id = 'autopause-announcer';
         announcer.style.position = 'absolute';
         announcer.style.left = '-9999px';
+        announcer.style.width = '1px';
+        announcer.style.height = '1px';
         announcer.setAttribute('aria-live', 'polite');
+        announcer.setAttribute('aria-atomic', 'true');
         document.body.appendChild(announcer);
       }
       try { announcer.textContent = autoPauseEnabled ? 'Auto-pause enabled' : 'Auto-pause disabled'; } catch (err) { /* ignore */ }
