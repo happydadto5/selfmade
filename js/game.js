@@ -86,7 +86,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.168.0';
+  const version = '2.169.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -103,6 +103,33 @@
       const showTouchGuide = () => {
         touchGuideExpires = Date.now() + 7000;
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
+        // Create a small transient toast to clarify touch zones for first-time touch users
+        try {
+          let t = document.getElementById('touch-toast');
+          if (!t) {
+            t = document.createElement('div');
+            t.id = 'touch-toast';
+            t.textContent = 'Tap center to fire — tap left/right edges to move';
+            t.style.position = 'fixed';
+            t.style.left = '50%';
+            t.style.top = '12px';
+            t.style.transform = 'translateX(-50%)';
+            t.style.background = 'rgba(0,0,0,0.72)';
+            t.style.color = '#fff';
+            t.style.padding = '8px 12px';
+            t.style.borderRadius = '8px';
+            t.style.zIndex = '10001';
+            t.style.fontSize = '14px';
+            t.style.pointerEvents = 'none';
+            t.style.opacity = '0';
+            t.style.transition = 'opacity 220ms ease, transform 220ms ease';
+            document.body.appendChild(t);
+            // show and auto-remove after a short delay
+            try { void t.offsetWidth; t.style.opacity = '1'; } catch (e) { /* ignore */ }
+            setTimeout(() => { try { t.style.opacity = '0'; } catch (e) {} }, 3800);
+            setTimeout(() => { try { if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {} }, 4200);
+          }
+        } catch (e) { /* ignore DOM errors */ }
         // Remove the class shortly after the guide expiry so the DOM stays clean
         setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 7200);
       };

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.169.0
+- UX: show transient touch-controls hint toast on first touch to clarify full-screen touch zones (tiny)
+
 ## 2.168.0
 - UX: pulse the center fire guide briefly after first touch to improve discoverability (tiny)
 
