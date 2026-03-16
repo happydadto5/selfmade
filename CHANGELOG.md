@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.5.0
 - UI: show live high score in HUD while running (small)
 
 ## 2.4.0
