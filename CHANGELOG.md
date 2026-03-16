@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.26.0
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; add short changelog entry (2026-03-16)
 
 ## 2.25.0
