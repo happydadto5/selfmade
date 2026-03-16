@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: start new wave immediately when restarting so players don't wait (tiny) — 2026-03-16
+
 ## 2.119.0
 - UI: add Auto-Pause toggle button to HUD for quick accessibility toggling (tiny) — 2026-03-16
 

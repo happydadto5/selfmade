@@ -549,6 +549,8 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   player.x = cw/2;
   player.y = ch - 80;
   player.cooldown = 0;
+  // Start the first wave immediately after restart so players don't wait for the automatic spawn
+  try { spawnWave(); } catch (e) { /* ignore spawn errors */ }
   // If sound is enabled, ensure the AudioContext is available/resumed after a restart so sounds play reliably.
   try { if (soundEnabled) { ensureAudio(); } } catch (e) { /* ignore audio errors on some platforms */ }
   if (overlay) setOverlayVisible(false);
