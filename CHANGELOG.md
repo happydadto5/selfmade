@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Chore: read scripts/prompt.txt, suggestion.txt, and future.md; added small changelog entry (2026-03-16)
+
+## Unreleased
+
 - Perf: debounce window resize handler to reduce layout thrash on rapid resizes (small)
 
 ## Unreleased
