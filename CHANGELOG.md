@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.144.0
+- UX: show live "New high score!" badge and play chime when player surpasses previous high score (tiny) — 2026-03-16
+
 ## 2.143.0
 - Accessibility/UX: prevent touch scrolling during gameplay by setting canvas touch-action to 'none' (tiny)
 

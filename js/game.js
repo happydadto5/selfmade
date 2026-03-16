@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.143.0';
+  const version = '2.144.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1022,7 +1022,33 @@ if (overlay) {
           if (e.hp <= 0) {
             enemies.splice(i,1);
             score += 10;
-            if (score > highScore) { highScore = score; try { localStorage.setItem('selfmade_highscore', highScore); } catch (e) { /* ignore storage errors */ } }
+            // If the player surpasses the previous high score during the run, update and show a small badge
+            try {
+              const prevHigh = highScore;
+              if (score > prevHigh) {
+                highScore = score;
+                try { localStorage.setItem('selfmade_highscore', highScore); } catch (e) { /* ignore storage errors */ }
+                // create or update a transient high-score badge to celebrate the achievement
+                let badge = document.getElementById('highscore-badge');
+                if (!badge) {
+                  badge = document.createElement('div');
+                  badge.id = 'highscore-badge';
+                  badge.setAttribute('aria-live', 'polite');
+                  badge.setAttribute('role', 'status');
+                  badge.style.pointerEvents = 'none';
+                  badge.style.position = 'fixed';
+                  badge.style.right = '12px';
+                  badge.style.top = '48px';
+                  badge.style.zIndex = '10000';
+                  document.body.appendChild(badge);
+                }
+                try { badge.textContent = 'New high score!'; } catch (e) {}
+                // restart CSS animation
+                try { badge.classList.remove('show'); void badge.offsetWidth; badge.classList.add('show'); } catch (e) {}
+                setTimeout(() => { try { badge.classList.remove('show'); } catch (e) {} }, 1800);
+                try { playSound('blip'); } catch (e) {}
+              }
+            } catch (e) { /* ignore highscore UI errors */ }
             // spawn simple particles for a little explosion effect
             const pc = 12;
             for (let p=0;p<pc;p++) {

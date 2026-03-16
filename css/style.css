@@ -97,4 +97,24 @@ body.colorblind-mode #touch-controls button{ background:#fff; border-color:#999;
   }
 }
 
+/* High score badge: transient visual feedback when player surpasses previous high score during a run */
+#highscore-badge {
+  pointer-events: none;
+  background: rgba(255,245,157,0.95);
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  font-weight: 700;
+  transform-origin: right top;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+#highscore-badge.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 
