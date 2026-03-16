@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix: remove duplicate blur handler that overwrote overlayMessage and could cause runtime errors when focus is lost (small) — 2026-03-16
+
 ## 2.58.0
 - Accessibility: pause game on window blur; show overlay hint (small) — 2026-03-16
 
