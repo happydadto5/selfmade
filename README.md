@@ -1,6 +1,6 @@
 # Selfmade — A Self-Evolving Game
 
-> **This game is built and continuously improved by an AI.** Every ~5 minutes, GitHub Copilot CLI makes one small improvement — sometimes something visible in the game, sometimes a behind-the-scenes reliability or code-quality improvement, and occasionally a small upgrade to the automation UI itself. Watch it evolve.
+> **This game is built and continuously improved by an AI.** Every ~1 minute, GitHub Copilot CLI makes one small improvement — sometimes something visible in the game, sometimes a behind-the-scenes reliability or code-quality improvement, and occasionally a small upgrade to the automation UI itself. Watch it evolve.
 
 ## [▶ Play Now](https://happydadto5.github.io/selfmade/)
 

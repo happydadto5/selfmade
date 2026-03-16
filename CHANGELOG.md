@@ -4,6 +4,7 @@
 - Fix: clear pending auto-pause timer when user toggles pause to avoid race with blur/visibility auto-pause (small)
 
 ## Unreleased
+- Automation: reduce the self-evolving loop delay from 5 minutes to 1 minute.
 - Automation: clean up unfinished prior-iteration files at startup before starting a new loop, while preserving collaborator-managed files like `suggestion.txt`.
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; added small changelog entry (2026-03-16)
 - Perf: debounce window resize handler to reduce layout thrash on rapid resizes (small)

@@ -4,7 +4,7 @@ cd /d "%~dp0"
 
 REM ── Configuration ──────────────────────────────────────────────
 set MODEL=gpt-5-mini
-set PAUSE_SEC=300
+set PAUSE_SEC=60
 set /a PAUSE_MIN=PAUSE_SEC/60
 set IMAGE_DAILY_BUDGET=100
 set IMAGE_SMALL_REQUEST_COST=1
