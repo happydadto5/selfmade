@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 2.93.0
 - Accessibility: mark autopause announcer aria-atomic for reliable screen reader announcements (tiny) — 2026-03-16
 
 ## 2.92.0
