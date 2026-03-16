@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.77.0
 - Accessibility: add hidden live region to announce life changes to assistive tech (small)
 
 ## 2.76.0
