@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.130.0';
+  const version = '2.131.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1142,11 +1142,11 @@ if (overlay) {
         if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
       } catch (e) { }
     }
-    // Update document title to include current wave for better visibility when tabbed away
+    // Update document title to include current wave and score for better visibility when tabbed away
     try {
       if (!paused && !gameOver) {
-        const waveSuffix = ' (Wave ' + waveNumber + ')';
-        if (!document.title.endsWith(waveSuffix)) { document.title = originalTitle + waveSuffix; }
+        const suffix = ' (Wave ' + waveNumber + ' — Score ' + score + ')';
+        if (!document.title.endsWith(suffix)) { document.title = originalTitle + suffix; }
       } else {
         // restore base title when paused or game over
         if (document.title !== originalTitle) document.title = originalTitle;

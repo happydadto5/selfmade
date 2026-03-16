@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.131.0
+- UI: include current score in document title while playing so tab shows score (tiny) — 2026-03-16
+
 ## 2.130.0
 - Accessibility: add focus styles for Auto-Pause button to improve keyboard focus visibility (tiny) — 2026-03-16
 
