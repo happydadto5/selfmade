@@ -86,7 +86,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.170.0';
+  const version = '2.171.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -110,6 +110,8 @@
             t = document.createElement('div');
             t.id = 'touch-toast';
             t.textContent = 'Tap center to fire — tap left/right edges to move';
+            // Accessibility: make this transient hint discoverable to screen readers
+            try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore attribute errors */ }
             t.style.position = 'fixed';
             t.style.left = '50%';
             t.style.top = '12px';

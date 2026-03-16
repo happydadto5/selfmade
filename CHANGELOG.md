@@ -18,10 +18,10 @@
 ## 2.164.0
 - Accessibility: Announce auto-pause to assistive tech when the page loses focus or visibility to improve screen-reader feedback (tiny)
 
-## Unreleased
-
+## 2.171.0
 - UX: Added discoverable full-screen touch zones (left 25% = move left, center 50% = fire, right 25% = move right) using pointer events; shows subtle dashed guides on first touch (tiny)
 - UX: Show a subtle horizontal dashed guide near the top third of the screen when touch is detected to improve discoverability of full-screen touch zones (tiny)
+- Accessibility: Announce transient touch hint toast to assistive tech (aria-live) so screen readers inform first-time touch users (tiny)
 
 ## 2.163.0
 - UI: slightly larger center touch fire dot for better discoverability on mobile (tiny)
