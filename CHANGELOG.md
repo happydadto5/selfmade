@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.117.0
+- UI: add .paused body class when overlay is visible to enable CSS hooks for paused state (tiny)
+
 ## 2.116.0
 - Accessibility: allow pointer/click to resume when auto-paused due to focus loss (small)
 

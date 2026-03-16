@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.116.0';
+  const version = '2.117.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -489,11 +489,15 @@ if (overlay) {
       // Make the overlay focusable and move focus to it so screen readers announce the pause/overlay state
       overlay.setAttribute('tabindex', '-1');
       try { overlay.focus(); } catch (e) { /* ignore focus errors */ }
+      // Small accessibility/UX hook: add a class to the document body when the overlay is visible
+      // so CSS can style the paused state (e.g., dimming, cursor changes). Keep this defensive.
+      try { document.body.classList.add('paused'); } catch (e) { /* ignore */ }
     } else {
       overlay.setAttribute('role', 'status');
       overlay.removeAttribute('aria-modal');
       overlay.style.pointerEvents = 'none';
       overlay.removeAttribute('tabindex');
+      try { document.body.classList.remove('paused'); } catch (e) { /* ignore */ }
     }
   }
   // Small UX/accessibility helper: show different overlay messages when pause was triggered by focus loss vs user toggle.
