@@ -1,6 +1,12 @@
 # Future roadmap
 
-This is a living roadmap for Selfmade. Any improvement session may update, reorder, replace, or rewrite this file when that helps the project move forward.
+This is a living collaboration document for Selfmade. Any improvement session may update, reorder, replace, or rewrite this file when that helps the project move forward.
+
+Guidance to LLM collaborators
+- Use this file as the shared roadmap for where the game may go next.
+- You may add collaboration notes, open questions, tradeoffs, and raw ideas here when they do not fit neatly into the numbered roadmap.
+- You may rewrite old sections when they become stale or less useful.
+- Keep the roadmap practical, but do not be afraid to leave short notes for future sessions.
 
 Priority themes
 - Keep the game fun, readable, and reliable.
@@ -28,3 +34,8 @@ Potential next improvements
 18. Reduce duplicated game-state logic and simplify hard-to-maintain code paths.
 19. Add better end-of-run summaries so players want another run.
 20. Revisit the roadmap and rewrite it whenever a better direction becomes clear.
+
+Collaboration notes / chat area
+- Question: should player movement become pointer-following, drag-based, or tap-to-reposition on touch devices?
+- Suggestion: keep mobile controls discoverable, but only show extra guide visuals when touch is detected.
+- Note: future sessions can replace this whole section with fresher questions, concerns, or idea fragments.

@@ -21,7 +21,7 @@ RULES (never violate):
 - If you implement or materially capture a `!` suggestion, remove that `!` line from suggestion.txt after using it.
 - If a suggestion line starts with `+`, treat it as persistent guidance: it should influence future choices, but it must stay in suggestion.txt even after you use it.
 - suggestion.txt is a tracked repo file. Keep it in git and commit any intentional suggestion-file updates.
-- future.md is a tracked living roadmap. You may create it, update it, reorder it, replace parts of it, or rewrite it completely whenever that helps the project.
+- future.md is a tracked living collaboration document. You may create it, update it, reorder it, replace parts of it, rewrite it completely, and use it for roadmap items, collaboration notes, open questions, and idea fragments whenever that helps the project.
 - Treat each iteration like a collaborator on a shared project: keep the roadmap coherent, but do not feel locked to the previous plan if a better direction appears.
 - Do NOT create new HTML files. index.html is the only entry point.
 

@@ -31,8 +31,8 @@
 - Lines starting with `+` are persistent guidance. They should stay in `suggestion.txt` and continue influencing future iterations.
 
 ### future.md roadmap
-- `future.md` is a tracked living roadmap for the project.
-- Any iteration may add future ideas, reorder priorities, replace stale items, or rewrite the roadmap completely.
+- `future.md` is a tracked living collaboration document for the project.
+- Any iteration may add future ideas, reorder priorities, replace stale items, rewrite the roadmap completely, or leave collaboration notes and open questions there.
 - The roadmap is guidance, not a hard lock: a session can implement the next item, skip ahead, or interject a better idea if it improves the game.
 
 ### Safety

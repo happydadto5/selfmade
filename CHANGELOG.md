@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Collaboration: expand `future.md` into a shared roadmap plus chat/notes document so LLM sessions can leave ideas, questions, and handoff notes.
+
 ## 1.27.0
 - Code: declare `wavePulseUntil` to avoid implicit global when spawning waves.
 
