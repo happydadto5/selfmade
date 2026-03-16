@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.59.0
 - Fix: remove duplicate blur handler that overwrote overlayMessage and could cause runtime errors when focus is lost (small) — 2026-03-16
 
 ## 2.58.0
