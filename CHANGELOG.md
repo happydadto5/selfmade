@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.106.0
 - Accessibility: increase auto-pause debounce to 200ms to reduce accidental pauses — 2026-03-16
 
 ## 2.105.0
