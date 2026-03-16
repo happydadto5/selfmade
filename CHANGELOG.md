@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.83.0
+- Reliability: clear global pointercancel to avoid stuck controls on some devices (small)
+
 ## 2.82.0
 - UI: show auto-pause state in version HUD so players can see whether auto-pause is enabled (small)
 

@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.82.0';
+  const version = '2.83.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1033,6 +1033,8 @@ if (overlay) {
   window.addEventListener('mouseup', () => { keys.fire = false; }, { passive: true });
   // Also clear firing state on pointerup for pointer-based devices (pen, touch) to avoid stuck fire
   window.addEventListener('pointerup', () => { keys.fire = false; keys.left = false; keys.right = false; }, { passive: true });
+  // Also clear transient input state on pointercancel globally to avoid stuck controls when cancellations happen outside the canvas
+  window.addEventListener('pointercancel', () => { clearInputs(); }, { passive: true });
   // Mouse movement control: move player to the pointer X position (improves mouse playability)
   canvas.addEventListener('pointermove', function(e){
     if (e.pointerType === 'mouse' || e.pointerType === 'pen') {
