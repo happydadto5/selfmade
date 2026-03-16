@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.162.0
 - UI: dim canvas when auto-paused to make paused state more visually obvious (tiny)
 
 ## 2.161.0
