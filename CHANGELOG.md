@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Docs: add a short Unreleased bullet noting a tiny changelog update (this iteration).
+
 ## 2.169.0
 - UX: show transient touch-controls hint toast on first touch to clarify full-screen touch zones (tiny)
 
