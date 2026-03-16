@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.40.0
+- Accessibility: ensure pause on blur/visibility clears inputs and suspends audio; resume on focus (small)
+
 ## 2.39.0
 - Fix: robustly parse persisted high score to avoid NaN when localStorage contains invalid value (small)
 
