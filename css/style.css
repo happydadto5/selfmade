@@ -31,6 +31,13 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
   #touch-controls{display:flex}
   /* Show subtle dashed guide lines only briefly after the user touches the screen so the UI stays uncluttered.
      The class `show-touch-guides` is toggled by the game on first touch and removed shortly after. */
+  /* Add a subtle horizontal dashed guide near the top third to clarify touch zones for first-time touch users. Kept low-contrast so it is non-distracting. */
+  body.show-touch-guides {
+    background-image: repeating-linear-gradient(to right, rgba(0,0,0,0.18) 0 2px, rgba(0,0,0,0) 2px 10px);
+    background-repeat: no-repeat;
+    background-position: 0 calc(33vh);
+    background-size: 100% 1px;
+  }
   body.show-touch-guides::before, body.show-touch-guides::after {
     content: "";
     position: fixed;
