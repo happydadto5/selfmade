@@ -586,6 +586,25 @@ if (overlay) {
       lives--;
       livesPulseUntil = Date.now() + 700;
       lives = Math.max(0, lives);
+      // small hit feedback: spawn particles and add screen shake when player loses a life
+      try {
+        const pcLost = 8;
+        for (let p=0;p<pcLost;p++) {
+          const angle = Math.PI + (Math.random() - 0.5) * 1.5;
+          const speed = 1 + Math.random() * 2;
+          particles.push({
+            x: player.x,
+            y: player.y - 12,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            r: 2 + Math.random() * 3,
+            life: 400 + Math.random() * 300,
+            born: Date.now()
+          });
+        }
+        screenShake = Math.min(20, screenShake + 6);
+        playSound('hit');
+      } catch (e) { /* ignore particle errors */ }
       if (lives <= 0) {
         gameOver = true;
         paused = true;

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Add visual feedback (particles and small screen shake) when player loses a life (small)
+
 ## 2.67.0
 - Add help overlay toggled with I key and Help button; displays basic controls and closes with I, Escape, or click (small)
 
