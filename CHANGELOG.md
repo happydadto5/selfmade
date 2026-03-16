@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Help overlay: include keys O (auto-pause), M (mute), and C (colorblind) in help text for discoverability (tiny) — 2026-03-16
+
 ## 2.98.0
 - Accessibility: respect prefers-reduced-motion for HUD pulse animations (tiny) — 2026-03-16
 

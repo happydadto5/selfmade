@@ -497,7 +497,7 @@ if (overlay) {
       if (typeof changesOpen !== 'undefined' && changesOpen) {
         overlayMessage.textContent = 'Recent changes — click or press Esc to close';
       } else if (typeof helpOpen !== 'undefined' && helpOpen) {
-        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I to toggle this help.';
+        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode.';
       } else if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
       else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — return to this tab to resume';
       else if (paused) overlayMessage.textContent = 'Paused — press P or Esc to resume';
