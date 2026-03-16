@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.23.0
 - Accessibility: focus canvas on initial load to enable keyboard controls (small)
 
 ## 2.22.0
