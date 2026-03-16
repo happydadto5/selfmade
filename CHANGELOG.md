@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.184.0
 - Docs: tidy suggestion.txt formatting (trim blank lines/whitespace) (tiny) — 2026-03-16
 
 ## 2.183.0
