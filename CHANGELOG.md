@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.187.0
+- UI: Show current wave number in pause overlay for clarity (tiny) — 2026-03-16
+
 ## 2.186.0
 - Add subtle screen-shake when a new wave starts (small visual polish) — 2026-03-16
 
