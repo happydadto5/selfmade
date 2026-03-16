@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.132.0
+- Accessibility: clarify pause-on-blur overlay message to include tap for touch users (tiny) — 2026-03-16
+
 ## 2.131.0
 - UI: include current score in document title while playing so tab shows score (tiny) — 2026-03-16
 
