@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.185.0
+- UX: Show touch-zone guides on narrower screens (>=240px) to improve mobile discoverability (tiny) — 2026-03-16
+
 ## 2.184.0
 - Docs: tidy suggestion.txt formatting (trim blank lines/whitespace) (tiny) — 2026-03-16
 

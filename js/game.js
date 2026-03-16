@@ -86,7 +86,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.184.0';
+  const version = '2.185.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1293,7 +1293,7 @@ if (overlay) {
 
     // Subtle dashed touch-zone guide lines for touch-capable devices. These lines run up approximately 1/3 of the viewport height
     // and indicate the left/center/right touch regions (left 25% = left, center 50% = fire, right 25% = right).
-    if (isTouch && cw > 300) {
+    if (isTouch && cw > 240) {
       ctx.save();
       ctx.strokeStyle = 'rgba(0,0,0,0.06)';
       ctx.lineWidth = 1;
@@ -1312,7 +1312,7 @@ if (overlay) {
     }
 
     // If the user has touched the screen recently, show a subtle horizontal guide near the top third for a short time
-    if (Date.now() < touchGuideExpires && cw > 300) {
+    if (Date.now() < touchGuideExpires && cw > 240) {
       ctx.save();
       ctx.strokeStyle = 'rgba(255,255,255,0.12)';
       ctx.lineWidth = 1;
