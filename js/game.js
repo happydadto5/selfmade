@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.72.0';
+  const version = '2.73.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -358,7 +358,7 @@ const replayBtn = document.getElementById('replayBtn');
 // create or locate a simple accessible message element inside the overlay so screen readers
 // and users know whether the game is paused or over. This is created dynamically to avoid
 // requiring index.html edits and keeps the change small and reversible.
-let overlayMessage = null;
+let overlayMessage = null; let lifeAnnouncer = null;
 if (overlay) {
   overlayMessage = overlay.querySelector('.overlay-message');
   if (!overlayMessage) {
@@ -375,6 +375,21 @@ if (overlay) {
     // Provide an accessible label for the overlay to clarify its purpose to screen readers
     overlay.setAttribute('aria-label', 'Game overlay — paused or game over');
   }
+  // Ensure there's a dedicated live region to announce life changes (e.g., "Life lost — 2 lives remaining")
+  try {
+    lifeAnnouncer = document.getElementById('life-announcer');
+    if (!lifeAnnouncer) {
+      lifeAnnouncer = document.createElement('div');
+      lifeAnnouncer.id = 'life-announcer';
+      lifeAnnouncer.style.position = 'absolute';
+      lifeAnnouncer.style.left = '-9999px';
+      lifeAnnouncer.style.width = '1px';
+      lifeAnnouncer.style.height = '1px';
+      lifeAnnouncer.setAttribute('aria-live', 'assertive');
+      lifeAnnouncer.setAttribute('aria-atomic', 'true');
+      document.body.appendChild(lifeAnnouncer);
+    }
+  } catch (e) { /* ignore announcer creation errors */ }
   // Helper to set overlay visibility and accessible dialog attributes
   function setOverlayVisible(show) {
     if (!overlay) return;
@@ -656,6 +671,14 @@ if (overlay) {
       lives--;
       livesPulseUntil = Date.now() + 700;
       lives = Math.max(0, lives);
+      // Announce life change to assistive tech so screen-reader users hear immediate feedback
+      try {
+        if (!lifeAnnouncer) lifeAnnouncer = document.getElementById('life-announcer');
+        if (lifeAnnouncer) {
+          const msg = lives > 0 ? ('Life lost. ' + lives + (lives === 1 ? ' life remaining.' : ' lives remaining.')) : 'Last life lost. Game over.';
+          try { lifeAnnouncer.textContent = msg; } catch (e) { /* ignore DOM update errors */ }
+        }
+      } catch (e) { /* ignore announcer errors */ }
       // small hit feedback: spawn particles and add screen shake when player loses a life
       try {
         const pcLost = 8;

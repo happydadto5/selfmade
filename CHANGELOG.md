@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.73.0
+- Accessibility: announce life loss to assistive tech when player loses a life (small)
+
 ## 2.72.0
 - UI: add "Changes" button to view recent changelog entries in-game (small)
 
