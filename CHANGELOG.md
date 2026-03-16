@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Accessibility: allow Enter/Space to toggle Auto-Pause button for keyboard users (tiny) — 2026-03-16
+
 ## 2.138.0
 - UI: improve Wave HUD visibility — increased contrast and font size for the Wave counter (tiny) — 2026-03-16
 
