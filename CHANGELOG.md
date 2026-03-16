@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.34.0
 - Mobile: hide on-screen touch buttons on non-touch devices; show only on touch devices (small)
 
 ## 2.33.0
