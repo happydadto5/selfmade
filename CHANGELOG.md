@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.17.0
 - UI: make transient tip box width responsive to canvas width to avoid overflow on small screens (small)
 
 ## 2.16.0
