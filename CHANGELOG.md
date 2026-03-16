@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.176.0
 - UX: Add transient touch hint toast styling to improve discoverability on touch devices (tiny) — 2026-03-16
 
 ## 2.175.0
