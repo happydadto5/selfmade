@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.177.0
 - Accessibility: announce auto-pause to assistive tech when window loses focus (tiny) — 2026-03-16
 
 ## 2.176.0
