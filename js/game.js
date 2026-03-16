@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.133.0';
+  const version = '2.134.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -524,6 +524,8 @@ if (overlay) {
       // Make the overlay focusable and move focus to it so screen readers announce the pause/overlay state
       overlay.setAttribute('tabindex', '-1');
       try { overlay.focus(); } catch (e) { /* ignore focus errors */ }
+      // Accessibility: when showing overlay due to pause, focus the Resume button so keyboard and touch users can quickly resume
+      try { if (show && !gameOver && typeof resumeBtn !== 'undefined' && resumeBtn) { resumeBtn.focus(); } } catch (e) { /* ignore focus errors */ }
       // Small accessibility/UX hook: add a class to the document body when the overlay is visible
       // so CSS can style the paused state (e.g., dimming, cursor changes). Keep this defensive.
       try { document.body.classList.add('paused'); } catch (e) { /* ignore */ }

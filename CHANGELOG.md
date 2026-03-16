@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.134.0
+- Accessibility: focus Resume button when overlay appears for pause so keyboard and touch users can quickly resume (tiny) — 2026-03-16
+
 ## 2.133.0
 - Accessibility: increase auto-pause debounce to 350ms to reduce accidental pauses (tiny) — 2026-03-16
 
