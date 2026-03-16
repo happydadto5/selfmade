@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Chore: read scripts/prompt.txt, suggestion.txt, and future.md; add short changelog entry (2026-03-16)
+
 ## 2.41.0
 - Chore: allow pen (stylus) pointer to reposition player on pointermove so pen users can drag the player (small) — 2026-03-16
 
