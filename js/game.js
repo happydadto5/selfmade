@@ -20,7 +20,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
-  const version = '1.27.0';
+  const version = '1.28.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -99,6 +99,13 @@
         pausedByFocus = false;
         if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (!paused && !gameOver) ? 'true' : 'false');
       }
+    }
+    // 'M' toggles sound mute/unmute (persisted)
+    if (e.key === 'm' || e.key === 'M') {
+      soundEnabled = !soundEnabled;
+      localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0');
+      if (soundEnabled) ensureAudio();
+      updateMuteUI();
     }
   });
   window.addEventListener('keyup', e => {

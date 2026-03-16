@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.28.0
+- UI: add 'M' keyboard shortcut to toggle mute (persisted to localStorage).
+
 ## Unreleased
 - Collaboration: expand `future.md` into a shared roadmap plus chat/notes document so LLM sessions can leave ideas, questions, and handoff notes.
 
