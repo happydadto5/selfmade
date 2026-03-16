@@ -293,6 +293,8 @@
         paused = !paused;
         // user toggled pause; clear pausedByFocus so auto-resume doesn't override user's intent
         pausedByFocus = false;
+        // Clear transient input state when user manually pauses to avoid stuck controls
+        if (paused) clearInputs();
         // If an auto-pause timeout was pending (blur/visibility debounce), clear it so manual toggle takes precedence
         if (typeof blurTimeout !== 'undefined' && blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
         if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
