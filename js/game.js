@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.18.0';
+  const version = '2.19.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -251,6 +251,31 @@ if (overlay) {
   // whether we suspended the AudioContext in response to an auto-pause so we can resume on focus/visibility restore
   let suspendedAudioByFocus = false;
   let blurTimeout = null;
+
+  // Accessibility polish: update document.title when the overlay shows an auto-pause so users
+  // switching tabs or on mobile are more likely to notice the paused state. Use a MutationObserver
+  // on the overlay (which is toggled when pausing) so this is small and non-invasive.
+  const originalTitle = (typeof document !== 'undefined' && document.title) ? document.title : 'Selfmade';
+  function setTitlePaused() { try { document.title = 'Paused — ' + originalTitle; } catch (e) { /* ignore title errors */ } }
+  function restoreTitle() { try { document.title = originalTitle; } catch (e) { /* ignore title errors */ } }
+  if (overlay) {
+    try {
+      const titleObserver = new MutationObserver(() => {
+        try {
+          const hidden = overlay.getAttribute('aria-hidden') === 'true';
+          // If overlay is visible and its message mentions paused, show paused title; otherwise restore
+          if (!hidden && overlayMessage && /paused/i.test(overlayMessage.textContent || '')) {
+            setTitlePaused();
+          } else {
+            restoreTitle();
+          }
+        } catch (e) { /* ignore observer errors */ }
+      });
+      titleObserver.observe(overlay, { attributes: true, attributeFilter: ['aria-hidden'] });
+      // Also ensure title is restored when the page is unloading
+      window.addEventListener('beforeunload', restoreTitle, { passive: true });
+    } catch (e) { /* ignore initialization errors */ }
+  }
   window.addEventListener('blur', () => {
     // wait a short time before pausing to avoid accidental pauses on transient focus loss
     blurTimeout = setTimeout(() => {

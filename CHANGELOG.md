@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.19.0
+- Accessibility: update document.title to indicate auto-paused when overlay shows pause (small)
+
 ## 2.18.0
 - Chore: add short changelog entry noting project-docs read (scripts/prompt.txt, suggestion.txt, future.md) (2026-03-16)
 
