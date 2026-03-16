@@ -10,11 +10,12 @@
 
 ### How It Works
 1. `selfmade.bat` runs in a loop on the developer's machine
-2. Each iteration, it verifies `gpt-5-mini` against live GitHub-hosted Copilot model info, then asks GitHub Copilot CLI to make **one small improvement**
-3. A validation script checks for syntax errors and security violations
-4. If validation passes, the version is bumped, changes are committed, and pushed to GitHub
-5. GitHub Pages automatically deploys the latest version
-6. The loop pauses, then repeats
+2. At the start of each iteration, it cleans up any leftover unfinished auto-generated changes from the previous attempt while preserving collaborator-managed files like `suggestion.txt`
+3. It verifies `gpt-5-mini` against live GitHub-hosted Copilot model info, then asks GitHub Copilot CLI to make **one small improvement**
+4. A validation script checks for syntax errors and security violations
+5. If validation passes, the version is bumped, changes are committed, and pushed to GitHub
+6. GitHub Pages automatically deploys the latest version
+7. The loop pauses, then repeats
 
 ### Versioning
 - The first version number advances once per day: day one releases are `1.x.0`, the next day becomes `2.x.0`, and so on.

@@ -28,6 +28,21 @@ echo.
 call :LOG ============================================================
 call :LOG Iteration start: %date% %time%
 
+node scripts\cleanup_incomplete_iteration.js > "%TEMP%\selfmade_startup_cleanup.txt" 2>&1
+set "STARTUP_CLEANUP_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%TEMP%\selfmade_startup_cleanup.txt" "startup cleanup"
+if not "%STARTUP_CLEANUP_EXIT%"=="0" (
+    if exist "%TEMP%\selfmade_startup_cleanup.txt" type "%TEMP%\selfmade_startup_cleanup.txt"
+    echo [!] Startup cleanup failed. Resolve the repo state and retry.
+    call :LOG Startup cleanup failed.
+    goto PAUSE
+)
+if exist "%TEMP%\selfmade_startup_cleanup.txt" (
+    for /f "usebackq delims=" %%A in ("%TEMP%\selfmade_startup_cleanup.txt") do set "STARTUP_CLEANUP_STATUS=%%A"
+    call :LOG startup cleanup status: !STARTUP_CLEANUP_STATUS!
+)
+del "%TEMP%\selfmade_startup_cleanup.txt" >nul 2>&1
+
 node scripts\sync_suggestion_file.js > "%TEMP%\selfmade_suggestion_sync.txt" 2>&1
 set "SUGGESTION_SYNC_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%TEMP%\selfmade_suggestion_sync.txt" "suggestion sync"

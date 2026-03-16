@@ -4,6 +4,7 @@
 - Accessibility: improve overlay message readability when paused (small) — 2026-03-16
 
 ## Unreleased
+- Automation: clean up unfinished prior-iteration files at startup before starting a new loop, while preserving collaborator-managed files like `suggestion.txt`.
 
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; added small changelog entry (2026-03-16)
 
@@ -288,3 +289,5 @@
 - Player at bottom, waves of enemies, cartoony art.
 - Hybrid controls: keyboard + touch.
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
+
+- TEMP cleanup test
