@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- UI: colorize Lives HUD hearts for clearer at-a-glance status (small)
+
+## Unreleased
 - Accessibility: pause on window blur/visibility to avoid background execution and resume when focus returns (small)
 
 ## Unreleased
