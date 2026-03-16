@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.11.0
+- Accessibility: add aria-label to overlay for screen readers (small)
+
 ## 2.10.0
 - Chore: add short changelog entry for this iteration (accessibility/overlay/pause note) (2026-03-16)
 

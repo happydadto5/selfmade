@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.10.0';
+  const version = '2.11.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -172,6 +172,8 @@ if (overlay) {
     overlayMessage.setAttribute('role', 'status');
     overlayMessage.setAttribute('aria-live', 'polite');
     overlay.insertBefore(overlayMessage, overlay.firstChild);
+    // Provide an accessible label for the overlay to clarify its purpose to screen readers
+    overlay.setAttribute('aria-label', 'Game overlay — paused or game over');
   }
   // Helper to set overlay visibility and accessible dialog attributes
   function setOverlayVisible(show) {
