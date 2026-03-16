@@ -20,7 +20,8 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
     bottom: 12px;
     width: 0;
     height: 33vh; /* runs about one-third up the page */
-    border-left: 1px dashed rgba(255,255,255,0.5);
+    /* Slightly darker color for better contrast on the sky background while remaining subtle */
+    border-left: 1px dashed rgba(0,0,0,0.12);
     pointer-events: none;
     z-index: 50;
     opacity: 0.95;
