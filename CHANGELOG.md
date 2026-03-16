@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.138.0
+- UI: improve Wave HUD visibility — increased contrast and font size for the Wave counter (tiny) — 2026-03-16
+
 ## 2.137.0
 - UX: add pointer-event support for touch/pen to map full-screen touch zones (left 25% move left, center fire, right 25% move right) (tiny) — 2026-03-16
 
