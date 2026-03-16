@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.115.0';
+  const version = '2.116.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -755,6 +755,23 @@ if (overlay) {
       if (!paused && !gameOver && typeof overlayMessage !== 'undefined' && overlayMessage) { try { overlayMessage.textContent = ''; } catch (e) {} }
     }
   });
+  // Allow pointer/click to resume when auto-paused due to focus loss (helpful for touch users)
+  try {
+    window.addEventListener('pointerdown', () => {
+      if (paused && pausedByFocus && !gameOver) {
+        paused = false;
+        pausedByFocus = false;
+        // Resume audio if we suspended it due to auto-pause
+        if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+          if (soundEnabled) { try { audioCtx.resume(); } catch (e) {} }
+          suspendedAudioByFocus = false;
+        }
+        // Restore canvas focus for keyboard users
+        try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) {}
+        if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+      }
+    }, { passive: true });
+  } catch (e) { /* ignore */ }
 
   // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
   document.addEventListener('visibilitychange', () => { if (!autoPauseEnabled) return;

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.116.0
+- Accessibility: allow pointer/click to resume when auto-paused due to focus loss (small)
+
 ## 2.115.0
 - Accessibility: announce wave number to assistive tech when a new wave starts (tiny) — 2026-03-16
 
