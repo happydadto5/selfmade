@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: announce wave number to assistive tech when a new wave starts (tiny) — 2026-03-16
+
 ## 2.114.0
 - UX: increase transient tip display from 4s to 6s to improve discoverability on mobile and touch devices (tiny)
 
