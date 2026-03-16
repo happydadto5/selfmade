@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.122.0';
+  const version = '2.123.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -749,8 +749,8 @@ if (overlay) {
   });
   window.addEventListener('focus', () => {
     if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
-    // only unpause if the pause was caused by focus loss and the game isn't over
-    if (pausedByFocus && !gameOver) {
+    // only unpause if the pause was caused by focus loss, the game isn't over, and auto-pause is still enabled
+    if (pausedByFocus && !gameOver && autoPauseEnabled) {
       paused = false;
     }
     pausedByFocus = false;
@@ -773,7 +773,7 @@ if (overlay) {
   // Allow pointer/click to resume when auto-paused due to focus loss (helpful for touch users)
   try {
     window.addEventListener('pointerdown', () => {
-      if (paused && pausedByFocus && !gameOver) {
+      if (paused && pausedByFocus && !gameOver && autoPauseEnabled) {
         paused = false;
         pausedByFocus = false;
         // Resume audio if we suspended it due to auto-pause

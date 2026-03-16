@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.123.0
+- Accessibility: respect Auto-Pause preference when auto-resuming on focus/visibility (tiny) — 2026-03-16
+
 ## 2.122.0
 - UI: improve overlay layout and contrast for paused/game-over panel (tiny) — 2026-03-16
 
