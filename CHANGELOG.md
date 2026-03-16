@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: reduce auto-pause debounce to 120ms for snappier resume (tiny) — 2026-03-16
+
 ## 2.94.0
 - UI: add M/O keyboard hints to on-screen tip for quicker discovery (tiny) — 2026-03-16
 
