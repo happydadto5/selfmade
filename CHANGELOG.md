@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+- Docs: read scripts/prompt.txt, suggestion.txt, and future.md to align priorities and roadmap. (small)
+
+## Unreleased
 - Chore: add short changelog entry for this iteration (small incremental improvement touching CHANGELOG.md)
 
 ## Unreleased
