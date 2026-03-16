@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: sync Auto-Pause button when toggled via keyboard (O) so HUD updates immediately (tiny)
+
 ## 2.128.0
 - Accessibility: keep HUD aria-hidden in sync when toggling HUD visibility so screen readers reflect the change (tiny) — 2026-03-16
 

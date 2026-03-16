@@ -338,6 +338,8 @@
       }
       try { announcer.textContent = autoPauseEnabled ? 'Auto-pause enabled' : 'Auto-pause disabled'; } catch (err) { /* ignore */ }
       try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) { /* ignore */ }
+      // Ensure the Auto-Pause toggle button updates when the preference is changed via the keyboard shortcut
+      try { if (typeof updateAutoPauseUI === 'function') updateAutoPauseUI(); } catch (e) { /* ignore */ }
     }
     // 'C' toggles colorblind-friendly palette (accessibility). Persisted to localStorage and announced to assistive tech.
     if (e.key === 'c' || e.key === 'C') {
