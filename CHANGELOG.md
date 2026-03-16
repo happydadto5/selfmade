@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.13.0
 - Tweak: increase auto-pause debounce from 250ms to 300ms to reduce accidental pauses when quickly switching tabs (small)
 
 ## 2.12.0

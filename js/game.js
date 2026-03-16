@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.12.0';
+  const version = '2.13.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
