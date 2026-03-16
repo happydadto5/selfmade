@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 2.76.0
 - UI: Larger life hearts in HUD for better visibility (small)
 
 ## 2.75.0
