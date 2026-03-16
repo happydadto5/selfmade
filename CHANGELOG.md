@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: add H key as alternate help toggle (small) — 2026-03-16
+
 ## 2.110.0
 - UI: add Resume button to overlay for easier resume on touch and accessibility (tiny) — 2026-03-16
 

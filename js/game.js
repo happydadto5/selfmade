@@ -6,7 +6,7 @@
   // keyboard and screen-reader users can discover how to play without editing HTML.
   try {
     canvas.setAttribute('role', 'application');
-    canvas.setAttribute('aria-label', 'Garden shooter game canvas — use arrow keys or A/D to move; Space or tap center to fire. Press I for help.');
+    canvas.setAttribute('aria-label', 'Garden shooter game canvas — use arrow keys or A/D to move; Space or tap center to fire. Press I or H for help.');
     canvas.setAttribute('tabindex', '0');
   } catch (e) { /* ignore attribute errors in older browsers */ }
   let cw, ch;
@@ -371,7 +371,7 @@
     }
 
     // 'I' toggles a brief help overlay describing controls. Closes when pressed again or when Escape is pressed.
-    if (e.key === 'i' || e.key === 'I') {
+    if (e.key === 'i' || e.key === 'I' || e.key === 'h' || e.key === 'H') {
       try {
         helpOpen = !helpOpen;
         if (helpOpen) {
@@ -503,7 +503,7 @@ if (overlay) {
       if (typeof changesOpen !== 'undefined' && changesOpen) {
         overlayMessage.textContent = 'Recent changes — click or press Esc to close';
       } else if (typeof helpOpen !== 'undefined' && helpOpen) {
-        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode.';
+        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I or H to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode.';
       } else if (gameOver) {
         overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
       } else if (pausedByFocus) {
