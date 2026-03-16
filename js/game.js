@@ -495,7 +495,17 @@ if (overlay) {
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
     if (waveEl) waveEl.textContent = 'Wave: ' + waveNumber;
     if (livesEl) {
-      livesEl.textContent = 'Lives: ' + '♥'.repeat(lives);
+      // Build accessible HUD: prefix text then colorized heart spans to avoid innerHTML usage
+      while (livesEl.firstChild) livesEl.removeChild(livesEl.firstChild);
+      livesEl.appendChild(document.createTextNode('Lives: '));
+      for (let i = 0; i < lives; i++) {
+        const span = document.createElement('span');
+        span.textContent = '♥';
+        span.style.color = '#e53935';
+        span.style.marginRight = '4px';
+        span.setAttribute('aria-hidden', 'true');
+        livesEl.appendChild(span);
+      }
       livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
     }
     if (versionEl) versionEl.textContent = 'v' + version + ' — High: ' + highScore;

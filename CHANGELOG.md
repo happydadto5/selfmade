@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: colorize Lives HUD hearts using accessible DOM spans (small)
+
+## Unreleased
+
 - Accessibility: focus canvas on resume when returning to the page so keyboard users regain control (small)
 
 ## Unreleased
