@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.83.0';
+  const version = '2.84.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -501,6 +501,11 @@ if (overlay) {
       paused = false;
       pausedByFocus = false;
       if (overlay) overlay.setAttribute('aria-hidden', 'true');
+      // If audio was suspended by our auto-pause, resume it now when the user explicitly unpauses.
+      if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+        if (soundEnabled) { try { audioCtx.resume(); } catch (e) { /* ignore resume errors */ } }
+        suspendedAudioByFocus = false;
+      }
       // After unpausing via the overlay, restore keyboard focus to the canvas so users can continue with keys.
       try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
     }

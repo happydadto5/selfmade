@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.84.0
+- Accessibility: resume suspended audio when user unpauses via overlay (small)
+
 ## 2.83.0
 - Reliability: clear global pointercancel to avoid stuck controls on some devices (small)
 
