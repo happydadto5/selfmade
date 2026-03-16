@@ -3,424 +3,704 @@
 ## Unreleased
 - Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
-## 2.149.0
+
+
+149.0
 - UI: add subtle drop shadow to canvas HUD and wave banner for improved readability on busy backgrounds (tiny)
 
-## 2.148.0
+
+
+148.0
 - UX: show thin dashed guide line near the top third of the canvas when touch is detected to reveal touch zones (tiny) — 2026-03-16
 
-## 2.147.0
+
+
+147.0
 - Accessibility: announce new wave number via ARIA live region (tiny) — 2026-03-16
 
-## 2.146.0
+
+
+146.0
 - UI: increase Wave HUD font size slightly for readability (tiny) — 2026-03-16
 
-## 2.145.0
+
+
+145.0
 - Accessibility: clarify paused message when auto-paused due to focus loss (tiny) — 2026-03-16
 
-## 2.144.0
+
+
+144.0
 - UX: show live "New high score!" badge and play chime when player surpasses previous high score (tiny) — 2026-03-16
 
-## 2.143.0
+
+
+143.0
 - Accessibility/UX: prevent touch scrolling during gameplay by setting canvas touch-action to 'none' (tiny)
 
-## 2.142.0
+
+
+142.0
 - UX: improve visibility of touch-zone guide lines shown after first touch (tiny)
 
-## 2.141.0
+
+
+141.0
 - UX: improve touch-guide detection to also handle pointerdown events on touch devices (tiny) — 2026-03-16
 
-## 2.140.0
+
+
+140.0
 - Roadmap: add last-updated timestamp to future.md and note suggestion handling (tiny) — 2026-03-16
 
-## 2.139.0
+
+
+139.0
 - Accessibility: allow Enter/Space to toggle Auto-Pause button for keyboard users (tiny) — 2026-03-16
 
-## 2.138.0
+
+
+138.0
 - UI: improve Wave HUD visibility — increased contrast and font size for the Wave counter (tiny) — 2026-03-16
 
-## 2.137.0
+
+
+137.0
 - UX: add pointer-event support for touch/pen to map full-screen touch zones (left 25% move left, center fire, right 25% move right) (tiny) — 2026-03-16
 
-## 2.136.0
+
+
+136.0
 - Roadmap: captured mobile-first garden guidance in future.md (tiny) — 2026-03-16
 
-## 2.135.0
+
+
+135.0
 - Accessibility: honor prefers-reduced-motion by reducing non-essential animations and transitions (tiny) — 2026-03-16
 
-## 2.134.0
+
+
+134.0
 - Accessibility: focus Resume button when overlay appears for pause so keyboard and touch users can quickly resume (tiny) — 2026-03-16
 
-## 2.133.0
+
+
+133.0
 - Accessibility: increase auto-pause debounce to 350ms to reduce accidental pauses (tiny) — 2026-03-16
 
-## 2.132.0
+
+
+132.0
 - Accessibility: clarify pause-on-blur overlay message to include tap for touch users (tiny) — 2026-03-16
 
-## 2.131.0
+
+
+131.0
 - UI: include current score in document title while playing so tab shows score (tiny) — 2026-03-16
 
-## 2.130.0
+
+
+130.0
 - Accessibility: add focus styles for Auto-Pause button to improve keyboard focus visibility (tiny) — 2026-03-16
 
-## 2.129.0
+
+
+129.0
 - UI: sync Auto-Pause button when toggled via keyboard (O) so HUD updates immediately (tiny)
 
-## 2.128.0
+
+
+128.0
 - Accessibility: keep HUD aria-hidden in sync when toggling HUD visibility so screen readers reflect the change (tiny) — 2026-03-16
 
-## 2.127.0
+
+
+127.0
 - Accessibility: increase auto-pause debounce to 300ms to reduce accidental pauses (tiny) — 2026-03-16
 
-## 2.125.0
+
+
+125.0
 - Accessibility: add colorblind-mode toggle (press C) — small — 2026-03-16
 
-## 2.124.0
+
+
+124.0
 - Accessibility: add 'auto-paused' body class when auto-paused due to focus/visibility to enable CSS hooks for paused state (tiny) — 2026-03-16
 
-## 2.123.0
+
+
+123.0
 - Accessibility: respect Auto-Pause preference when auto-resuming on focus/visibility (tiny) — 2026-03-16
 
-## 2.122.0
+
+
+122.0
 - UI: improve overlay layout and contrast for paused/game-over panel (tiny) — 2026-03-16
 
-## 2.121.0
+
+
+121.0
 - UX: show dashed touch-zone guides only briefly after the first touch (mobile) — tiny — 2026-03-16
 
-## 2.120.0
+
+
+120.0
 - Gameplay: start new wave immediately when restarting so players don't wait (tiny) — 2026-03-16
 
-## 2.119.0
+
+
+119.0
 - UI: add Auto-Pause toggle button to HUD for quick accessibility toggling (tiny) — 2026-03-16
 
-## 2.118.0
+
+
+118.0
 - Accessibility: respect prefers-reduced-motion by disabling screen shake (tiny) — 2026-03-16
 
-## 2.117.0
+
+
+117.0
 - UI: add .paused body class when overlay is visible to enable CSS hooks for paused state (tiny)
 
-## 2.116.0
+
+
+116.0
 - Accessibility: allow pointer/click to resume when auto-paused due to focus loss (small)
 
-## 2.115.0
+
+
+115.0
 - Accessibility: announce wave number to assistive tech when a new wave starts (tiny) — 2026-03-16
 
-## 2.114.0
+
+
+114.0
 - UX: increase transient tip display from 4s to 6s to improve discoverability on mobile and touch devices (tiny)
 
-## 2.112.0
+
+
+112.0
 - Fix: avoid keybinding conflict by reserving H for HUD toggle and I for Help; H no longer opens Help (tiny) — 2026-03-16
 
-## 2.111.0
+
+
+111.0
 - Accessibility: add H key as alternate help toggle (small) — 2026-03-16
 
-## 2.110.0
+
+
+110.0
 - UI: add Resume button to overlay for easier resume on touch and accessibility (tiny) — 2026-03-16
 
-## 2.109.0
+
+
+109.0
 - UI: initialize HUD on load so Lives and Wave counters show current values and ARIA attributes are set (tiny) — 2026-03-16
 
-## 2.108.0
+
+
+108.0
 - Accessibility: clear transient input state when manually pausing to avoid stuck controls (tiny)
 
-## 2.107.0
+
+
+107.0
 - UX: show clearer touch-zone guide lines at 25% and 75% on touch devices to match in-canvas guides (tiny) — 2026-03-16
 
-## 2.106.0
+
+
+106.0
 - Accessibility: increase auto-pause debounce to 200ms to reduce accidental pauses — 2026-03-16
 
-## 2.105.0
+
+
+105.0
 - UX: show dashed touch guide briefly after first touch to keep screen uncluttered (tiny) — 2026-03-16
 
-## 2.104.0
+
+
+104.0
 - UI: add subtle translucent background, padding, and rounded corners to the #ui HUD for improved contrast and readability — 2026-03-16
 
-## 2.103.0
+
+
+103.0
 - Accessibility: clarify auto-pause overlay message to include Space/click resume hint (tiny) — 2026-03-16
 
-## 2.102.0
+
+
+102.0
 - Accessibility: fix Auto-Pause toggle aria-pressed state to reflect current setting (tiny) — 2026-03-16
 
-## 2.101.0
+
+
+101.0
 - Accessibility: visible focus ring for interactive controls (mute/help/changes/replay/touch) (tiny) — 2026-03-16
 
-## 2.100.0
+
+
+100.0
 - Add Auto-pause toggle button to the in-game UI and announce state to assistive tech (tiny) — 2026-03-16
 
-## 2.99.0
+
+
+99.0
 - Help overlay: include keys O (auto-pause), M (mute), and C (colorblind) in help text for discoverability (tiny) — 2026-03-16
 
-## 2.98.0
+
+
+98.0
 - Accessibility: respect prefers-reduced-motion for HUD pulse animations (tiny) — 2026-03-16
 
-## 2.97.0
+
+
+97.0
 - Acknowledge suggestion.txt persistent garden-theme guidance; captured into future.md (tiny) — 2026-03-16
 
-## 2.96.0
+
+
+96.0
 - Add refreshVersionHUD helper and call it when toggling auto-pause to update the HUD (tiny) — 2026-03-16
 
-## 2.95.0
+
+
+95.0
 - Accessibility: reduce auto-pause debounce to 120ms for snappier resume (tiny) — 2026-03-16
 
-## 2.94.0
+
+
+94.0
 - UI: add M/O keyboard hints to on-screen tip for quicker discovery (tiny) — 2026-03-16
 
-## 2.93.0
+
+
+93.0
 - Accessibility: mark autopause announcer aria-atomic for reliable screen reader announcements (tiny) — 2026-03-16
 
-## 2.92.0
+
+
+92.0
 - Accessibility: reduce auto-pause debounce to 220ms for snappier resume (tiny) — 2026-03-16
 
-## 2.91.0
+
+
+91.0
 - Accessibility: make 'Changes' button keyboard accessible (role, tabindex, Enter/Space activation) (small) — 2026-03-16
 
-## 2.90.0
+
+
+90.0
 - Accessibility: make mute button keyboard-accessible (role + key activation) (small) — 2026-03-16
 
-## 2.89.0
+
+
+89.0
 - Avoid auto-pausing while pointer/touch is active to prevent interruptions during touch-hold (small) — 2026-03-16
 
-## 2.88.0
+
+
+88.0
 - Accessibility: add descriptive aria-describedby for game canvas to help screen reader users (small)
 
-## 2.87.0
+
+
+87.0
 - Accessibility: announce new high score to assistive tech when a run ends (small)
 
-## 2.86.0
+
+
+86.0
 - Accessibility: focus game canvas on pointer interaction so keyboard controls work after tap/click (small) — 2026-03-16
 
-## 2.85.0
+
+
+85.0
 - Fix: remove redundant focus handler to avoid duplicate overlay messages on resume (small) — 2026-03-16
 
-## 2.84.0
+
+
+84.0
 - Accessibility: resume suspended audio when user unpauses via overlay (small)
 
-## 2.83.0
+
+
+83.0
 - Reliability: clear global pointercancel to avoid stuck controls on some devices (small)
 
-## 2.82.0
+
+
+82.0
 - UI: show auto-pause state in version HUD so players can see whether auto-pause is enabled (small)
 
-## 2.81.0
+
+
+81.0
 - Persist auto-pause preference in localStorage (toggle O) (small)
 
-## 2.80.0
+
+
+80.0
 - Add 'O' key to toggle auto-pause on blur/visibility (accessibility preference)
 
-## 2.79.0
+
+
+79.0
 - Accessibility: allow Space to resume when paused (keyboard convenience) (small)
 
-## 2.78.0
+
+
+78.0
 - Accessibility: centralize auto-pause debounce constant and use it for blur/visibility handlers (small)
 
-## 2.77.0
+
+
+77.0
 - Accessibility: add hidden live region to announce life changes to assistive tech (small)
 
-## 2.76.0
+
+
+76.0
 - UI: Larger life hearts in HUD for better visibility (small)
 
-## 2.75.0
+
+
+75.0
 - UI: improved canvas HUD background and pulsing when wave or life changes (small)
 
-## 2.74.0
+
+
+74.0
 - Fix: remove redundant focus handler to avoid duplicate overlay messages on resume (small)
 
-## 2.73.0
+
+
+73.0
 - Accessibility: announce life loss to assistive tech when player loses a life (small)
 
-## 2.72.0
+
+
+72.0
 - UI: add "Changes" button to view recent changelog entries in-game (small)
 
-## 2.71.0
+
+
+71.0
 - Cap enemy spawn speed to keep waves beatable (small)
 
-## 2.70.0
+
+
+70.0
 - Accessibility: pause on blur/visibility with short debounce; suspend/resume audio and announce overlay for screen readers (small)
 
-## 2.69.0
+
+
+69.0
 - UI: increase Wave HUD font-size for better readability (small)
 
-## 2.68.0
+
+
+68.0
 - Add visual feedback (particles and small screen shake) when player loses a life (small)
 
-## 2.67.0
+
+
+67.0
 - Add help overlay toggled with I key and Help button; displays basic controls and closes with I, Escape, or click (small)
 
-## 2.66.0
+
+
+66.0
 - Accessibility: add a colorblind-friendly palette toggle (press C) and persist preference (small)
 
-## 2.65.0
+
+
+65.0
 - Mobile: show a low-contrast dashed guide line near the top third of the screen when touch input is detected (small)
 
-## 2.64.0
+
+
+64.0
 - Accessibility: add 'S' as an alternate key to toggle sound (small)
 
-## 2.63.0
+
+
+63.0
 - UX: show keyboard restart hint on canvas when game is over (press R) (small)
 
-## 2.62.0
+
+
+62.0
 - Roadmap: expand mobile touch guidance in future.md to capture full-screen touch-zone details (left 25% move left, right 25% move right, center 50% fire) — small
 
-## 2.61.0
+
+
+61.0
 - UI: add HUD toggle (press H) to hide/show DOM HUD for distraction-free play (small)
 
-## 2.60.0
+
+
+60.0
 - Fix: update overlayMessage safely on window focus to avoid replacing the DOM element and potential runtime errors (small)
 
-## 2.59.0
+
+
+59.0
 - Fix: remove duplicate blur handler that overwrote overlayMessage and could cause runtime errors when focus is lost (small) — 2026-03-16
 
-## 2.58.0
+
+
+58.0
 - Accessibility: pause game on window blur; show overlay hint (small) — 2026-03-16
 
-## 2.57.0
+
+
+57.0
 - Accessibility: show focus outline on canvas when focused to improve keyboard discoverability (small) — 2026-03-16
 
-## 2.56.0
+
+
+56.0
 - Accessibility: announce mute button state changes to assistive tech using aria-live (small) — 2026-03-16
 
-## 2.55.0
+
+
+55.0
 - Accessibility: clear overlay message on auto-resume to avoid stale ARIA announcements (small) — 2026-03-16
 
-## 2.54.0
+
+
+54.0
 - Audio: play short chime on new wave start (small) — 2026-03-16
 
-## 2.53.0
+
+
+53.0
 - Accessibility: include current wave in document title while playing so users notice progress when tabbed away (small) — 2026-03-16
 
-## 2.52.0
+
+
+52.0
 - UI: draw HUD on canvas showing Wave and Lives (small) — 2026-03-16
 
-## 2.51.0
+
+
+51.0
 - Visual: improve canvas rendering for high-DPI displays (use devicePixelRatio scaling) to make graphics crisper (small) — 2026-03-16
 
-## 2.50.0
+
+
+50.0
 - Pause: clear pending blur timeout on pagehide to avoid stray timers (small) — 2026-03-16
 
-## 2.49.0
+
+
+49.0
 - UI: pulse Wave HUD when a new wave starts (small) — 2026-03-16
 
-## 2.48.0
+
+
+48.0
 - UI: adjust dashed touch-guide line to 1/3 width (small) — 2026-03-16
 
-## 2.47.0
+
+
+47.0
 - Accessibility: set overlay role to dialog and include aria-modal when overlay is toggled for clearer screen-reader semantics (small) — 2026-03-16
 
-## 2.46.0
+
+
+46.0
 - UI: slightly increase overlay message font-size for better readability (small) — 2026-03-16
 
-## 2.45.0
+
+
+45.0
 - Robustness: guard localStorage reads/writes with try/catch so the game works when localStorage is unavailable; defaults to sensible values (small) — 2026-03-16
 
-## 2.44.0
+
+
+44.0
 - UI: adjust touch-guide dashed line to left 25% to better match touch-zone layout (small)
 
-## 2.43.0
+
+
+43.0
 - Docs: clean up suggestion.txt wording for readability (small) — 2026-03-16
 
-## 2.42.0
+
+
+42.0
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; add short changelog entry (2026-03-16)
 
-## 2.41.0
+
+
+41.0
 - Chore: allow pen (stylus) pointer to reposition player on pointermove so pen users can drag the player (small) — 2026-03-16
 
-## 2.40.0
+
+
+40.0
 - Accessibility: ensure pause on blur/visibility clears inputs and suspends audio; resume on focus (small)
 
-## 2.39.0
+
+
+39.0
 - Fix: robustly parse persisted high score to avoid NaN when localStorage contains invalid value (small)
 
-## 2.38.0
+
+
+38.0
 - Visual: add subtle screen shake on enemy destruction (small visual effect)
 
-## 2.37.0
+
+
+37.0
 - Pause: clear pending blur/visibility auto-pause timer on unload to avoid stray timeouts (small)
 
-## 2.36.0
+
+
+36.0
 - Accessibility: guard overlay message against undefined waveNumber to avoid 'undefined' appearing (small) — 2026-03-16
 
-## 2.35.0
+
+
+35.0
 - UX: prevent context menu on canvas to avoid accidental menu on right-click during play (small)
 
-## 2.34.0
+
+
+34.0
 - Mobile: hide on-screen touch buttons on non-touch devices; show only on touch devices (small)
 
-## 2.33.0
+
+
+33.0
 - UI: include final wave count in Game Over overlay message (small)
 
-## 2.32.0
+
+
+32.0
 - Fix: clear firing state on pointerup anywhere to avoid stuck fire on pointer devices (small)
 
-## 2.31.0
+
+
+31.0
 - UI: increase Wave HUD font-size and contrast to improve readability (small)
 
-## 2.30.0
+
+
+30.0
 - UI: pulse Lives HUD briefly when a life is lost to provide clearer feedback (small)
 
-## 2.29.0
+
+
+29.0
 - Focus: focus canvas on initial load so keyboard users can play immediately (small)
 
-## 2.28.0
+
+
+28.0
 - Accessibility: mark touch-controls aria-hidden to avoid redundant controls for screen readers (small)
 
-## 2.27.0
+
+
+27.0
 - Fix: clear touch inputs on touchend/touchcancel to avoid stuck controls on some Android devices (small)
 
-## 2.26.0
+
+
+26.0
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; add short changelog entry (2026-03-16)
 
-## 2.25.0
+
+
+25.0
 - Accessibility: increase overlay contrast to improve readability (small)
 
-## 2.24.0
+
+
+24.0
 - Fix: clear touch input on touchcancel to avoid stuck controls (small)
 
-## 2.23.0
+
+
+23.0
 - Accessibility: focus canvas on initial load to enable keyboard controls (small)
 
-## 2.22.0
+
+
+22.0
 - Fix: prevent touchmove scrolling on canvas to improve mobile controls (small)
 
-## 2.21.0
+
+
+21.0
 - UI: update in-game tip to mention garden theme and touch controls (small)
 
-## 2.20.0
+
+
+20.0
 - Accessibility: allow Enter/Return to resume from pause when not game over (small)
 
-## 2.19.0
+
+
+19.0
 - Accessibility: update document.title to indicate auto-paused when overlay shows pause (small)
 
-## 2.18.0
+
+
+18.0
 - Chore: add short changelog entry noting project-docs read (scripts/prompt.txt, suggestion.txt, future.md) (2026-03-16)
 
-## 2.17.0
+
+
+17.0
 - UI: make transient tip box width responsive to canvas width to avoid overflow on small screens (small)
 
-## 2.16.0
+
+
+16.0
 - Accessibility: announce auto-pauses using assertive overlay message so screen readers are notified immediately (small)
 
-## 2.15.0
+
+
+15.0
 - Fix: resume audio on restart when sound is enabled (small)
 
-## 2.14.0
+
+
+14.0
 - Perf: mark mousedown and global mouseup listeners as passive to improve input responsiveness on touch devices (small)
 
-## 2.13.0
+
+
+13.0
 - Tweak: increase auto-pause debounce from 250ms to 300ms to reduce accidental pauses when quickly switching tabs (small)
 
-## 2.12.0
+
+
+12.0
 - Fix: accept modern 'Space' key label in keyboard handlers for firing (keyboard compatibility) (small)
 
-## 2.11.0
+
+
+11.0
 - Accessibility: add aria-label to overlay for screen readers (small)
 
-## 2.10.0
+
+
+10.0
 - Chore: add short changelog entry for this iteration (accessibility/overlay/pause note) (2026-03-16)
 
-## 2.9.0
+
+
+9.0
 - Accessibility: increase HUD contrast for improved readability (small)
 
-## 2.8.0
+
+
+8.0
 - Fix: correct touch coordinate math so touch zones map to canvas; fixes Android right-stuck movement (small)
 
 
@@ -428,25 +708,39 @@
 
 - Collaboration: update guidance so `future.md` changes only when it adds meaningful roadmap or collaboration value, not on most loops.
 
-## 2.7.0
+
+
+7.0
 - Accessibility/UX: prevent touch scrolling on the game canvas (touch-action: none) to improve mobile controls (small)
 
-## 2.6.0
+
+
+6.0
 - Chore: extract input-clearing helper and use it to avoid duplicated input-clearing code (small)
 
-## 2.5.0
+
+
+5.0
 - UI: show live high score in HUD while running (small)
 
-## 2.4.0
+
+
+4.0
 - Accessibility: focus canvas on restart so keyboard users regain control (small)
 
-## 2.3.0
+
+
+3.0
 - UI: clarify touch controls tip and mention dashed touch-guide lines (small)
 
-## 2.2.0
+
+
+2.0
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; add short Unreleased changelog entry (2026-03-16)
 
-## 2.1.0
+
+
+1.0
 - Fix: clear pending auto-pause timer when user toggles pause to avoid race with blur/visibility auto-pause (small)
 
 
@@ -458,7 +752,9 @@
 - Perf: debounce window resize handler to reduce layout thrash on rapid resizes (small)
 - UI: add z-index to overlay so pause/game-over overlay sits above other UI elements (small)
 
-## 2.0.0
+
+
+0.0
 - Accessibility: improve overlay message readability when paused (small) — 2026-03-16
 
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; small incremental update (2026-03-16)
@@ -624,10 +920,14 @@
 
 - UI: overlay now includes a contextual accessible message when paused or on game over.
 
-## 1.29.0
+
+
+29.0
 - Pause: suspend AudioContext when auto-paused by blur/visibilitychange; resume on focus/visibility restore when appropriate.
 
-## 1.28.0
+
+
+28.0
 - UI: add 'M' keyboard shortcut to toggle mute (persisted to localStorage).
 
 
@@ -635,16 +935,24 @@
 
 - Collaboration: expand `future.md` into a shared roadmap plus chat/notes document so LLM sessions can leave ideas, questions, and handoff notes.
 
-## 1.27.0
+
+
+27.0
 - Code: declare `wavePulseUntil` to avoid implicit global when spawning waves.
 
-## 1.26.0
+
+
+26.0
 - UI: briefly flash a "Wave X" banner when a new wave begins to make progression clearer.
 
-## 1.25.0
+
+
+25.0
 - Removed implemented '! The controls for android ...' suggestion from suggestion.txt after adding touch-zone controls in js/game.js.
 
-## 1.24.0
+
+
+24.0
 - Add subtle dashed touch-zone guide lines for mobile to make controls more discoverable.
 
 
@@ -652,58 +960,94 @@
 
 - Collaboration: `!` suggestion lines now mean do next if safe, then remove after they are materially used.
 
-## 1.23.0
+
+
+23.0
 - UI: start first wave immediately on load so Wave counter reflects active gameplay.
 
-## 1.22.0
+
+
+22.0
 - Fix: clear transient input keys on visibilitychange to avoid stuck controls when the page/tab is hidden.
 
-## 1.21.0
+
+
+21.0
 - Perf: mark canvas pointerdown listener as passive to improve touch responsiveness (js/game.js)
 
-## 1.20.0
+
+
+20.0
 - Chore: add short changelog entry for this iteration (small incremental improvement).
 
-## 1.19.0
+
+
+19.0
 - Pause: when auto-paused by window blur/visibility loss, clear input keys to prevent stuck controls.
 
-## 1.18.0
+
+
+18.0
 - Pause: clear input keys when auto-paused (prevents stuck controls on focus loss)
 
-## 1.17.0
+
+
+17.0
 - Chore: add brief Unreleased entry describing this iteration's small change (CHANGELOG updated).
 
-## 1.16.0
+
+
+16.0
 - Controls: clicking with a mouse now repositions the player to the clicked X coordinate (improves mouse control).
 
-## 1.15.0
+
+
+15.0
 - Fix: ensure mouseup outside canvas clears firing state to avoid stuck fire when releasing the mouse outside the canvas.
 
-## 1.14.0
+
+
+14.0
 - Allow clicking paused overlay to resume (accessible): clicking the overlay will unpause the game when paused and not game over.
 
-## 1.13.0
+
+
+13.0
 - Stability: clamp animation frame delta (dt) to avoid large update steps after tab switches or long pauses.
 
-## 1.12.0
+
+
+12.0
 - Chore: add short changelog entry for this iteration (updated CHANGELOG.md).
 
-## 1.11.0
+
+
+11.0
 - Guard: avoid startup error when canvas #game is missing; script now aborts gracefully.
 
-## 1.10.0
+
+
+10.0
 - Robustness: guard HUD updates against missing DOM elements to avoid runtime errors.
 
-## 1.9.0
+
+
+9.0
 - Controls: add mouse pointer movement to control the player (move mouse to reposition player over canvas)
 
-## 1.8.0
+
+
+8.0
 - UI: add dedicated accessible Wave counter in HUD (visible and announced to screen readers)
 
-## 1.7.0
+
+
+7.0
 - Accessibility: announce pause/game-over overlay to screen readers by adding aria-live and role to #overlay in index.html
 
-## 1.6.0
+
+
+6.0
 - Mobile: add simple touch zones (left/right edges to move, center to fire) and update in-game tip.
 
 
@@ -715,19 +1059,27 @@
 - Automation: auto-merge trusted local and remote suggestion additions instead of stalling the loop on every shared `suggestion.txt` edit.
 - Accessibility: announce HUD version to screen readers (added aria-live to #version)
 
-## 1.5.0
+
+
+5.0
 - Accessibility: focus Play Again button on Game Over so keyboard and screen-reader users can restart the game more easily.
 
-## 1.4.0
+
+
+4.0
 - Automation: sync `suggestion.txt` up and down with GitHub before each iteration, while pausing on conflicting local+remote edits instead of guessing.
 - Images: rebalance daily image credits to allow up to 100 small images or 10 large backgrounds per day.
 - Accessibility: announce score and lives updates to screen readers (aria-live)
 
-## 1.3.0
+
+
+3.0
 - Safety: harden automation and validation against unsafe suggestions that try to access files, device/browser permissions, uploads, redirects, or background APIs.
 - UI: show brief controls hint on startup (4s)
 
-## 1.2.0
+
+
+2.0
 - Automation: replace `timeout` with a key-consuming pause helper so skipping the wait no longer leaves stray console input like `'ext'` behind.
 - Automation: finalize changelog notes into real version headings on release so the newest versioned section stays at the top.
 - UI: show lives as hearts in the HUD for clearer at-a-glance status.
@@ -785,11 +1137,14 @@
 - UI: sync in-game displayed version to match index.html (now v0.1.6).
 - UI: synced game.js reported version to v0.1.6 to keep HUD consistent with index.html.
 
-## 0.1.0 - Initial minimal playable game
+
+
+1.0 - Initial minimal playable game
 - Player at bottom, waves of enemies, cartoony art.
 - Hybrid controls: keyboard + touch.
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
+
 
 
