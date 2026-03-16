@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: include final wave count in Game Over overlay message (small)
+
 ## 2.32.0
 - Fix: clear firing state on pointerup anywhere to avoid stuck fire on pointer devices (small)
 

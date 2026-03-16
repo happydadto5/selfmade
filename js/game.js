@@ -212,7 +212,7 @@ if (overlay) {
   function updateOverlayMessage() {
     if (!overlayMessage) return;
     try {
-      if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score;
+      if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + waveNumber;
       else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — return to this tab to resume';
       else if (paused) overlayMessage.textContent = 'Paused — press P or Esc to resume';
       else overlayMessage.textContent = '';
