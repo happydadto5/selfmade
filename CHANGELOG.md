@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Docs: tidy suggestion.txt formatting (trim blank lines/whitespace) (tiny) — 2026-03-16
+
 ## 2.183.0
 - UX: When pressing 'T' to preview touch guides, in-canvas separators and pulse now also appear (tiny).
 
