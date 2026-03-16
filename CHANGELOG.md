@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Controls: clicking with a mouse now repositions the player to the clicked X coordinate (improves mouse control).
+
 ## 1.15.0
 - Fix: ensure mouseup outside canvas clears firing state to avoid stuck fire when releasing the mouse outside the canvas.
 

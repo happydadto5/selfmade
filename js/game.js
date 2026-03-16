@@ -391,6 +391,16 @@ if (overlay) {
       player.x = Math.max(20, Math.min(cw - 20, x));
     }
   });
+  // Mouse click: pointerdown repositions player for mouse users (click to move) and also starts firing while pressed
+  canvas.addEventListener('pointerdown', function(e){
+    if (e.pointerType === 'mouse') {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      player.x = Math.max(20, Math.min(cw - 20, x));
+      keys.fire = true;
+      if (soundEnabled) ensureAudio();
+    }
+  });
   // Touch zones: left 25% = move left, right 25% = move right, center = fire. Uses touchstart/touchend for responsive mobile controls.
   canvas.addEventListener('touchstart', function(e){
     for (let i=0;i<e.changedTouches.length;i++) {
