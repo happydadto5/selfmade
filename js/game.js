@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.0.0';
+  const version = '2.1.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -119,6 +119,8 @@
         paused = !paused;
         // user toggled pause; clear pausedByFocus so auto-resume doesn't override user's intent
         pausedByFocus = false;
+        // If an auto-pause timeout was pending (blur/visibility debounce), clear it so manual toggle takes precedence
+        if (typeof blurTimeout !== 'undefined' && blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
         if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       }
     }
