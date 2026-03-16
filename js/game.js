@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.62.0';
+  const version = '2.63.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -732,6 +732,9 @@ if (overlay) {
       } else {
         ctx.font = '20px sans-serif';
         ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
+        // Keyboard hint to restart the game for accessibility/clarity
+        ctx.font = '16px sans-serif';
+        ctx.fillText('Press R to restart', cw/2, ch/2 + 84);
       }
     }
     if (typeof overlay !== 'undefined' && overlay) {

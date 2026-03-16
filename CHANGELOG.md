@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.63.0
+- UX: show keyboard restart hint on canvas when game is over (press R) (small)
+
 ## 2.62.0
 - Roadmap: expand mobile touch guidance in future.md to capture full-screen touch-zone details (left 25% move left, right 25% move right, center 50% fire) — small
 
