@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.96.0
+- Add refreshVersionHUD helper and call it when toggling auto-pause to update the HUD (tiny) — 2026-03-16
+
 ## 2.95.0
 - Accessibility: reduce auto-pause debounce to 120ms for snappier resume (tiny) — 2026-03-16
 

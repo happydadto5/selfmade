@@ -46,9 +46,40 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
+
+  function refreshVersionHUD() {
+    try {
+      // Update version line (shows version, current or persisted high score, and auto-pause state)
+      const displayHigh = Math.max(highScore, score);
+      if (versionEl) {
+        try { versionEl.textContent = 'v' + version + ' — High: ' + displayHigh + (autoPauseEnabled ? ' — Auto-pause: On' : ' — Auto-pause: Off'); } catch (e) { /* ignore DOM errors */ }
+      }
+      // Update lives HUD to reflect current lives (keeps existing DOM structure)
+      if (livesEl) {
+        try {
+          while (livesEl.firstChild) livesEl.removeChild(livesEl.firstChild);
+          livesEl.appendChild(document.createTextNode('Lives: '));
+          for (let i = 0; i < lives; i++) {
+            const span = document.createElement('span');
+            span.textContent = '♥';
+            span.style.color = '#e53935';
+            span.style.marginRight = '4px';
+            span.setAttribute('aria-hidden', 'true');
+            livesEl.appendChild(span);
+          }
+          livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
+        } catch (e) { /* ignore DOM errors */ }
+      }
+      // Update wave HUD if present
+      if (waveEl) {
+        try { waveEl.textContent = 'Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0); } catch (e) { /* ignore DOM errors */ }
+      }
+    } catch (e) { /* ignore */ }
+  }
+
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.95.0';
+  const version = '2.96.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -290,6 +321,7 @@
         document.body.appendChild(announcer);
       }
       try { announcer.textContent = autoPauseEnabled ? 'Auto-pause enabled' : 'Auto-pause disabled'; } catch (err) { /* ignore */ }
+      try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) { /* ignore */ }
     }
     // 'H' toggles HUD visibility (accessibility / distraction-free). Announces state to assistive tech.
     if (e.key === 'h' || e.key === 'H') {
