@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.44.0
 - UI: adjust touch-guide dashed line to left 25% to better match touch-zone layout (small)
 
 ## 2.43.0
