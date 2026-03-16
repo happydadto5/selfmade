@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.21.0
+- Perf: mark canvas pointerdown listener as passive to improve touch responsiveness (js/game.js)
+
 ## 1.20.0
 - Chore: add short changelog entry for this iteration (small incremental improvement).
 

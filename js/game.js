@@ -20,7 +20,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
-  const version = '1.20.0';
+  const version = '1.21.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -402,7 +402,7 @@ if (overlay) {
       keys.fire = true;
       if (soundEnabled) ensureAudio();
     }
-  });
+  }, { passive: true });
   // Touch zones: left 25% = move left, right 25% = move right, center = fire. Uses touchstart/touchend for responsive mobile controls.
   canvas.addEventListener('touchstart', function(e){
     for (let i=0;i<e.changedTouches.length;i++) {
