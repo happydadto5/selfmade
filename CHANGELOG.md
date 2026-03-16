@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.60.0
 - Fix: update overlayMessage safely on window focus to avoid replacing the DOM element and potential runtime errors (small)
 
 ## 2.59.0
