@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.31.0';
+  const version = '2.32.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -656,6 +656,8 @@ if (overlay) {
   canvas.addEventListener('mouseup', e => keys.fire = false);
   // Also clear firing state on mouseup anywhere to avoid stuck fire if mouse is released outside the canvas
   window.addEventListener('mouseup', () => { keys.fire = false; }, { passive: true });
+  // Also clear firing state on pointerup for pointer-based devices (pen, touch) to avoid stuck fire
+  window.addEventListener('pointerup', () => { keys.fire = false; keys.left = false; keys.right = false; }, { passive: true });
   // Mouse movement control: move player to the pointer X position (improves mouse playability)
   canvas.addEventListener('pointermove', function(e){
     if (e.pointerType === 'mouse') {
