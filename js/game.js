@@ -20,7 +20,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
-  const version = '1.28.0';
+  const version = '1.29.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -158,6 +158,8 @@ if (overlay) {
   // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
   let paused = false;
   let pausedByFocus = false;
+  // whether we suspended the AudioContext in response to an auto-pause so we can resume on focus/visibility restore
+  let suspendedAudioByFocus = false;
   let blurTimeout = null;
   window.addEventListener('blur', () => {
     // wait a short time before pausing to avoid accidental pauses on transient focus loss
@@ -166,6 +168,11 @@ if (overlay) {
       pausedByFocus = true;
       // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
       keys.left = keys.right = keys.fire = false;
+      // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
+      if (audioCtx && audioCtx.state === 'running') {
+        try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
+        suspendedAudioByFocus = true;
+      }
       blurTimeout = null;
       if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
     }, 150);
@@ -177,6 +184,13 @@ if (overlay) {
       paused = false;
     }
     pausedByFocus = false;
+    // If we suspended audio due to auto-pause, resume it when focus returns (respecting the user's sound setting)
+    if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+      if (soundEnabled) {
+        try { audioCtx.resume(); } catch (e) { /* ignore resume errors */ }
+      }
+      suspendedAudioByFocus = false;
+    }
     if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
   });
 
@@ -189,6 +203,11 @@ if (overlay) {
         pausedByFocus = true;
         // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
         keys.left = keys.right = keys.fire = false;
+        // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
+        if (audioCtx && audioCtx.state === 'running') {
+          try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
+          suspendedAudioByFocus = true;
+        }
         if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', 'false');
       }
     } else {
@@ -196,6 +215,13 @@ if (overlay) {
         paused = false;
       }
       pausedByFocus = false;
+      // If audio was suspended by our auto-pause, resume it when visibility returns (respecting user's sound setting)
+      if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+        if (soundEnabled) {
+          try { audioCtx.resume(); } catch (e) { /* ignore resume errors */ }
+        }
+        suspendedAudioByFocus = false;
+      }
       if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
     }
   });

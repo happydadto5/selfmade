@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.29.0
+- Pause: suspend AudioContext when auto-paused by blur/visibilitychange; resume on focus/visibility restore when appropriate.
+
 ## 1.28.0
 - UI: add 'M' keyboard shortcut to toggle mute (persisted to localStorage).
 
