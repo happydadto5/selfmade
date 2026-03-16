@@ -596,7 +596,7 @@ if (overlay) {
           else document.body.appendChild(btn);
         }
         btn.textContent = autoPauseEnabled ? 'Auto-Pause: On' : 'Auto-Pause: Off';
-        btn.setAttribute('aria-pressed', (!autoPauseEnabled).toString());
+        btn.setAttribute('aria-pressed', autoPauseEnabled.toString());
         btn.setAttribute('aria-label', autoPauseEnabled ? 'Auto-pause enabled. Click to disable.' : 'Auto-pause disabled. Click to enable.');
         btn.setAttribute('role', 'button');
         btn.setAttribute('tabindex', '0');
