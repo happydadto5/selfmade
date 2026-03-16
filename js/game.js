@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.111.0';
+  const version = '2.112.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -371,7 +371,7 @@
     }
 
     // 'I' toggles a brief help overlay describing controls. Closes when pressed again or when Escape is pressed.
-    if (e.key === 'i' || e.key === 'I' || e.key === 'h' || e.key === 'H') {
+    if (e.key === 'i' || e.key === 'I') {
       try {
         helpOpen = !helpOpen;
         if (helpOpen) {

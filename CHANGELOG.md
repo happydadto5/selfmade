@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.112.0
+- Fix: avoid keybinding conflict by reserving H for HUD toggle and I for Help; H no longer opens Help (tiny) — 2026-03-16
+
 ## 2.111.0
 - Accessibility: add H key as alternate help toggle (small) — 2026-03-16
 
