@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased`r`n- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).`r`n
+## Unreleased
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 # Changelog
 
 ## 2.149.0
