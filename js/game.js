@@ -128,7 +128,24 @@
 // overlay and replay button
 const overlay = document.getElementById('overlay');
 const replayBtn = document.getElementById('replayBtn');
-if (overlay) overlay.setAttribute('aria-hidden', 'true');
+// create or locate a simple accessible message element inside the overlay so screen readers
+// and users know whether the game is paused or over. This is created dynamically to avoid
+// requiring index.html edits and keeps the change small and reversible.
+let overlayMessage = null;
+if (overlay) {
+  overlayMessage = overlay.querySelector('.overlay-message');
+  if (!overlayMessage) {
+    overlayMessage = document.createElement('div');
+    overlayMessage.className = 'overlay-message';
+    overlayMessage.style.marginBottom = '8px';
+    overlayMessage.style.fontSize = '18px';
+    overlayMessage.style.color = '#fff';
+    overlayMessage.setAttribute('role', 'status');
+    overlayMessage.setAttribute('aria-live', 'polite');
+    overlay.insertBefore(overlayMessage, overlay.firstChild);
+  }
+  overlay.setAttribute('aria-hidden', 'true');
+}
 if (replayBtn) replayBtn.addEventListener('click', () => {
   gameOver = false;
   paused = false;
@@ -439,7 +456,15 @@ if (overlay) {
         ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
       }
     }
-    if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
+    if (typeof overlay !== 'undefined' && overlay) {
+      overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
+      // keep an accessible textual hint in the DOM overlay for screen readers and non-canvas users
+      try {
+        if (typeof overlayMessage !== 'undefined' && overlayMessage) {
+          overlayMessage.textContent = gameOver ? ('Game Over — Final Score: ' + score) : 'Paused — press P or Esc to resume';
+        }
+      } catch (e) { /* ignore if overlayMessage not available */ }
+    }
   }
 
   let last = performance.now();

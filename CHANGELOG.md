@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: overlay now includes a contextual accessible message when paused or on game over.
+
 ## 1.29.0
 - Pause: suspend AudioContext when auto-paused by blur/visibilitychange; resume on focus/visibility restore when appropriate.
 
