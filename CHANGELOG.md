@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: Add a brief touch-discovery hint shown on first touch to improve mobile discoverability (tiny) — 2026-03-16
+
 ## 2.180.0
 - UX: Clarify help overlay to include touch controls hint (tiny) — 2026-03-16
 
