@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.120.0
 - Gameplay: start new wave immediately when restarting so players don't wait (tiny) — 2026-03-16
 
 ## 2.119.0
