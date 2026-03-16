@@ -578,6 +578,54 @@ if (overlay) {
   // Preference: allow the user to disable auto-pause on blur/visibility (toggled with O). Defaults to enabled for safety.
   // Persist preference in localStorage ('1' = enabled, '0' = disabled)
   let autoPauseEnabled = (function(){ try { const v = localStorage.getItem('selfmade_autopause'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
+  // Create an Auto-pause toggle button in the UI for discoverability and accessibility.
+  // This small UI control mirrors the O key and persists the preference to localStorage.
+  try {
+    function updateAutoPauseUI() {
+      try {
+        let btn = document.getElementById('autopauseBtn');
+        if (!btn) {
+          btn = document.createElement('button');
+          btn.id = 'autopauseBtn';
+          btn.title = 'Toggle auto-pause (shortcut: O)';
+          btn.style.marginLeft = '6px';
+          // Insert after the mute button if present for consistent placement
+          const ref = document.getElementById('muteBtn');
+          if (ref && ref.parentNode) ref.parentNode.insertBefore(btn, ref.nextSibling);
+          else if (document.getElementById('ui')) document.getElementById('ui').appendChild(btn);
+          else document.body.appendChild(btn);
+        }
+        btn.textContent = autoPauseEnabled ? 'Auto-Pause: On' : 'Auto-Pause: Off';
+        btn.setAttribute('aria-pressed', (!autoPauseEnabled).toString());
+        btn.setAttribute('aria-label', autoPauseEnabled ? 'Auto-pause enabled. Click to disable.' : 'Auto-pause disabled. Click to enable.');
+        btn.setAttribute('role', 'button');
+        btn.setAttribute('tabindex', '0');
+        btn.onclick = () => {
+          autoPauseEnabled = !autoPauseEnabled;
+          try { localStorage.setItem('selfmade_autopause', autoPauseEnabled ? '1' : '0'); } catch (e) { /* ignore */ }
+          // Announce the change to assistive tech
+          let announcer = document.getElementById('autopause-announcer');
+          if (!announcer) {
+            announcer = document.createElement('div');
+            announcer.id = 'autopause-announcer';
+            announcer.style.position = 'absolute';
+            announcer.style.left = '-9999px';
+            announcer.style.width = '1px';
+            announcer.style.height = '1px';
+            announcer.setAttribute('aria-live', 'polite');
+            announcer.setAttribute('aria-atomic', 'true');
+            document.body.appendChild(announcer);
+          }
+          try { announcer.textContent = autoPauseEnabled ? 'Auto-pause enabled' : 'Auto-pause disabled'; } catch (e) { /* ignore */ }
+          try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) { /* ignore */ }
+          // Refresh the button text/attributes
+          try { updateAutoPauseUI(); } catch (e) { /* ignore */ }
+        };
+      } catch (e) { /* ignore UI creation errors */ }
+    }
+    // Initialize the button UI
+    try { updateAutoPauseUI(); } catch (e) { /* ignore */ }
+  } catch (e) { /* ignore */ }
   // Keep pointer state updated across pointer/touch events so we can avoid accidental auto-pauses while interacting
   try {
     window.addEventListener('pointerdown', () => { pointerActive = true; }, { passive: true });
