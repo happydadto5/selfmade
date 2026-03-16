@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Chore: add short changelog entry for this iteration (small incremental improvement touching CHANGELOG.md)
+
+## Unreleased
 - Accessibility: focus overlay when auto-paused so screen readers are notified.
 
 ## Unreleased
