@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.133.0
+- Accessibility: increase auto-pause debounce to 350ms to reduce accidental pauses (tiny) — 2026-03-16
+
 ## 2.132.0
 - Accessibility: clarify pause-on-blur overlay message to include tap for touch users (tiny) — 2026-03-16
 
