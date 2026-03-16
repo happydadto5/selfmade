@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.145.0
 - Accessibility: clarify paused message when auto-paused due to focus loss (tiny) — 2026-03-16
 
 ## 2.144.0
