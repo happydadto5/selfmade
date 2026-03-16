@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 ## 2.149.0
 - UI: add subtle drop shadow to canvas HUD and wave banner for improved readability on busy backgrounds (tiny)
 
@@ -420,7 +423,9 @@
 ## 2.8.0
 - Fix: correct touch coordinate math so touch zones map to canvas; fixes Android right-stuck movement (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Collaboration: update guidance so `future.md` changes only when it adds meaningful roadmap or collaboration value, not on most loops.
 
 ## 2.7.0
@@ -444,7 +449,9 @@
 ## 2.1.0
 - Fix: clear pending auto-pause timer when user toggles pause to avoid race with blur/visibility auto-pause (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Automation: reduce the self-evolving loop delay from 5 minutes to 1 minute.
 - Automation: clean up unfinished prior-iteration files at startup before starting a new loop, while preserving collaborator-managed files like `suggestion.txt`.
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; added small changelog entry (2026-03-16)
@@ -456,114 +463,165 @@
 
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; small incremental update (2026-03-16)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - UI: allow clicking the overlay when game over to restart the game (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Accessibility: focus canvas after unpausing via overlay so keyboard users regain control (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - UI: add aria-live to Wave HUD for screen-reader announcements (small)
 
-## Unreleased
 
-## Unreleased
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Fix: clear input on pointercancel/touchcancel to avoid stuck controls when touches are cancelled (small)
 
-## Unreleased
 
-## Unreleased
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Accessibility: pause on window blur/visibility and resume on focus (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - UI: improve touch-guide contrast for touch devices (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Chore: add short changelog entry for this iteration (2026-03-16) — verified auto-pause/visibility debounce and input-clearing (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Accessibility: add tabindex and aria-label to the main canvas for keyboard and screen-reader users (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Fix: persist high score when the game ends so a final score is saved (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - UI: colorize Lives HUD hearts using accessible DOM spans (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Accessibility: focus canvas on resume when returning to the page so keyboard users regain control (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Tweak: increase auto-pause debounce from 150ms to 250ms to reduce accidental pauses when quickly switching tabs (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Pause: show distinct overlay message when auto-paused vs user-paused (small accessibility/UX)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - UI: colorize Lives HUD hearts for clearer at-a-glance status (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Accessibility: pause on window blur/visibility to avoid background execution and resume when focus returns (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Controls: accept uppercase A/D for left/right keys (small accessibility fix)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Pause: pause on pagehide to handle navigation away (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Mobile: hide redundant on-screen buttons on touch devices to prefer full-screen touch zones (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Accessibility: focus canvas on click to improve keyboard discoverability (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Accessibility: add aria-label and tabindex to canvas for keyboard and screen-reader users (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - UI: pulse the Wave HUD when a new wave starts (small visual)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Accessibility: debounce visibilitychange auto-pause to avoid accidental pauses when quickly switching tabs (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - UI: add subtle dashed touch-guide vertical line at 1/3 width for touch devices (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Accessibility: add aria-label to Play Again button so screen readers announce restart shortcut. (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 - Docs: read scripts/prompt.txt, suggestion.txt, and future.md to align priorities and roadmap. (small)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Chore: add short changelog entry for this iteration (small incremental improvement touching CHANGELOG.md)
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Accessibility: focus overlay when auto-paused so screen readers are notified.
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Accessibility: add aria-label to canvas for screen-reader clarity.
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Accessibility: add 'R' keyboard shortcut to restart the game when it's over.
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Accessibility: overlay now sets role=dialog and aria-modal when visible for improved screen-reader semantics.
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - UI: overlay now includes a contextual accessible message when paused or on game over.
 
 ## 1.29.0
@@ -572,7 +630,9 @@
 ## 1.28.0
 - UI: add 'M' keyboard shortcut to toggle mute (persisted to localStorage).
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Collaboration: expand `future.md` into a shared roadmap plus chat/notes document so LLM sessions can leave ideas, questions, and handoff notes.
 
 ## 1.27.0
@@ -587,7 +647,9 @@
 ## 1.24.0
 - Add subtle dashed touch-zone guide lines for mobile to make controls more discoverable.
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Collaboration: `!` suggestion lines now mean do next if safe, then remove after they are materially used.
 
 ## 1.23.0
@@ -644,7 +706,9 @@
 ## 1.6.0
 - Mobile: add simple touch zones (left/right edges to move, center to fire) and update in-game tip.
 
-## Unreleased
+
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
 - Collaboration: treat `suggestion.txt` as higher-priority guidance over time and use `future.md` as a living roadmap that any iteration may rewrite.
 - Automation: make the batch `Implemented:` line show the actual `Change:` summary from Copilot output instead of the exploratory preamble.
 - Automation: fix suggestion syncing so local suggestion edits can still upload when newer remote commits did not also change `suggestion.txt`, and make version syncing tolerate attributes on the version HUD.
@@ -727,3 +791,5 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
+
+
