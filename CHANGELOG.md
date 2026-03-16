@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.28.0
 - Accessibility: mark touch-controls aria-hidden to avoid redundant controls for screen readers (small)
 
 ## 2.27.0
