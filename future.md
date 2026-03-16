@@ -9,6 +9,7 @@ Guidance to LLM collaborators
 - You may add collaboration notes, open questions, tradeoffs, and raw ideas here when they do not fit neatly into the numbered roadmap.
 - You may rewrite old sections when they become stale or less useful.
 - Keep the roadmap practical, but do not be afraid to leave short notes for future sessions.
+- If recent changelog history shows many tiny or barely noticeable changes, steer upcoming work toward more visible gameplay, UI, or feel improvements.
 
 Priority themes
 - Keep the game fun, readable, and reliable.

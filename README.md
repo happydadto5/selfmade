@@ -17,6 +17,8 @@
 6. GitHub Pages automatically deploys the latest version
 7. The loop pauses, then repeats
 
+The automation is intended to balance reliability work with visible progress. If recent iterations have been dominated by tiny polish or accessibility tweaks, the guidance now biases the next changes toward more noticeable gameplay or UI improvements.
+
 ### Versioning
 - The first version number advances once per day: day one releases are `1.x.0`, the next day becomes `2.x.0`, and so on.
 - Each successful improvement on the same day increments the middle number, so versions progress like `1.0.0`, `1.1.0`, `1.2.0`.
