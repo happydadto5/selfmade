@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: focus canvas on resume when returning to the page so keyboard users regain control (small)
+
+## Unreleased
+
 - Tweak: increase auto-pause debounce from 150ms to 250ms to reduce accidental pauses when quickly switching tabs (small)
 
 ## Unreleased

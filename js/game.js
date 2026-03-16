@@ -257,6 +257,8 @@ if (overlay) {
       }
       suspendedAudioByFocus = false;
     }
+    // When focus returns after an auto-pause, restore keyboard focus to the canvas so users can resume with keys immediately.
+    try { if (!gameOver && !paused && canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) { /* ignore focus errors */ }
     if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
   });
 
