@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.86.0
+- Accessibility: focus game canvas on pointer interaction so keyboard controls work after tap/click (small) — 2026-03-16
+
 ## 2.85.0
 - Fix: remove redundant focus handler to avoid duplicate overlay messages on resume (small) — 2026-03-16
 

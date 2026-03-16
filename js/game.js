@@ -39,6 +39,8 @@
   resize();
   // Prevent right-click context menu on game canvas to avoid accidental interruption
   try { canvas.addEventListener('contextmenu', e => { e.preventDefault(); }); } catch (e) { /* ignore */ }
+  // Improve accessibility: focus the canvas on pointer interaction so keyboard controls work after tap/click
+  try { canvas.addEventListener('pointerdown', () => { try { canvas.focus(); } catch (e) {} }, { passive: true }); } catch (e) { /* ignore */ }
 
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
@@ -46,7 +48,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.85.0';
+  const version = '2.86.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
