@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.84.0';
+  const version = '2.85.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1098,28 +1098,4 @@ if (overlay) {
 
 
 
-  window.addEventListener('focus', function() {
-    try {
-      if (paused && !gameOver) {
-        try {
-          // Avoid overwriting the overlayMessage variable (which references a DOM element).
-          // Update its textContent instead; if it's missing, create a fallback element.
-          if (overlayMessage && typeof overlayMessage === 'object') {
-            try { overlayMessage.textContent = 'Focus regained — press P or Esc to resume'; } catch (e) { /* ignore DOM errors */ }
-          } else if (overlay) {
-            try {
-              overlayMessage = document.createElement('div');
-              overlayMessage.className = 'overlay-message';
-              overlayMessage.setAttribute('role', 'alert');
-              overlayMessage.setAttribute('aria-live', 'assertive');
-              overlayMessage.setAttribute('aria-atomic', 'true');
-              overlay.insertBefore(overlayMessage, overlay.firstChild);
-              overlayMessage.textContent = 'Focus regained — press P or Esc to resume';
-            } catch (e) { /* ignore creation errors */ }
-          }
-          setOverlayVisible(true);
-        } catch (e) { /* ignore if overlay helpers not available */ }
-      }
-    } catch (e) { /* ignore */ }
-  });
 })();

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.85.0
+- Fix: remove redundant focus handler to avoid duplicate overlay messages on resume (small) — 2026-03-16
+
 ## 2.84.0
 - Accessibility: resume suspended audio when user unpauses via overlay (small)
 
