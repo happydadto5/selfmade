@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Chore: add short changelog entry for this iteration (accessibility/overlay/pause note) (2026-03-16)
+
 ## 2.9.0
 - Accessibility: increase HUD contrast for improved readability (small)
 
