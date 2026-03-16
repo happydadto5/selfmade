@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.87.0
+- Accessibility: announce new high score to assistive tech when a run ends (small)
+
 ## 2.86.0
 - Accessibility: focus game canvas on pointer interaction so keyboard controls work after tap/click (small) — 2026-03-16
 

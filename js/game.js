@@ -48,7 +48,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.86.0';
+  const version = '2.87.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -742,7 +742,24 @@ if (overlay) {
         gameOver = true;
         paused = true;
         // Persist high score when the run ends
-        if (score > highScore) { highScore = score; try { localStorage.setItem('selfmade_highscore', highScore); } catch (e) { /* ignore storage errors */ } }
+        if (score > highScore) {
+          highScore = score;
+          try { localStorage.setItem('selfmade_highscore', highScore); } catch (e) { /* ignore storage errors */ }
+          // Announce new high score to assistive tech so screen-reader users hear the achievement
+          try {
+            let scoreAnn = document.getElementById('score-announcer');
+            if (!scoreAnn) {
+              scoreAnn = document.createElement('div');
+              scoreAnn.id = 'score-announcer';
+              scoreAnn.style.position = 'absolute';
+              scoreAnn.style.left = '-9999px';
+              scoreAnn.setAttribute('aria-live', 'polite');
+              scoreAnn.setAttribute('aria-atomic', 'true');
+              document.body.appendChild(scoreAnn);
+            }
+            scoreAnn.textContent = 'New high score: ' + highScore;
+          } catch (e) { /* ignore announcer errors */ }
+        }
         // Accessibility: when the game ends, reveal the overlay and focus the Play Again button
         if (typeof overlay !== 'undefined' && overlay && replayBtn) {
           overlay.setAttribute('aria-hidden', 'false');
