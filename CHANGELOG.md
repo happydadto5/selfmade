@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.111.0
 - Accessibility: add H key as alternate help toggle (small) — 2026-03-16
 
 ## 2.110.0
