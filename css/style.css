@@ -1,5 +1,7 @@
 html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, Arial, sans-serif;-webkit-font-smoothing:antialiased}
 #game{display:block;width:100%;height:100vh;touch-action:none;-ms-touch-action:none;-webkit-user-select:none;user-select:none}
+/* Accessibility: visible focus ring for keyboard users to improve canvas discoverability without changing gameplay */
+#game:focus, #game:focus-visible { outline: 3px solid rgba(30,136,229,0.55); outline-offset: 4px; }
 #ui{position:fixed;left:12px;top:8px;color:#000;font-size:18px;font-weight:700}
 #ui #lives{color:#b71c1c;font-weight:700;}
 #ui #wave{margin-top:4px;font-size:18px;color:#111;font-weight:700}

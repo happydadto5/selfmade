@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.57.0
+- Accessibility: show focus outline on canvas when focused to improve keyboard discoverability (small) — 2026-03-16
+
 ## 2.56.0
 - Accessibility: announce mute button state changes to assistive tech using aria-live (small) — 2026-03-16
 
