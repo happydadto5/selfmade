@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: increase auto-pause debounce to 300ms to reduce accidental pauses (tiny) — 2026-03-16
+
 ## 2.125.0
 - Accessibility: add colorblind-mode toggle (press C) — small — 2026-03-16
 
