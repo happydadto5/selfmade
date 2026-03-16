@@ -1,14 +1,9 @@
 # Changelog
 
 ## Unreleased
-
-- UX: briefly highlight full-screen touch zones with low-contrast overlays and labels on first touch to improve discoverability (tiny)
-
-## Unreleased
+- Automation: add a self-tuning process review that analyzes recent changelog history, nudges the prompt toward visible work when needed, and records a lightweight roadmap/process checkpoint about every 10 successful releases.
 - Automation: bias future iterations toward more noticeable gameplay/UI progress when recent changelog history has been dominated by tiny polish, accessibility, or roadmap-only updates.
 - Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
-
-# Changelog
 
 ## 2.149.0
 - UI: add subtle drop shadow to canvas HUD and wave banner for improved readability on busy backgrounds (tiny)
@@ -737,4 +732,6 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
+
+
 

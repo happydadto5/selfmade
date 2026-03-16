@@ -28,6 +28,9 @@ RULES (never violate):
 - Review recent CHANGELOG history before choosing a change. If recent iterations have been dominated by tiny accessibility/polish/roadmap updates, bias strongly toward a more noticeable gameplay or UI improvement next.
 - Avoid "changelog-only", "roadmap-only", or other non-user-visible housekeeping iterations unless the user explicitly asked for them or they are required to keep the loop healthy.
 - If your available tools can inspect rendered UI visually (for example via screenshots or image viewing), occasionally use that to spot obvious UI/layout/readability improvements. Do not force this every loop, but use it when helpful.
+- The automation may pass `ProcessReview:` and `MetaReviewDue:` hints into the prompt. Use them as self-adjusting guidance rather than static rules.
+- If `MetaReviewDue:YES`, do a quick roadmap/process review before choosing the one change. Usually still prefer a player-visible improvement, but if the roadmap is stale or conflicting you may spend that iteration refreshing `future.md` and the changelog to realign the project.
+- If `ProcessReview:` indicates `visible-weak:yes`, strongly prefer a more noticeable gameplay, UI, or game-feel improvement over another tiny polish pass.
 
 GOOD improvements (pick one per iteration):
 - Visible game improvements are great, but invisible improvements are also valid.

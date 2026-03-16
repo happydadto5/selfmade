@@ -15,6 +15,9 @@ set "VALIDATE_LOG=%TEMP%\selfmade_validate.txt"
 set "TEST_LOG=%TEMP%\selfmade_test.txt"
 set "GIT_LOG=%TEMP%\selfmade_git.txt"
 set "ROLLBACK_LOG=%TEMP%\selfmade_rollback.txt"
+set "PROCESS_REVIEW_LOG=%TEMP%\selfmade_process_review.txt"
+set "PROCESS_REVIEW_ERR=%TEMP%\selfmade_process_review_error.txt"
+set "PROCESS_RECORD_LOG=%TEMP%\selfmade_process_record.txt"
 
 echo ============================================================
 echo   SELFMADE — Self-Evolving Game Engine
@@ -115,7 +118,25 @@ if not "%PREP_CHANGELOG_EXIT%"=="0" (
     goto PAUSE
 )
 
-set PROMPT_EXTRA=ImageStatusSmall:%IMAGE_STATUS_SMALL% ImageStatusLarge:%IMAGE_STATUS_LARGE%
+set "PROCESS_REVIEW=recent0 gameplay:0 ui:0 polish:0 docs-process:0 reliability:0 unclear:0 visible-weak:no meta-review-due:no focus:keep-mixing-visible-progress-with-safe-maintenance"
+set "META_REVIEW_DUE=NO"
+del "%PROCESS_REVIEW_LOG%" >nul 2>&1
+del "%PROCESS_REVIEW_ERR%" >nul 2>&1
+node scripts\review_process.js prompt > "%PROCESS_REVIEW_LOG%" 2> "%PROCESS_REVIEW_ERR%"
+set "PROCESS_REVIEW_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%PROCESS_REVIEW_ERR%" "process review"
+if "%PROCESS_REVIEW_EXIT%"=="0" (
+    for /f "usebackq tokens=1,* delims==" %%A in ("%PROCESS_REVIEW_LOG%") do (
+        if /I "%%A"=="PROCESS_REVIEW" set "PROCESS_REVIEW=%%B"
+        if /I "%%A"=="META_REVIEW_DUE" set "META_REVIEW_DUE=%%B"
+    )
+) else (
+    call :LOG Process review analysis failed. Using default guidance.
+)
+del "%PROCESS_REVIEW_LOG%" >nul 2>&1
+del "%PROCESS_REVIEW_ERR%" >nul 2>&1
+call :LOG Process review: %PROCESS_REVIEW%
+set "PROMPT_EXTRA=ImageStatusSmall:%IMAGE_STATUS_SMALL% ImageStatusLarge:%IMAGE_STATUS_LARGE% ProcessReview:%PROCESS_REVIEW% MetaReviewDue:%META_REVIEW_DUE%"
 set "COPILOT_OUT=%TEMP%\selfmade_copilot.txt"
 set "CHANGE_SUMMARY="
 set "CHANGE_SUMMARY_FILE=%TEMP%\selfmade_change_summary.txt"
@@ -191,6 +212,23 @@ if not "%FINALIZE_CHANGELOG_EXIT%"=="0" (
     call :APPEND_FILE "%ROLLBACK_LOG%" "rollback"
     if exist "%ROLLBACK_LOG%" type "%ROLLBACK_LOG%"
     goto PAUSE
+)
+if /I "%META_REVIEW_DUE%"=="YES" (
+    del "%PROCESS_RECORD_LOG%" >nul 2>&1
+    node scripts\review_process.js record "%NEWVER%" YES > "%PROCESS_RECORD_LOG%" 2>&1
+    set "PROCESS_RECORD_EXIT=%ERRORLEVEL%"
+    call :APPEND_FILE "%PROCESS_RECORD_LOG%" "record process review"
+    if not "%PROCESS_RECORD_EXIT%"=="0" (
+        if exist "%PROCESS_RECORD_LOG%" type "%PROCESS_RECORD_LOG%"
+        echo [!] Process review state update failed. Rolling back this iteration.
+        call :LOG Process review state update failed for %NEWVER%.
+        del "%ROLLBACK_LOG%" >nul 2>&1
+        node scripts\rollback_iteration.js "%ROLLBACK_SNAPSHOT%" > "%ROLLBACK_LOG%" 2>&1
+        call :APPEND_FILE "%ROLLBACK_LOG%" "rollback"
+        if exist "%ROLLBACK_LOG%" type "%ROLLBACK_LOG%"
+        goto PAUSE
+    )
+    call :LOG Recorded process review checkpoint for %NEWVER%.
 )
 call :LOG Bumped version to %NEWVER%.
 

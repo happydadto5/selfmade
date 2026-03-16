@@ -19,6 +19,8 @@
 
 The automation is intended to balance reliability work with visible progress. If recent iterations have been dominated by tiny polish or accessibility tweaks, the guidance now biases the next changes toward more noticeable gameplay or UI improvements.
 
+The loop also now performs a lightweight self-review before each Copilot call. A small `PROCESS_STATE.json` file tracks when the last process review checkpoint happened, and `scripts/review_process.js` analyzes the recent changelog mix. If visible progress has been weak, the prompt is automatically biased harder toward noticeable gameplay/UI work. About every 10 successful releases, the system marks a roadmap/process review as due so future sessions can refresh direction before drift gets too large.
+
 ### Versioning
 - The first version number advances once per day: day one releases are `1.x.0`, the next day becomes `2.x.0`, and so on.
 - Each successful improvement on the same day increments the middle number, so versions progress like `1.0.0`, `1.1.0`, `1.2.0`.
@@ -38,6 +40,7 @@ The automation is intended to balance reliability work with visible progress. If
 - Any iteration may add future ideas, reorder priorities, replace stale items, rewrite the roadmap completely, or leave collaboration notes and open questions there.
 - It should not change on most loops; update it only when there is a meaningful roadmap, handoff, or collaboration improvement.
 - The roadmap is guidance, not a hard lock: a session can implement the next item, skip ahead, or interject a better idea if it improves the game.
+- Roughly every 10 successful releases, the automation now considers a lightweight roadmap/process review due. Those checkpoints should keep the roadmap fresh, not turn every loop into documentation work.
 
 ### Safety
 - A strict **Content Security Policy** blocks all external scripts, network calls, and inline code injection

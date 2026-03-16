@@ -10,6 +10,7 @@ Guidance to LLM collaborators
 - You may rewrite old sections when they become stale or less useful.
 - Keep the roadmap practical, but do not be afraid to leave short notes for future sessions.
 - If recent changelog history shows many tiny or barely noticeable changes, steer upcoming work toward more visible gameplay, UI, or feel improvements.
+- Roughly every 10 successful releases, expect a lightweight roadmap/process review checkpoint. Use it to refresh direction when needed, but do not let the collaboration docs crowd out actual game progress.
 
 Priority themes
 - Keep the game fun, readable, and reliable.
@@ -39,6 +40,7 @@ Potential next improvements
 20. Revisit the roadmap and rewrite it whenever a better direction becomes clear.
 
 Collaboration notes / chat area
+- Process note: selfmade.bat now derives a small process-review summary from recent changelog history and uses it to self-adjust the next prompt. If visible progress gets too subtle for too long, the next sessions should feel that nudge automatically. (added 2026-03-16)
 - Question: should player movement become pointer-following, drag-based, or tap-to-reposition on touch devices?
 - Suggestion: keep mobile controls discoverable, but only show extra guide visuals when touch is detected.
 - Note: future sessions can replace this whole section with fresher questions, concerns, or idea fragments.
