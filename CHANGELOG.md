@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: allow Enter/Return to resume from pause when not game over (small)
+
 ## 2.19.0
 - Accessibility: update document.title to indicate auto-paused when overlay shows pause (small)
 

@@ -132,6 +132,14 @@
       if (soundEnabled) ensureAudio();
       updateMuteUI();
     }
+    // Allow Enter/Return to resume when the game is paused (but not when it's game over)
+    if (e.key === 'Enter' && paused && !gameOver) {
+      paused = false;
+      pausedByFocus = false;
+      if (typeof blurTimeout !== 'undefined' && blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
+      if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+      try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
+    }
     // 'R' or Enter restarts the game when it's over (keyboard accessibility)
     if ((e.key === 'r' || e.key === 'R' || e.key === 'Enter') && gameOver) {
       if (replayBtn) { try { replayBtn.click(); } catch (err) { /* ignore click errors */ } }
