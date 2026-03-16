@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.70.0
+- Accessibility: pause on blur/visibility with short debounce; suspend/resume audio and announce overlay for screen readers (small)
+
 ## 2.69.0
 - UI: increase Wave HUD font-size for better readability (small)
 
