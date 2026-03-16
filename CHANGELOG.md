@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Collaboration: update guidance so `future.md` changes only when it adds meaningful roadmap or collaboration value, not on most loops.
+
 ## 2.7.0
 - Accessibility/UX: prevent touch scrolling on the game canvas (touch-action: none) to improve mobile controls (small)
 

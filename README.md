@@ -34,6 +34,7 @@
 ### future.md roadmap
 - `future.md` is a tracked living collaboration document for the project.
 - Any iteration may add future ideas, reorder priorities, replace stale items, rewrite the roadmap completely, or leave collaboration notes and open questions there.
+- It should not change on most loops; update it only when there is a meaningful roadmap, handoff, or collaboration improvement.
 - The roadmap is guidance, not a hard lock: a session can implement the next item, skip ahead, or interject a better idea if it improves the game.
 
 ### Safety
