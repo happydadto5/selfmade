@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.22.0
+- Fix: prevent touchmove scrolling on canvas to improve mobile controls (small)
+
 ## 2.21.0
 - UI: update in-game tip to mention garden theme and touch controls (small)
 

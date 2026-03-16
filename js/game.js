@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.21.0';
+  const version = '2.22.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -691,6 +691,11 @@ if (overlay) {
         else keys.fire = false;
       }
     }
+  }, {passive:false});
+
+  // Prevent touchmove scrolling when dragging on the canvas so mobile controls stay responsive
+  canvas.addEventListener('touchmove', function(e){
+    e.preventDefault();
   }, {passive:false});
   // Mirror touchcancel handling to ensure canceled touches also clear transient state
   canvas.addEventListener('touchcancel', function(e){
