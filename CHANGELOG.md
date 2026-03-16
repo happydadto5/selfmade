@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.108.0
 - Accessibility: clear transient input state when manually pausing to avoid stuck controls (tiny)
 
 ## 2.107.0
