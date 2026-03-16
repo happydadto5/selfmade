@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: add M/O keyboard hints to on-screen tip for quicker discovery (tiny) — 2026-03-16
+
 ## 2.93.0
 - Accessibility: mark autopause announcer aria-atomic for reliable screen reader announcements (tiny) — 2026-03-16
 
