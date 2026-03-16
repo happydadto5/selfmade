@@ -527,7 +527,9 @@ if (overlay) {
       }
       livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
     }
-    if (versionEl) versionEl.textContent = 'v' + version + ' — High: ' + highScore;
+    // Show the higher of persisted high score and current run score so HUD reflects when the player surpasses the high score live during a run.
+    const displayHigh = Math.max(highScore, score);
+    if (versionEl) versionEl.textContent = 'v' + version + ' — High: ' + displayHigh;
 
     // draw a temporary wave banner when a new wave starts (fades out)
     if (Date.now() < wavePulseUntil) {

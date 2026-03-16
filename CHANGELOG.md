@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: show live high score in HUD while running (small)
+
 ## 2.4.0
 - Accessibility: focus canvas on restart so keyboard users regain control (small)
 
