@@ -220,6 +220,8 @@ if (overlay) {
       paused = false;
       pausedByFocus = false;
       if (overlay) overlay.setAttribute('aria-hidden', 'true');
+      // After unpausing via the overlay, restore keyboard focus to the canvas so users can continue with keys.
+      try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
     }
   });
 }

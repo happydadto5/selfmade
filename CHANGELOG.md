@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: focus canvas after unpausing via overlay so keyboard users regain control (small)
+
+## Unreleased
 - UI: add aria-live to Wave HUD for screen-reader announcements (small)
 
 ## Unreleased
