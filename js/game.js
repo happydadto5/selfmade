@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.159.0';
+  const version = '2.160.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -930,7 +930,7 @@ if (overlay) {
 
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
-  const bullets = []; const enemies = []; const particles = []; let screenShake = 0;
+  const bullets = []; const enemies = []; const particles = []; const scorePopups = []; let screenShake = 0;
   let lastSpawn = 0; let waveNumber = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
@@ -1072,6 +1072,8 @@ if (overlay) {
           if (e.hp <= 0) {
             enemies.splice(i,1);
             score += 10;
+            // spawn a small floating score popup at the enemy position (visual polish)
+            try { scorePopups.push({ x: e.x, y: e.y, text: '+10', vy: -0.05, life: 800, totalLife: 800, color: '#ffff88' }); } catch (ex) { /* ignore */ }
             // If the player surpasses the previous high score during the run, update and show a small badge
             try {
               const prevHigh = highScore;
@@ -1130,6 +1132,14 @@ if (overlay) {
       p.vy += 0.05; // gravity
       p.life -= dt;
       if (p.life <= 0) particles.splice(i,1);
+    }
+
+    // update score popups (floating +points)
+    for (let i=scorePopups.length-1;i>=0;i--) {
+      const sp = scorePopups[i];
+      sp.y += (sp.vy || -0.02) * dt;
+      sp.life -= dt;
+      if (sp.life <= 0) scorePopups.splice(i,1);
     }
 
     screenShake = Math.max(0, screenShake - dt * 0.04);
@@ -1243,6 +1253,17 @@ if (overlay) {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
       ctx.fill();
+    }
+    // draw floating score popups
+    for (const sp of scorePopups) {
+      const alpha = Math.max(0, Math.min(1, sp.life / sp.totalLife));
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = sp.color || '#ffff88';
+      ctx.font = '18px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(sp.text, sp.x, sp.y);
+      ctx.restore();
     }
     ctx.fillStyle = '#fff'; for (const b of bullets) { ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.160.0
+- UI: show floating '+10' score popups when enemies are destroyed (small, visible polish)
+
 ## 2.159.0
 - UI: add subtle highlight behind Wave HUD when new wave starts to improve visibility (tiny)
 
