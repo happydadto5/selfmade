@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.164.0
+- Accessibility: Announce auto-pause to assistive tech when the page loses focus or visibility to improve screen-reader feedback (tiny)
+
 ## Unreleased
 
 - UX: Added discoverable full-screen touch zones (left 25% = move left, center 50% = fire, right 25% = move right) using pointer events; shows subtle dashed guides on first touch (tiny)

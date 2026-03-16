@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.163.0';
+  const version = '2.164.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -631,6 +631,26 @@ if (overlay) {
           }
         } catch (e) { /* ignore */ }
       }
+
+      // Announce auto-pause to assistive tech when overlay shows a paused message
+      try {
+        let ap = document.getElementById('autopause-announcer');
+        if (!ap) {
+          ap = document.createElement('div');
+          ap.id = 'autopause-announcer';
+          ap.style.position = 'absolute';
+          ap.style.left = '-9999px';
+          ap.style.width = '1px';
+          ap.style.height = '1px';
+          ap.setAttribute('aria-live', 'polite');
+          ap.setAttribute('aria-atomic', 'true');
+          document.body.appendChild(ap);
+        }
+        if (pausedByFocus) ap.textContent = 'Game paused — lost focus';
+        else if (paused) ap.textContent = 'Game paused';
+        else ap.textContent = '';
+      } catch (e) { /* ignore announcer errors */ }
+
     } catch (e) { /* ignore DOM race conditions */ }
   }
   setOverlayVisible(false);
