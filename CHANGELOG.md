@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Controls: accept uppercase A/D for left/right keys (small accessibility fix)
+
+## Unreleased
 - Pause: pause on pagehide to handle navigation away (small)
 
 ## Unreleased
