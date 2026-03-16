@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.166.0
+- UI: show enemies remaining in HUD (tiny)
+
 ## 2.165.0
 - Accessibility: increase auto-pause debounce to 450ms to reduce accidental pauses (tiny)
 

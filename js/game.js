@@ -48,6 +48,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
+  const enemiesEl = document.getElementById('enemies');
 
   function refreshVersionHUD() {
     try {
@@ -76,12 +77,16 @@
       if (waveEl) {
         try { waveEl.textContent = 'Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0); } catch (e) { /* ignore DOM errors */ }
       }
+      // Update enemies HUD if present
+      if (enemiesEl) {
+        try { enemiesEl.textContent = 'Enemies: ' + (typeof enemies !== 'undefined' ? enemies.length : 0); } catch (e) { /* ignore DOM errors */ }
+      }
     } catch (e) { /* ignore */ }
   }
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.165.0';
+  const version = '2.166.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1350,6 +1355,9 @@ if (overlay) {
       try {
         if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
       } catch (e) { }
+    }
+    if (enemiesEl) {
+      try { enemiesEl.textContent = 'Enemies: ' + enemies.length; } catch (e) { /* ignore DOM errors */ }
     }
     // Update document title to include current wave and score for better visibility when tabbed away
     try {
