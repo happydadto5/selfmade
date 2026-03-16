@@ -196,6 +196,9 @@ if (overlay) {
   const bullets = []; const enemies = []; const particles = [];
   let lastSpawn = 0; let waveNumber = 0;
 
+  // Kick off the first wave immediately so HUD shows an active wave on load
+  spawnWave();
+
   function spawnWave() {
     waveNumber++;
     const count = 3 + Math.min(8, Math.floor(waveNumber * 0.6));

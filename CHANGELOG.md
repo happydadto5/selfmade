@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: start first wave immediately on load so Wave counter reflects active gameplay.
+
 ## 1.22.0
 - Fix: clear transient input keys on visibilitychange to avoid stuck controls when the page/tab is hidden.
 
