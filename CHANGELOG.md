@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Mobile: hide on-screen touch buttons on non-touch devices; show only on touch devices (small)
+
 ## 2.33.0
 - UI: include final wave count in Game Over overlay message (small)
 
