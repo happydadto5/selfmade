@@ -107,6 +107,10 @@
       if (soundEnabled) ensureAudio();
       updateMuteUI();
     }
+    // 'R' restarts the game when it's over (keyboard accessibility)
+    if ((e.key === 'r' || e.key === 'R') && gameOver) {
+      if (replayBtn) { try { replayBtn.click(); } catch (err) { /* ignore click errors */ } }
+    }
   });
   window.addEventListener('keyup', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a') { e.preventDefault(); keys.left = false; }

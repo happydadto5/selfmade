@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: add 'R' keyboard shortcut to restart the game when it's over.
+
+## Unreleased
 - Accessibility: overlay now sets role=dialog and aria-modal when visible for improved screen-reader semantics.
 
 ## Unreleased
