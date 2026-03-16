@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Chore: read scripts/prompt.txt, suggestion.txt, and future.md; add short changelog entry (2026-03-16)
+
 ## 2.25.0
 - Accessibility: increase overlay contrast to improve readability (small)
 
