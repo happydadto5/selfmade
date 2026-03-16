@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.0
+- UI: clarify touch controls tip and mention dashed touch-guide lines (small)
+
 ## 2.2.0
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; add short Unreleased changelog entry (2026-03-16)
 

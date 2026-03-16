@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.2.0';
+  const version = '2.3.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -545,7 +545,7 @@ if (overlay) {
       ctx.save();
       ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(12,12,420,44);
       ctx.fillStyle = '#fff'; ctx.font = '14px sans-serif'; ctx.textAlign = 'left';
-      ctx.fillText('Tip: Arrow keys or A/D to move — Space, tap center to fire; tap left/right edges to move', 20, 36);
+      ctx.fillText('Tip: Arrow keys or A/D to move — Space, tap center to fire; tap left/right edges to move. Dashed guides indicate touch zones.', 20, 36);
       ctx.restore();
     }
 
