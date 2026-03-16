@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.63.0';
+  const version = '2.64.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -146,8 +146,8 @@
         if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       }
     }
-    // 'M' toggles sound mute/unmute (persisted)
-    if (e.key === 'm' || e.key === 'M') {
+    // 'M' or 'S' toggles sound mute/unmute (persisted). Provide 'S' as an alternate mnemonic for "sound".
+    if (e.key === 'm' || e.key === 'M' || e.key === 's' || e.key === 'S') {
       soundEnabled = !soundEnabled;
       try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();

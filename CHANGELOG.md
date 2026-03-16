@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.64.0
+- Accessibility: add 'S' as an alternate key to toggle sound (small)
+
 ## 2.63.0
 - UX: show keyboard restart hint on canvas when game is over (press R) (small)
 
