@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.8.0
+- Fix: correct touch coordinate math so touch zones map to canvas; fixes Android right-stuck movement (small)
+
 ## Unreleased
 - Collaboration: update guidance so `future.md` changes only when it adds meaningful roadmap or collaboration value, not on most loops.
 

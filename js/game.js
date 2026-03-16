@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.7.0';
+  const version = '2.8.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -623,13 +623,14 @@ if (overlay) {
   }, { passive: true });
   // Touch zones: left 25% = move left, right 25% = move right, center = fire. Uses touchstart/touchend for responsive mobile controls.
   canvas.addEventListener('touchstart', function(e){
+    const rect = canvas.getBoundingClientRect();
     for (let i=0;i<e.changedTouches.length;i++) {
       const t = e.changedTouches[i];
       if (t.target === canvas) {
         e.preventDefault();
         if (soundEnabled) ensureAudio();
-        const x = t.clientX;
-        const zone = x / cw;
+        const x = t.clientX - rect.left;
+        const zone = x / rect.width;
         if (zone < 0.25) keys.left = true;
         else if (zone > 0.75) keys.right = true;
         else keys.fire = true;
@@ -637,12 +638,13 @@ if (overlay) {
     }
   }, {passive:false});
   canvas.addEventListener('touchend', function(e){
+    const rect = canvas.getBoundingClientRect();
     for (let i=0;i<e.changedTouches.length;i++) {
       const t = e.changedTouches[i];
       if (t.target === canvas) {
         e.preventDefault();
-        const x = t.clientX;
-        const zone = x / cw;
+        const x = t.clientX - rect.left;
+        const zone = x / rect.width;
         if (zone < 0.25) keys.left = false;
         else if (zone > 0.75) keys.right = false;
         else keys.fire = false;
@@ -651,12 +653,13 @@ if (overlay) {
   }, {passive:false});
   // Mirror touchcancel handling to ensure canceled touches also clear transient state
   canvas.addEventListener('touchcancel', function(e){
+    const rect = canvas.getBoundingClientRect();
     for (let i=0;i<e.changedTouches.length;i++) {
       const t = e.changedTouches[i];
       if (t.target === canvas) {
         e.preventDefault();
-        const x = t.clientX;
-        const zone = x / cw;
+        const x = t.clientX - rect.left;
+        const zone = x / rect.width;
         if (zone < 0.25) keys.left = false;
         else if (zone > 0.75) keys.right = false;
         else keys.fire = false;
