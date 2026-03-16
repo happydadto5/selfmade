@@ -479,6 +479,7 @@ if (overlay) {
   });
 }
   // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
+  const AUTO_PAUSE_DEBOUNCE = 300; // ms used for blur/visibility auto-pause debounce
   let paused = false;
   let pausedByFocus = false;
   let helpOpen = false;
@@ -527,7 +528,7 @@ if (overlay) {
       }
       blurTimeout = null;
       if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
-    }, 300);
+    }, AUTO_PAUSE_DEBOUNCE);
   });
   window.addEventListener('focus', () => {
     if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
@@ -571,7 +572,7 @@ if (overlay) {
           }
           if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
           blurTimeout = null;
-        }, 300);
+        }, AUTO_PAUSE_DEBOUNCE);
       }
     } else {
       if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }

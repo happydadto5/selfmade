@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: centralize auto-pause debounce constant and use it for blur/visibility handlers (small)
+
 ## 2.77.0
 - Accessibility: add hidden live region to announce life changes to assistive tech (small)
 
