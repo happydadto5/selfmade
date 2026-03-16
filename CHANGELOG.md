@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: update in-game tip to mention garden theme and touch controls (small)
+
 ## 2.20.0
 - Accessibility: allow Enter/Return to resume from pause when not game over (small)
 
