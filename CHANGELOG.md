@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.37.0
+- Pause: clear pending blur/visibility auto-pause timer on unload to avoid stray timeouts (small)
+
 ## 2.36.0
 - Accessibility: guard overlay message against undefined waveNumber to avoid 'undefined' appearing (small) — 2026-03-16
 

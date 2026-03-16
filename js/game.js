@@ -35,7 +35,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.36.0';
+  const version = '2.37.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -287,8 +287,11 @@ if (overlay) {
         } catch (e) { /* ignore observer errors */ }
       });
       titleObserver.observe(overlay, { attributes: true, attributeFilter: ['aria-hidden'] });
-      // Also ensure title is restored when the page is unloading
-      window.addEventListener('beforeunload', restoreTitle, { passive: true });
+      // Also ensure title is restored and pending auto-pause timers are cleared when the page is unloading
+      window.addEventListener('beforeunload', () => {
+        try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
+        try { restoreTitle(); } catch (e) {}
+      }, { passive: true });
     } catch (e) { /* ignore initialization errors */ }
   }
   window.addEventListener('blur', () => {
