@@ -199,6 +199,8 @@ if (overlay) {
   let lastSpawn = 0; let waveNumber = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
+  let wavePulseUntil = 0;
+
   spawnWave();
 
   function spawnWave() {

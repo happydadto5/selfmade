@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Code: declare `wavePulseUntil` to avoid implicit global when spawning waves.
+
 ## 1.26.0
 - UI: briefly flash a "Wave X" banner when a new wave begins to make progression clearer.
 
