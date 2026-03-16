@@ -93,11 +93,16 @@
   let touchGuideExpires = 0;
   if (typeof window !== 'undefined') {
     try {
-      window.addEventListener('touchstart', () => {
+      const showTouchGuide = () => {
         touchGuideExpires = Date.now() + 6000;
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
         // Remove the class shortly after the guide expiry so the DOM stays clean
         setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 6200);
+      };
+      // Prefer the standard touchstart, but many modern devices fire pointerdown with pointerType 'touch' instead.
+      window.addEventListener('touchstart', showTouchGuide, { once: true, passive: true });
+      window.addEventListener('pointerdown', (ev) => {
+        try { if (ev && ev.pointerType === 'touch') showTouchGuide(); } catch (e) { /* ignore */ }
       }, { once: true, passive: true });
     } catch (e) { /* ignore */ }
   }

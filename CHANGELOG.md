@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: improve touch-guide detection to also handle pointerdown events on touch devices (tiny) — 2026-03-16
+
 ## 2.140.0
 - Roadmap: add last-updated timestamp to future.md and note suggestion handling (tiny) — 2026-03-16
 
