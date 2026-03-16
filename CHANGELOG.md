@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: clarify paused message when auto-paused due to focus loss (tiny) — 2026-03-16
+
 ## 2.144.0
 - UX: show live "New high score!" badge and play chime when player surpasses previous high score (tiny) — 2026-03-16
 

@@ -1278,10 +1278,10 @@ if (overlay) {
       ctx.fillStyle = '#fff';
       ctx.font = '48px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(gameOver ? 'Game Over' : 'Paused', cw/2, ch/2);
+      ctx.fillText(gameOver ? 'Game Over' : (pausedByFocus ? 'Paused (focus lost)' : 'Paused'), cw/2, ch/2);
       if (!gameOver) {
         ctx.font = '18px sans-serif';
-        ctx.fillText('Press P or Esc to resume', cw/2, ch/2 + 48);
+        ctx.fillText(pausedByFocus ? 'Paused due to focus loss — tap or press P to resume' : 'Press P or Esc to resume', cw/2, ch/2 + 48);
       } else {
         ctx.font = '20px sans-serif';
         ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
