@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.20.0
 - Chore: add short changelog entry for this iteration (small incremental improvement).
 
 ## 1.19.0
