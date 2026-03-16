@@ -523,22 +523,12 @@
     if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space') { e.preventDefault(); keys.fire = false; }
   });
 
-  const leftBtn = document.getElementById('leftBtn');
-  const rightBtn = document.getElementById('rightBtn');
-  const fireBtn = document.getElementById('fireBtn');
-  function setTouch(btn, name) {
-    if (!btn) return;
-    btn.addEventListener('touchstart', e => { e.preventDefault(); keys[name] = true; });
-    btn.addEventListener('touchend', e => { e.preventDefault(); keys[name] = false; });
-    // Ensure canceled touches clear the input state to avoid stuck controls on some devices/browsers
-    btn.addEventListener('touchcancel', e => { e.preventDefault(); keys[name] = false; });
-    btn.addEventListener('mousedown', e => { e.preventDefault(); keys[name] = true; });
-    btn.addEventListener('mouseup', e => { e.preventDefault(); keys[name] = false; });
-    // Clear state when the pointer leaves the element or the pointer is canceled
-    btn.addEventListener('mouseleave', e => { e.preventDefault(); keys[name] = false; });
-    btn.addEventListener('pointercancel', e => { e.preventDefault(); keys[name] = false; });
-  }
-  setTouch(leftBtn, 'left'); setTouch(rightBtn, 'right'); setTouch(fireBtn, 'fire');
+  // On-screen touch buttons have been removed in favor of full-screen touch zones for better mobile responsiveness.
+  // Keep references as null so older code paths that touch these variables remain safe.
+  const leftBtn = null;
+  const rightBtn = null;
+  const fireBtn = null;
+  // Previously there was a setTouch helper to wire touch/mouse events to those buttons; handlers removed intentionally.
 // Full-screen touch zones: left 25% = left, center 50% = fire, right 25% = right.
 // Use Pointer Events for broad device support; update on pointerdown/move and clear on up/cancel.
 (function setupFullScreenTouchZones(){
