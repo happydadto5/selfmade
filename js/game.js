@@ -48,7 +48,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.89.0';
+  const version = '2.90.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -126,11 +126,20 @@
     muteBtn.title = soundEnabled ? 'Sound: On (click to mute)' : 'Sound: Off (click to unmute)';
   }
   if (muteBtn) {
+    // Make mute button explicitly a button for assistive tech and keyboard focus
+    try { muteBtn.setAttribute('role', 'button'); muteBtn.setAttribute('tabindex', '0'); } catch (e) {}
     muteBtn.addEventListener('click', () => {
       soundEnabled = !soundEnabled;
       try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();
       updateMuteUI();
+    });
+    // Allow keyboard activation (Enter / Space) when the mute button is focused
+    muteBtn.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Enter' || evt.key === ' ' || evt.key === 'Spacebar') {
+        evt.preventDefault();
+        try { muteBtn.click(); } catch (e) { /* ignore */ }
+      }
     });
     // Announce mute state changes to assistive tech
     try { muteBtn.setAttribute('aria-live', 'polite'); } catch (e) {}

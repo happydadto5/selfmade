@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.90.0
+- Accessibility: make mute button keyboard-accessible (role + key activation) (small) — 2026-03-16
+
 ## 2.89.0
 - Avoid auto-pausing while pointer/touch is active to prevent interruptions during touch-hold (small) — 2026-03-16
 
