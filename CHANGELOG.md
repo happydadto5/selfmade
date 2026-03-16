@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.20.0
 - Accessibility: allow Enter/Return to resume from pause when not game over (small)
 
 ## 2.19.0
