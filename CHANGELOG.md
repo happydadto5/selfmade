@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: slightly increase canvas HUD background opacity for improved readability on busy scenes (tiny) — 2026-03-16
+
 ## 2.178.0
 - UI: Add Recent changes entry so the in-game Changes overlay reflects this iteration (tiny) — 2026-03-16
 
