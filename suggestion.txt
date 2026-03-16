@@ -13,3 +13,6 @@ There should be some sort of logic to make sure any given level is possible.
 The mobile UX should allow for easy control of the player. When mobile is detected, we can use the whole screen for input. For example, the left 25% of the screen tapped can move left, the right 25% can move right, and the center 50% can fire. A thin dashed vertical line running 1/3 up on the page can make this control discoverable by the user. The simple arrow buttons are not necessary in this mobile touch mode. The dashed lines should be only slightly contrasted to the background.
   
 The mobile UX should allow for easy control of the player. When mobile is detected, we can use the whole screen for input. For example, the left 25% of the screen tapped can move left, the right 25% of the screen tapped can move right. The center 50% can fire. A thin dashed vertical line running 1/3 up on the page can make this control discoverable by the user. The simple arrow buttons are not necessary in this "mobile touch" mode. The dashed lines that allow discoverability should be only slightly contrasted to the background.
+
+
+I'd like a "Changes" button that shows the last 50 changes made.
