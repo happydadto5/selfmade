@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.6.0
 - Chore: extract input-clearing helper and use it to avoid duplicated input-clearing code (small)
 
 ## 2.5.0
