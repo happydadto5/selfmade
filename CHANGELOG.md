@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.173.0
 - UI: Tweak #ui (increase font-size, padding, and background contrast for improved readability) (tiny)
 - UX: Clarify touch hint wording for first-time touch users (tiny) — 2026-03-16
 
