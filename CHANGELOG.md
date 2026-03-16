@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix: remove redundant focus handler to avoid duplicate overlay messages on resume (small)
+
 ## 2.73.0
 - Accessibility: announce life loss to assistive tech when player loses a life (small)
 
