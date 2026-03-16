@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: improve overlay layout and contrast for paused/game-over panel (tiny) — 2026-03-16
+
 ## 2.121.0
 - UX: show dashed touch-zone guides only briefly after the first touch (mobile) — tiny — 2026-03-16
 
