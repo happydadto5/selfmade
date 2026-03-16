@@ -86,7 +86,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.177.0';
+  const version = '2.178.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -253,6 +253,7 @@
   let changesOpen = false;
   let changesContainer = null;
   const recentChanges = [
+    '2.178.0 — UI: Add in-game Recent changes entry for this iteration so players can see the update (tiny) — 2026-03-16',
     '2.71.0 — Cap enemy spawn speed to keep waves beatable (small)',
     '2.70.0 — Accessibility: pause on blur/visibility with debounce; suspend/resume audio; announce overlay for screen readers (small)',
     '2.69.0 — UI: increase Wave HUD font-size for better readability (small)',

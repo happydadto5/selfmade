@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.178.0
+- UI: Add Recent changes entry so the in-game Changes overlay reflects this iteration (tiny) — 2026-03-16
+
 ## 2.177.0
 - Accessibility: announce auto-pause to assistive tech when window loses focus (tiny) — 2026-03-16
 
