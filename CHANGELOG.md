@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.41.0
 - Chore: allow pen (stylus) pointer to reposition player on pointermove so pen users can drag the player (small) — 2026-03-16
 
 ## 2.40.0
