@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 2.125.0
 - Accessibility: add colorblind-mode toggle (press C) — small — 2026-03-16
 

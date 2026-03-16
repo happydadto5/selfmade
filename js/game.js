@@ -757,18 +757,21 @@ if (overlay) {
     if (pointerActive) return;
     // wait a short time before pausing to avoid accidental pauses on transient focus loss
     blurTimeout = setTimeout(() => {
-      paused = true;
-      pausedByFocus = true;
-      try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
-      // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
-      clearInputs();
-      // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
-      if (audioCtx && audioCtx.state === 'running') {
-        try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
-        suspendedAudioByFocus = true;
+      // Only auto-pause if the game is not already paused so user's manual pause isn't overridden
+      if (!paused) {
+        paused = true;
+        pausedByFocus = true;
+        try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
+        // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
+        clearInputs();
+        // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
+        if (audioCtx && audioCtx.state === 'running') {
+          try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
+          suspendedAudioByFocus = true;
+        }
+        if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       }
       blurTimeout = null;
-      if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
     }, AUTO_PAUSE_DEBOUNCE);
   });
   window.addEventListener('focus', () => {
