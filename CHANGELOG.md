@@ -1,8 +1,7 @@
 # Changelog
 
-## Unreleased
+## 2.67.0
 - Add help overlay toggled with I key and Help button; displays basic controls and closes with I, Escape, or click (small)
-
 
 ## 2.66.0
 - Accessibility: add a colorblind-friendly palette toggle (press C) and persist preference (small)
