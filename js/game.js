@@ -670,7 +670,7 @@ if (overlay) {
   window.addEventListener('pointerup', () => { keys.fire = false; keys.left = false; keys.right = false; }, { passive: true });
   // Mouse movement control: move player to the pointer X position (improves mouse playability)
   canvas.addEventListener('pointermove', function(e){
-    if (e.pointerType === 'mouse') {
+    if (e.pointerType === 'mouse' || e.pointerType === 'pen') {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       player.x = Math.max(20, Math.min(cw - 20, x));

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Chore: allow pen (stylus) pointer to reposition player on pointermove so pen users can drag the player (small) — 2026-03-16
+
 ## 2.40.0
 - Accessibility: ensure pause on blur/visibility clears inputs and suspends audio; resume on focus (small)
 
