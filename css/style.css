@@ -26,12 +26,11 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 #changesBtn{position:fixed;right:12px;top:64px;font-size:16px;background:transparent;border:none;cursor:pointer;padding:6px}
 
 @media (pointer: coarse) {
-  /* Subtle dashed guide line for touch devices to show the left 25% touch zone */
   /* Show on-screen touch buttons only on touch-capable devices */
   #touch-controls{display:flex}
-  /* Show two subtle dashed guide lines indicating the left/center/right touch regions (25% and 75%)
-     This complements the in-canvas guide so users get a subtle visual cue on touch-capable devices. */
-  body::before, body::after {
+  /* Show subtle dashed guide lines only briefly after the user touches the screen so the UI stays uncluttered.
+     The class `show-touch-guides` is toggled by the game on first touch and removed shortly after. */
+  body.show-touch-guides::before, body.show-touch-guides::after {
     content: "";
     position: fixed;
     bottom: 12px;
@@ -43,8 +42,8 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
     z-index: 50;
     opacity: 0.95;
   }
-  body::before { left: 25%; }
-  body::after  { left: 75%; }
+  body.show-touch-guides::before { left: 25%; }
+  body.show-touch-guides::after  { left: 75%; }
 }
 
 /* Wave HUD pulse animation: briefly scales and tints the Wave counter when a new wave starts */

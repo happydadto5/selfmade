@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.121.0
+- UX: show dashed touch-zone guides only briefly after the first touch (mobile) — tiny — 2026-03-16
+
 ## 2.120.0
 - Gameplay: start new wave immediately when restarting so players don't wait (tiny) — 2026-03-16
 

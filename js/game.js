@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.120.0';
+  const version = '2.121.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -92,7 +92,14 @@
   // touchGuideExpires stores the timestamp (ms) until which the guide should be visible
   let touchGuideExpires = 0;
   if (typeof window !== 'undefined') {
-    try { window.addEventListener('touchstart', () => { touchGuideExpires = Date.now() + 6000; }, { once: true, passive: true }); } catch (e) { /* ignore */ }
+    try {
+      window.addEventListener('touchstart', () => {
+        touchGuideExpires = Date.now() + 6000;
+        try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
+        // Remove the class shortly after the guide expiry so the DOM stays clean
+        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 6200);
+      }, { once: true, passive: true });
+    } catch (e) { /* ignore */ }
   }
 
   // Hide on-screen touch control buttons on touch devices so full-screen touch zones are used instead
