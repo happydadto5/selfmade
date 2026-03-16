@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Collaboration: `!` suggestion lines now mean do next if safe, then remove after they are materially used.
+
 ## 1.23.0
 - UI: start first wave immediately on load so Wave counter reflects active gameplay.
 

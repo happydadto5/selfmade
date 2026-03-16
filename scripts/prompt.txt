@@ -15,8 +15,10 @@ RULES (never violate):
 - Do NOT modify VERSION or opus.md.
 - Do NOT modify model-verification, version-bump, validation, git-push, tag-push, suggestion-handling, or image-quota logic unless it is required to fix a real bug or the user explicitly asks.
 - Before making changes, read suggestion.txt and future.md (if present). Suggestions in suggestion.txt are higher-priority guidance and should usually be worked into the project over the next day or two, even if not in the very next iteration.
+- If a suggestion line starts with `!`, treat it as the highest-priority safe suggestion and do it next if reasonably possible in a single iteration.
 - You may implement at most one suggestion from suggestion.txt in a single iteration, but suggestions may also shape future.md without being implemented immediately.
 - If you materially used a normal suggestion line in the current change or in an updated roadmap, you may remove that suggestion line from suggestion.txt when it feels fully captured.
+- If you implement or materially capture a `!` suggestion, remove that `!` line from suggestion.txt after using it.
 - If a suggestion line starts with `+`, treat it as persistent guidance: it should influence future choices, but it must stay in suggestion.txt even after you use it.
 - suggestion.txt is a tracked repo file. Keep it in git and commit any intentional suggestion-file updates.
 - future.md is a tracked living roadmap. You may create it, update it, reorder it, replace parts of it, or rewrite it completely whenever that helps the project.
