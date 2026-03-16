@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.158.0
+- UX: add keyboard shortcut 'T' to briefly show touch-zone guides for preview (tiny)
+
 ## 2.157.0
 - UX: increase touch-guide duration to 7s for better mobile discoverability (tiny)
 

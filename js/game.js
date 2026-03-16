@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.157.0';
+  const version = '2.158.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -410,6 +410,17 @@
             try { announcer.textContent = 'HUD hidden'; } catch (e) {}
           }
         }
+      } catch (e) { /* ignore */ }
+    }
+
+    // 'T' briefly shows touch-zone guides for preview (useful on desktop). Honor reduced-motion preference by keeping this non-animated.
+    if (e.key === 't' || e.key === 'T') {
+      try {
+        // Show the same subtle guides used on touch devices so desktop users can preview touch zones
+        document.body.classList.add('show-touch-guides');
+        // Keep the guide visible for ~7.2s to match the touch-based guide duration
+        touchGuideExpires = Date.now() + 7200;
+        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) {} }, 7200);
       } catch (e) { /* ignore */ }
     }
 
