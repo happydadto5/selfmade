@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+- Tweak: increase auto-pause debounce from 150ms to 250ms to reduce accidental pauses when quickly switching tabs (small)
+
+## Unreleased
 - Pause: show distinct overlay message when auto-paused vs user-paused (small accessibility/UX)
 
 ## Unreleased
