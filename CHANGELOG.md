@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility/UX: prevent touch scrolling during gameplay by setting canvas touch-action to 'none' (tiny)
+
 ## 2.142.0
 - UX: improve visibility of touch-zone guide lines shown after first touch (tiny)
 
