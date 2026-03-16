@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.81.0
 - Persist auto-pause preference in localStorage (toggle O) (small)
 
 ## 2.80.0
