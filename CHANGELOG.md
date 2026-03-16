@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: Add transient touch hint toast styling to improve discoverability on touch devices (tiny) — 2026-03-16
+
 ## 2.175.0
 - UX: Show on-screen touch buttons briefly when pressing T to preview touch zones (tiny) — 2026-03-16
 

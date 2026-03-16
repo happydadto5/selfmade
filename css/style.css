@@ -128,3 +128,24 @@ body.colorblind-mode #touch-controls button{ background:#fff; border-color:#999;
 /* Auto-pause visual hint: dim the canvas when auto-paused for clearer paused state */
 body.auto-paused #game { filter: brightness(0.7) grayscale(0.25); transition: filter 180ms ease; }
 
+/* Touch toast - transient hint for first-time touch users */
+#touch-toast {
+  position: fixed;
+  top: 12vh;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background: rgba(255,255,255,0.95);
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  font-weight: 700;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+/* Reveal the toast while touch guides are visible; keep it subtle and non-interactive */
+body.show-touch-guides #touch-toast { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+
