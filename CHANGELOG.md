@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.39.0
+- Fix: robustly parse persisted high score to avoid NaN when localStorage contains invalid value (small)
+
 ## 2.38.0
 - Visual: add subtle screen shake on enemy destruction (small visual effect)
 
