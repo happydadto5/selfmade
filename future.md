@@ -1,5 +1,7 @@
 # Future roadmap
 
+Last updated: 2026-03-16
+
 This is a living collaboration document for Selfmade. Any improvement session may update, reorder, replace, or rewrite this file when that helps the project move forward.
 
 Guidance to LLM collaborators

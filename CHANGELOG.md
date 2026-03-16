@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Roadmap: add last-updated timestamp to future.md and note suggestion handling (tiny) — 2026-03-16
+
 ## 2.139.0
 - Accessibility: allow Enter/Space to toggle Auto-Pause button for keyboard users (tiny) — 2026-03-16
 
