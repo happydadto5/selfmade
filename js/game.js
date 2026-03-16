@@ -86,7 +86,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.185.0';
+  const version = '2.186.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1082,6 +1082,14 @@ if (overlay) {
     waveNumber++;
     // briefly show a wave banner so players notice wave transitions
     wavePulseUntil = Date.now() + 800;
+  // small, optional screen shake to emphasize wave start (skip for reduced-motion users)
+  try {
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.body.classList.add('wave-shake');
+      setTimeout(function(){ try { document.body.classList.remove('wave-shake'); } catch(e){} }, 340);
+    }
+  } catch (e) { /* ignore DOM errors */ }
+
     // Play a short chime to audibly signal the new wave (WebAudio oscillator only)
     try { playSound('blip'); } catch(e) { /* ignore audio errors */ }
     // Accessibility: announce new wave to assistive tech via an aria-live region

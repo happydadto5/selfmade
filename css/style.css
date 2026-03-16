@@ -148,4 +148,20 @@ body.auto-paused #game { filter: brightness(0.7) grayscale(0.25); transition: fi
 /* Reveal the toast while touch guides are visible; keep it subtle and non-interactive */
 body.show-touch-guides #touch-toast { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+/* Small wave-start screen shake (subtle) */
+@keyframes waveShake {
+  0% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-4px) translateY(0); }
+  50% { transform: translateX(3px) translateY(-2px); }
+  75% { transform: translateX(-2px) translateY(1px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+/* Respect reduced-motion preference: disable shake */
+@media (prefers-reduced-motion: reduce) {
+  body.wave-shake #game { animation: none !important; }
+}
+/* Apply a short shake to the canvas via a class on the body */
+body.wave-shake #game { animation: waveShake 320ms ease; }
+
+
 

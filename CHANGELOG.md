@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.186.0
+- Add subtle screen-shake when a new wave starts (small visual polish) — 2026-03-16
+
 ## 2.185.0
 - UX: Show touch-zone guides on narrower screens (>=240px) to improve mobile discoverability (tiny) — 2026-03-16
 
