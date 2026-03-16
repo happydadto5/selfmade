@@ -11,7 +11,7 @@
 +This is a garden-themed game. Focus on gardening activities (weeding, pests, mulching, planning) with clear goals and challenges (for example, drought). Controls should remain consistent and prioritize touch and mouse input; prefer mobile-first UX. Ensure significant changes include basic tests and avoid regressions. Aim for a fun, shareable experience for gardening communities.
 
 
-There should be some sort of logic to make sure any given level is possible.  
+
 
 
   

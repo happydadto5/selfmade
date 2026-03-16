@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.70.0';
+  const version = '2.71.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -550,7 +550,7 @@ if (overlay) {
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);
       const ey = -20 - Math.random()*200;
-      const speed = 0.6 + Math.random()*1.2 + waveNumber*0.05;
+      const speed = Math.min(4, 0.6 + Math.random()*1.2 + waveNumber*0.05);
       enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:1 + Math.floor(waveNumber/4)});
     }
     // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).

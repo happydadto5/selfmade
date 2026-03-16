@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.71.0
+- Cap enemy spawn speed to keep waves beatable (small)
+
 ## 2.70.0
 - Accessibility: pause on blur/visibility with short debounce; suspend/resume audio and announce overlay for screen readers (small)
 
