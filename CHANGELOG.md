@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.24.0
 - Add subtle dashed touch-zone guide lines for mobile to make controls more discoverable.
 
 ## Unreleased
