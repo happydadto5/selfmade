@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: add aria-label to canvas for screen-reader clarity.
+
+## Unreleased
 - Accessibility: add 'R' keyboard shortcut to restart the game when it's over.
 
 ## Unreleased
