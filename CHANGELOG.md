@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.156.0
+- UX: improve touch-guide reliability on first touch so dashed guides show consistently across touch/pointer events (tiny)
+
 ## 2.155.0
 - UX: touch hint: center zone shows a subtle dot icon instead of text for clearer mobile discovery (tiny)
 
