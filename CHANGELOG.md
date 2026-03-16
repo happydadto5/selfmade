@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: respect prefers-reduced-motion by disabling screen shake (tiny) — 2026-03-16
+
 ## 2.117.0
 - UI: add .paused body class when overlay is visible to enable CSS hooks for paused state (tiny)
 

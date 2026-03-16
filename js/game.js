@@ -629,6 +629,8 @@ if (overlay) {
   let blurTimeout = null;
   // Track whether a pointer/touch is currently active (prevents auto-pausing while user is holding touch or pointer)
   let pointerActive = false;
+  // Respect user's reduced-motion preference by disabling screen shake when requested.
+  const prefersReducedMotion = (typeof window !== 'undefined') && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Preference: allow the user to disable auto-pause on blur/visibility (toggled with O). Defaults to enabled for safety.
   // Persist preference in localStorage ('1' = enabled, '0' = disabled)
   let autoPauseEnabled = (function(){ try { const v = localStorage.getItem('selfmade_autopause'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
@@ -1007,7 +1009,7 @@ if (overlay) {
   function draw() {
     ctx.clearRect(0,0,cw,ch);
     ctx.save();
-    if (screenShake > 0) { const sx = (Math.random()*2-1)*screenShake; const sy = (Math.random()*2-1)*screenShake; ctx.translate(sx, sy); }
+    if (screenShake > 0 && !prefersReducedMotion) { const sx = (Math.random()*2-1)*screenShake; const sy = (Math.random()*2-1)*screenShake; ctx.translate(sx, sy); }
     ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch);
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
 
