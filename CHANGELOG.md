@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: pause on window blur/visibility and resume on focus (small)
+
+## Unreleased
+
 - UI: improve touch-guide contrast for touch devices (small)
 
 ## Unreleased
