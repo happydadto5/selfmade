@@ -1,7 +1,5 @@
 # Changelog
 
-## Unreleased
-
 ## 2.169.0
 - UX: show transient touch-controls hint toast on first touch to clarify full-screen touch zones (tiny)
 
