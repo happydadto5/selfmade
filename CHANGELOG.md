@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Perf: debounce window resize handler to reduce layout thrash on rapid resizes (small)
+
+## Unreleased
+
 - UI: add z-index to overlay so pause/game-over overlay sits above other UI elements (small)
 
 ## Unreleased

@@ -20,7 +20,11 @@
     player.x = Math.max(20, Math.min(cw - 20, player.x));
   }
 }
-  window.addEventListener('resize', resize);
+  let resizeTimeout = null;
+  window.addEventListener('resize', () => {
+    if (resizeTimeout) clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resize, 120);
+  }, { passive: true });
   resize();
 
   const scoreEl = document.getElementById('score');
