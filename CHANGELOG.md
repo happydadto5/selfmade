@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix: resume audio on restart when sound is enabled (small)
+
 ## 2.14.0
 - Perf: mark mousedown and global mouseup listeners as passive to improve input responsiveness on touch devices (small)
 

@@ -220,6 +220,8 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   player.x = cw/2;
   player.y = ch - 80;
   player.cooldown = 0;
+  // If sound is enabled, ensure the AudioContext is available/resumed after a restart so sounds play reliably.
+  try { if (soundEnabled) { ensureAudio(); } } catch (e) { /* ignore audio errors on some platforms */ }
   if (overlay) setOverlayVisible(false);
   // After restarting, restore keyboard focus to the canvas so users can continue with keys.
   try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
