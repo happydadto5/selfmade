@@ -553,7 +553,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
 // Small UX: provide a visible Resume button inside the overlay for touch users and accessibility
 const resumeBtn = document.getElementById('resumeBtn');
 if (resumeBtn) {
-  try { resumeBtn.setAttribute('role', 'button'); resumeBtn.setAttribute('tabindex', '0'); } catch (e) {}
+  try { resumeBtn.setAttribute('role', 'button'); resumeBtn.setAttribute('tabindex', '0'); resumeBtn.setAttribute('aria-label', 'Resume game — press Space or P to resume'); resumeBtn.title = 'Resume game (Space or P)'; } catch (e) {}
   resumeBtn.addEventListener('click', () => {
     if (!gameOver && paused) {
       paused = false;
