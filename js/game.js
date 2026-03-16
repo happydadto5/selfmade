@@ -35,7 +35,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.35.0';
+  const version = '2.36.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -214,7 +214,7 @@ if (overlay) {
   function updateOverlayMessage() {
     if (!overlayMessage) return;
     try {
-      if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + waveNumber;
+      if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
       else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — return to this tab to resume';
       else if (paused) overlayMessage.textContent = 'Paused — press P or Esc to resume';
       else overlayMessage.textContent = '';

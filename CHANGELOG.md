@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.36.0
+- Accessibility: guard overlay message against undefined waveNumber to avoid 'undefined' appearing (small) — 2026-03-16
+
 ## 2.35.0
 - UX: prevent context menu on canvas to avoid accidental menu on right-click during play (small)
 
