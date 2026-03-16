@@ -20,7 +20,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
-  const version = '1.25.0';
+  const version = '1.26.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -203,6 +203,8 @@ if (overlay) {
 
   function spawnWave() {
     waveNumber++;
+    // briefly show a wave banner so players notice wave transitions
+    wavePulseUntil = Date.now() + 800;
     const count = 3 + Math.min(8, Math.floor(waveNumber * 0.6));
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);
@@ -364,6 +366,19 @@ if (overlay) {
       livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
     }
     if (versionEl) versionEl.textContent = 'v' + version + ' — High: ' + highScore;
+
+    // draw a temporary wave banner when a new wave starts (fades out)
+    if (Date.now() < wavePulseUntil) {
+      const remain = wavePulseUntil - Date.now();
+      const alpha = Math.max(0, Math.min(1, remain / 800));
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = '#fff';
+      ctx.font = '32px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Wave ' + waveNumber, cw/2, 80);
+      ctx.restore();
+    }
 
     // transient on-screen controls hint (shows for tipDuration ms after load)
     if (Date.now() < tipExpires) {

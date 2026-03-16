@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.26.0
+- UI: briefly flash a "Wave X" banner when a new wave begins to make progression clearer.
+
 ## 1.25.0
 - Removed implemented '! The controls for android ...' suggestion from suggestion.txt after adding touch-zone controls in js/game.js.
 
