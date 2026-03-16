@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+- UX: Slightly increased contrast of touch-zone guides and separators to improve discoverability on touch devices (tiny) — 2026-03-16
+
+## Unreleased
 - UX: Replace on-screen touch buttons with full-screen touch zones and remove button handlers for smoother mobile controls (tiny) — 2026-03-16
 
 ## 2.188.0
