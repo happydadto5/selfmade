@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.16.0
+- Accessibility: announce auto-pauses using assertive overlay message so screen readers are notified immediately (small)
+
 ## 2.15.0
 - Fix: resume audio on restart when sound is enabled (small)
 
