@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: add aria-label to Play Again button so screen readers announce restart shortcut. (small)
+
+## Unreleased
+
 - Docs: read scripts/prompt.txt, suggestion.txt, and future.md to align priorities and roadmap. (small)
 
 ## Unreleased
