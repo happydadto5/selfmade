@@ -535,7 +535,9 @@
   try {
     if (!canvas) return;
     const activeTouches = new Map();
-    function updateKeysFromX(clientX){
+    // Brief visual feedback for touch interactions (small ephemeral circle near touch point)
+    let lastTouchX = 0, lastTouchY = 0, touchFeedbackUntil = 0;
+    function updateKeysFromXY(clientX, clientY){
       const rect = canvas.getBoundingClientRect();
       const pct = rect.width ? (clientX - rect.left) / rect.width : 0.5;
       // Reset inputs then set the appropriate control for the primary touch
@@ -543,13 +545,19 @@
       if (pct < 0.25) keys.left = true;
       else if (pct > 0.75) keys.right = true;
       else keys.fire = true;
+      // Record touch location in CSS pixels for a short visual feedback pulse
+      try {
+        lastTouchX = Math.max(0, Math.min(rect.width, clientX - rect.left));
+        lastTouchY = Math.max(0, Math.min(rect.height, clientY - rect.top));
+        touchFeedbackUntil = Date.now() + 220; // show for ~220ms
+      } catch (e) { /* ignore coord errors */ }
     }
     canvas.addEventListener('pointerdown', ev => {
       try {
         if (ev.pointerType !== 'touch') return;
         ev.preventDefault();
         activeTouches.set(ev.pointerId, ev);
-        updateKeysFromX(ev.clientX);
+        updateKeysFromXY(ev.clientX, ev.clientY);
       } catch (e) { /* ignore */ }
     }, { passive: false });
     canvas.addEventListener('pointermove', ev => {
@@ -557,7 +565,7 @@
         if (ev.pointerType !== 'touch') return;
         if (!activeTouches.has(ev.pointerId)) return;
         ev.preventDefault();
-        updateKeysFromX(ev.clientX);
+        updateKeysFromXY(ev.clientX, ev.clientY);
       } catch (e) { /* ignore */ }
     }, { passive: false });
     function clearPointer(ev){
@@ -567,7 +575,7 @@
         if (activeTouches.size === 0) { keys.left = keys.right = keys.fire = false; }
         else {
           const last = Array.from(activeTouches.values()).pop();
-          if (last) updateKeysFromX(last.clientX);
+          if (last) updateKeysFromXY(last.clientX, last.clientY);
         }
       } catch (e) { /* ignore */ }
     }
@@ -1358,6 +1366,22 @@ if (overlay) {
         ctx.fillStyle = 'rgba(255,255,255,0.36)';
         ctx.fillText('Right', Math.floor(leftW + centerW + rightW/2), y);
       } catch (e) { /* ignore drawing errors on older platforms */ }
+      ctx.restore();
+    }
+
+    // Short touch feedback circle (drawn near the touch point) to provide immediate tactile feedback on touch interactions
+    if (typeof touchFeedbackUntil !== 'undefined' && Date.now() < touchFeedbackUntil) {
+      ctx.save();
+      try {
+        const alpha = Math.max(0, (touchFeedbackUntil - Date.now()) / 220);
+        ctx.fillStyle = 'rgba(255,184,77,' + (0.28 * alpha).toFixed(3) + ')';
+        ctx.beginPath();
+        const tx = Math.max(12, Math.min(cw - 12, lastTouchX || 0));
+        const ty = Math.max(12, Math.min(ch - 12, lastTouchY || (ch - 80)));
+        const r = 12 + 10 * (1 - alpha);
+        ctx.arc(tx, ty, r, 0, Math.PI * 2);
+        ctx.fill();
+      } catch (e) { /* ignore draw errors */ }
       ctx.restore();
     }
 

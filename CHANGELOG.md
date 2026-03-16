@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Add brief touch-feedback circle on touch interactions for immediate tactile feedback on mobile (tiny) — 2026-03-16
+
+## Unreleased
+
 - UX: Slightly increased contrast of touch-zone guides and separators to improve discoverability on touch devices (tiny) — 2026-03-16
 
 ## Unreleased
