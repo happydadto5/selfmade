@@ -144,7 +144,21 @@ if (overlay) {
     overlayMessage.setAttribute('aria-live', 'polite');
     overlay.insertBefore(overlayMessage, overlay.firstChild);
   }
-  overlay.setAttribute('aria-hidden', 'true');
+  // Helper to set overlay visibility and accessible dialog attributes
+  function setOverlayVisible(show) {
+    if (!overlay) return;
+    overlay.setAttribute('aria-hidden', show ? 'false' : 'true');
+    if (show) {
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.style.pointerEvents = 'auto';
+    } else {
+      overlay.setAttribute('role', 'status');
+      overlay.removeAttribute('aria-modal');
+      overlay.style.pointerEvents = 'none';
+    }
+  }
+  setOverlayVisible(false);
 }
 if (replayBtn) replayBtn.addEventListener('click', () => {
   gameOver = false;
@@ -160,7 +174,7 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   player.x = cw/2;
   player.y = ch - 80;
   player.cooldown = 0;
-  if (overlay) overlay.setAttribute('aria-hidden', 'true');
+  if (overlay) setOverlayVisible(false);
 });
 // Allow clicking the overlay to resume when paused (but not when game over)
 if (overlay) {
@@ -191,7 +205,7 @@ if (overlay) {
         suspendedAudioByFocus = true;
       }
       blurTimeout = null;
-      if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
+      if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(paused || gameOver);
     }, 150);
   });
   window.addEventListener('focus', () => {
@@ -225,7 +239,7 @@ if (overlay) {
           try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
           suspendedAudioByFocus = true;
         }
-        if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', 'false');
+        if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(true);
       }
     } else {
       if (pausedByFocus && !gameOver) {
@@ -239,7 +253,7 @@ if (overlay) {
         }
         suspendedAudioByFocus = false;
       }
-      if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
+      if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(paused || gameOver);
     }
   });
 
@@ -457,7 +471,7 @@ if (overlay) {
       }
     }
     if (typeof overlay !== 'undefined' && overlay) {
-      overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
+      setOverlayVisible(paused || gameOver);
       // keep an accessible textual hint in the DOM overlay for screen readers and non-canvas users
       try {
         if (typeof overlayMessage !== 'undefined' && overlayMessage) {

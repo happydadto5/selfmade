@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: overlay now sets role=dialog and aria-modal when visible for improved screen-reader semantics.
+
+## Unreleased
 - UI: overlay now includes a contextual accessible message when paused or on game over.
 
 ## 1.29.0
