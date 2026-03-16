@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: add hidden live region to announce life changes to assistive tech (small)
+
 ## 2.76.0
 - UI: Larger life hearts in HUD for better visibility (small)
 
