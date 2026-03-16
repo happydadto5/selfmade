@@ -123,8 +123,8 @@
       if (soundEnabled) ensureAudio();
       updateMuteUI();
     }
-    // 'R' restarts the game when it's over (keyboard accessibility)
-    if ((e.key === 'r' || e.key === 'R') && gameOver) {
+    // 'R' or Enter restarts the game when it's over (keyboard accessibility)
+    if ((e.key === 'r' || e.key === 'R' || e.key === 'Enter') && gameOver) {
       if (replayBtn) { try { replayBtn.click(); } catch (err) { /* ignore click errors */ } }
     }
   });
