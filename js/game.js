@@ -216,6 +216,11 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
 // Allow clicking the overlay to resume when paused (but not when game over)
 if (overlay) {
   overlay.addEventListener('click', (e) => {
+    // If the game is over, clicking the overlay should restart the run (convenience for touch/mouse users).
+    if (gameOver) {
+      if (replayBtn) { try { replayBtn.click(); } catch (err) { /* ignore click errors */ } }
+      return;
+    }
     if (!gameOver && paused) {
       paused = false;
       pausedByFocus = false;

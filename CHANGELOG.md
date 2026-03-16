@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- UI: allow clicking the overlay when game over to restart the game (small)
+
+## Unreleased
 - Accessibility: focus canvas after unpausing via overlay so keyboard users regain control (small)
 
 ## Unreleased
