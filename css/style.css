@@ -4,6 +4,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 #game:focus, #game:focus-visible { outline: 3px solid rgba(30,136,229,0.55); outline-offset: 4px; }
 #ui{position:fixed;left:12px;top:8px;color:#000;font-size:18px;font-weight:700}
 #ui #lives{color:#b71c1c;font-weight:700;}
+#ui #lives span{ font-size:18px; line-height:1; display:inline-block; margin-right:4px; }
 #ui #wave{margin-top:4px;font-size:20px;color:#111;font-weight:700}
 #version{position:fixed;right:12px;top:8px;color:#222;font-size:14px}
 #touch-controls{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);display:none;gap:8px}

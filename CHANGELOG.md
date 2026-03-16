@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UI: Larger life hearts in HUD for better visibility (small)
+
 ## 2.75.0
 - UI: improved canvas HUD background and pulsing when wave or life changes (small)
 
