@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.143.0
 - Accessibility/UX: prevent touch scrolling during gameplay by setting canvas touch-action to 'none' (tiny)
 
 ## 2.142.0
