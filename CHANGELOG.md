@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.161.0
+- UX: briefly reveal on-screen touch buttons on first touch for discoverability (tiny)
+
 ## 2.160.0
 - UI: show floating '+10' score popups when enemies are destroyed (small, visible polish)
 

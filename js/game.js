@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.160.0';
+  const version = '2.161.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -765,6 +765,14 @@ if (overlay) {
       // Also set the legacy touchGuideExpires and add a transient body class so CSS-based guides stay consistent
       try { touchGuideExpires = Date.now() + 7000; } catch (e) { /* ignore */ }
       try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
+      // Also briefly reveal on-screen touch buttons for discoverability (then hide again)
+      try {
+        if (touchControls) {
+          try { touchControls.style.display = 'flex'; } catch (e) { /* ignore style errors */ }
+          try { touchControls.setAttribute('aria-hidden', 'false'); } catch (e) { /* ignore */ }
+          setTimeout(() => { try { touchControls.style.display = 'none'; touchControls.setAttribute('aria-hidden','true'); } catch(e) { /* ignore */ } }, 5000);
+        }
+      } catch (e) { /* ignore */ }
       // Remove the class shortly after the guide expiry so the DOM stays clean
       setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 7200);
     }, { passive: true });
