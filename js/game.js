@@ -257,6 +257,7 @@
     // 'O' toggles auto-pause on blur/visibility (accessibility preference)
     if (e.key === 'o' || e.key === 'O') {
       autoPauseEnabled = !autoPauseEnabled;
+      try { localStorage.setItem('selfmade_autopause', autoPauseEnabled ? '1' : '0'); } catch (err) { /* ignore storage errors */ }
       let announcer = document.getElementById('autopause-announcer');
       if (!announcer) {
         announcer = document.createElement('div');
@@ -514,7 +515,8 @@ if (overlay) {
   let suspendedAudioByFocus = false;
   let blurTimeout = null;
   // Preference: allow the user to disable auto-pause on blur/visibility (toggled with O). Defaults to enabled for safety.
-  let autoPauseEnabled = true;
+  // Persist preference in localStorage ('1' = enabled, '0' = disabled)
+  let autoPauseEnabled = (function(){ try { const v = localStorage.getItem('selfmade_autopause'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
 
   // Accessibility polish: update document.title when the overlay shows an auto-pause so users
   // switching tabs or on mobile are more likely to notice the paused state. Use a MutationObserver

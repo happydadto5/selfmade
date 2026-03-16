@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Persist auto-pause preference in localStorage (toggle O) (small)
+
 ## 2.80.0
 - Add 'O' key to toggle auto-pause on blur/visibility (accessibility preference)
 
