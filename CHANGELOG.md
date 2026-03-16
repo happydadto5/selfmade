@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.9.0
 - Accessibility: increase HUD contrast for improved readability (small)
 
 ## 2.8.0
