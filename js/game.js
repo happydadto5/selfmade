@@ -176,6 +176,8 @@
     // Announce mute state changes to assistive tech
     try { muteBtn.setAttribute('aria-live', 'polite'); } catch (e) {}
     updateMuteUI();
+    // Ensure HUD reflects initial values (lives, wave, version) on load
+    try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
   }
   // Help button: toggle help overlay
   const helpBtn = document.getElementById('helpBtn');
