@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.52.0
+- UI: draw HUD on canvas showing Wave and Lives (small) — 2026-03-16
+
 ## 2.51.0
 - Visual: improve canvas rendering for high-DPI displays (use devicePixelRatio scaling) to make graphics crisper (small) — 2026-03-16
 
