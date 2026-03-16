@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Roadmap: expand mobile touch guidance in future.md to capture full-screen touch-zone details (left 25% move left, right 25% move right, center 50% fire) — small
+
 ## 2.61.0
 - UI: add HUD toggle (press H) to hide/show DOM HUD for distraction-free play (small)
 

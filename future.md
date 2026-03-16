@@ -15,7 +15,7 @@ Priority themes
 
 Potential next improvements
 1. Add true mouse/touch aiming and movement that feels good on desktop and mobile.
-2. Replace basic mobile buttons with full-screen touch zones and subtle guide lines.
+2. Replace basic mobile buttons with full-screen touch zones: left 25% moves left, right 25% moves right, center 50% fires. Show a thin dashed guide line (near the top third) when touch is detected to make these zones discoverable; use low-contrast dashed styling so it is non-distracting and unobtrusive.
 3. Add a wave/level structure with clear goals and a visible sense of progression.
 4. Add at least two enemy types with different movement and threat patterns.
 5. Add logic checks so each generated level or wave remains beatable.
