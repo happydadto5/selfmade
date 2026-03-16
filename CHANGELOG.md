@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.22.0
 - Fix: clear transient input keys on visibilitychange to avoid stuck controls when the page/tab is hidden.
 
 ## 1.21.0
