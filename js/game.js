@@ -36,6 +36,15 @@
   // Detect touch-capable devices to show subtle touch-zone guides for discoverability
   const isTouch = (typeof window !== 'undefined') && (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0));
 
+  // Hide on-screen touch control buttons on touch devices so full-screen touch zones are used instead
+  const touchControls = document.getElementById('touch-controls');
+  if (isTouch && touchControls) {
+    try {
+      touchControls.style.display = 'none';
+      touchControls.setAttribute('aria-hidden', 'true');
+    } catch (e) { /* ignore DOM errors */ }
+  }
+
   // Transient controls hint: shows briefly on startup (ms)
   const tipDuration = 4000;
   let tipExpires = Date.now() + tipDuration;

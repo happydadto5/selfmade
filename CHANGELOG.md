@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Mobile: hide redundant on-screen buttons on touch devices to prefer full-screen touch zones (small)
+
+## Unreleased
 - Accessibility: focus canvas on click to improve keyboard discoverability (small)
 
 ## Unreleased
