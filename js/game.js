@@ -20,7 +20,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
-  const version = '1.22.0';
+  const version = '1.23.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;

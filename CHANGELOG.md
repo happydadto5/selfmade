@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.23.0
 - UI: start first wave immediately on load so Wave counter reflects active gameplay.
 
 ## 1.22.0
