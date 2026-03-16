@@ -1,7 +1,5 @@
 # Changelog
 
-## Unreleased
-
 ## 2.149.0
 - UI: add subtle drop shadow to canvas HUD and wave banner for improved readability on busy backgrounds (tiny)
 
