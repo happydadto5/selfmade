@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+- UI: Tweak #ui (increase font-size, padding, and background contrast for improved readability) (tiny)
+- UX: Clarify touch hint wording for first-time touch users (tiny) — 2026-03-16
+
 ## 2.172.0
 - Docs: add a short Unreleased bullet noting a tiny changelog update (this iteration).
 
