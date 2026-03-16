@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.52.0';
+  const version = '2.53.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -596,6 +596,16 @@ if (overlay) {
         if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
       } catch (e) { }
     }
+    // Update document title to include current wave for better visibility when tabbed away
+    try {
+      if (!paused && !gameOver) {
+        const waveSuffix = ' (Wave ' + waveNumber + ')';
+        if (!document.title.endsWith(waveSuffix)) { document.title = originalTitle + waveSuffix; }
+      } else {
+        // restore base title when paused or game over
+        if (document.title !== originalTitle) document.title = originalTitle;
+      }
+    } catch (e) { /* ignore title errors */ }
     if (livesEl) {
       // Build accessible HUD: prefix text then colorized heart spans to avoid innerHTML usage
       while (livesEl.firstChild) livesEl.removeChild(livesEl.firstChild);
