@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.15.0
+- Fix: ensure mouseup outside canvas clears firing state to avoid stuck fire when releasing the mouse outside the canvas.
+
 ## 1.14.0
 - Allow clicking paused overlay to resume (accessible): clicking the overlay will unpause the game when paused and not game over.
 

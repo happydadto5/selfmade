@@ -20,7 +20,7 @@
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
-  const version = '1.14.0';
+  const version = '1.15.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -381,6 +381,8 @@ if (overlay) {
 
   canvas.addEventListener('mousedown', e => { keys.fire = true; if (soundEnabled) ensureAudio(); });
   canvas.addEventListener('mouseup', e => keys.fire = false);
+  // Also clear firing state on mouseup anywhere to avoid stuck fire if mouse is released outside the canvas
+  window.addEventListener('mouseup', () => { keys.fire = false; });
   // Mouse movement control: move player to the pointer X position (improves mouse playability)
   canvas.addEventListener('pointermove', function(e){
     if (e.pointerType === 'mouse') {
