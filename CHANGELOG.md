@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.27.0
+- Fix: clear touch inputs on touchend/touchcancel to avoid stuck controls on some Android devices (small)
+
 ## 2.26.0
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; add short changelog entry (2026-03-16)
 

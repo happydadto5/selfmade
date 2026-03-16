@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.26.0';
+  const version = '2.27.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -687,18 +687,9 @@ if (overlay) {
     }
   }, {passive:false});
   canvas.addEventListener('touchend', function(e){
-    const rect = canvas.getBoundingClientRect();
-    for (let i=0;i<e.changedTouches.length;i++) {
-      const t = e.changedTouches[i];
-      if (t.target === canvas) {
-        e.preventDefault();
-        const x = t.clientX - rect.left;
-        const zone = x / rect.width;
-        if (zone < 0.25) keys.left = false;
-        else if (zone > 0.75) keys.right = false;
-        else keys.fire = false;
-      }
-    }
+    // Clear all transient touch inputs on any touchend to avoid stuck controls on some devices (Android fixes)
+    try { e.preventDefault(); } catch (err) { /* ignore if preventDefault not allowed */ }
+    clearInputs();
   }, {passive:false});
 
   // Prevent touchmove scrolling when dragging on the canvas so mobile controls stay responsive
@@ -707,18 +698,9 @@ if (overlay) {
   }, {passive:false});
   // Mirror touchcancel handling to ensure canceled touches also clear transient state
   canvas.addEventListener('touchcancel', function(e){
-    const rect = canvas.getBoundingClientRect();
-    for (let i=0;i<e.changedTouches.length;i++) {
-      const t = e.changedTouches[i];
-      if (t.target === canvas) {
-        e.preventDefault();
-        const x = t.clientX - rect.left;
-        const zone = x / rect.width;
-        if (zone < 0.25) keys.left = false;
-        else if (zone > 0.75) keys.right = false;
-        else keys.fire = false;
-      }
-    }
+    // Ensure canceled touches clear all transient inputs to avoid stuck controls
+    try { e.preventDefault(); } catch (err) { /* ignore if preventDefault not allowed */ }
+    clearInputs();
   }, {passive:false});
   document.body.addEventListener('touchstart', function(e){ if (e.target === canvas) e.preventDefault(); }, {passive:false});
 })();
