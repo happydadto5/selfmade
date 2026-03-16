@@ -29,10 +29,11 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
   /* Subtle dashed guide line for touch devices to show the left 25% touch zone */
   /* Show on-screen touch buttons only on touch-capable devices */
   #touch-controls{display:flex}
-  body::before {
+  /* Show two subtle dashed guide lines indicating the left/center/right touch regions (25% and 75%)
+     This complements the in-canvas guide so users get a subtle visual cue on touch-capable devices. */
+  body::before, body::after {
     content: "";
     position: fixed;
-    left: 33.333%;
     bottom: 12px;
     width: 0;
     height: 33vh; /* runs about one-third up the page */
@@ -42,6 +43,8 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
     z-index: 50;
     opacity: 0.95;
   }
+  body::before { left: 25%; }
+  body::after  { left: 75%; }
 }
 
 /* Wave HUD pulse animation: briefly scales and tints the Wave counter when a new wave starts */

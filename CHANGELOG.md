@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.107.0
+- UX: show clearer touch-zone guide lines at 25% and 75% on touch devices to match in-canvas guides (tiny) — 2026-03-16
+
 ## 2.106.0
 - Accessibility: increase auto-pause debounce to 200ms to reduce accidental pauses — 2026-03-16
 
