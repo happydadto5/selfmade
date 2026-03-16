@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.79.0';
+  const version = '2.80.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -253,6 +253,20 @@
       try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();
       updateMuteUI();
+    }
+    // 'O' toggles auto-pause on blur/visibility (accessibility preference)
+    if (e.key === 'o' || e.key === 'O') {
+      autoPauseEnabled = !autoPauseEnabled;
+      let announcer = document.getElementById('autopause-announcer');
+      if (!announcer) {
+        announcer = document.createElement('div');
+        announcer.id = 'autopause-announcer';
+        announcer.style.position = 'absolute';
+        announcer.style.left = '-9999px';
+        announcer.setAttribute('aria-live', 'polite');
+        document.body.appendChild(announcer);
+      }
+      try { announcer.textContent = autoPauseEnabled ? 'Auto-pause enabled' : 'Auto-pause disabled'; } catch (err) { /* ignore */ }
     }
     // 'H' toggles HUD visibility (accessibility / distraction-free). Announces state to assistive tech.
     if (e.key === 'h' || e.key === 'H') {
@@ -499,6 +513,8 @@ if (overlay) {
   // whether we suspended the AudioContext in response to an auto-pause so we can resume on focus/visibility restore
   let suspendedAudioByFocus = false;
   let blurTimeout = null;
+  // Preference: allow the user to disable auto-pause on blur/visibility (toggled with O). Defaults to enabled for safety.
+  let autoPauseEnabled = true;
 
   // Accessibility polish: update document.title when the overlay shows an auto-pause so users
   // switching tabs or on mobile are more likely to notice the paused state. Use a MutationObserver
@@ -528,6 +544,7 @@ if (overlay) {
     } catch (e) { /* ignore initialization errors */ }
   }
   window.addEventListener('blur', () => {
+    if (!autoPauseEnabled) return;
     // wait a short time before pausing to avoid accidental pauses on transient focus loss
     blurTimeout = setTimeout(() => {
       paused = true;
@@ -568,7 +585,7 @@ if (overlay) {
   });
 
   // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
-  document.addEventListener('visibilitychange', () => {
+  document.addEventListener('visibilitychange', () => { if (!autoPauseEnabled) return;
     if (document.hidden) {
       // Debounce visibility auto-pause to match blur behavior and avoid accidental pauses on quick tab switches
       if (!paused) {

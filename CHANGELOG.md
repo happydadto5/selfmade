@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.80.0
+- Add 'O' key to toggle auto-pause on blur/visibility (accessibility preference)
+
 ## 2.79.0
 - Accessibility: allow Space to resume when paused (keyboard convenience) (small)
 
