@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: make transient tip box width responsive to canvas width to avoid overflow on small screens (small)
+
 ## 2.16.0
 - Accessibility: announce auto-pauses using assertive overlay message so screen readers are notified immediately (small)
 
