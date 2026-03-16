@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.114.0
+- UX: increase transient tip display from 4s to 6s to improve discoverability on mobile and touch devices (tiny)
+
 ## 2.112.0
 - Fix: avoid keybinding conflict by reserving H for HUD toggle and I for Help; H no longer opens Help (tiny) — 2026-03-16
 
