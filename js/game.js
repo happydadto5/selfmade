@@ -261,7 +261,7 @@ if (overlay) {
       }
       blurTimeout = null;
       if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
-    }, 250);
+    }, 300);
   });
   window.addEventListener('focus', () => {
     if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
@@ -300,7 +300,7 @@ if (overlay) {
           }
           if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
           blurTimeout = null;
-        }, 250);
+        }, 300);
       }
     } else {
       if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }

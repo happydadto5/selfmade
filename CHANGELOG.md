@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Tweak: increase auto-pause debounce from 250ms to 300ms to reduce accidental pauses when quickly switching tabs (small)
+
 ## 2.12.0
 - Fix: accept modern 'Space' key label in keyboard handlers for firing (keyboard compatibility) (small)
 
