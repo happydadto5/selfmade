@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.156.0';
+  const version = '2.157.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -96,10 +96,10 @@
   if (typeof window !== 'undefined') {
     try {
       const showTouchGuide = () => {
-        touchGuideExpires = Date.now() + 6000;
+        touchGuideExpires = Date.now() + 7000;
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
         // Remove the class shortly after the guide expiry so the DOM stays clean
-        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 6200);
+        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 7200);
       };
       // Prefer the standard touchstart, but many modern devices fire pointerdown with pointerType 'touch' instead.
       window.addEventListener('touchstart', showTouchGuide, { once: true, passive: true });
@@ -750,12 +750,12 @@ if (overlay) {
     window.addEventListener('pointercancel', () => { pointerActive = false; }, { passive: true });
     document.addEventListener('touchstart', () => {
       pointerActive = true;
-      showTouchGuidesUntil = Date.now() + 5000;
+      showTouchGuidesUntil = Date.now() + 7000;
       // Also set the legacy touchGuideExpires and add a transient body class so CSS-based guides stay consistent
-      try { touchGuideExpires = Date.now() + 6000; } catch (e) { /* ignore */ }
+      try { touchGuideExpires = Date.now() + 7000; } catch (e) { /* ignore */ }
       try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
       // Remove the class shortly after the guide expiry so the DOM stays clean
-      setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 6200);
+      setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 7200);
     }, { passive: true });
     document.addEventListener('touchend', () => { pointerActive = false; }, { passive: true });
     document.addEventListener('touchcancel', () => { pointerActive = false; }, { passive: true });

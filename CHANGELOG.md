@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.157.0
+- UX: increase touch-guide duration to 7s for better mobile discoverability (tiny)
+
 ## 2.156.0
 - UX: improve touch-guide reliability on first touch so dashed guides show consistently across touch/pointer events (tiny)
 
