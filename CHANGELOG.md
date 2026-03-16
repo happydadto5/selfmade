@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.141.0
 - UX: improve touch-guide detection to also handle pointerdown events on touch devices (tiny) — 2026-03-16
 
 ## 2.140.0
