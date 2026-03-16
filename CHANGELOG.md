@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.180.0
 - UX: Clarify help overlay to include touch controls hint (tiny) — 2026-03-16
 
 ## 2.179.0
