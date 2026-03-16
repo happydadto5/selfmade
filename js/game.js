@@ -529,6 +529,7 @@ if (overlay) {
   requestAnimationFrame(loop);
 
   canvas.addEventListener('mousedown', e => { keys.fire = true; if (soundEnabled) ensureAudio(); });
+  canvas.addEventListener('click', () => { try { canvas.focus(); } catch (e) {} });
   canvas.addEventListener('mouseup', e => keys.fire = false);
   // Also clear firing state on mouseup anywhere to avoid stuck fire if mouse is released outside the canvas
   window.addEventListener('mouseup', () => { keys.fire = false; });

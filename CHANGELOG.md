@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: focus canvas on click to improve keyboard discoverability (small)
+
+## Unreleased
 - Accessibility: add aria-label and tabindex to canvas for keyboard and screen-reader users (small)
 
 ## Unreleased
