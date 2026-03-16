@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.18.0
+- Chore: add short changelog entry noting project-docs read (scripts/prompt.txt, suggestion.txt, future.md) (2026-03-16)
+
 ## 2.17.0
 - UI: make transient tip box width responsive to canvas width to avoid overflow on small screens (small)
 
