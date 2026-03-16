@@ -86,7 +86,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.173.0';
+  const version = '2.174.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1038,6 +1038,7 @@ if (overlay) {
 
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
+  let lastFireFlashUntil = 0;
   const bullets = []; const enemies = []; const particles = []; const scorePopups = []; let screenShake = 0;
   let lastSpawn = 0; let waveNumber = 0;
 
@@ -1100,6 +1101,7 @@ if (overlay) {
     if (keys.fire && player.cooldown <= 0) {
       bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
       player.cooldown = 180; // ms
+      lastFireFlashUntil = Date.now() + 120; // brief muzzle flash for firing feedback
       playSound('fire');
     }
 
@@ -1361,7 +1363,21 @@ if (overlay) {
       ctx.stroke();
     }
 
-    ctx.save(); ctx.translate(player.x, player.y); ctx.fillStyle = '#2e8b57'; ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8); ctx.restore();
+    ctx.save();
+    ctx.translate(player.x, player.y);
+    // Brief muzzle flash when firing to improve feedback on touch and keyboard/mouse
+    try {
+      if (Date.now() < lastFireFlashUntil) {
+        const flashRemaining = Math.max(0, (lastFireFlashUntil - Date.now()) / 120);
+        const flashAlpha = 0.9 * flashRemaining;
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255,210,140,' + flashAlpha.toFixed(3) + ')';
+        // draw a small glowing arc slightly above and to the right of the player to simulate a muzzle
+        ctx.arc(12, -6, 8 * (0.8 + flashRemaining * 0.6), 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } catch (e) { /* ignore flash drawing errors */ }
+    ctx.fillStyle = '#2e8b57'; ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8); ctx.restore();
 
     // draw particles
     for (const p of particles) {
