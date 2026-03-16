@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Pause: show distinct overlay message when auto-paused vs user-paused (small accessibility/UX)
+
+## Unreleased
 - UI: colorize Lives HUD hearts for clearer at-a-glance status (small)
 
 ## Unreleased

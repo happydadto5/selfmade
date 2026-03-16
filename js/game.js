@@ -113,7 +113,7 @@
         paused = !paused;
         // user toggled pause; clear pausedByFocus so auto-resume doesn't override user's intent
         pausedByFocus = false;
-        if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (!paused && !gameOver) ? 'true' : 'false');
+        if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       }
     }
     // 'M' toggles sound mute/unmute (persisted)
@@ -182,8 +182,19 @@ if (overlay) {
       overlay.removeAttribute('tabindex');
     }
   }
+  // Small UX/accessibility helper: show different overlay messages when pause was triggered by focus loss vs user toggle.
+  function updateOverlayMessage() {
+    if (!overlayMessage) return;
+    try {
+      if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score;
+      else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — return to this tab to resume';
+      else if (paused) overlayMessage.textContent = 'Paused — press P or Esc to resume';
+      else overlayMessage.textContent = '';
+    } catch (e) { /* ignore DOM race conditions */ }
+  }
   setOverlayVisible(false);
 }
+
 if (replayBtn) replayBtn.addEventListener('click', () => {
   gameOver = false;
   paused = false;
@@ -229,7 +240,7 @@ if (overlay) {
         suspendedAudioByFocus = true;
       }
       blurTimeout = null;
-      if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(paused || gameOver);
+      if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
     }, 150);
   });
   window.addEventListener('focus', () => {
@@ -246,7 +257,7 @@ if (overlay) {
       }
       suspendedAudioByFocus = false;
     }
-    if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', (paused || gameOver) ? 'false' : 'true');
+    if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
   });
 
   // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
@@ -265,7 +276,7 @@ if (overlay) {
             try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
             suspendedAudioByFocus = true;
           }
-          if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(true);
+          if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
           blurTimeout = null;
         }, 150);
       }
@@ -282,7 +293,7 @@ if (overlay) {
         }
         suspendedAudioByFocus = false;
       }
-      if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(paused || gameOver);
+      if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
     }
   });
 
@@ -297,7 +308,7 @@ if (overlay) {
       try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
       suspendedAudioByFocus = true;
     }
-    if (typeof overlay !== 'undefined' && overlay) setOverlayVisible(true);
+    if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
   });
 
 
@@ -528,9 +539,7 @@ if (overlay) {
       setOverlayVisible(paused || gameOver);
       // keep an accessible textual hint in the DOM overlay for screen readers and non-canvas users
       try {
-        if (typeof overlayMessage !== 'undefined' && overlayMessage) {
-          overlayMessage.textContent = gameOver ? ('Game Over — Final Score: ' + score) : 'Paused — press P or Esc to resume';
-        }
+        if (typeof overlayMessage !== 'undefined' && overlayMessage) { updateOverlayMessage(); }
       } catch (e) { /* ignore if overlayMessage not available */ }
     }
   }
