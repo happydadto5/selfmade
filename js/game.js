@@ -35,7 +35,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.48.0';
+  const version = '2.49.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -576,7 +576,12 @@ if (overlay) {
     for (const e of enemies) { const sc = 1 + (e.y / ch) * 0.25; ctx.save(); ctx.translate(e.x,e.y); ctx.scale(sc,sc); ctx.fillStyle='#ff6666'; ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h); ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4); ctx.restore(); }
 
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
-    if (waveEl) waveEl.textContent = 'Wave: ' + waveNumber;
+    if (waveEl) {
+      waveEl.textContent = 'Wave: ' + waveNumber;
+      try {
+        if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
+      } catch (e) { }
+    }
     if (livesEl) {
       // Build accessible HUD: prefix text then colorized heart spans to avoid innerHTML usage
       while (livesEl.firstChild) livesEl.removeChild(livesEl.firstChild);

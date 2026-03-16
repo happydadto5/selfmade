@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.49.0
+- UI: pulse Wave HUD when a new wave starts (small) — 2026-03-16
+
 ## 2.48.0
 - UI: adjust dashed touch-guide line to 1/3 width (small) — 2026-03-16
 
