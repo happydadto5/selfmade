@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.61.0
+- UI: add HUD toggle (press H) to hide/show DOM HUD for distraction-free play (small)
+
 ## 2.60.0
 - Fix: update overlayMessage safely on window focus to avoid replacing the DOM element and potential runtime errors (small)
 

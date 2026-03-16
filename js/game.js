@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.60.0';
+  const version = '2.61.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -152,6 +152,47 @@
       try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();
       updateMuteUI();
+    }
+    // 'H' toggles HUD visibility (accessibility / distraction-free). Announces state to assistive tech.
+    if (e.key === 'h' || e.key === 'H') {
+      try {
+        const ui = document.getElementById('ui');
+        if (ui) {
+          const hidden = ui.getAttribute('data-hidden') === 'true';
+          if (hidden) {
+            ui.style.display = '';
+            ui.setAttribute('data-hidden','false');
+            // Announce visibility
+            let announcer = document.getElementById('hud-announcer');
+            if (!announcer) {
+              announcer = document.createElement('div');
+              announcer.id = 'hud-announcer';
+              announcer.style.position = 'absolute';
+              announcer.style.left = '-9999px';
+              announcer.style.width = '1px';
+              announcer.style.height = '1px';
+              announcer.setAttribute('aria-live','polite');
+              document.body.appendChild(announcer);
+            }
+            try { announcer.textContent = 'HUD visible'; } catch (e) {}
+          } else {
+            ui.style.display = 'none';
+            ui.setAttribute('data-hidden','true');
+            let announcer = document.getElementById('hud-announcer');
+            if (!announcer) {
+              announcer = document.createElement('div');
+              announcer.id = 'hud-announcer';
+              announcer.style.position = 'absolute';
+              announcer.style.left = '-9999px';
+              announcer.style.width = '1px';
+              announcer.style.height = '1px';
+              announcer.setAttribute('aria-live','polite');
+              document.body.appendChild(announcer);
+            }
+            try { announcer.textContent = 'HUD hidden'; } catch (e) {}
+          }
+        }
+      } catch (e) { /* ignore */ }
     }
     // Allow Enter/Return to resume when the game is paused (but not when it's game over)
     if (e.key === 'Enter' && paused && !gameOver) {
