@@ -369,6 +369,8 @@ if (overlay) {
       if (lives <= 0) {
         gameOver = true;
         paused = true;
+        // Persist high score when the run ends
+        if (score > highScore) { highScore = score; localStorage.setItem('selfmade_highscore', highScore); }
         // Accessibility: when the game ends, reveal the overlay and focus the Play Again button
         if (typeof overlay !== 'undefined' && overlay && replayBtn) {
           overlay.setAttribute('aria-hidden', 'false');

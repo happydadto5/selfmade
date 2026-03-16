@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Fix: persist high score when the game ends so a final score is saved (small)
+
+## Unreleased
+
 - UI: colorize Lives HUD hearts using accessible DOM spans (small)
 
 ## Unreleased
