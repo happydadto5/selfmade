@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.100.0
 - Add Auto-pause toggle button to the in-game UI and announce state to assistive tech (tiny) — 2026-03-16
 
 ## 2.99.0
