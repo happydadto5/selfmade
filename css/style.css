@@ -36,12 +36,12 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
     position: fixed;
     bottom: 12px;
     width: 0;
-    height: 33vh; /* runs about one-third up the page */
-    /* Slightly darker color for better contrast on the sky background while remaining subtle */
-    border-left: 1px dashed rgba(0,0,0,0.12);
+    height: 34vh; /* runs about one-third up the page; slightly increased for better discoverability */
+    /* Increase contrast slightly so guides are easier to notice in bright backgrounds while remaining subtle */
+    border-left: 1px dashed rgba(0,0,0,0.18);
     pointer-events: none;
     z-index: 50;
-    opacity: 0.95;
+    opacity: 0.98;
   }
   body.show-touch-guides::before { left: 25%; }
   body.show-touch-guides::after  { left: 75%; }

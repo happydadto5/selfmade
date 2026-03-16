@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.142.0
+- UX: improve visibility of touch-zone guide lines shown after first touch (tiny)
+
 ## 2.141.0
 - UX: improve touch-guide detection to also handle pointerdown events on touch devices (tiny) — 2026-03-16
 
