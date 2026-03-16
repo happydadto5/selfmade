@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.163.0
+- UI: slightly larger center touch fire dot for better discoverability on mobile (tiny)
+
 ## 2.162.0
 - UI: dim canvas when auto-paused to make paused state more visually obvious (tiny)
 

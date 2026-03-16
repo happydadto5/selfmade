@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.162.0';
+  const version = '2.163.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1214,8 +1214,9 @@ if (overlay) {
         try {
           const centerX = Math.floor(leftW + centerW/2);
           ctx.beginPath();
-          ctx.fillStyle = 'rgba(255,255,255,0.9)';
-          ctx.arc(centerX, y, 6, 0, Math.PI * 2);
+          // Make the center fire dot slightly larger and higher-contrast for mobile discoverability
+          ctx.fillStyle = 'rgba(255,138,101,0.95)'; // subtle warm color (garden-themed)
+          ctx.arc(centerX, y, 8, 0, Math.PI * 2);
           ctx.fill();
         } catch (e) { /* ignore drawing errors */ }
         ctx.fillStyle = 'rgba(255,255,255,0.36)';
