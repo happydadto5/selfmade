@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: dim canvas when auto-paused to make paused state more visually obvious (tiny)
+
 ## 2.161.0
 - UX: briefly reveal on-screen touch buttons on first touch for discoverability (tiny)
 

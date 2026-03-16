@@ -118,3 +118,6 @@ body.colorblind-mode #touch-controls button{ background:#fff; border-color:#999;
 }
 
 
+/* Auto-pause visual hint: dim the canvas when auto-paused for clearer paused state */
+body.auto-paused #game { filter: brightness(0.7) grayscale(0.25); transition: filter 180ms ease; }
+
