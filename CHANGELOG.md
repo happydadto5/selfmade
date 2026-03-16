@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.182.0
+- UI: Clarify hidden game description to explicitly document full-screen touch zones (left 25% = left, center 50% = fire, right 25% = right) to improve assistive-tech discoverability (tiny).
+
 ## 2.181.0
 - UX: Add a brief touch-discovery hint shown on first touch to improve mobile discoverability (tiny) — 2026-03-16
 
