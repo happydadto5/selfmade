@@ -25,3 +25,11 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
     opacity: 0.95;
   }
 }
+
+/* Wave HUD pulse animation: briefly scales and tints the Wave counter when a new wave starts */
+#ui #wave.wave-pulse { display: inline-block; transform-origin: left center; animation: wavePulse 0.8s ease; }
+@keyframes wavePulse {
+  0% { transform: scale(1); color: #333; }
+  50% { transform: scale(1.12); color: #1b5e20; }
+  100% { transform: scale(1); color: #333; }
+}

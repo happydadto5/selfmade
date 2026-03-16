@@ -291,6 +291,17 @@ if (overlay) {
       const speed = 0.6 + Math.random()*1.2 + waveNumber*0.05;
       enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:1 + Math.floor(waveNumber/4)});
     }
+    // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
+    if (waveEl) {
+      try {
+        waveEl.classList.remove('wave-pulse');
+        // Force reflow to restart animation
+        void waveEl.offsetWidth;
+        waveEl.classList.add('wave-pulse');
+        // remove the class after the pulse finishes to keep DOM clean
+        setTimeout(() => waveEl.classList.remove('wave-pulse'), 900);
+      } catch (e) { /* ignore DOM errors */ }
+    }
   }
 
   function update(dt) {

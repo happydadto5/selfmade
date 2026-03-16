@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- UI: pulse the Wave HUD when a new wave starts (small visual)
+
+## Unreleased
 
 - Accessibility: debounce visibilitychange auto-pause to avoid accidental pauses when quickly switching tabs (small)
 
