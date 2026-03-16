@@ -1269,6 +1269,23 @@ if (overlay) {
                 try { badge.classList.remove('show'); void badge.offsetWidth; badge.classList.add('show'); } catch (e) {}
                 setTimeout(() => { try { badge.classList.remove('show'); } catch (e) {} }, 1800);
                 try { playSound('blip'); } catch (e) {}
+                // spawn a few green 'leaf' particles to celebrate the garden-themed high score
+                try {
+                  for (let lp = 0; lp < 8; lp++) {
+                    const angle = -Math.PI/2 + (Math.random() - 0.5) * 1.3;
+                    const speed = 1 + Math.random() * 2.2;
+                    particles.push({
+                      x: e.x,
+                      y: e.y,
+                      vx: Math.cos(angle) * speed,
+                      vy: Math.sin(angle) * speed,
+                      r: 2 + Math.random() * 3,
+                      life: 700 + Math.random() * 400,
+                      born: Date.now(),
+                      color: '#66bb6a'
+                    });
+                  }
+                } catch (e) {}
               }
             } catch (e) { /* ignore highscore UI errors */ }
             // spawn simple particles for a little explosion effect
@@ -1458,10 +1475,13 @@ if (overlay) {
     // draw particles
     for (const p of particles) {
       const alpha = Math.max(0, Math.min(1, p.life / 1000));
-      ctx.fillStyle = 'rgba(255,220,100,' + alpha + ')';
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = p.color || 'rgba(255,220,100,1)';
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
       ctx.fill();
+      ctx.restore();
     }
     // draw floating score popups
     for (const sp of scorePopups) {

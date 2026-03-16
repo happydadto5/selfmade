@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Visual: Add green leaf particles when new high score is reached (tiny) — 2026-03-16
+
+## Unreleased
+
 - UX: Implement discoverable full-screen touch zones (left 25% = left, center 50% = fire, right 25% = right) and show a low-contrast dashed guide on first touch (tiny) — 2026-03-16
 
 ## Unreleased
