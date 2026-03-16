@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.81.0';
+  const version = '2.82.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -915,7 +915,11 @@ if (overlay) {
     }
     // Show the higher of persisted high score and current run score so HUD reflects when the player surpasses the high score live during a run.
     const displayHigh = Math.max(highScore, score);
-    if (versionEl) versionEl.textContent = 'v' + version + ' — High: ' + displayHigh;
+    if (versionEl) {
+      try {
+        versionEl.textContent = 'v' + version + ' — High: ' + displayHigh + (autoPauseEnabled ? ' — Auto-pause: On' : ' — Auto-pause: Off');
+      } catch (e) { /* ignore DOM errors */ }
+    }
 
     // Draw a small HUD on the canvas so players see Wave and Lives even if the DOM HUD is hidden
     try {

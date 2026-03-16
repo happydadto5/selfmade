@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.82.0
+- UI: show auto-pause state in version HUD so players can see whether auto-pause is enabled (small)
+
 ## 2.81.0
 - Persist auto-pause preference in localStorage (toggle O) (small)
 
