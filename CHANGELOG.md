@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.95.0
 - Accessibility: reduce auto-pause debounce to 120ms for snappier resume (tiny) — 2026-03-16
 
 ## 2.94.0
