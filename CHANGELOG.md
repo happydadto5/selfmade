@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.122.0
 - UI: improve overlay layout and contrast for paused/game-over panel (tiny) — 2026-03-16
 
 ## 2.121.0
