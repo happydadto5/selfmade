@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: adjust touch-guide dashed line to left 25% to better match touch-zone layout (small)
+
 ## 2.43.0
 - Docs: clean up suggestion.txt wording for readability (small) — 2026-03-16
 
