@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.19.0
 - Pause: when auto-paused by window blur/visibility loss, clear input keys to prevent stuck controls.
 
 ## 1.18.0
