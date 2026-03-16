@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.165.0
+- Accessibility: increase auto-pause debounce to 450ms to reduce accidental pauses (tiny)
+
 ## 2.164.0
 - Accessibility: Announce auto-pause to assistive tech when the page loses focus or visibility to improve screen-reader feedback (tiny)
 
