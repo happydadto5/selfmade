@@ -368,6 +368,8 @@
           if (hidden) {
             ui.style.display = '';
             ui.setAttribute('data-hidden','false');
+            // Keep ARIA in sync so screen readers know when HUD is hidden
+            try { ui.setAttribute('aria-hidden','false'); } catch (err) {}
             // Announce visibility
             let announcer = document.getElementById('hud-announcer');
             if (!announcer) {
@@ -384,6 +386,7 @@
           } else {
             ui.style.display = 'none';
             ui.setAttribute('data-hidden','true');
+            try { ui.setAttribute('aria-hidden','true'); } catch (err) {}
             let announcer = document.getElementById('hud-announcer');
             if (!announcer) {
               announcer = document.createElement('div');

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: keep HUD aria-hidden in sync when toggling HUD visibility so screen readers reflect the change (tiny) — 2026-03-16
+
 ## 2.127.0
 - Accessibility: increase auto-pause debounce to 300ms to reduce accidental pauses (tiny) — 2026-03-16
 
