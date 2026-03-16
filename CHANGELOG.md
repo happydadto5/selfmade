@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.183.0
+- UX: When pressing 'T' to preview touch guides, in-canvas separators and pulse now also appear (tiny).
+
 ## 2.182.0
 - UI: Clarify hidden game description to explicitly document full-screen touch zones (left 25% = left, center 50% = fire, right 25% = right) to improve assistive-tech discoverability (tiny).
 
