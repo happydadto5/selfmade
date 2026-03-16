@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.154.0
 - UX: show vertical touch-zone separators when touch detected to make mobile touch zones clearer (tiny) — 2026-03-16
 
 ## Unreleased
