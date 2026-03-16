@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.168.0
+- UX: pulse the center fire guide briefly after first touch to improve discoverability (tiny)
+
 ## 2.167.0
 - UX: show subtle dashed guide line and low-contrast touch-zone overlays on first touch to improve mobile discoverability (tiny)
 

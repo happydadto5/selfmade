@@ -86,7 +86,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.167.0';
+  const version = '2.168.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1285,9 +1285,17 @@ if (overlay) {
         try {
           const centerX = Math.floor(leftW + centerW/2);
           ctx.beginPath();
-          // Make the center fire dot slightly larger and higher-contrast for mobile discoverability
-          ctx.fillStyle = 'rgba(255,138,101,0.95)'; // subtle warm color (garden-themed)
-          ctx.arc(centerX, y, 8, 0, Math.PI * 2);
+          // Make the center fire dot slightly larger and subtly pulse while touch guides are visible
+          try {
+            const pulseActive = Date.now() < touchGuideExpires;
+            const pulse = pulseActive ? (1 + 0.5 * Math.sin(Date.now() / 160)) : 1;
+            const r = 8 * pulse;
+            ctx.fillStyle = 'rgba(255,138,101,0.98)'; // slight contrast increase
+            ctx.arc(centerX, y, r, 0, Math.PI * 2);
+          } catch (e) {
+            ctx.fillStyle = 'rgba(255,138,101,0.95)';
+            ctx.arc(centerX, y, 8, 0, Math.PI * 2);
+          }
           ctx.fill();
         } catch (e) { /* ignore drawing errors */ }
         ctx.fillStyle = 'rgba(255,255,255,0.36)';
