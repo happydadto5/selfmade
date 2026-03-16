@@ -48,7 +48,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 
 /* Overlay message styling: improve readability and contrast for paused/game-over messages */
 .overlay-message {
-  font-size: 20px;
+  font-size: 22px;
   text-align: center;
   font-weight: 700;
   text-shadow: 0 1px 0 rgba(0,0,0,0.6);

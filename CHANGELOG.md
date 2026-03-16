@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.46.0
+- UI: slightly increase overlay message font-size for better readability (small) — 2026-03-16
+
 ## 2.45.0
 - Robustness: guard localStorage reads/writes with try/catch so the game works when localStorage is unavailable; defaults to sensible values (small) — 2026-03-16
 
