@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Garden-themed touch hint wording for touch-toast (tiny) — 2026-03-16
+
+## Unreleased
+
 - Visual: Add green leaf particles when new high score is reached (tiny) — 2026-03-16
 
 ## Unreleased

@@ -109,7 +109,7 @@
           if (!t) {
             t = document.createElement('div');
             t.id = 'touch-toast';
-            t.textContent = 'Tap center to fire • Tap left or right to move';
+            t.textContent = 'Tap center to sow seeds • Tap left or right to move';
             // Accessibility: make this transient hint discoverable to screen readers
             try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore attribute errors */ }
             t.style.position = 'fixed';
