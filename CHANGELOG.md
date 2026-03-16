@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 2.188.0
 - UX: Improve touch-zone discoverability: slightly stronger dashed separators and longer guide visibility on first touch (tiny) — 2026-03-16
 
 ## 2.187.0
