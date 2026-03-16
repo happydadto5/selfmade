@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.129.0
 - UI: sync Auto-Pause button when toggled via keyboard (O) so HUD updates immediately (tiny)
 
 ## 2.128.0
