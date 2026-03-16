@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.118.0
 - Accessibility: respect prefers-reduced-motion by disabling screen shake (tiny) — 2026-03-16
 
 ## 2.117.0
