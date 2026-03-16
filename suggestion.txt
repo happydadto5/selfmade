@@ -8,7 +8,7 @@
 
 
 
-+This is going to be a garden themed game. Gardening activities could be weeding, killing bugs, planning, splitting, mulching or whatever things you do in an outside garden.  There can be goals, problems (like drought) and other things.  All these are just ideas to general steer the game.  Your role is just to make it better and better with every step.  Controls should remain fairly consistent, but they need to be touch based and mouse based primarily.  It ca! Android controls aren't working.  shooter goes to the right and never comes back. n have difference levels that have different methods of play.  Any new significant change needs to have a corresponding test to ensure it works properly.  It is important the app doesn't just break randomly.   Your goal is a really fun game that will go viral in the gardening community.   Always be asking questions like would people find this fun to plan? Addictive to play?  Easy to play?
++This is a garden-themed game. Focus on gardening activities (weeding, pests, mulching, planning) with clear goals and challenges (for example, drought). Controls should remain consistent and prioritize touch and mouse input; prefer mobile-first UX. Ensure significant changes include basic tests and avoid regressions. Aim for a fun, shareable experience for gardening communities.
 
 
 There should be some sort of logic to make sure any given level is possible.  
