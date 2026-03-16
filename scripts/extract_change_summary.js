@@ -23,12 +23,26 @@ if (changeMatch) {
   process.exit(0);
 }
 
+const bulletFallback = normalized
+  .split('\n')
+  .map((line) => clean(line.replace(/^-\s*/, '')))
+  .find((line) =>
+    line &&
+    /^(Added|Updated|Fixed|Improved|Refined|Adjusted|Changed|Removed|Created|Implemented)\b/i.test(line)
+  );
+
+if (bulletFallback) {
+  console.log(bulletFallback);
+  process.exit(0);
+}
+
 const fallback = normalized
   .split('\n')
   .map((line) => clean(line))
   .find((line) =>
     line &&
-    !/^(Reading|Running|Preparing|Plan:|Next:|Applying|Calling tools|Committed changes:?)/i.test(line)
+    !/^(Reading|Running|Preparing|Plan:|Next:|Applying|Calling tools|Committed changes:?|Editing|Viewing|Inspecting|Making|Adding|Using|Report_Intent|Now |This helps|Including intent|Change made|The next step)/i.test(line) &&
+    /^(Added|Updated|Fixed|Improved|Refined|Adjusted|Changed|Removed|Created|Implemented)\b/i.test(line)
   );
 
 if (fallback) {
