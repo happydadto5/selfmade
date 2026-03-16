@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UX: Improve touch-zone discoverability: slightly stronger dashed separators and longer guide visibility on first touch (tiny) — 2026-03-16
+
 ## 2.187.0
 - UI: Show current wave number in pause overlay for clarity (tiny) — 2026-03-16
 

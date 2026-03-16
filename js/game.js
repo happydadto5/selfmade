@@ -101,7 +101,7 @@
   if (typeof window !== 'undefined') {
     try {
       const showTouchGuide = () => {
-        touchGuideExpires = Date.now() + 7000;
+        touchGuideExpires = Date.now() + 9000;
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
         // Create a small transient toast to clarify touch zones for first-time touch users
         try {
@@ -133,7 +133,7 @@
           }
         } catch (e) { /* ignore DOM errors */ }
         // Remove the class shortly after the guide expiry so the DOM stays clean
-        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 7200);
+        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 9000);
       };
       // Prefer the standard touchstart, but many modern devices fire pointerdown with pointerType 'touch' instead.
       window.addEventListener('touchstart', showTouchGuide, { once: true, passive: true });
@@ -453,11 +453,11 @@
       try {
         // Show the same subtle guides used on touch devices so desktop users can preview touch zones
         document.body.classList.add('show-touch-guides');
-        // Keep the guide visible for ~7.2s to match the touch-based guide duration
-        touchGuideExpires = Date.now() + 7200;
+        // Keep the guide visible for ~9s to match the touch-based guide duration
+        touchGuideExpires = Date.now() + 9000;
         // Also ensure the in-canvas separators and zone overlays are shown when previewing with the T key
-        try { showTouchGuidesUntil = Date.now() + 7200; } catch (e) { /* ignore if variable not available */ }
-        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) {} }, 7200);
+        try { showTouchGuidesUntil = Date.now() + 9000; } catch (e) { /* ignore if variable not available */ }
+        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) {} }, 9000);
         // Also briefly reveal on-screen touch buttons for desktop preview so users see the alternative control affordance
         try {
           if (touchControls) {
@@ -875,7 +875,7 @@ if (overlay) {
       pointerActive = true;
       showTouchGuidesUntil = Date.now() + 7000;
       // Also set the legacy touchGuideExpires and add a transient body class so CSS-based guides stay consistent
-      try { touchGuideExpires = Date.now() + 7000; } catch (e) { /* ignore */ }
+      try { touchGuideExpires = Date.now() + 9000; } catch (e) { /* ignore */ }
       try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
       // Also briefly reveal on-screen touch buttons for discoverability (then hide again)
       try {
