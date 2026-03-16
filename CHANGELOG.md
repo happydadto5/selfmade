@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+- Chore: read scripts/prompt.txt, suggestion.txt, and future.md; small incremental update (2026-03-16)
+
+## Unreleased
 - UI: allow clicking the overlay when game over to restart the game (small)
 
 ## Unreleased
