@@ -6,6 +6,8 @@
 # Example:
 # Add a new enemy that moves in zig-zag
 
+! The controls for android are lousy.  I'd like something better.  Maybe click and you move to that left/right position and hold down to fire?  I'm also not sure I'm seeing the entire screen, but i could be wrong on that.  I think we need to not rotate and if you rotate, maybe it auto pauses and says to rotate to portrait mode.  At least for this level with a bottom shooter.  Maybe other levels might rotate so let's not bake this into the futures.md document.  
+
 +This is going to be a garden themed game. Gardening activities could be weeding, killing bugs, planning, splitting, mulching or whatever things you do in an outside garden.  There can be goals, problems (like drought) and other things.  All these are just ideas to general steer the game.  Your role is just to make it better and better with every step.  Controls should remain fairly consistent, but they need to be touch based and mouse based primarily.  It can have difference levels that have different methods of play.  Any new significant change needs to have a corresponding test to ensure it works properly.  It is important the app doesn't just break randomly.   Your goal is a really fun game that will go viral in the gardening community.   Always be asking questions like would people find this fun to plan? Addictive to play?  Easy to play?
 
 
