@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: pause game on window blur; show overlay hint (small) — 2026-03-16
+
 ## 2.57.0
 - Accessibility: show focus outline on canvas when focused to improve keyboard discoverability (small) — 2026-03-16
 

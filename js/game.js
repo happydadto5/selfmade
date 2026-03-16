@@ -783,4 +783,30 @@ if (overlay) {
     clearInputs();
   }, {passive:false});
   document.body.addEventListener('touchstart', function(e){ if (e.target === canvas) e.preventDefault(); }, {passive:false});
+
+  // Accessibility: pause the game when the window loses focus so gameplay doesn't continue while user switches tabs/apps.
+  // This preserves state and shows a clear overlay hint; do not auto-resume on focus to avoid surprising the player.
+  window.addEventListener('blur', function() {
+    try {
+      if (!paused && !gameOver) {
+        paused = true;
+        // Provide an accessible overlay message to explain why the game is paused
+        try {
+          overlayMessage = 'Paused (focus lost). Press P or Esc to resume';
+          setOverlayVisible(true);
+        } catch (e) { /* overlay helpers may not exist in all builds */ }
+      }
+    } catch (e) { /* defensive: ignore if paused/gameOver not defined */ }
+  });
+
+  window.addEventListener('focus', function() {
+    try {
+      if (paused && !gameOver) {
+        try {
+          overlayMessage = 'Focus regained — press P or Esc to resume';
+          setOverlayVisible(true);
+        } catch (e) { /* ignore if overlay helpers not available */ }
+      }
+    } catch (e) { /* ignore */ }
+  });
 })();
