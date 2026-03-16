@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.68.0
 - Add visual feedback (particles and small screen shake) when player loses a life (small)
 
 ## 2.67.0
