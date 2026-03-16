@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: show dashed touch guide briefly after first touch to keep screen uncluttered (tiny) — 2026-03-16
+
 ## 2.104.0
 - UI: add subtle translucent background, padding, and rounded corners to the #ui HUD for improved contrast and readability — 2026-03-16
 
