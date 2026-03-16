@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.104.0
+- UI: add subtle translucent background, padding, and rounded corners to the #ui HUD for improved contrast and readability — 2026-03-16
+
 ## 2.103.0
 - Accessibility: clarify auto-pause overlay message to include Space/click resume hint (tiny) — 2026-03-16
 
