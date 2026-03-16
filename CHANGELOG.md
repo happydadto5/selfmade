@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.35.0
+- UX: prevent context menu on canvas to avoid accidental menu on right-click during play (small)
+
 ## 2.34.0
 - Mobile: hide on-screen touch buttons on non-touch devices; show only on touch devices (small)
 

@@ -26,6 +26,8 @@
     resizeTimeout = setTimeout(resize, 120);
   }, { passive: true });
   resize();
+  // Prevent right-click context menu on game canvas to avoid accidental interruption
+  try { canvas.addEventListener('contextmenu', e => { e.preventDefault(); }); } catch (e) { /* ignore */ }
 
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
@@ -33,7 +35,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.34.0';
+  const version = '2.35.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
