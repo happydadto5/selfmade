@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.0
+- Accessibility: improve overlay message readability when paused (small) — 2026-03-16
+
 ## Unreleased
 
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; added small changelog entry (2026-03-16)

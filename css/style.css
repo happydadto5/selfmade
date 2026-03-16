@@ -35,3 +35,15 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
   50% { transform: scale(1.12); color: #1b5e20; }
   100% { transform: scale(1); color: #333; }
 }
+
+/* Overlay message styling: improve readability and contrast for paused/game-over messages */
+.overlay-message {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 700;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+  margin: 0 12px 8px 12px;
+}
+#overlay[aria-hidden="false"] .overlay-message {
+  max-width: 90%;
+}
