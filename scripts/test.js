@@ -110,11 +110,18 @@ if (!errors.length) {
         removeEventListener() {},
         body: { addEventListener() {} },
       },
+      navigator: {
+        maxTouchPoints: 0,
+        userAgent: 'selfmade-test',
+      },
       window: {
         innerWidth: 1280,
         innerHeight: 720,
         addEventListener() {},
         removeEventListener() {},
+        matchMedia() {
+          return { matches: false, addEventListener() {}, removeEventListener() {} };
+        },
       },
       requestAnimationFrame(callback) {
         rafCount += 1;
