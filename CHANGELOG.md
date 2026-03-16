@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## Unreleased
+
 - UX: Ensure touch-guide preview (T key) shows in-canvas separators and guides (tiny) — 2026-03-16
 
 ## Unreleased

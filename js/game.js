@@ -1498,21 +1498,23 @@ if (overlay) {
       } catch (e) { /* ignore DOM errors */ }
     }
 
-    // Draw a small HUD on the canvas so players see Wave and Lives even if the DOM HUD is hidden
+    // Draw a small HUD on the canvas so players see Wave, Lives, and Enemies even if the DOM HUD is hidden
     try {
       ctx.save();
       ctx.font = '16px sans-serif';
       ctx.textAlign = 'left';
       const waveText = 'Wave: ' + waveNumber;
       const livesText = 'Lives: ' + lives;
+      const enemiesText = 'Enemies: ' + enemies.length;
       const pad = 10;
       const lineHeight = 22;
       const waveW = ctx.measureText(waveText).width;
       const livesW = ctx.measureText(livesText).width;
-      const boxW = Math.max(waveW, livesW) + pad * 2;
-      const boxH = lineHeight * 2 + 8;
+      const enemiesW = ctx.measureText(enemiesText).width;
+      const boxW = Math.max(waveW, livesW, enemiesW) + pad * 2;
+      const boxH = lineHeight * 3 + 8;
       const rx = 8, ry = 6;
-      // pulse slightly when wave or lives changed recently
+      // pulse slightly when wave, lives, or enemies changed recently
       const now = Date.now();
       const pulse = (now < wavePulseUntil || now < livesPulseUntil) ? 0.18 : 0.06;
       // Slightly increase the HUD background opacity for better readability on busy scenes (tiny)
@@ -1533,6 +1535,7 @@ if (overlay) {
       ctx.fillStyle = 'rgba(255,255,255,0.95)';
       ctx.fillText(waveText, rx + pad, ry + 16);
       ctx.fillText(livesText, rx + pad, ry + 16 + lineHeight);
+      ctx.fillText(enemiesText, rx + pad, ry + 16 + lineHeight * 2);
       // Reset shadow so other drawings are unaffected
       ctx.shadowBlur = 0;
       ctx.shadowColor = 'transparent';
