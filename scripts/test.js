@@ -60,6 +60,14 @@ if (!errors.length) {
     };
 
     function makeElement(id) {
+      const overlayMessage = {
+        textContent: '',
+        style: {},
+        addEventListener() {},
+        removeEventListener() {},
+        setAttribute() {},
+        removeAttribute() {},
+      };
       return {
         id,
         textContent: '',
@@ -69,6 +77,10 @@ if (!errors.length) {
         removeEventListener() {},
         setAttribute() {},
         removeAttribute() {},
+        querySelector(selector) {
+          if (id === 'overlay' && selector === '.overlay-message') return overlayMessage;
+          return null;
+        },
         getContext(type) {
           if (id === 'game' && type === '2d') return context2d;
           return null;
