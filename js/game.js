@@ -178,6 +178,8 @@ if (overlay) {
         if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
         paused = true;
         pausedByFocus = true;
+        // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
+        keys.left = keys.right = keys.fire = false;
         if (typeof overlay !== 'undefined' && overlay) overlay.setAttribute('aria-hidden', 'false');
       }
     } else {

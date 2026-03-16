@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix: clear transient input keys on visibilitychange to avoid stuck controls when the page/tab is hidden.
+
 ## 1.21.0
 - Perf: mark canvas pointerdown listener as passive to improve touch responsiveness (js/game.js)
 
