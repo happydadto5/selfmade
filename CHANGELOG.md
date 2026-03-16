@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.105.0
 - UX: show dashed touch guide briefly after first touch to keep screen uncluttered (tiny) — 2026-03-16
 
 ## 2.104.0
