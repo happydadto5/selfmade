@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.89.0
+- Avoid auto-pausing while pointer/touch is active to prevent interruptions during touch-hold (small) — 2026-03-16
+
 ## 2.88.0
 - Accessibility: add descriptive aria-describedby for game canvas to help screen reader users (small)
 

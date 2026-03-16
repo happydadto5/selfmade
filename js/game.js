@@ -48,7 +48,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.88.0';
+  const version = '2.89.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -521,9 +521,20 @@ if (overlay) {
   // whether we suspended the AudioContext in response to an auto-pause so we can resume on focus/visibility restore
   let suspendedAudioByFocus = false;
   let blurTimeout = null;
+  // Track whether a pointer/touch is currently active (prevents auto-pausing while user is holding touch or pointer)
+  let pointerActive = false;
   // Preference: allow the user to disable auto-pause on blur/visibility (toggled with O). Defaults to enabled for safety.
   // Persist preference in localStorage ('1' = enabled, '0' = disabled)
   let autoPauseEnabled = (function(){ try { const v = localStorage.getItem('selfmade_autopause'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
+  // Keep pointer state updated across pointer/touch events so we can avoid accidental auto-pauses while interacting
+  try {
+    window.addEventListener('pointerdown', () => { pointerActive = true; }, { passive: true });
+    window.addEventListener('pointerup', () => { pointerActive = false; }, { passive: true });
+    window.addEventListener('pointercancel', () => { pointerActive = false; }, { passive: true });
+    document.addEventListener('touchstart', () => { pointerActive = true; }, { passive: true });
+    document.addEventListener('touchend', () => { pointerActive = false; }, { passive: true });
+    document.addEventListener('touchcancel', () => { pointerActive = false; }, { passive: true });
+  } catch (e) { /* ignore if environment doesn't support these events */ }
 
   // Accessibility polish: update document.title when the overlay shows an auto-pause so users
   // switching tabs or on mobile are more likely to notice the paused state. Use a MutationObserver
@@ -554,6 +565,8 @@ if (overlay) {
   }
   window.addEventListener('blur', () => {
     if (!autoPauseEnabled) return;
+    // If the user is actively interacting via pointer/touch (e.g., holding to fire or move), avoid auto-pausing.
+    if (pointerActive) return;
     // wait a short time before pausing to avoid accidental pauses on transient focus loss
     blurTimeout = setTimeout(() => {
       paused = true;
@@ -596,6 +609,8 @@ if (overlay) {
   // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
   document.addEventListener('visibilitychange', () => { if (!autoPauseEnabled) return;
     if (document.hidden) {
+      // If pointer/touch interaction is active, don't auto-pause to avoid interrupting active play on touch-hold
+      if (pointerActive) return;
       // Debounce visibility auto-pause to match blur behavior and avoid accidental pauses on quick tab switches
       if (!paused) {
         if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
