@@ -48,7 +48,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.90.0';
+  const version = '2.91.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -214,11 +214,19 @@
     }
   }
   if (changesBtn) {
+    try { changesBtn.setAttribute('role', 'button'); changesBtn.setAttribute('tabindex', '0'); } catch (e) {}
     changesBtn.addEventListener('click', () => {
       try {
         showChangesOverlay(!changesOpen);
         if (overlayMessage) overlayMessage.textContent = changesOpen ? 'Recent changes' : '';
       } catch (e) { /* ignore */ }
+    });
+    // Allow keyboard activation (Enter / Space) when the changes button is focused
+    changesBtn.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Enter' || evt.key === ' ' || evt.key === 'Spacebar') {
+        evt.preventDefault();
+        try { changesBtn.click(); } catch (e) { /* ignore */ }
+      }
     });
   }
 

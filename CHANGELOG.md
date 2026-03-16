@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.91.0
+- Accessibility: make 'Changes' button keyboard accessible (role, tabindex, Enter/Space activation) (small) — 2026-03-16
+
 ## 2.90.0
 - Accessibility: make mute button keyboard-accessible (role + key activation) (small) — 2026-03-16
 
