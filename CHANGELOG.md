@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: add tabindex and aria-label to the main canvas for keyboard and screen-reader users (small)
+
+## Unreleased
+
 - Fix: persist high score when the game ends so a final score is saved (small)
 
 ## Unreleased
