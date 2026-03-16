@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.33.0
 - UI: include final wave count in Game Over overlay message (small)
 
 ## 2.32.0
