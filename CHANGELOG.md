@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: pause on window blur/visibility to avoid background execution and resume when focus returns (small)
+
+## Unreleased
 - Controls: accept uppercase A/D for left/right keys (small accessibility fix)
 
 ## Unreleased
