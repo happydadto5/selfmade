@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: announce auto-pause to assistive tech when window loses focus (tiny) — 2026-03-16
+
 ## 2.176.0
 - UX: Add transient touch hint toast styling to improve discoverability on touch devices (tiny) — 2026-03-16
 

@@ -934,6 +934,22 @@ if (overlay) {
           try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
           suspendedAudioByFocus = true;
         }
+        // Announce auto-pause to assistive tech so screen-reader users receive immediate feedback
+        try {
+          let announcer = document.getElementById('autopause-announcer');
+          if (!announcer) {
+            announcer = document.createElement('div');
+            announcer.id = 'autopause-announcer';
+            announcer.style.position = 'absolute';
+            announcer.style.left = '-9999px';
+            announcer.style.width = '1px';
+            announcer.style.height = '1px';
+            announcer.setAttribute('aria-live', 'polite');
+            announcer.setAttribute('aria-atomic', 'true');
+            document.body.appendChild(announcer);
+          }
+          try { announcer.textContent = 'Auto-paused due to focus loss'; } catch (e) { /* ignore */ }
+        } catch (e) { /* ignore announcer errors */ }
         if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       }
       blurTimeout = null;
