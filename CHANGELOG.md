@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.51.0
+- Visual: improve canvas rendering for high-DPI displays (use devicePixelRatio scaling) to make graphics crisper (small) — 2026-03-16
+
 ## 2.50.0
 - Pause: clear pending blur timeout on pagehide to avoid stray timers (small) — 2026-03-16
 

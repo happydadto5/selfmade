@@ -11,15 +11,26 @@
   } catch (e) { /* ignore attribute errors in older browsers */ }
   let cw, ch;
   let player;
-  function resize() { 
-  cw = canvas.width = window.innerWidth; 
-  ch = canvas.height = window.innerHeight; 
-  // Keep player anchored to the bottom when the window resizes
-  if (typeof player !== 'undefined') {
-    player.y = ch - 80;
-    player.x = Math.max(20, Math.min(cw - 20, player.x));
+  function resize() {
+    // Support high-DPI / Retina displays by scaling the canvas backing store using devicePixelRatio
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const cssW = window.innerWidth;
+    const cssH = window.innerHeight;
+    // Set backing store size and keep CSS size equal to viewport so existing layout remains unchanged
+    canvas.width = Math.floor(cssW * dpr);
+    canvas.height = Math.floor(cssH * dpr);
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+    // Scale drawing operations so the rest of the code can continue using CSS-pixel coordinates (cw/ch)
+    try { ctx.setTransform(dpr, 0, 0, dpr, 0, 0); } catch (e) { /* ignore if context not available */ }
+    cw = cssW;
+    ch = cssH;
+    // Keep player anchored to the bottom when the window resizes
+    if (typeof player !== 'undefined') {
+      player.y = ch - 80;
+      player.x = Math.max(20, Math.min(cw - 20, player.x));
+    }
   }
-}
   let resizeTimeout = null;
   window.addEventListener('resize', () => {
     if (resizeTimeout) clearTimeout(resizeTimeout);
@@ -35,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.50.0';
+  const version = '2.51.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
