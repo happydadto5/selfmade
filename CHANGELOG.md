@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.72.0
+- UI: add "Changes" button to view recent changelog entries in-game (small)
+
 ## 2.71.0
 - Cap enemy spawn speed to keep waves beatable (small)
 

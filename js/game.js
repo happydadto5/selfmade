@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.71.0';
+  const version = '2.72.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -147,6 +147,66 @@
           if (replayBtn) try { replayBtn.style.display = ''; } catch (err) {}
           if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
         }
+      } catch (e) { /* ignore */ }
+    });
+  }
+
+  // Changes button: show recent changelog entries inside the overlay (no external requests)
+  const changesBtn = document.getElementById('changesBtn');
+  let changesOpen = false;
+  let changesContainer = null;
+  const recentChanges = [
+    '2.71.0 — Cap enemy spawn speed to keep waves beatable (small)',
+    '2.70.0 — Accessibility: pause on blur/visibility with debounce; suspend/resume audio; announce overlay for screen readers (small)',
+    '2.69.0 — UI: increase Wave HUD font-size for better readability (small)',
+    '2.68.0 — Add visual feedback (particles and small screen shake) when player loses a life (small)',
+    '2.67.0 — Add help overlay toggled with I key and Help button; displays basic controls and closes with I, Escape, or click (small)'
+  ];
+  function showChangesOverlay(open) {
+    if (!overlay) return;
+    changesOpen = !!open;
+    if (changesOpen) {
+      // ensure other overlays are closed
+      helpOpen = false;
+      if (replayBtn) try { replayBtn.style.display = 'none'; } catch (e) {}
+      if (typeof overlay !== 'undefined' && overlay) { overlay.setAttribute('aria-label', 'Recent changes'); setOverlayVisible(true); }
+      // create container if missing
+      if (!changesContainer) {
+        changesContainer = document.createElement('div');
+        changesContainer.className = 'changes-list';
+        changesContainer.style.maxHeight = '60vh';
+        changesContainer.style.overflowY = 'auto';
+        changesContainer.style.padding = '8px 12px';
+        changesContainer.style.background = 'rgba(0,0,0,0.18)';
+        changesContainer.style.borderRadius = '8px';
+        changesContainer.style.color = '#fff';
+        changesContainer.style.textAlign = 'left';
+        changesContainer.style.fontSize = '14px';
+      }
+      // populate
+      while (changesContainer.firstChild) changesContainer.removeChild(changesContainer.firstChild);
+      recentChanges.slice(0,50).forEach(line => {
+        const d = document.createElement('div');
+        d.textContent = line;
+        d.style.marginBottom = '6px';
+        changesContainer.appendChild(d);
+      });
+      // insert after overlayMessage if present
+      try {
+        if (overlayMessage && overlayMessage.parentNode) overlay.insertBefore(changesContainer, overlayMessage.nextSibling);
+        else overlay.appendChild(changesContainer);
+      } catch (e) { /* ignore DOM errors */ }
+    } else {
+      // close and cleanup
+      try { if (changesContainer && changesContainer.parentNode) changesContainer.parentNode.removeChild(changesContainer); } catch (e) {}
+      if (typeof overlay !== 'undefined' && overlay) { overlay.setAttribute('aria-label', ''); setOverlayVisible(paused || gameOver); }
+    }
+  }
+  if (changesBtn) {
+    changesBtn.addEventListener('click', () => {
+      try {
+        showChangesOverlay(!changesOpen);
+        if (overlayMessage) overlayMessage.textContent = changesOpen ? 'Recent changes' : '';
       } catch (e) { /* ignore */ }
     });
   }
@@ -337,7 +397,9 @@ if (overlay) {
   function updateOverlayMessage() {
     if (!overlayMessage) return;
     try {
-      if (typeof helpOpen !== 'undefined' && helpOpen) {
+      if (typeof changesOpen !== 'undefined' && changesOpen) {
+        overlayMessage.textContent = 'Recent changes — click or press Esc to close';
+      } else if (typeof helpOpen !== 'undefined' && helpOpen) {
         overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I to toggle this help.';
       } else if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
       else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — return to this tab to resume';
@@ -379,6 +441,14 @@ if (overlay) {
     // If help is open, close it on click
     if (typeof helpOpen !== 'undefined' && helpOpen) {
       helpOpen = false;
+      if (replayBtn) try { replayBtn.style.display = ''; } catch (err) {}
+      if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+      try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
+      return;
+    }
+    // If changes overlay is open, close it on click
+    if (typeof changesOpen !== 'undefined' && changesOpen) {
+      try { showChangesOverlay(false); } catch (err) {}
       if (replayBtn) try { replayBtn.style.display = ''; } catch (err) {}
       if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
