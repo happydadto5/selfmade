@@ -46,7 +46,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.74.0';
+  const version = '2.75.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -888,10 +888,33 @@ if (overlay) {
     try {
       ctx.save();
       ctx.font = '16px sans-serif';
-      ctx.fillStyle = 'rgba(0,0,0,0.72)';
       ctx.textAlign = 'left';
-      ctx.fillText('Wave: ' + waveNumber, 16, 24);
-      ctx.fillText('Lives: ' + lives, 16, 46);
+      const waveText = 'Wave: ' + waveNumber;
+      const livesText = 'Lives: ' + lives;
+      const pad = 10;
+      const lineHeight = 22;
+      const waveW = ctx.measureText(waveText).width;
+      const livesW = ctx.measureText(livesText).width;
+      const boxW = Math.max(waveW, livesW) + pad * 2;
+      const boxH = lineHeight * 2 + 8;
+      const rx = 8, ry = 6;
+      // pulse slightly when wave or lives changed recently
+      const now = Date.now();
+      const pulse = (now < wavePulseUntil || now < livesPulseUntil) ? 0.18 : 0.06;
+      ctx.fillStyle = 'rgba(0,0,0,' + (0.5 + pulse) + ')';
+      // rounded rect background
+      const r = 6;
+      ctx.beginPath();
+      ctx.moveTo(rx + r, ry);
+      ctx.arcTo(rx + boxW, ry, rx + boxW, ry + boxH, r);
+      ctx.arcTo(rx + boxW, ry + boxH, rx, ry + boxH, r);
+      ctx.arcTo(rx, ry + boxH, rx, ry, r);
+      ctx.arcTo(rx, ry, rx + boxW, ry, r);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.fillText(waveText, rx + pad, ry + 16);
+      ctx.fillText(livesText, rx + pad, ry + 16 + lineHeight);
       ctx.restore();
     } catch (e) { /* ignore drawing errors */ }
 

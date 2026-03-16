@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.75.0
+- UI: improved canvas HUD background and pulsing when wave or life changes (small)
+
 ## 2.74.0
 - Fix: remove redundant focus handler to avoid duplicate overlay messages on resume (small)
 
