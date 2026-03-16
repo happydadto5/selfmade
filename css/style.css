@@ -9,3 +9,19 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 #overlay[aria-hidden="false"]{display:flex;pointer-events:auto}
 #replayBtn{font-size:20px;padding:12px 20px;border-radius:8px;background:#fff;border:2px solid #222;cursor:pointer}
 #muteBtn{position:fixed;right:12px;top:36px;font-size:16px;background:transparent;border:none;cursor:pointer;padding:6px}
+
+@media (pointer: coarse) {
+  /* Subtle dashed guide line for touch devices to show the left 1/3 touch zone */
+  body::before {
+    content: "";
+    position: fixed;
+    left: 33.3333%;
+    bottom: 12px;
+    width: 0;
+    height: 33vh; /* runs about one-third up the page */
+    border-left: 1px dashed rgba(255,255,255,0.5);
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.95;
+  }
+}

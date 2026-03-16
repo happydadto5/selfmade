@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: add subtle dashed touch-guide vertical line at 1/3 width for touch devices (small)
+
+## Unreleased
+
 - Accessibility: add aria-label to Play Again button so screen readers announce restart shortcut. (small)
 
 ## Unreleased
