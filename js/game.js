@@ -79,7 +79,10 @@
       }
       // Update enemies HUD if present
       if (enemiesEl) {
-        try { enemiesEl.textContent = 'Enemies: ' + (typeof enemies !== 'undefined' ? enemies.length : 0); } catch (e) { /* ignore DOM errors */ }
+        try {
+          const cnt = (typeof enemies !== 'undefined' ? enemies.length : 0);
+          enemiesEl.textContent = cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies');
+        } catch (e) { /* ignore DOM errors */ }
       }
     } catch (e) { /* ignore */ }
   }
@@ -1506,7 +1509,10 @@ if (overlay) {
       } catch (e) { }
     }
     if (enemiesEl) {
-      try { enemiesEl.textContent = 'Enemies: ' + enemies.length; } catch (e) { /* ignore DOM errors */ }
+      try {
+        const cnt = enemies.length;
+        enemiesEl.textContent = cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies');
+      } catch (e) { /* ignore DOM errors */ }
     }
     // Update document title to include current wave and score for better visibility when tabbed away
     try {
@@ -1551,7 +1557,7 @@ if (overlay) {
       ctx.textAlign = 'left';
       const waveText = 'Wave: ' + waveNumber;
       const livesText = 'Lives: ' + lives;
-      const enemiesText = 'Enemies: ' + enemies.length;
+      const enemiesText = enemies.length + ' ' + (enemies.length === 1 ? 'Enemy' : 'Enemies');
       const pad = 10;
       const lineHeight = 22;
       const waveW = ctx.measureText(waveText).width;
