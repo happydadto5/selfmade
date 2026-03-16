@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## Unreleased
+
 - Accessibility: pause on window blur/visibility and resume on focus (small)
 
 ## Unreleased
@@ -10,7 +12,7 @@
 
 ## Unreleased
 
-- Chore: add short changelog entry for this iteration (2026-03-16) (small)
+- Chore: add short changelog entry for this iteration (2026-03-16) — verified auto-pause/visibility debounce and input-clearing (small)
 
 ## Unreleased
 
