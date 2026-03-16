@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.88.0
+- Accessibility: add descriptive aria-describedby for game canvas to help screen reader users (small)
+
 ## 2.87.0
 - Accessibility: announce new high score to assistive tech when a run ends (small)
 
