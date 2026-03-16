@@ -79,7 +79,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.109.0';
+  const version = '2.110.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -499,14 +499,32 @@ if (overlay) {
   function updateOverlayMessage() {
     if (!overlayMessage) return;
     try {
+      const resumeBtn = document.getElementById('resumeBtn');
       if (typeof changesOpen !== 'undefined' && changesOpen) {
         overlayMessage.textContent = 'Recent changes — click or press Esc to close';
       } else if (typeof helpOpen !== 'undefined' && helpOpen) {
         overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; P to pause; I to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode.';
-      } else if (gameOver) overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
-      else if (pausedByFocus) overlayMessage.textContent = 'Paused (lost focus) — press Space, click, or return to this tab to resume';
-      else if (paused) overlayMessage.textContent = 'Paused — press P or Esc to resume';
-      else overlayMessage.textContent = '';
+      } else if (gameOver) {
+        overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0);
+      } else if (pausedByFocus) {
+        overlayMessage.textContent = 'Paused (lost focus) — press Space, click, or return to this tab to resume';
+      } else if (paused) {
+        overlayMessage.textContent = 'Paused — press P or Esc to resume';
+      } else {
+        overlayMessage.textContent = '';
+      }
+      // Show resume button when paused (but not when game over); hide otherwise
+      if (resumeBtn) {
+        try {
+          if (paused && !gameOver && !helpOpen && !changesOpen) {
+            resumeBtn.style.display = '';
+            resumeBtn.setAttribute('aria-hidden','false');
+          } else {
+            resumeBtn.style.display = 'none';
+            resumeBtn.setAttribute('aria-hidden','true');
+          }
+        } catch (e) { /* ignore */ }
+      }
     } catch (e) { /* ignore DOM race conditions */ }
   }
   setOverlayVisible(false);
@@ -532,6 +550,32 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   // After restarting, restore keyboard focus to the canvas so users can continue with keys.
   try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
 });
+// Small UX: provide a visible Resume button inside the overlay for touch users and accessibility
+const resumeBtn = document.getElementById('resumeBtn');
+if (resumeBtn) {
+  try { resumeBtn.setAttribute('role', 'button'); resumeBtn.setAttribute('tabindex', '0'); } catch (e) {}
+  resumeBtn.addEventListener('click', () => {
+    if (!gameOver && paused) {
+      paused = false;
+      pausedByFocus = false;
+      // If audio was suspended by our auto-pause, resume it now when the user explicitly unpauses.
+      if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+        if (soundEnabled) { try { audioCtx.resume(); } catch (e) { /* ignore resume errors */ } }
+        suspendedAudioByFocus = false;
+      }
+      if (overlay) setOverlayVisible(false);
+      try { updateOverlayMessage(); } catch (e) {}
+      try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) { /* ignore focus errors */ }
+    }
+  });
+  // Allow keyboard activation (Enter / Space) when the resume button is focused
+  resumeBtn.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Enter' || evt.key === ' ' || evt.key === 'Spacebar') {
+      evt.preventDefault();
+      try { resumeBtn.click(); } catch (e) { /* ignore */ }
+    }
+  });
+}
 // Allow clicking the overlay to resume when paused (but not when game over)
 if (overlay) {
   overlay.addEventListener('click', (e) => {

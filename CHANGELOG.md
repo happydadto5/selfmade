@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.110.0
+- UI: add Resume button to overlay for easier resume on touch and accessibility (tiny) — 2026-03-16
+
 ## 2.109.0
 - UI: initialize HUD on load so Lives and Wave counters show current values and ARIA attributes are set (tiny) — 2026-03-16
 
