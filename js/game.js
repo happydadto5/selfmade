@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.23.0';
+  const version = '2.24.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -158,8 +158,13 @@
     if (!btn) return;
     btn.addEventListener('touchstart', e => { e.preventDefault(); keys[name] = true; });
     btn.addEventListener('touchend', e => { e.preventDefault(); keys[name] = false; });
+    // Ensure canceled touches clear the input state to avoid stuck controls on some devices/browsers
+    btn.addEventListener('touchcancel', e => { e.preventDefault(); keys[name] = false; });
     btn.addEventListener('mousedown', e => { e.preventDefault(); keys[name] = true; });
     btn.addEventListener('mouseup', e => { e.preventDefault(); keys[name] = false; });
+    // Clear state when the pointer leaves the element or the pointer is canceled
+    btn.addEventListener('mouseleave', e => { e.preventDefault(); keys[name] = false; });
+    btn.addEventListener('pointercancel', e => { e.preventDefault(); keys[name] = false; });
   }
   setTouch(leftBtn, 'left'); setTouch(rightBtn, 'right'); setTouch(fireBtn, 'fire');
 // overlay and replay button

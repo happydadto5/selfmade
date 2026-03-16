@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.24.0
+- Fix: clear touch input on touchcancel to avoid stuck controls (small)
+
 ## 2.23.0
 - Accessibility: focus canvas on initial load to enable keyboard controls (small)
 
