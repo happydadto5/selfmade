@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: increase HUD contrast for improved readability (small)
+
 ## 2.8.0
 - Fix: correct touch coordinate math so touch zones map to canvas; fixes Android right-stuck movement (small)
 
