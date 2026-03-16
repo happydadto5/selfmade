@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Fix: clear input on pointercancel/touchcancel to avoid stuck controls when touches are cancelled (small)
+
+## Unreleased
+
 ## Unreleased
 
 - Accessibility: pause on window blur/visibility and resume on focus (small)

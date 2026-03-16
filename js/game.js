@@ -597,6 +597,10 @@ if (overlay) {
       if (soundEnabled) ensureAudio();
     }
   }, { passive: true });
+  // Some platforms may emit pointercancel/touchcancel when input is interrupted (e.g., OS gestures). Clear transient input there to avoid stuck controls.
+  canvas.addEventListener('pointercancel', function(e){
+    keys.left = keys.right = keys.fire = false;
+  }, { passive: true });
   // Touch zones: left 25% = move left, right 25% = move right, center = fire. Uses touchstart/touchend for responsive mobile controls.
   canvas.addEventListener('touchstart', function(e){
     for (let i=0;i<e.changedTouches.length;i++) {
@@ -613,6 +617,20 @@ if (overlay) {
     }
   }, {passive:false});
   canvas.addEventListener('touchend', function(e){
+    for (let i=0;i<e.changedTouches.length;i++) {
+      const t = e.changedTouches[i];
+      if (t.target === canvas) {
+        e.preventDefault();
+        const x = t.clientX;
+        const zone = x / cw;
+        if (zone < 0.25) keys.left = false;
+        else if (zone > 0.75) keys.right = false;
+        else keys.fire = false;
+      }
+    }
+  }, {passive:false});
+  // Mirror touchcancel handling to ensure canceled touches also clear transient state
+  canvas.addEventListener('touchcancel', function(e){
     for (let i=0;i<e.changedTouches.length;i++) {
       const t = e.changedTouches[i];
       if (t.target === canvas) {
