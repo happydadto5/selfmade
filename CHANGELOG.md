@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.155.0
+- UX: touch hint: center zone shows a subtle dot icon instead of text for clearer mobile discovery (tiny)
+
 ## 2.154.0
 - UX: show vertical touch-zone separators when touch detected to make mobile touch zones clearer (tiny) — 2026-03-16
 
