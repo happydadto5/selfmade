@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.50.0
 - Pause: clear pending blur timeout on pagehide to avoid stray timers (small) — 2026-03-16
 
 ## 2.49.0
