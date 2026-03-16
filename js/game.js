@@ -736,6 +736,7 @@ if (overlay) {
     blurTimeout = setTimeout(() => {
       paused = true;
       pausedByFocus = true;
+      try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
       // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
       clearInputs();
       // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
@@ -754,6 +755,7 @@ if (overlay) {
       paused = false;
     }
     pausedByFocus = false;
+    try { document.body.classList.remove('auto-paused'); } catch (e) { /* ignore */ }
     // If we suspended audio due to auto-pause, resume it when focus returns (respecting the user's sound setting)
     if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
       if (soundEnabled) {
@@ -776,6 +778,7 @@ if (overlay) {
       if (paused && pausedByFocus && !gameOver && autoPauseEnabled) {
         paused = false;
         pausedByFocus = false;
+        try { document.body.classList.remove('auto-paused'); } catch (e) { /* ignore */ }
         // Resume audio if we suspended it due to auto-pause
         if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
           if (soundEnabled) { try { audioCtx.resume(); } catch (e) {} }
@@ -799,6 +802,7 @@ if (overlay) {
         blurTimeout = setTimeout(() => {
           paused = true;
           pausedByFocus = true;
+          try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
           // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
           clearInputs();
           // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
@@ -839,6 +843,7 @@ if (overlay) {
     try { restoreTitle(); } catch (e) {}
     paused = true;
     pausedByFocus = true;
+    try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
     // Clear transient input state when auto-paused to avoid stuck controls
     clearInputs();
     // If audio is playing, suspend it when auto-pausing so sounds don't continue in background

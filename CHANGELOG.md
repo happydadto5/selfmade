@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: add 'auto-paused' body class when auto-paused due to focus/visibility to enable CSS hooks for paused state (tiny) — 2026-03-16
+
 ## 2.123.0
 - Accessibility: respect Auto-Pause preference when auto-resuming on focus/visibility (tiny) — 2026-03-16
 
