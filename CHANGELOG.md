@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.175.0
+- UX: Show on-screen touch buttons briefly when pressing T to preview touch zones (tiny) — 2026-03-16
+
 ## 2.174.0
 - UI: Add a brief muzzle flash when firing to improve feedback for taps and key/mouse fire (tiny) — 2026-03-16
 

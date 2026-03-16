@@ -86,7 +86,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.174.0';
+  const version = '2.175.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -455,6 +455,15 @@
         // Keep the guide visible for ~7.2s to match the touch-based guide duration
         touchGuideExpires = Date.now() + 7200;
         setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) {} }, 7200);
+        // Also briefly reveal on-screen touch buttons for desktop preview so users see the alternative control affordance
+        try {
+          if (touchControls) {
+            touchControls.style.display = 'flex';
+            touchControls.setAttribute('aria-hidden', 'false');
+            // hide after a short preview interval
+            setTimeout(() => { try { touchControls.style.display = 'none'; touchControls.setAttribute('aria-hidden','true'); } catch (e) {} }, 5000);
+          }
+        } catch (e) { /* ignore UI errors */ }
       } catch (e) { /* ignore */ }
     }
 
