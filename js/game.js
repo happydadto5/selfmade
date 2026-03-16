@@ -81,7 +81,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.151.0';
+  const version = '2.152.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1156,6 +1156,26 @@ if (overlay) {
       ctx.lineTo(cw + 0.5, y + 0.5);
       ctx.stroke();
       ctx.setLineDash([]);
+      // Draw subtle low-contrast overlays for the three full-screen touch zones (left 25%, center 50%, right 25%)
+      try {
+        const leftW = Math.floor(cw * 0.25);
+        const rightW = leftW;
+        const centerW = Math.max(0, cw - leftW - rightW);
+        // Very subtle fill so it doesn't distract during play
+        ctx.fillStyle = 'rgba(255,255,255,0.04)';
+        const zoneH = 60;
+        ctx.fillRect(0, y - Math.floor(zoneH/2), leftW, zoneH);
+        ctx.fillRect(leftW, y - Math.floor(zoneH/2), centerW, zoneH);
+        ctx.fillRect(leftW + centerW, y - Math.floor(zoneH/2), rightW, zoneH);
+        // Small labels to clarify zones: keep contrast low and text small
+        ctx.fillStyle = 'rgba(255,255,255,0.36)';
+        ctx.font = '14px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Left', Math.floor(leftW/2), y);
+        ctx.fillText('Fire', Math.floor(leftW + centerW/2), y);
+        ctx.fillText('Right', Math.floor(leftW + centerW + rightW/2), y);
+      } catch (e) { /* ignore drawing errors on older platforms */ }
       ctx.restore();
     }
 

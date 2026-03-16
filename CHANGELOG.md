@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- UX: briefly highlight full-screen touch zones with low-contrast overlays and labels on first touch to improve discoverability (tiny)
+
 ## Unreleased
 - Automation: bias future iterations toward more noticeable gameplay/UI progress when recent changelog history has been dominated by tiny polish, accessibility, or roadmap-only updates.
 - Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
