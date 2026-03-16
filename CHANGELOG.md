@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.101.0
 - Accessibility: visible focus ring for interactive controls (mute/help/changes/replay/touch) (tiny) — 2026-03-16
 
 ## 2.100.0
