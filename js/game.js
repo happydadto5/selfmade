@@ -2,6 +2,13 @@
   const canvas = document.getElementById('game');
   if (!canvas) { console.warn('Canvas #game not found — aborting game script'); return; }
   const ctx = canvas.getContext('2d');
+  // Accessibility: make canvas focusable and provide an aria-label describing controls so
+  // keyboard and screen-reader users can discover how to play without editing HTML.
+  try {
+    canvas.setAttribute('role', 'application');
+    canvas.setAttribute('aria-label', 'Garden shooter game canvas — use arrow keys or A/D to move; Space or tap center to fire.');
+    canvas.setAttribute('tabindex', '0');
+  } catch (e) { /* ignore attribute errors in older browsers */ }
   let cw, ch;
   let player;
   function resize() { 

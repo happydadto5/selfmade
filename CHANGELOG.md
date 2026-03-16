@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: add aria-label and tabindex to canvas for keyboard and screen-reader users (small)
+
+## Unreleased
 - UI: pulse the Wave HUD when a new wave starts (small visual)
 
 ## Unreleased
