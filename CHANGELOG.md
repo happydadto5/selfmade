@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.25.0
 - Accessibility: increase overlay contrast to improve readability (small)
 
 ## 2.24.0
