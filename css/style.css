@@ -36,6 +36,14 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
   100% { transform: scale(1); color: #333; }
 }
 
+/* Lives HUD pulse: briefly scale and tint hearts when a life is lost */
+#ui #lives.lives-pulse { display: inline-block; transform-origin: left center; animation: livesPulse 0.7s ease; }
+@keyframes livesPulse {
+  0% { transform: scale(1); color: #e53935; }
+  50% { transform: scale(1.14); color: #ff8a80; }
+  100% { transform: scale(1); color: #e53935; }
+}
+
 /* Overlay message styling: improve readability and contrast for paused/game-over messages */
 .overlay-message {
   font-size: 20px;

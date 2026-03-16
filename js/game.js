@@ -33,7 +33,7 @@
   const waveEl = document.getElementById('wave');
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.29.0';
+  const version = '2.30.0';
   let score = 0;
   let highScore = Number(localStorage.getItem('selfmade_highscore') || 0);
   let lives = 3;
@@ -382,6 +382,7 @@ if (overlay) {
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
+  let livesPulseUntil = 0;
 
   spawnWave();
   // Focus the canvas on initial load so keyboard users can play without extra click
@@ -429,6 +430,7 @@ if (overlay) {
     if (enemies[i].y > ch + 50) {
       enemies.splice(i,1);
       lives--;
+      livesPulseUntil = Date.now() + 700;
       lives = Math.max(0, lives);
       if (lives <= 0) {
         gameOver = true;
@@ -572,6 +574,10 @@ if (overlay) {
         span.setAttribute('aria-hidden', 'true');
         livesEl.appendChild(span);
       }
+      // Pulse visual feedback when a life was recently lost
+      try {
+        if (Date.now() < livesPulseUntil) { livesEl.classList.add('lives-pulse'); } else { livesEl.classList.remove('lives-pulse'); }
+      } catch (e) { /* ignore DOM errors */ }
       livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
     }
     // Show the higher of persisted high score and current run score so HUD reflects when the player surpasses the high score live during a run.

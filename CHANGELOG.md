@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.30.0
+- UI: pulse Lives HUD briefly when a life is lost to provide clearer feedback (small)
+
 ## 2.29.0
 - Focus: focus canvas on initial load so keyboard users can play immediately (small)
 
