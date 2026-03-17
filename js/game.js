@@ -133,6 +133,16 @@
             try { void t.offsetWidth; t.style.opacity = '1'; } catch (e) { /* ignore */ }
             setTimeout(() => { try { t.style.opacity = '0'; } catch (e) {} }, 3800);
             setTimeout(() => { try { if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {} }, 4200);
+          } else {
+            // Reuse existing touch-toast node when present: make it accessible and temporarily visible
+            try {
+              t.textContent = 'Tap center to sow seeds • Tap left or right to move';
+              try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore */ }
+              try { t.removeAttribute('aria-hidden'); } catch (e) { /* ignore */ }
+              try { t.style.opacity = '1'; } catch (e) { /* ignore */ }
+            } catch (e) { /* ignore DOM errors */ }
+            // Hide it again after a short delay but do not remove the node if it was part of index.html
+            setTimeout(() => { try { t.style.opacity = '0'; try { t.setAttribute('aria-hidden', 'true'); } catch (e) {} } catch (e) {} }, 3800);
           }
         } catch (e) { /* ignore DOM errors */ }
         // Remove the class shortly after the guide expiry so the DOM stays clean

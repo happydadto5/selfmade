@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Reuse existing #touch-toast so screen readers receive touch hints and avoid duplicate DOM nodes (tiny) — 2026-03-17
+
+## Unreleased
+
 - Mobile: Show small green sowing pulse at center touch to reinforce garden theme and confirm fire action (tiny) — 2026-03-17
 
 ## Unreleased
