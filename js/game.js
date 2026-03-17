@@ -957,7 +957,7 @@ if (overlay) {
     window.addEventListener('pointercancel', () => { pointerActive = false; }, { passive: true });
     document.addEventListener('touchstart', () => {
       pointerActive = true;
-      showTouchGuidesUntil = Date.now() + 7000;
+      showTouchGuidesUntil = Date.now() + 10000;
       // Also set the legacy touchGuideExpires and add a transient body class so CSS-based guides stay consistent
       try { touchGuideExpires = Date.now() + 14000; } catch (e) { /* ignore */ }
       try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }

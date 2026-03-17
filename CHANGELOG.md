@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Mobile: Increase touch-guide display duration to 10s for better discoverability (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Clarify touch hint wording to 'water plants' (tiny) — 2026-03-17
 
 ## Unreleased
