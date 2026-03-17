@@ -148,7 +148,14 @@
           }
         } catch (e) { /* ignore DOM errors */ }
         // Remove the class shortly after the guide expiry so the DOM stays clean
-        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, durationMs);
+        setTimeout(() => {
+          try {
+            // ensure assistive tech no longer sees the transient toast when guides hide
+            const tnode = document.getElementById('touch-toast');
+            try { if (tnode) tnode.setAttribute('aria-hidden', 'true'); } catch (e) {}
+            document.body.classList.remove('show-touch-guides');
+          } catch (e) { /* ignore */ }
+        }, durationMs);
       };
       // Prefer the standard touchstart, but many modern devices fire pointerdown with pointerType 'touch' instead.
       window.addEventListener('touchstart', () => showTouchGuide(), { once: true, passive: true });

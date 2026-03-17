@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Mobile: toggle touch hint aria-hidden when showing guides (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Add ARIA label to HUD (#ui) for assistive tech (tiny) — 2026-03-17
 
 ## Unreleased
