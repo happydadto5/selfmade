@@ -103,7 +103,7 @@
   let touchGuideExpires = 0;
   if (typeof window !== 'undefined') {
     try {
-      const showTouchGuide = (durationMs = 15000) => {
+      const showTouchGuide = (durationMs = 20000) => {
         try { touchGuideExpires = Date.now() + durationMs; } catch (e) { touchGuideExpires = Date.now() + durationMs; }
         // Add a transient class that CSS uses to draw subtle dashed guides on touch devices
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
@@ -113,7 +113,7 @@
           if (!t) {
             t = document.createElement('div');
             t.id = 'touch-toast';
-            t.textContent = 'Tap center to sow seeds • Tap left or right to move';
+            t.textContent = 'Tip: Tap center to sow seeds; tap left/right edges to move';
             // Accessibility: make this transient hint discoverable to screen readers
             try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore attribute errors */ }
             try { t.setAttribute('aria-hidden', 'false'); } catch (e) {}
@@ -138,7 +138,7 @@
           } else {
             // Reuse existing touch-toast node when present: make it accessible and temporarily visible
             try {
-              t.textContent = 'Tap center to sow seeds • Tap left or right to move';
+              t.textContent = 'Tip: Tap center to sow seeds; tap left/right edges to move';
               try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore */ }
               try { t.removeAttribute('aria-hidden'); } catch (e) { /* ignore */ }
               try { t.style.opacity = '1'; } catch (e) { /* ignore */ }

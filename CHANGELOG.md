@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Increase touch guide visibility to 20s and clarify touch hint wording (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Show subtle dashed touch guide and add body.show-touch-guides class on first touch (mobile-first) — 2026-03-17
 
 ## Unreleased
