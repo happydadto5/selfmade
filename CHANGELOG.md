@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Make high-score badge announceable to screen readers by enabling aria-live on initial DOM node (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Add persistent high-score badge element to DOM so CSS animations apply reliably (tiny) — 2026-03-17
 
 ## Unreleased
