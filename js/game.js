@@ -146,7 +146,7 @@
             tgAnn.setAttribute('aria-atomic', 'true');
             document.body.appendChild(tgAnn);
           }
-          try { tgAnn.textContent = 'Touch controls shown'; } catch (e) { /* ignore */ }
+          try { tgAnn.textContent = 'Touch controls shown: tap left or right to move, tap center to water plants.'; } catch (e) { /* ignore */ }
           setTimeout(() => { try { tgAnn.textContent = ''; } catch (e) {} }, 2000);
         } catch (e) { /* ignore announcer errors */ }
         // Create a small transient toast to clarify touch zones for first-time touch users
