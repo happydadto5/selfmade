@@ -355,6 +355,8 @@
               try { ui.setAttribute('aria-hidden','true'); } catch (err) {}
             }
           }
+          // Update HUD button accessible state for assistive tech
+          try { hudBtn.setAttribute('aria-pressed', (ui && ui.getAttribute('data-hidden') === 'true') ? 'false' : 'true'); } catch (e) {}
           try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
           try {
             let announcer = document.getElementById('hud-announcer');

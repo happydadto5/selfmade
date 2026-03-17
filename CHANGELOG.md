@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: HUD toggle button now updates aria-pressed to reflect state for assistive tech (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Draw 'Lives:' label before hearts in in-canvas HUD for clarity (tiny) — 2026-03-17
 
 ## Unreleased
