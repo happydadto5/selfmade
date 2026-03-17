@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Chore: Add a small changelog entry for a tiny repository update (2026-03-17)
+
+## Unreleased
+
 - UX: Increase transient on-screen controls hint duration to 9s for better discoverability (tiny) — 2026-03-17
 
 ## Unreleased
