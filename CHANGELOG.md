@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Add fallback CSS so touch-zone dashed guide appears on touch devices even if pointer:coarse media query isn't supported (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Briefly pulse Lives HUD when a life is lost to improve feedback (tiny) — 2026-03-17
 
 ## Unreleased
