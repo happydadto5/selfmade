@@ -535,6 +535,17 @@
       } catch (e) { /* ignore */ }
     }
 
+    // 'N' advances to the next wave for quick testing and visible progression (developer/testing)
+    if (e.key === 'n' || e.key === 'N') {
+      try {
+        if (!gameOver) {
+          // Spawn a new wave immediately and refresh HUD so players see progression
+          try { spawnWave(); } catch (err) { /* ignore spawn errors */ }
+          try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
+        }
+      } catch (e) { /* ignore */ }
+    }
+
     // 'I' toggles a brief help overlay describing controls. Closes when pressed again or when Escape is pressed.
     if (e.key === 'i' || e.key === 'I') {
       try {
