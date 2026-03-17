@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.4.0
 - UI: add Wave progress indicator in HUD showing defeated/total enemies for current wave (tiny) — 2026-03-17
 
 ## Unreleased
