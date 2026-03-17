@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Set type="button" on Auto-Pause toggle to avoid accidental form submission (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Clarify touch hint to mention pause (tiny) — 2026-03-17
 
 ## Unreleased

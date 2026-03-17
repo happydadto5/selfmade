@@ -897,6 +897,8 @@ if (overlay) {
         if (!btn) {
           btn = document.createElement('button');
           btn.id = 'autopauseBtn';
+          // Ensure this is a non-submit button to avoid accidental form submissions when embedded in forms
+          try { btn.type = 'button'; } catch (e) { /* ignore */ }
           btn.style.marginLeft = '6px';
           // Insert after the mute button if present for consistent placement
           const ref = document.getElementById('muteBtn');
