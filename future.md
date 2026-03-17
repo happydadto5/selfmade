@@ -20,27 +20,21 @@ Priority themes
 - Follow the garden theme and touch-first/mobile-first play where it improves the experience.
 - Prefer changes that keep the game easy to share and hard to break.
 
-Potential next improvements
-1. Add true mouse/touch aiming and movement that feels good on desktop and mobile.
-2. Replace basic mobile buttons with full-screen touch zones: left 25% moves left, right 25% moves right, center 50% fires. Show a thin dashed guide line (near the top third) when touch is detected to make these zones discoverable; use low-contrast dashed styling so it is non-distracting and unobtrusive.
-3. Add a wave/level structure with clear goals and a visible sense of progression.
-4. Add at least two enemy types with different movement and threat patterns.
-5. Add logic checks so each generated level or wave remains beatable.
-6. Add score-based level-ups or power unlocks.
-7. Add simple power-ups such as rapid fire, shield, or spread shot.
-8. Add a gardening-themed objective loop beyond pure survival.
-9. Add a start screen that introduces the theme and controls quickly.
-10. Add better background art and seasonal garden atmosphere.
-11. Add more satisfying hit feedback, particles, and small screen shake.
-12. Add drought, pests, weeds, or other garden problems as gameplay modifiers.
-13. Add better balance between challenge spikes and recovery moments.
-14. Add a lightweight achievement or milestone system.
-15. Add better onboarding hints for first-time players.
-16. Add accessibility polish for color contrast, motion, and screen readers.
-17. Add more robust tests around wave progression and restart flows.
-18. Reduce duplicated game-state logic and simplify hard-to-maintain code paths.
-19. Add better end-of-run summaries so players want another run.
-20. Revisit the roadmap and rewrite it whenever a better direction becomes clear.
+Current execution lanes
+1. Gameplay lane: add enemy variety, power-ups, objectives, and mechanics players can feel immediately.
+2. Levels lane: build clearer wave structure, goals, pacing, and beatability so runs feel like progress instead of endless survival.
+3. Visual/UI lane: improve backgrounds, hit feedback, effects, readability, and stronger visual identity without relying on tiny HUD-only tweaks.
+4. Stability lane: keep tests, rollback safety, and maintainability healthy enough to support the visible lanes instead of dominating them.
+
+Near-term roadmap
+1. Gameplay: add at least one new enemy behavior and one simple power-up so runs stop feeling samey.
+2. Levels: add clearer wave goals and beatability checks so each wave feels designed.
+3. Visual/UI: add stronger background atmosphere and better hit feedback so the game looks more alive.
+4. Stability: strengthen smoke coverage around restart, pause, and progression flows.
+5. Gameplay: add a gardening-themed objective beyond pure survival.
+6. Levels: introduce pacing between challenge spikes and recovery windows.
+7. Visual/UI: improve start/end screens so the theme and progression are clearer.
+8. Revisit the roadmap and rewrite it whenever a better direction becomes clear.
 
 Collaboration notes / chat area
 - Process note: selfmade.bat now derives a small process-review summary from recent changelog history and uses it to self-adjust the next prompt. If visible progress gets too subtle for too long, the next sessions should feel that nudge automatically. (added 2026-03-16)

@@ -15,6 +15,7 @@ set "VALIDATE_LOG=%TEMP%\selfmade_validate.txt"
 set "TEST_LOG=%TEMP%\selfmade_test.txt"
 set "GIT_LOG=%TEMP%\selfmade_git.txt"
 set "ROLLBACK_LOG=%TEMP%\selfmade_rollback.txt"
+set "REPO_SYNC_LOG=%TEMP%\selfmade_repo_sync.txt"
 set "PROCESS_REVIEW_LOG=%TEMP%\selfmade_process_review.txt"
 set "PROCESS_REVIEW_ERR=%TEMP%\selfmade_process_review_error.txt"
 set "PROCESS_RECORD_LOG=%TEMP%\selfmade_process_record.txt"
@@ -22,6 +23,10 @@ set "FAILURE_HINT_LOG=%TEMP%\selfmade_failure_hint.txt"
 set "FAILURE_HINT_ERR=%TEMP%\selfmade_failure_hint_error.txt"
 set "DEEP_SUGGESTION_LOG=%TEMP%\selfmade_deep_suggestion.txt"
 set "DEEP_SUGGESTION_ERR=%TEMP%\selfmade_deep_suggestion_error.txt"
+set "ITERATION_FOCUS_LOG=%TEMP%\selfmade_iteration_focus.txt"
+set "ITERATION_FOCUS_ERR=%TEMP%\selfmade_iteration_focus_error.txt"
+
+if /I "%~1"=="--reexec" goto LOOP
 
 echo ============================================================
 echo   SELFMADE — Self-Evolving Game Engine
@@ -64,6 +69,26 @@ if exist "%TEMP%\selfmade_suggestion_sync.txt" (
     call :LOG suggestion.txt sync status: !SUGGESTION_SYNC_STATUS!
 )
 del "%TEMP%\selfmade_suggestion_sync.txt" >nul 2>&1
+
+node scripts\sync_repo_state.js > "%REPO_SYNC_LOG%" 2>&1
+set "REPO_SYNC_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%REPO_SYNC_LOG%" "repo sync"
+if not "%REPO_SYNC_EXIT%"=="0" (
+    if exist "%REPO_SYNC_LOG%" type "%REPO_SYNC_LOG%"
+    echo [!] Repo sync failed. Resolve the repo sync state and retry.
+    call :LOG Repo sync failed.
+    goto PAUSE
+)
+if exist "%REPO_SYNC_LOG%" (
+    for /f "usebackq delims=" %%A in ("%REPO_SYNC_LOG%") do set "REPO_SYNC_STATUS=%%A"
+    call :LOG repo sync status: !REPO_SYNC_STATUS!
+    if /I "!REPO_SYNC_STATUS!"=="REPO_SYNC=BLOCKED_DIRTY" (
+        echo [!] Repo sync blocked by local changes. Resolve them so remote fixes can be pulled.
+        call :LOG Repo sync blocked by dirty working tree.
+        goto PAUSE
+    )
+)
+del "%REPO_SYNC_LOG%" >nul 2>&1
 
 REM ── Read current version ───────────────────────────────────────
 set /p CURVER=<VERSION
@@ -126,6 +151,8 @@ set "PROCESS_REVIEW=recent0 gameplay:0 ui:0 polish:0 docs-process:0 reliability:
 set "META_REVIEW_DUE=NO"
 set "RECENT_FAILURE_HINT=none"
 set "DEEP_SUGGESTION_HINT=none"
+set "ITERATION_FOCUS=gameplay"
+set "ITERATION_FOCUS_HINT=prioritize enemies weapons objectives controls or other changes players can immediately feel"
 del "%PROCESS_REVIEW_LOG%" >nul 2>&1
 del "%PROCESS_REVIEW_ERR%" >nul 2>&1
 node scripts\review_process.js prompt > "%PROCESS_REVIEW_LOG%" 2> "%PROCESS_REVIEW_ERR%"
@@ -172,7 +199,23 @@ if "%DEEP_SUGGESTION_EXIT%"=="0" (
 del "%DEEP_SUGGESTION_LOG%" >nul 2>&1
 del "%DEEP_SUGGESTION_ERR%" >nul 2>&1
 call :LOG Deep suggestion hint: %DEEP_SUGGESTION_HINT%
-set "PROMPT_EXTRA=ImageStatusSmall:%IMAGE_STATUS_SMALL% ImageStatusLarge:%IMAGE_STATUS_LARGE% ProcessReview:%PROCESS_REVIEW% MetaReviewDue:%META_REVIEW_DUE% RecentFailureHint:%RECENT_FAILURE_HINT% DeepSuggestionHint:%DEEP_SUGGESTION_HINT%"
+del "%ITERATION_FOCUS_LOG%" >nul 2>&1
+del "%ITERATION_FOCUS_ERR%" >nul 2>&1
+node scripts\iteration_focus.js > "%ITERATION_FOCUS_LOG%" 2> "%ITERATION_FOCUS_ERR%"
+set "ITERATION_FOCUS_EXIT=%ERRORLEVEL%"
+call :APPEND_FILE "%ITERATION_FOCUS_ERR%" "iteration focus"
+if "%ITERATION_FOCUS_EXIT%"=="0" (
+    for /f "usebackq tokens=1,* delims==" %%A in ("%ITERATION_FOCUS_LOG%") do (
+        if /I "%%A"=="ITERATION_FOCUS" set "ITERATION_FOCUS=%%B"
+        if /I "%%A"=="ITERATION_FOCUS_HINT" set "ITERATION_FOCUS_HINT=%%B"
+    )
+) else (
+    call :LOG Iteration focus analysis failed. Using default focus.
+)
+del "%ITERATION_FOCUS_LOG%" >nul 2>&1
+del "%ITERATION_FOCUS_ERR%" >nul 2>&1
+call :LOG Iteration focus: %ITERATION_FOCUS% -- %ITERATION_FOCUS_HINT%
+set "PROMPT_EXTRA=ImageStatusSmall:%IMAGE_STATUS_SMALL% ImageStatusLarge:%IMAGE_STATUS_LARGE% ProcessReview:%PROCESS_REVIEW% MetaReviewDue:%META_REVIEW_DUE% RecentFailureHint:%RECENT_FAILURE_HINT% DeepSuggestionHint:%DEEP_SUGGESTION_HINT% IterationFocus:%ITERATION_FOCUS% IterationFocusHint:%ITERATION_FOCUS_HINT%"
 set "COPILOT_OUT=%TEMP%\selfmade_copilot.txt"
 set "CHANGE_SUMMARY="
 set "CHANGE_SUMMARY_FILE=%TEMP%\selfmade_change_summary.txt"
@@ -356,7 +399,10 @@ echo.
 echo Waiting (%PAUSE_MIN% minutes). Press any key to skip...
 call :LOG Waiting (%PAUSE_MIN% minutes) before next iteration.
 node scripts\pause_with_skip.js %PAUSE_SEC%
-goto LOOP
+echo Reloading selfmade.bat from disk...
+call :LOG Re-executing selfmade.bat from disk.
+start "" /b cmd /c ""%~f0" --reexec""
+exit /b 0
 
 :LOG
 >> "%LOG_FILE%" echo [%date% %time%] %*

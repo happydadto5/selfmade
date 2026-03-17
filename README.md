@@ -21,6 +21,8 @@ The automation is intended to balance reliability work with visible progress. If
 
 The loop also now performs a lightweight self-review before each Copilot call. A small `PROCESS_STATE.json` file tracks when the last process review checkpoint happened, and `scripts/review_process.js` analyzes the recent changelog mix. If visible progress has been weak, the prompt is automatically biased harder toward noticeable gameplay/UI work. About every 10 successful releases, the system marks a roadmap/process review as due so future sessions can refresh direction before drift gets too large.
 
+The batch loop now also assigns an iteration focus lane each cycle so work rotates across gameplay, levels/progression, visual/UI presentation, and stability instead of drifting too long into behind-the-scenes work. It explicitly polls the repo for remote updates each iteration, and at the end of each pause `selfmade.bat` re-executes a fresh copy of itself from disk so pulled batch/prompt/script edits are picked up on the next run.
+
 ### Versioning
 - The first version number advances once per day: day one releases are `1.x.0`, the next day becomes `2.x.0`, and so on.
 - Each successful improvement on the same day increments the middle number, so versions progress like `1.0.0`, `1.1.0`, `1.2.0`.

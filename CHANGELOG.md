@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## Unreleased
 - Visual: add a brief enemy-hit flash when bullets strike enemies to improve feedback (tiny) — 2026-03-17
 - Automation: rotate each iteration through gameplay, levels, visual/UI, and stability focus lanes so the loop delivers a healthier mix of visible and behind-the-scenes work.
 - Automation: selfmade.bat now re-executes a fresh copy of itself after each pause so batch-file edits are picked up on the next cycle.
