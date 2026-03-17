@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 3.2.0
 - UX: Add small on-canvas FPS counter for visibility and debugging (tiny) — 2026-03-17
 
 ## 3.1.0
