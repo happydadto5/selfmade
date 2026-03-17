@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UX: Add small on-canvas FPS counter for visibility and debugging (tiny) — 2026-03-17
+
 ## 3.1.0
 - UX: Add full-screen touch-zone split: left 25% and right 25% now act as continuous left/right move zones; center 50% remains move-to-and-hold-to-fire. Announce and briefly show touch guides on first touch. — 2026-03-17
 

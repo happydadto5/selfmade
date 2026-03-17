@@ -2285,6 +2285,17 @@ if (overlay) {
       } catch (e) { /* ignore drawing errors on older browsers */ }
     }
 
+    // Draw a small FPS counter in the HUD corner for visibility during play (smoothed)
+    try {
+      const fps = rawDt > 0 ? (1000 / rawDt) : 0;
+      fpsSmoothed = fpsSmoothed * 0.92 + fps * 0.08;
+      ctx.save();
+      ctx.font = '14px sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.fillText('FPS: ' + Math.round(fpsSmoothed), cw - 12, 18);
+      ctx.restore();
+    } catch (e) { /* ignore FPS draw errors */ }
     ctx.restore();
     if (paused || gameOver) {
       ctx.fillStyle = 'rgba(0,0,0,0.45)';
@@ -2314,6 +2325,7 @@ if (overlay) {
   }
 
   let last = performance.now();
+  let fpsSmoothed = 60;
   function loop(t) {
     const rawDt = t - last;
     const dt = Math.max(0, Math.min(50, rawDt));
