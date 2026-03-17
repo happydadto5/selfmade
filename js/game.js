@@ -470,6 +470,7 @@
         try {
           const ui = document.getElementById('ui');
           hudVisible = !(typeof hudVisible !== 'undefined' && hudVisible === false);
+          try { localStorage.setItem('selfmade_hud_visible', hudVisible ? '1' : '0'); } catch (e) { /* ignore */ }
           if (ui) {
             const hidden = ui.getAttribute('data-hidden') === 'true';
             if (hidden) {
@@ -1121,7 +1122,22 @@ if (overlay) {
   // Persist preference in localStorage ('1' = enabled, '0' = disabled)
   let autoPauseEnabled = (function(){ try { const v = localStorage.getItem('selfmade_autopause'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
   // HUD visibility flag (toggle with H). When false both DOM HUD and in-canvas HUD are hidden for a distraction-free mode.
-  let hudVisible = true;
+  let hudVisible = (function(){ try { const v = localStorage.getItem('selfmade_hud_visible'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
+  // Apply persisted HUD preference to DOM HUD immediately so initial UI matches user preference
+  try {
+    const ui = document.getElementById('ui');
+    if (ui) {
+      if (!hudVisible) {
+        ui.style.display = 'none';
+        ui.setAttribute('data-hidden','true');
+        try { ui.setAttribute('aria-hidden','true'); } catch(e) {}
+      } else {
+        ui.style.display = '';
+        ui.setAttribute('data-hidden','false');
+        try { ui.setAttribute('aria-hidden','false'); } catch(e) {}
+      }
+    }
+  } catch (e) { /* ignore */ }
   // Create an Auto-pause toggle button in the UI for discoverability and accessibility.
   // This small UI control mirrors the O key and persists the preference to localStorage.
   try {

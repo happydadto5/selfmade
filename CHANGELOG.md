@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Persist HUD visibility across sessions so the HUD remains hidden when the player prefers distraction-free mode. (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Canvas HUD shows a subtle red outline when lives are low (1 life) to improve visibility (tiny) — 2026-03-17
 
 ## Unreleased
