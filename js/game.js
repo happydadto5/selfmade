@@ -315,6 +315,17 @@
           el.style.boxShadow = '0 8px 18px rgba(76,175,80,0.18)';
           el.style.pointerEvents = 'none';
           el.style.zIndex = '10002';
+          // Respect user's reduced-motion preference: if they prefer reduced motion, show a static indicator without transitions
+          const prefersReducedMotionLocal = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+          if (prefersReducedMotionLocal) {
+            el.style.opacity = '1';
+            el.style.transform = 'scale(1)';
+            el.style.transition = 'none';
+            document.body.appendChild(el);
+            // Remove after a brief static display so the element doesn't linger indefinitely
+            setTimeout(() => { try { if (el && el.parentNode) el.parentNode.removeChild(el); } catch (e) {} }, 600);
+            return;
+          }
           el.style.opacity = '0';
           el.style.transform = 'scale(0.7)';
           el.style.transition = 'opacity 320ms ease, transform 320ms ease';
