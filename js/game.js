@@ -682,6 +682,11 @@
       // Ensure the Auto-Pause toggle button updates when the preference is changed via the keyboard shortcut
       try { if (typeof updateAutoPauseUI === 'function') updateAutoPauseUI(); } catch (e) { /* ignore */ }
     }
+
+    // 'N' advances to the next wave (developer/testing)
+    if ((e.key === 'n' || e.key === 'N') && !gameOver) {
+      try { spawnWave(); } catch (e) { /* ignore */ }
+    }
     // 'H' toggles HUD visibility (keyboard shortcut) — mirror HUD button behavior
     if (e.key === 'h' || e.key === 'H') {
       try { const btn = document.getElementById('hudBtn'); if (btn) { btn.click(); } } catch (err) { /* ignore */ }
