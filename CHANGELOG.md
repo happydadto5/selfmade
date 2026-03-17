@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Briefly reveal on-screen touch buttons on first touch to aid discoverability (tiny) — 2026-03-17
+
+## Unreleased
+
 - Chore: Add a small changelog entry for a tiny repository update (2026-03-17)
 
 ## Unreleased

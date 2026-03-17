@@ -151,6 +151,16 @@
             setTimeout(() => { try { t.style.opacity = '0'; try { t.setAttribute('aria-hidden', 'true'); } catch (e) {} } catch (e) {} }, 3800);
           }
         } catch (e) { /* ignore DOM errors */ }
+
+        // Briefly reveal on-screen touch buttons as an auxiliary discoverability hint (hidden by default on touch devices)
+        try {
+          const tc = document.getElementById('touch-controls');
+          if (tc) {
+            try { tc.style.display = 'flex'; tc.setAttribute('aria-hidden','false'); } catch (e) {}
+            setTimeout(() => { try { tc.style.display = 'none'; tc.setAttribute('aria-hidden','true'); } catch (e) {} }, Math.min(durationMs, 3500));
+          }
+        } catch (e) { /* ignore */ }
+
         // Remove the class shortly after the guide expiry so the DOM stays clean
         setTimeout(() => {
           try {
