@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Touch: add on-screen touch control buttons (left, water, right) to improve discoverability and accessibility; shown on coarse-pointer devices and briefly during touch discovery. — 2026-03-17
+
+## Unreleased
+
 - UI: Wave HUD briefly pulses on new wave start (tiny) — 2026-03-17
 
 ## Unreleased
