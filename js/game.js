@@ -758,7 +758,7 @@ if (overlay) {
       } else if (pausedByFocus) {
         overlayMessage.textContent = 'Paused (lost focus) — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press Space, click or tap, or return to this tab to resume';
       } else if (paused) {
-        overlayMessage.textContent = 'Paused — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press P or Esc to resume';
+        overlayMessage.textContent = 'Paused — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press P, Esc, or Space to resume';
       } else {
         overlayMessage.textContent = '';
       }
@@ -1797,7 +1797,7 @@ if (overlay) {
       ctx.fillText(gameOver ? 'Game Over' : (pausedByFocus ? 'Paused (focus lost)' : 'Paused'), cw/2, ch/2);
       if (!gameOver) {
         ctx.font = '18px sans-serif';
-        ctx.fillText(pausedByFocus ? 'Paused due to focus loss — tap or press P to resume' : 'Press P or Esc to resume', cw/2, ch/2 + 48);
+        ctx.fillText(pausedByFocus ? 'Paused due to focus loss — tap, Space, or press P to resume' : 'Press P, Esc, or Space to resume', cw/2, ch/2 + 48);
       } else {
         ctx.font = '20px sans-serif';
         ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
