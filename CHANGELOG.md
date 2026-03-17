@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+- UX: Align touch-guide duration with touch-toast lifecycle so guides and toast hide together (tiny) — 2026-03-17
+
+## Unreleased
 - UI: Draw heart icons for Lives in the in-canvas HUD for clearer visual feedback (tiny) — 2026-03-17
 
 
