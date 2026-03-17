@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Reduce touch-zone separator contrast slightly to be less intrusive (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Make touch hint wording consistent between DOM and in-game hints (tiny) — 2026-03-17
 
 ## Unreleased
