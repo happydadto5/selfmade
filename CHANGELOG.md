@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Increase lives HUD heart size slightly for better readability (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Lower touch-zone separator contrast to reduce distraction (tiny) — 2026-03-17
 
 ## Unreleased
