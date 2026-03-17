@@ -45,13 +45,13 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
   body.show-touch-guides::before, body.show-touch-guides::after {
     content: "";
     position: fixed;
-    bottom: 12px;
+    top: calc(33vh - 1px);
     width: 0;
-    height: 34vh; /* runs about one-third up the page; slightly increased for better discoverability */
-    border-left: 1px dashed rgba(0,0,0,0.6);
+    height: 34vh; /* starts at top-third and runs down ~34vh for clear discoverability */
+    border-left: 1px dashed rgba(0,0,0,0.45);
     pointer-events: none;
     z-index: 50;
-    opacity: 0.98;
+    opacity: 0.9;
   }
   body.show-touch-guides::before { left: 25%; }
   body.show-touch-guides::after  { left: 75%; }

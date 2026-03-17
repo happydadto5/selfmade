@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Strengthen touch-zone separators to start at the top-third and run downward for clearer discoverability (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Ensure HUD initializes on load even if mute button missing (tiny) — 2026-03-17
 
 ## Unreleased
