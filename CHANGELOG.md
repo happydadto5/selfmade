@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## Unreleased
+
+- Touch: add brief on-screen zone labels (Left / Water / Right) when touch guides are revealed for discoverability (tiny) — 2026-03-17
+
 - Accessibility: add hidden touch-guides announcer element (aria-live) so revealing touch guides is announced to screen readers (tiny) — 2026-03-17
 
 ## Unreleased
