@@ -151,15 +151,42 @@
   try {
     if (isTouch) {
       const clearTouchInputs = () => { keys.left = keys.right = keys.fire = false; };
+      // show a small green pulse at touch point when center fire is detected (reinforces garden theme)
+      const showTouchPulse = (x, y) => {
+        try {
+          const el = document.createElement('div');
+          el.style.position = 'fixed';
+          el.style.left = (x - 18) + 'px';
+          el.style.top = (y - 18) + 'px';
+          el.style.width = '36px';
+          el.style.height = '36px';
+          el.style.borderRadius = '50%';
+          el.style.background = 'rgba(76,175,80,0.92)';
+          el.style.boxShadow = '0 6px 14px rgba(76,175,80,0.18)';
+          el.style.pointerEvents = 'none';
+          el.style.zIndex = '10002';
+          el.style.opacity = '0';
+          el.style.transform = 'scale(0.8)';
+          el.style.transition = 'opacity 260ms ease, transform 260ms ease';
+          document.body.appendChild(el);
+          // trigger animation
+          requestAnimationFrame(() => {
+            try { el.style.opacity = '1'; el.style.transform = 'scale(1)'; } catch (e) {}
+          });
+          setTimeout(() => { try { el.style.opacity = '0'; el.style.transform = 'scale(1.18)'; } catch (e) {} }, 220);
+          setTimeout(() => { try { if (el && el.parentNode) el.parentNode.removeChild(el); } catch (e) {} }, 520);
+        } catch (e) { /* ignore */ }
+      };
       const handlePointer = (ev) => {
         try {
           if (ev && ev.pointerType && ev.pointerType !== 'touch') return;
           const x = (typeof ev.clientX !== 'undefined') ? ev.clientX : (ev.touches && ev.touches[0] && ev.touches[0].clientX);
+          const y = (typeof ev.clientY !== 'undefined') ? ev.clientY : (ev.touches && ev.touches[0] && ev.touches[0].clientY);
           if (typeof x === 'undefined' || x === null) return;
           const pct = x / window.innerWidth;
           if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; }
           else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; }
-          else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} }
+          else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} try { showTouchPulse(x, y); } catch (e) {} }
           try { canvas.focus(); } catch (e) {}
         } catch (e) { /* ignore */ }
       };
@@ -167,7 +194,7 @@
       window.addEventListener('pointermove', handlePointer, { passive: true });
       window.addEventListener('pointerup', clearTouchInputs, { passive: true });
       window.addEventListener('pointercancel', clearTouchInputs, { passive: true });
-      window.addEventListener('touchstart', (ev) => { try { const t = ev.touches && ev.touches[0]; if (!t) return; const x = t.clientX; const pct = x / window.innerWidth; if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; } else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; } else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} } try { canvas.focus(); } catch (e) {} } catch (e) {} }, { passive: true });
+      window.addEventListener('touchstart', (ev) => { try { const t = ev.touches && ev.touches[0]; if (!t) return; const x = t.clientX; const y = t.clientY; const pct = x / window.innerWidth; if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; } else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; } else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} try { showTouchPulse(x, y); } catch (e) {} } try { canvas.focus(); } catch (e) {} } catch (e) {} }, { passive: true });
       window.addEventListener('touchend', clearTouchInputs, { passive: true });
     }
   } catch (e) { /* ignore touch-zone binding errors */ }

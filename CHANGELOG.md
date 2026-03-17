@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Mobile: Show small green sowing pulse at center touch to reinforce garden theme and confirm fire action (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Auto-pause toggle title updates to reflect current state for clarity and screen-reader users (tiny) — 2026-03-17
 
 ## Unreleased
