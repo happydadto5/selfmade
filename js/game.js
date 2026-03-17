@@ -109,6 +109,8 @@
     try {
       const showTouchGuide = (durationMs = 12000) => {
         try { touchGuideExpires = Date.now() + durationMs; } catch (e) { touchGuideExpires = Date.now() + durationMs; }
+        // Persist that the user has seen the touch guides so they are not repeatedly shown across sessions
+        try { localStorage.setItem('selfmade_touch_guides_shown', '1'); } catch (e) { /* ignore */ }
         // Add a transient class that CSS uses to draw subtle dashed guides on touch devices
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
         // Create a small transient toast to clarify touch zones for first-time touch users
@@ -172,10 +174,15 @@
         }, durationMs);
       };
       // Prefer the standard touchstart, but many modern devices fire pointerdown with pointerType 'touch' instead.
-      window.addEventListener('touchstart', () => showTouchGuide(), { once: true, passive: true });
-      window.addEventListener('pointerdown', (ev) => {
-        try { if (ev && ev.pointerType === 'touch') showTouchGuide(); } catch (e) { /* ignore */ }
-      }, { once: true, passive: true });
+      try {
+        const _seen = (function(){ try { return !!localStorage.getItem('selfmade_touch_guides_shown'); } catch(e){ return false; } })();
+        if (!_seen) {
+          window.addEventListener('touchstart', () => showTouchGuide(), { once: true, passive: true });
+          window.addEventListener('pointerdown', (ev) => {
+            try { if (ev && ev.pointerType === 'touch') showTouchGuide(); } catch (e) { /* ignore */ }
+          }, { once: true, passive: true });
+        }
+      } catch (e) { /* ignore */ }
     } catch (e) { /* ignore */ }
   }
 

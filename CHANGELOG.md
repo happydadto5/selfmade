@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Persist touch-guide discovery so it only shows once per user (localStorage flag) — 2026-03-17
+
+## Unreleased
+
 - UX: Show discoverable full-screen touch zones (left 25% move, center 50% action, right 25% move) with a low-contrast dashed guide on first touch (tiny) — 2026-03-17
 
 ## Unreleased
