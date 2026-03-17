@@ -290,6 +290,17 @@
     o.connect(g); g.connect(audioCtx.destination);
     if (type === 'fire') { o.type = 'square'; o.frequency.setValueAtTime(880, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.12); }
     else if (type === 'hit') { o.type = 'sawtooth'; o.frequency.setValueAtTime(220, now); g.gain.setValueAtTime(0.04, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18); }
+    else if (type === 'wave') { 
+      // Distinct two-tone chime for wave starts: triangle wave that glides up slightly
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(660, now);
+      o.frequency.linearRampToValueAtTime(880, now + 0.08);
+      g.gain.setValueAtTime(0.035, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+      o.start(now);
+      o.stop(now + 0.32);
+      return;
+    }
     else { o.type='sine'; o.frequency.setValueAtTime(440, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1); }
     o.start(now); o.stop(now + 0.2);
   }
@@ -1275,7 +1286,7 @@ if (overlay) {
   } catch (e) { /* ignore DOM errors */ }
 
     // Play a short chime to audibly signal the new wave (WebAudio oscillator only)
-    try { playSound('blip'); } catch(e) { /* ignore audio errors */ }
+    try { playSound('wave'); } catch(e) { /* ignore audio errors */ }
     // Accessibility: announce new wave to assistive tech via an aria-live region
     try {
       let waveAnn = document.getElementById('wave-announcer');

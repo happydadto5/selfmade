@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Audio: Distinct two-tone chime for new wave starts (WebAudio oscillator) (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Clarify Resume button label to include Space/P for keyboard discoverability (tiny) — 2026-03-17
 
 ## Unreleased
