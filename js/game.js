@@ -234,7 +234,7 @@
           lbls.setAttribute('aria-hidden', 'true');
           lbls.style.position = 'fixed';
           lbls.style.left = '0';
-          lbls.style.top = '68vh';
+          lbls.style.top = '32vh';
           lbls.style.width = '100%';
           lbls.style.display = 'flex';
           lbls.style.justifyContent = 'space-between';
