@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Touch: wire up on-screen touch-control buttons to activate movement and fire when tapped; support keyboard activation (Enter/Space) for accessibility (tiny) — 2026-03-17
+
+## Unreleased
+
 - Touch: add on-screen touch control buttons (left, water, right) to improve discoverability and accessibility; shown on coarse-pointer devices and briefly during touch discovery. — 2026-03-17
 
 ## Unreleased

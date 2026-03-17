@@ -269,6 +269,35 @@
     } catch (e) { /* ignore DOM errors */ }
   }
 
+  // Bind on-screen touch-control buttons so tapping them triggers the same inputs as full-screen zones.
+  // This improves discoverability and ensures keyboard activation works for accessibility.
+  try {
+    const touchLeftBtn = document.getElementById('touch-left');
+    const touchFireBtn = document.getElementById('touch-fire');
+    const touchRightBtn = document.getElementById('touch-right');
+    const bindTouchControl = (btn, downHandler) => {
+      if (!btn) return;
+      try {
+        // pointerdown to handle touch and stylus; preventDefault to avoid accidental focus shift
+        btn.addEventListener('pointerdown', (ev) => { try { ev.preventDefault(); downHandler(); } catch (e) {} }, { passive: false });
+        // click as a fallback for older browsers
+        btn.addEventListener('click', (ev) => { try { ev.preventDefault(); downHandler(); } catch (e) {} }, { passive: false });
+        // release clears inputs
+        btn.addEventListener('pointerup', () => { try { clearInputs(); } catch (e) {} }, { passive: true });
+        btn.addEventListener('pointercancel', () => { try { clearInputs(); } catch (e) {} }, { passive: true });
+        // keyboard activation (Enter / Space)
+        btn.addEventListener('keydown', (ev) => {
+          try {
+            if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); downHandler(); }
+          } catch (e) {}
+        });
+      } catch (e) { /* ignore binding errors */ }
+    };
+    bindTouchControl(touchLeftBtn, () => { keys.left = true; keys.right = false; keys.fire = false; try { canvas.focus(); } catch(e){} });
+    bindTouchControl(touchRightBtn, () => { keys.right = true; keys.left = false; keys.fire = false; try { canvas.focus(); } catch(e){} });
+    bindTouchControl(touchFireBtn, () => { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch(e){} try { canvas.focus(); } catch(e){} });
+  } catch (e) { /* ignore touch-control wiring errors */ }
+
   // Transient controls hint: shows briefly on startup (ms)
   // Increased to 9000ms for better discoverability on touch devices and slower starters.
   const tipDuration = 9000;
