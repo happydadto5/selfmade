@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Subtle touch guide position tweak — move guide nearer top-third for better discoverability on mobile (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Add 'H' keyboard shortcut to toggle HUD (mirrors HUD button) (tiny) — 2026-03-17
 
 ## Unreleased
