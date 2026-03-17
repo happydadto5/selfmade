@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Slightly reduce HUD background opacity for better game visibility (tiny) — 2026-03-17
+
+## Unreleased
+
 - Touch: Announce touch controls more descriptively to assistive tech — when touch guides are revealed the aria-live message now explains: "tap left/right to move; tap center to water plants." (tiny) — 2026-03-17
 
 ## Unreleased
