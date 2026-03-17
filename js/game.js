@@ -852,7 +852,7 @@ if (overlay) {
   });
 }
   // Pause handling for accessibility: pause when window loses focus (debounced and respectful of gameOver)
-  const AUTO_PAUSE_DEBOUNCE = 450; // ms used for blur/visibility auto-pause debounce (small increase to reduce accidental pauses)
+  const AUTO_PAUSE_DEBOUNCE = 500; // ms used for blur/visibility auto-pause debounce (slightly increased to reduce accidental pauses)
   let paused = false;
   let pausedByFocus = false;
   let helpOpen = false;
