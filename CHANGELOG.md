@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Make touch hint wording consistent between DOM and in-game hints (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Set type="button" on Auto-Pause toggle to avoid accidental form submission (tiny) — 2026-03-17
 
 ## Unreleased
