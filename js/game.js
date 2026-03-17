@@ -1075,7 +1075,7 @@ if (overlay) {
       pointerActive = true;
       showTouchGuidesUntil = Date.now() + 10000;
       // Also set the legacy touchGuideExpires and add a transient body class so CSS-based guides stay consistent
-      try { touchGuideExpires = Date.now() + 12000; } catch (e) { /* ignore */ }
+      try { touchGuideExpires = Date.now() + TOUCH_GUIDE_DURATION; } catch (e) { /* ignore */ }
       try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
       // Also briefly reveal on-screen touch buttons for discoverability (then hide again)
       try {
