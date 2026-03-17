@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Visual: Draw leaf-shaped firing particles with subtle rotation for garden feel (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Auto-pause debounce increased to 500ms to reduce accidental pauses; UI announces and dims on pause (tiny) — 2026-03-17
 
 ## Unreleased

@@ -1213,7 +1213,10 @@ if (overlay) {
             r: 2 + Math.random() * 2,
             life: 240 + Math.random() * 160,
             born: Date.now(),
-            color: '#8BC34A'
+            color: '#8BC34A',
+            leaf: true,
+            angle: Math.random() * Math.PI * 2,
+            spin: (Math.random() - 0.5) * 0.12
           });
         }
       } catch (e) { /* ignore particle errors */ }
@@ -1374,6 +1377,9 @@ if (overlay) {
       p.x += p.vx;
       p.y += p.vy;
       p.vy += 0.05; // gravity
+      if (p.leaf) {
+        p.angle = (p.angle || 0) + (p.spin || 0);
+      }
       p.life -= dt;
       if (p.life <= 0) particles.splice(i,1);
     }
@@ -1543,10 +1549,22 @@ if (overlay) {
       const alpha = Math.max(0, Math.min(1, p.life / 1000));
       ctx.save();
       ctx.globalAlpha = alpha;
-      ctx.fillStyle = p.color || 'rgba(255,220,100,1)';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      ctx.fill();
+      if (p.leaf) {
+        try {
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle || 0);
+          ctx.fillStyle = p.color || '#8BC34A';
+          // draw a small leaf-like ellipse
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.r * 1.6, Math.max(1, p.r * 0.8), 0, 0, Math.PI * 2);
+          ctx.fill();
+        } catch (e) { /* ignore draw errors for leaves */ }
+      } else {
+        ctx.fillStyle = p.color || 'rgba(255,220,100,1)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+      }
       ctx.restore();
     }
     // draw floating score popups
