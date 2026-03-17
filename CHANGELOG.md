@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Touch: unify touch-guide duration to 10s for consistent discoverability (tiny) — 2026-03-17
+
+## Unreleased
+
+## Unreleased
+
 - UX: Document 'N' keyboard shortcut in help overlay to advance to the next wave (tiny) — 2026-03-17
 
 ## Unreleased

@@ -109,9 +109,10 @@
   // Show a simple horizontal guide briefly after the first touch so mobile users discover control zones
   // touchGuideExpires stores the timestamp (ms) until which the guide should be visible
   let touchGuideExpires = 0;
+  const TOUCH_GUIDE_DURATION = 10000;
   if (typeof window !== 'undefined') {
     try {
-      const showTouchGuide = (durationMs = 9000) => {
+      const showTouchGuide = (durationMs = TOUCH_GUIDE_DURATION) => {
         try { touchGuideExpires = Date.now() + durationMs; } catch (e) { touchGuideExpires = Date.now() + durationMs; }
         // Persist that the user has seen the touch guides so they are not repeatedly shown across sessions
         try { localStorage.setItem('selfmade_touch_guides_shown', '1'); } catch (e) { /* ignore */ }
@@ -635,9 +636,9 @@
     if (e.key === 't' || e.key === 'T') {
       try {
         // Show the same subtle guides used on touch devices so desktop users can preview touch zones
-        showTouchGuide(9000);
+        showTouchGuide();
         // Also ensure the in-canvas separators and zone overlays are shown when previewing with the T key
-        try { showTouchGuidesUntil = Date.now() + 9000; } catch (e) { /* ignore if variable not available */ }
+        try { showTouchGuidesUntil = Date.now() + TOUCH_GUIDE_DURATION; } catch (e) { /* ignore if variable not available */ }
         // Also briefly reveal on-screen touch buttons for desktop preview so users see the alternative control affordance
         try {
           if (touchControls) {
