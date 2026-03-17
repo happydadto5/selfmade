@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Pointer touch feedback: play fire sound and show touch pulse on pointerdown center tap (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Subtle touch guide position tweak — move guide nearer top-third for better discoverability on mobile (tiny) — 2026-03-17
 
 ## Unreleased

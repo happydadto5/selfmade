@@ -730,6 +730,11 @@
         ev.preventDefault();
         activeTouches.set(ev.pointerId, ev);
         updateKeysFromXY(ev.clientX, ev.clientY);
+        // Provide immediate audio and visual feedback for center-fire when using pointer events (touch/pen). Keeps parity with touchstart behavior.
+        if (keys.fire) {
+          try { playSound('fire'); } catch (e) { /* ignore sound errors */ }
+          try { showTouchPulse(ev.clientX, ev.clientY); } catch (e) { /* ignore pulse errors */ }
+        }
       } catch (e) { /* ignore */ }
     }, { passive: false });
     canvas.addEventListener('pointermove', ev => {
