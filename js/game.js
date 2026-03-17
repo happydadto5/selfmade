@@ -103,7 +103,7 @@
   let touchGuideExpires = 0;
   if (typeof window !== 'undefined') {
     try {
-      const showTouchGuide = (durationMs = 20000) => {
+      const showTouchGuide = (durationMs = 12000) => {
         try { touchGuideExpires = Date.now() + durationMs; } catch (e) { touchGuideExpires = Date.now() + durationMs; }
         // Add a transient class that CSS uses to draw subtle dashed guides on touch devices
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }

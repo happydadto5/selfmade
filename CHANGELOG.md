@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Reduce default touch-guide duration to 12s for less visual persistence (tiny) — 2026-03-17
+
+## Unreleased
+
 - Dev: Add keyboard shortcut 'N' to advance to the next wave for quick testing and visible progression (tiny) — 2026-03-17
 
 ## Unreleased
