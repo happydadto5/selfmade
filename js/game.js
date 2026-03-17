@@ -1686,7 +1686,7 @@ if (overlay) {
       ctx.save();
       ctx.font = '16px sans-serif';
       ctx.textAlign = 'left';
-      const waveText = 'Wave: ' + waveNumber;
+      const waveText = 'Wave: ' + waveNumber + ' 🌱';
       const livesText = 'Lives: ' + lives;
       const enemiesText = enemies.length + ' ' + (enemies.length === 1 ? 'Enemy' : 'Enemies');
       const pad = 10;
@@ -1739,7 +1739,7 @@ if (overlay) {
       // Add a subtle shadow to the wave banner for improved contrast on busy backgrounds
       ctx.shadowColor = 'rgba(0,0,0,0.6)';
       ctx.shadowBlur = 10;
-      ctx.fillText('Wave ' + waveNumber, cw/2, 80);
+      ctx.fillText('Wave ' + waveNumber + ' 🌱', cw/2, 80);
       // Clear shadow after drawing so subsequent drawings are unaffected
       ctx.shadowBlur = 0;
       ctx.shadowColor = 'transparent';

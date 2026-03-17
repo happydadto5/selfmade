@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Use seedling emoji for Wave HUD (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Overlay hint on Game Over: show 'Press R or click to play again' to make restart discoverable (tiny) — 2026-03-17
 
 ## Unreleased
