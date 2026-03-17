@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Increase transient on-screen controls hint duration to 9s for better discoverability (tiny) — 2026-03-17
+
+## Unreleased
+
 - Mobile: Clarify touch hint wording to 'water plants' and unify in-game toast (tiny) — 2026-03-17
 
 ## Unreleased

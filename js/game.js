@@ -232,8 +232,8 @@
   }
 
   // Transient controls hint: shows briefly on startup (ms)
-  // Increased to 6000ms for better discoverability on touch devices and slower starters.
-  const tipDuration = 6000;
+  // Increased to 9000ms for better discoverability on touch devices and slower starters.
+  const tipDuration = 9000;
   let tipExpires = Date.now() + tipDuration;
 
   // Simple WebAudio effects (oscillators only). Created on first user gesture to satisfy autoplay policies.
