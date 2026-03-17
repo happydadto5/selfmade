@@ -1899,7 +1899,7 @@ if (overlay) {
     if (typeof hudVisible === 'undefined' || hudVisible) {
       try {
         ctx.save();
-        ctx.font = '16px sans-serif';
+        ctx.font = '18px sans-serif';
         ctx.textAlign = 'left';
         const waveText = 'Wave: ' + waveNumber + ' 🌱';
         const livesText = 'Lives: ' + lives;

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Slightly increase in-canvas Wave HUD font-size for better readability (tiny) — 2026-03-17
+
+## Unreleased
+
 - Performance: reduce particle cap from 160 to 120 to lower CPU/GPU load during heavy effects (tiny) — 2026-03-17
 
 ## Unreleased
