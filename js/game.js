@@ -351,7 +351,7 @@
           const pct = x / window.innerWidth;
           if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; }
           else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; }
-          else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} try { showTouchPulse(x, y); } catch (e) {} }
+          else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(20); } catch (e) {} try { showTouchPulse(x, y); } catch (e) {} }
           try { canvas.focus(); } catch (e) {}
         } catch (e) { /* ignore */ }
       };
@@ -359,7 +359,7 @@
       window.addEventListener('pointermove', handlePointer, { passive: true });
       window.addEventListener('pointerup', clearTouchInputs, { passive: true });
       window.addEventListener('pointercancel', clearTouchInputs, { passive: true });
-      window.addEventListener('touchstart', (ev) => { try { const t = ev.touches && ev.touches[0]; if (!t) return; const x = t.clientX; const y = t.clientY; const pct = x / window.innerWidth; if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; } else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; } else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} try { showTouchPulse(x, y); } catch (e) {} } try { canvas.focus(); } catch (e) {} } catch (e) {} }, { passive: true });
+      window.addEventListener('touchstart', (ev) => { try { const t = ev.touches && ev.touches[0]; if (!t) return; const x = t.clientX; const y = t.clientY; const pct = x / window.innerWidth; if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; } else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; } else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(20); } catch (e) {} try { showTouchPulse(x, y); } catch (e) {} } try { canvas.focus(); } catch (e) {} } catch (e) {} }, { passive: true });
       // Update inputs while moving a finger across the screen so dragging between zones updates movement/fire responsively
       window.addEventListener('touchmove', (ev) => { try { const t = ev.touches && ev.touches[0]; if (!t) return; const x = t.clientX; const pct = x / window.innerWidth; if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; } else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; } else { keys.fire = true; keys.left = false; keys.right = false; } } catch (e) {} }, { passive: true });
       window.addEventListener('touchend', clearTouchInputs, { passive: true });
@@ -409,7 +409,7 @@
     };
     bindTouchControl(touchLeftBtn, () => { keys.left = true; keys.right = false; keys.fire = false; try { canvas.focus(); } catch(e){} });
     bindTouchControl(touchRightBtn, () => { keys.right = true; keys.left = false; keys.fire = false; try { canvas.focus(); } catch(e){} });
-    bindTouchControl(touchFireBtn, () => { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch(e){} try { canvas.focus(); } catch(e){} });
+    bindTouchControl(touchFireBtn, () => { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch(e){} try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(20); } catch(e){} try { canvas.focus(); } catch(e){} });
   } catch (e) { /* ignore touch-control wiring errors */ }
 
   // Transient controls hint: shows briefly on startup (ms)
