@@ -1797,6 +1797,8 @@ if (overlay) {
         if (Math.abs(b.x - e.x) < (e.w/2 + b.r) && Math.abs(b.y - e.y) < (e.h/2 + b.r)) {
           bullets.splice(j,1);
           e.hp--;
+          // Brief hit flash to improve visual feedback when an enemy is struck
+          try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
           if (e.hp <= 0) {
             enemies.splice(i,1);
             score += 10;
@@ -2092,7 +2094,17 @@ if (overlay) {
     }
     ctx.fillStyle = '#fff'; for (const b of bullets) { ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
 
-    for (const e of enemies) { const sc = 1 + (e.y / ch) * 0.25; ctx.save(); ctx.translate(e.x,e.y); ctx.scale(sc,sc); ctx.fillStyle='#ff6666'; ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h); ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4); ctx.restore(); }
+    for (const e of enemies) { const sc = 1 + (e.y / ch) * 0.25; ctx.save(); ctx.translate(e.x,e.y); ctx.scale(sc,sc); try {
+          const nowHit = Date.now();
+          if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
+            // brighter tint while hit flash is active
+            ctx.fillStyle = '#ffb3b3';
+          } else {
+            ctx.fillStyle = '#ff6666';
+          }
+        } catch (err) { ctx.fillStyle = '#ff6666'; }
+        ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
+        ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4); ctx.restore(); }
 
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
     if (waveEl) {
