@@ -409,6 +409,12 @@
   }
 
   window.addEventListener('keydown', e => {
+    // Avoid intercepting keyboard input when a form control or editable element has focus
+    try {
+      const ae = document.activeElement;
+      if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.isContentEditable)) return;
+    } catch (err) {}
+
     // prevent arrow keys and space from scrolling the page while playing
     if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { e.preventDefault(); keys.left = true; }
     if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { e.preventDefault(); keys.right = true; }

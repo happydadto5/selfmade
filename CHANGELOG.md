@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Do not intercept keyboard when focus is in an input, textarea, or contenteditable element (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Expand in-page control description for screen readers to include M (mute), H (HUD), and C (colorblind) keyboard shortcuts (tiny) — 2026-03-17
 
 ## Unreleased
