@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: add hidden touch-guides announcer element (aria-live) so revealing touch guides is announced to screen readers (tiny) — 2026-03-17
+
+## Unreleased
+
 - Touch: discoverable full-screen touch zones and subtle dashed guide line shown briefly after first touch (tiny) — 2026-03-17
 
 ## Unreleased
