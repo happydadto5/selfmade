@@ -107,7 +107,7 @@
   let touchGuideExpires = 0;
   if (typeof window !== 'undefined') {
     try {
-      const showTouchGuide = (durationMs = 4200) => {
+      const showTouchGuide = (durationMs = 12000) => {
         try { touchGuideExpires = Date.now() + durationMs; } catch (e) { touchGuideExpires = Date.now() + durationMs; }
         // Add a transient class that CSS uses to draw subtle dashed guides on touch devices
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
@@ -999,7 +999,7 @@ if (overlay) {
       pointerActive = true;
       showTouchGuidesUntil = Date.now() + 10000;
       // Also set the legacy touchGuideExpires and add a transient body class so CSS-based guides stay consistent
-      try { touchGuideExpires = Date.now() + 14000; } catch (e) { /* ignore */ }
+      try { touchGuideExpires = Date.now() + 12000; } catch (e) { /* ignore */ }
       try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
       // Also briefly reveal on-screen touch buttons for discoverability (then hide again)
       try {

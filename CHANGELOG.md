@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Increase touch-guide default duration to 12s for better discoverability (tiny) — 2026-03-17
+
+## Unreleased
+
 ## Unreleased
 
 - UX: Align touch-guide duration with touch-toast lifecycle so guides and toast hide together (tiny) — 2026-03-17
