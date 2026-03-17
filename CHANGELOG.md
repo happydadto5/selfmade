@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Ensure HUD initializes on load even if mute button missing (tiny) — 2026-03-17
+
+## Unreleased
+
 - Mobile: Ensure transient touch-guide CSS class is removed after touch so guides don't linger (tiny) — 2026-03-17
 
 ## Unreleased

@@ -306,6 +306,8 @@
     let colorblindMode = (function(){ try { const v = localStorage.getItem('selfmade_colorblind'); return v === '1'; } catch (e) { return false; } })();
     try { if (colorblindMode) document.body.classList.add('colorblind-mode'); } catch (e) { /* ignore */ }
   }
+  // Ensure HUD reflects initial values even if mute button is missing (defensive)
+  try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
   // Help button: toggle help overlay
   const helpBtn = document.getElementById('helpBtn');
   if (helpBtn) {
