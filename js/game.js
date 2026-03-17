@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const canvas = document.getElementById('game');
   if (!canvas) { console.warn('Canvas #game not found — aborting game script'); return; }
   const ctx = canvas.getContext('2d');
@@ -471,7 +471,7 @@
         announcer.style.left = '-9999px';
         announcer.style.width = '1px';
         announcer.style.height = '1px';
-        announcer.setAttribute('aria-live', 'polite');
+        announcer.setAttribute('aria-live', 'assertive');
         announcer.setAttribute('aria-atomic', 'true');
         document.body.appendChild(announcer);
       }
@@ -791,7 +791,7 @@ if (overlay) {
           ap.style.left = '-9999px';
           ap.style.width = '1px';
           ap.style.height = '1px';
-          ap.setAttribute('aria-live', 'polite');
+          ap.setAttribute('aria-live', 'assertive');
           ap.setAttribute('aria-atomic', 'true');
           document.body.appendChild(ap);
         }
@@ -945,7 +945,7 @@ if (overlay) {
             announcer.style.left = '-9999px';
             announcer.style.width = '1px';
             announcer.style.height = '1px';
-            announcer.setAttribute('aria-live', 'polite');
+            announcer.setAttribute('aria-live', 'assertive');
             announcer.setAttribute('aria-atomic', 'true');
             document.body.appendChild(announcer);
           }
@@ -1057,7 +1057,7 @@ if (overlay) {
             announcer.style.left = '-9999px';
             announcer.style.width = '1px';
             announcer.style.height = '1px';
-            announcer.setAttribute('aria-live', 'polite');
+            announcer.setAttribute('aria-live', 'assertive');
             announcer.setAttribute('aria-atomic', 'true');
             document.body.appendChild(announcer);
           }

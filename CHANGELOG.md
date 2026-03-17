@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Announce auto-pause immediately to assistive tech (aria-live: assertive) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Do not intercept keyboard when focus is in an input, textarea, or contenteditable element (tiny) — 2026-03-17
 
 ## Unreleased
