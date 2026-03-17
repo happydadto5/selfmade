@@ -1654,7 +1654,7 @@ if (overlay) {
                   badge.style.zIndex = '10000';
                   document.body.appendChild(badge);
                 }
-                try { badge.textContent = 'New high score!'; } catch (e) {}
+                try { badge.textContent = 'New high score: ' + highScore + '!'; } catch (e) {}
                 // restart CSS animation
                 try { badge.classList.remove('show'); void badge.offsetWidth; badge.classList.add('show'); } catch (e) {}
                 setTimeout(() => { try { badge.classList.remove('show'); } catch (e) {} }, 1800);
