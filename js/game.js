@@ -306,25 +306,25 @@
         try {
           const el = document.createElement('div');
           el.style.position = 'fixed';
-          el.style.left = (x - 18) + 'px';
-          el.style.top = (y - 18) + 'px';
-          el.style.width = '36px';
-          el.style.height = '36px';
+          el.style.left = (x - 24) + 'px';
+          el.style.top = (y - 24) + 'px';
+          el.style.width = '48px';
+          el.style.height = '48px';
           el.style.borderRadius = '50%';
-          el.style.background = 'rgba(76,175,80,0.92)';
-          el.style.boxShadow = '0 6px 14px rgba(76,175,80,0.18)';
+          el.style.background = 'rgba(76,175,80,0.9)';
+          el.style.boxShadow = '0 8px 18px rgba(76,175,80,0.18)';
           el.style.pointerEvents = 'none';
           el.style.zIndex = '10002';
           el.style.opacity = '0';
-          el.style.transform = 'scale(0.8)';
-          el.style.transition = 'opacity 260ms ease, transform 260ms ease';
+          el.style.transform = 'scale(0.7)';
+          el.style.transition = 'opacity 320ms ease, transform 320ms ease';
           document.body.appendChild(el);
           // trigger animation
           requestAnimationFrame(() => {
-            try { el.style.opacity = '1'; el.style.transform = 'scale(1)'; } catch (e) {}
+            try { el.style.opacity = '1'; el.style.transform = 'scale(1.08)'; } catch (e) {}
           });
-          setTimeout(() => { try { el.style.opacity = '0'; el.style.transform = 'scale(1.18)'; } catch (e) {} }, 220);
-          setTimeout(() => { try { if (el && el.parentNode) el.parentNode.removeChild(el); } catch (e) {} }, 520);
+          setTimeout(() => { try { el.style.opacity = '0'; el.style.transform = 'scale(1.28)'; } catch (e) {} }, 300);
+          setTimeout(() => { try { if (el && el.parentNode) el.parentNode.removeChild(el); } catch (e) {} }, 760);
         } catch (e) { /* ignore */ }
       };
       const handlePointer = (ev) => {
