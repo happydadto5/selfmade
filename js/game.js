@@ -1583,6 +1583,8 @@ if (overlay) {
       ctx.arcTo(rx, ry, rx + boxW, ry, r);
       ctx.closePath();
       ctx.fill();
+      // subtle border to separate HUD from background
+      try { ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.stroke(); } catch (e) {}
       // Improve readability: add a subtle drop shadow for HUD text (helps on busy backgrounds)
       ctx.shadowColor = 'rgba(0,0,0,0.6)';
       ctx.shadowBlur = 6;

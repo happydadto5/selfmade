@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Add subtle HUD border to improve readability on busy backgrounds (tiny) — 2026-03-17
+
+## Unreleased
+
 - Misc: Adjust touch guide timing to 12s (tiny) — 2026-03-17
 
 ## Unreleased
