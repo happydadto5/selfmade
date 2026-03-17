@@ -1444,7 +1444,7 @@ if (overlay) {
         ctx.font = '14px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('Left', Math.floor(leftW/2), y);
+        ctx.fillText('Move', Math.floor(leftW/2), y);
         // Draw a subtle fire dot for the center zone instead of text to be less obtrusive on small screens
         try {
           const centerX = Math.floor(leftW + centerW/2);
@@ -1461,9 +1461,17 @@ if (overlay) {
             ctx.arc(centerX, y, 8, 0, Math.PI * 2);
           }
           ctx.fill();
+          // Add a small label under the center dot to clarify the garden action for touch users
+          try {
+            ctx.fillStyle = 'rgba(255,255,255,0.46)';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText('Sow', centerX, y + 12);
+          } catch (e) { /* ignore label draw errors */ }
         } catch (e) { /* ignore drawing errors */ }
         ctx.fillStyle = 'rgba(255,255,255,0.36)';
-        ctx.fillText('Right', Math.floor(leftW + centerW + rightW/2), y);
+        ctx.fillText('Move', Math.floor(leftW + centerW + rightW/2), y);
       } catch (e) { /* ignore drawing errors on older platforms */ }
       ctx.restore();
     }
