@@ -105,7 +105,8 @@
     try {
       const showTouchGuide = (durationMs = 15000) => {
         try { touchGuideExpires = Date.now() + durationMs; } catch (e) { touchGuideExpires = Date.now() + durationMs; }
-        try { showTouchGuide(12000); } catch (e) { /* ignore */ }
+        // Add a transient class that CSS uses to draw subtle dashed guides on touch devices
+        try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
         // Create a small transient toast to clarify touch zones for first-time touch users
         try {
           let t = document.getElementById('touch-toast');

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Show subtle dashed touch guide and add body.show-touch-guides class on first touch (mobile-first) — 2026-03-17
+
+## Unreleased
+
 - UX: Toggle touch hint visibility for screen readers by updating #touch-toast aria-hidden when guides show (tiny) — 2026-03-17
 
 ## Unreleased
