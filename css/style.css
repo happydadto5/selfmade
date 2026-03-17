@@ -35,7 +35,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
      The class `show-touch-guides` is toggled by the game on first touch and removed shortly after. */
   /* Add a subtle horizontal dashed guide near the top third to clarify touch zones for first-time touch users. Kept low-contrast so it is non-distracting. */
   body.show-touch-guides {
-    background-image: repeating-linear-gradient(to right, rgba(0,0,0,0.32) 0 2px, rgba(0,0,0,0) 2px 10px);
+    background-image: repeating-linear-gradient(to right, rgba(0,0,0,0.44) 0 2px, rgba(0,0,0,0) 2px 10px);
     background-repeat: no-repeat;
     background-position: 0 calc(33vh);
     background-size: 100% 1px;
@@ -47,7 +47,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
     width: 0;
     height: 34vh; /* runs about one-third up the page; slightly increased for better discoverability */
     /* Increase contrast slightly so guides are easier to notice in bright backgrounds while remaining subtle */
-    border-left: 1px dashed rgba(0,0,0,0.32);
+    border-left: 1px dashed rgba(0,0,0,0.44);
     pointer-events: none;
     z-index: 50;
     opacity: 0.98;

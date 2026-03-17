@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Slightly increase touch-guide contrast and duration for better discoverability on touch devices (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Extend touch feedback pulse from ~320ms to ~480ms to improve discoverability on touch devices (tiny) — 2026-03-17
 
 ## Unreleased
