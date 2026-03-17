@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Docs: Add Unreleased changelog entry for small maintenance (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Improve touch feedback pulse — longer, garden-themed green touch pulse on mobile for clearer discoverability (tiny) — 2026-03-17
 
 ## Unreleased
