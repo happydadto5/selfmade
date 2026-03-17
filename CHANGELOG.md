@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: document title now specifies when pause was caused by focus loss (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Increase lives HUD heart size slightly for better readability (tiny) — 2026-03-17
 
 ## Unreleased

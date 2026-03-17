@@ -986,7 +986,7 @@ if (overlay) {
   // switching tabs or on mobile are more likely to notice the paused state. Use a MutationObserver
   // on the overlay (which is toggled when pausing) so this is small and non-invasive.
   const originalTitle = (typeof document !== 'undefined' && document.title) ? document.title : 'Selfmade';
-  function setTitlePaused() { try { document.title = 'Paused — ' + originalTitle; } catch (e) { /* ignore title errors */ } }
+  function setTitlePaused() { try { document.title = (typeof pausedByFocus !== 'undefined' && pausedByFocus) ? 'Paused (lost focus) — ' + originalTitle : 'Paused — ' + originalTitle; } catch (e) { /* ignore title errors */ } }
   function restoreTitle() { try { document.title = originalTitle; } catch (e) { /* ignore title errors */ } }
   if (overlay) {
     try {
