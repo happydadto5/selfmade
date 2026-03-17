@@ -117,7 +117,7 @@
           if (!t) {
             t = document.createElement('div');
             t.id = 'touch-toast';
-            t.textContent = 'Tip: Tap center to sow seeds; tap left/right edges to move';
+            t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move';
             // Accessibility: make this transient hint discoverable to screen readers
             try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore attribute errors */ }
             try { t.setAttribute('aria-hidden', 'false'); } catch (e) {}
@@ -142,7 +142,7 @@
           } else {
             // Reuse existing touch-toast node when present: make it accessible and temporarily visible
             try {
-              t.textContent = 'Tip: Tap center to sow seeds; tap left/right edges to move';
+              t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move';
               try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore */ }
               try { t.removeAttribute('aria-hidden'); } catch (e) { /* ignore */ }
               try { t.style.opacity = '1'; } catch (e) { /* ignore */ }
@@ -1732,7 +1732,7 @@ if (overlay) {
     // transient on-screen controls hint (shows for tipDuration ms after load)
     if (Date.now() < tipExpires) {
       ctx.save();
-      const tipText = 'Tip: Garden shooter — Arrow keys or A/D to move; Space or tap center to sow seeds. Tap left/right edges to move. Press M to mute, O to toggle auto-pause. Dashed guides indicate touch zones.';
+      const tipText = 'Tip: Garden shooter — Arrow keys or A/D to move; Space or tap center to water plants. Tap left/right edges to move. Press M to mute, O to toggle auto-pause. Dashed guides indicate touch zones.';
       const tipW = Math.min(420, Math.max(160, cw - 24));
       ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(12,12,tipW,44);
       ctx.fillStyle = '#fff'; ctx.font = '14px sans-serif'; ctx.textAlign = 'left';
