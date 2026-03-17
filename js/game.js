@@ -1165,6 +1165,21 @@ if (overlay) {
       bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
       player.cooldown = 180; // ms
       lastFireFlashUntil = Date.now() + 120; // brief muzzle flash for firing feedback
+      // Small garden-themed leaf particles on fire for visual feedback (tiny, low-cost)
+      try {
+        for (let lp = 0; lp < 2; lp++) {
+          particles.push({
+            x: player.x + (Math.random() - 0.5) * 12,
+            y: player.y - 28,
+            vx: (Math.random() - 0.5) * 1.2,
+            vy: -1 - Math.random() * 0.6,
+            r: 2 + Math.random() * 2,
+            life: 240 + Math.random() * 160,
+            born: Date.now(),
+            color: '#8BC34A'
+          });
+        }
+      } catch (e) { /* ignore particle errors */ }
       playSound('fire');
     }
 
