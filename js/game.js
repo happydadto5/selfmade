@@ -1434,6 +1434,8 @@ if (overlay) {
   } catch (e) { /* ignore */ }
 
   // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
+  // Vendor-prefixed fallback for older WebKit browsers: mirror the visibilitychange event so our handler runs on legacy platforms.
+  try { document.addEventListener('webkitvisibilitychange', () => { try { document.dispatchEvent(new Event('visibilitychange')); } catch (e) { /* ignore */ } }, { passive: true }); } catch (e) { /* ignore */ }
   document.addEventListener('visibilitychange', () => { if (!autoPauseEnabled) return;
     if (document.hidden) {
       // If pointer/touch interaction is active, don't auto-pause to avoid interrupting active play on touch-hold
