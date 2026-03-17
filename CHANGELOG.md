@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Improve Wave HUD pulse contrast for better visibility (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Include Space as a supported resume key in paused overlays and DOM messages (tiny) — 2026-03-17
 
 ## Unreleased

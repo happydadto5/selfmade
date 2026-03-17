@@ -85,7 +85,7 @@ body.show-touch-guides::before { left: 25%; }
 body.show-touch-guides::after  { left: 75%; }
 
 /* Wave HUD pulse animation: briefly scales and tints the Wave counter when a new wave starts */
-#ui #wave.wave-pulse { display: inline-block; transform-origin: left center; animation: wavePulse 0.8s ease; background: rgba(27,94,32,0.06); padding: 2px 6px; border-radius: 6px; box-shadow: 0 2px 6px rgba(27,94,32,0.06); }
+#ui #wave.wave-pulse { display: inline-block; transform-origin: left center; animation: wavePulse 0.8s ease; background: rgba(27,94,32,0.12); padding: 4px 8px; border-radius: 6px; border-left: 3px solid rgba(27,94,32,0.18); box-shadow: 0 4px 12px rgba(27,94,32,0.12); }
 @keyframes wavePulse {
   0% { transform: scale(1); color: #333; }
   50% { transform: scale(1.12); color: #1b5e20; }
