@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   const canvas = document.getElementById('game');
   if (!canvas) { console.warn('Canvas #game not found — aborting game script'); return; }
   const ctx = canvas.getContext('2d');
@@ -1724,10 +1724,22 @@ if (overlay) {
       ctx.shadowColor = 'rgba(0,0,0,0.6)';
       ctx.shadowBlur = 6;
       ctx.fillStyle = 'rgba(255,255,255,0.95)';
-      ctx.fillText(waveText, rx + pad, ry + 16);
-      ctx.fillText(livesText, rx + pad, ry + 16 + lineHeight);
-      ctx.fillText(enemiesText, rx + pad, ry + 16 + lineHeight * 2);
-      // Reset shadow so other drawings are unaffected
+        ctx.fillText(waveText, rx + pad, ry + 16);
+        // Draw heart icons for lives for clearer, more visual feedback (garden-themed hearts)
+        try {
+          const heartSize = 16; // px
+          ctx.font = heartSize + 'px sans-serif';
+          for (let j = 0; j < Math.max(0, lives); j++) {
+            ctx.fillStyle = '#e53935';
+            const hx = rx + pad + j * (heartSize + 6);
+            const hy = ry + 16 + lineHeight - 4; // vertically align with text baseline
+            ctx.fillText('♥', hx, hy);
+          }
+          // restore text font and color for subsequent text
+          ctx.font = '16px sans-serif';
+          ctx.fillStyle = 'rgba(255,255,255,0.95)';
+        } catch (e) { /* ignore heart draw errors */ }
+        ctx.fillText(enemiesText, rx + pad, ry + 16 + lineHeight * 2);
       ctx.shadowBlur = 0;
       ctx.shadowColor = 'transparent';
       ctx.restore();

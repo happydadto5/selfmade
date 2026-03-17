@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+- UI: Draw heart icons for Lives in the in-canvas HUD for clearer visual feedback (tiny) — 2026-03-17
+
+
+## Unreleased
 
 - Accessibility: Announce auto-pause immediately to assistive tech (aria-live: assertive) — 2026-03-17
 
