@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Expand in-page control description for screen readers to include M (mute), H (HUD), and C (colorblind) keyboard shortcuts (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Subtle touch guide polish — reduce guide contrast and extend separator height for clearer discoverability on touch devices (tiny) — 2026-03-17
 
 ## Unreleased
