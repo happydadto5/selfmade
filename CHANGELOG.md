@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Lower touch-zone separator contrast to reduce distraction (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Reduce touch-zone separator contrast slightly to be less intrusive (tiny) — 2026-03-17
 
 ## Unreleased

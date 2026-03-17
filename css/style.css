@@ -49,7 +49,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
     width: 0;
     height: 34vh; /* starts at top-third and runs down ~34vh for clear discoverability */
     /* Slightly reduced contrast so separators are discoverable but not distracting */
-    border-left: 1px dashed rgba(0,0,0,0.32);
+    border-left: 1px dashed rgba(0,0,0,0.18);
     pointer-events: none;
     z-index: 50;
     opacity: 0.9;
