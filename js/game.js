@@ -1844,7 +1844,7 @@ if (overlay) {
     // If the user has touched the screen recently, show a subtle horizontal guide near the top third for a short time
     if ((Date.now() < touchGuideExpires || Date.now() < showTouchGuidesUntil) && cw > 240) {
       ctx.save();
-      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+      ctx.strokeStyle = 'rgba(102,187,106,0.12)';
       ctx.lineWidth = 1;
       ctx.setLineDash([6,6]);
       const y = Math.floor(ch * 0.33);
