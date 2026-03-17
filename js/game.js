@@ -2020,7 +2020,7 @@ if (overlay) {
           ctx.fillText(waveText, rx + pad, ry + 16);
           // Draw a 'Lives:' label then heart icons for lives for clearer, more visual feedback (garden-themed hearts)
           try {
-            const heartSize = 16; // px
+            const heartSize = 18; // px (slightly larger for readability)
             // Draw the Lives text label on its own line for clarity
             ctx.font = '16px sans-serif';
             ctx.fillStyle = 'rgba(255,255,255,0.95)';
