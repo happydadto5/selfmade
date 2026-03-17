@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Shorten touch guide duration to 3.5s to avoid clutter on mobile (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Set mute button type="button" to avoid accidental form submission (tiny) — 2026-03-17
 
 ## Unreleased
