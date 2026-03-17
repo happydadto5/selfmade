@@ -902,7 +902,7 @@ if (overlay) {
       pointerActive = true;
       showTouchGuidesUntil = Date.now() + 7000;
       // Also set the legacy touchGuideExpires and add a transient body class so CSS-based guides stay consistent
-      try { touchGuideExpires = Date.now() + 9000; } catch (e) { /* ignore */ }
+      try { touchGuideExpires = Date.now() + 12000; } catch (e) { /* ignore */ }
       try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
       // Also briefly reveal on-screen touch buttons for discoverability (then hide again)
       try {
@@ -913,7 +913,7 @@ if (overlay) {
         }
       } catch (e) { /* ignore */ }
       // Remove the class shortly after the guide expiry so the DOM stays clean
-      setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 7200);
+      setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 12000);
     }, { passive: true });
     document.addEventListener('touchend', () => { pointerActive = false; }, { passive: true });
     document.addEventListener('touchcancel', () => { pointerActive = false; }, { passive: true });

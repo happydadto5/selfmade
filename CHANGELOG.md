@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Make touch-guide timing consistent (12s) to avoid premature hiding (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Slightly increase HUD heart size for lives for better readability (tiny) — 2026-03-17
 
 ## Unreleased
