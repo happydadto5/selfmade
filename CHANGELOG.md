@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: mention 'G' garden-grid toggle in help overlay and hidden game description.
+
 ## 3.2.0
 - UX: Add small on-canvas FPS counter for visibility and debugging (tiny) — 2026-03-17
 
