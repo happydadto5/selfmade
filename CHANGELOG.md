@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Overlay hint on Game Over: show 'Press R or click to play again' to make restart discoverable (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Improve Wave HUD pulse contrast for better visibility (tiny) — 2026-03-17
 
 ## Unreleased
