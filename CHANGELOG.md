@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Improve Wave HUD contrast with subtle background and padding for readability (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Add in-canvas Wave HUD showing current wave number (tiny) — 2026-03-16
 
 ## Unreleased
