@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Update touch hint wording to 'sow seeds' for garden theme (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: document title now specifies when pause was caused by focus loss (tiny) — 2026-03-17
 
 ## Unreleased
