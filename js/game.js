@@ -136,7 +136,7 @@
   // Show a simple horizontal guide briefly after the first touch so mobile users discover control zones
   // touchGuideExpires stores the timestamp (ms) until which the guide should be visible
   let touchGuideExpires = 0;
-  const TOUCH_GUIDE_DURATION = 12000;
+  const TOUCH_GUIDE_DURATION = 8000;
   if (typeof window !== 'undefined') {
     try {
       const showTouchGuide = (durationMs = TOUCH_GUIDE_DURATION) => {
