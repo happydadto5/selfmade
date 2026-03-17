@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Slightly increase Wave HUD font-size for better readability (tiny) — 2026-03-17
+
+## Unreleased
+
 - Touch: wire up on-screen touch-control buttons to activate movement and fire when tapped; support keyboard activation (Enter/Space) for accessibility (tiny) — 2026-03-17
 
 ## Unreleased
