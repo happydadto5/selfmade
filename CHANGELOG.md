@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.3.0
 - UI: mention 'G' garden-grid toggle in help overlay and hidden game description.
 
 ## 3.2.0
