@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Subtle touch guide polish — reduce guide contrast and extend separator height for clearer discoverability on touch devices (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Include seedling emoji in Wave aria-label for screen reader parity (tiny) — 2026-03-17
 
 ## Unreleased
