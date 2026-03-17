@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Maintenance: small incremental update — updated changelog with a brief note. (tiny) — 2026-03-17
+
+
+
+## Unreleased
+
 - UI: Slightly increase Wave HUD font-size for better readability (tiny) — 2026-03-17
 
 ## Unreleased
@@ -1282,3 +1288,4 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
+
