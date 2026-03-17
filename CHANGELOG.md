@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.1.0
+- UX: Add full-screen touch-zone split: left 25% and right 25% now act as continuous left/right move zones; center 50% remains move-to-and-hold-to-fire. Announce and briefly show touch guides on first touch. — 2026-03-17
+
 ## 3.0.0
 - Fix: restore CHANGELOG.md text header so batch prepare_changelog no longer loops on an empty file.
 - Controls: Android touch now repositions the player on any bottom-half tap, and holding on the bottom half keeps firing until release; touch guides were updated to teach the new gesture.

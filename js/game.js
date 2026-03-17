@@ -124,7 +124,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '3.0.0';
+  const version = '3.1.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -350,6 +350,22 @@
         if (!isBottomTouchZone(clientY)) return false;
         stopBottomTouchInteraction();
         activeBottomTouchId = id;
+        // Determine which horizontal zone the touch is in: left 25%, center 50%, right 25%
+        const w = Math.max(1, window.innerWidth || document.documentElement.clientWidth || 1);
+        const frac = (typeof clientX === 'number') ? (clientX / w) : 0.5;
+        // Left continuous-move zone
+        if (frac <= 0.25) {
+          keys.left = true; keys.right = false; keys.fire = false;
+          try { canvas.focus(); } catch (e) {}
+          return true;
+        }
+        // Right continuous-move zone
+        if (frac >= 0.75) {
+          keys.right = true; keys.left = false; keys.fire = false;
+          try { canvas.focus(); } catch (e) {}
+          return true;
+        }
+        // Center zone: move to location and allow hold-to-fire
         movePlayerToClientX(clientX);
         try { canvas.focus(); } catch (e) {}
         touchHoldTimer = setTimeout(() => {
@@ -372,11 +388,28 @@
           stopBottomTouchInteraction(id);
           return false;
         }
+        const w = Math.max(1, window.innerWidth || document.documentElement.clientWidth || 1);
+        const frac = (typeof clientX === 'number') ? (clientX / w) : 0.5;
+        // If moving into left/right zones, switch to continuous move and cancel any pending hold-to-fire
+        if (frac <= 0.25) {
+          if (touchHoldTimer) { clearTimeout(touchHoldTimer); touchHoldTimer = null; }
+          touchHoldActive = false;
+          keys.left = true; keys.right = false; keys.fire = false;
+          return true;
+        }
+        if (frac >= 0.75) {
+          if (touchHoldTimer) { clearTimeout(touchHoldTimer); touchHoldTimer = null; }
+          touchHoldActive = false;
+          keys.right = true; keys.left = false; keys.fire = false;
+          return true;
+        }
+        // Center zone: move player to the touch X; if already holding, keep firing
         movePlayerToClientX(clientX);
         if (touchHoldActive) {
-          keys.fire = true;
-          keys.left = false;
-          keys.right = false;
+          keys.fire = true; keys.left = false; keys.right = false;
+        } else {
+          // ensure continuous left/right flags are cleared when in center
+          keys.left = false; keys.right = false;
         }
         return true;
       };
