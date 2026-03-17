@@ -1410,6 +1410,7 @@ if (overlay) {
     if (typeof overlay !== 'undefined' && overlay) {
       setOverlayVisible(paused || gameOver);
       updateOverlayMessage();
+      try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
       // Clear any stale overlay message after auto-resume to avoid lingering ARIA announcements
       if (!paused && !gameOver && typeof overlayMessage !== 'undefined' && overlayMessage) { try { overlayMessage.textContent = ''; } catch (e) {} }
     }
