@@ -1401,7 +1401,7 @@ if (overlay) {
             const pulseActive = (Date.now() < touchGuideExpires) || (Date.now() < showTouchGuidesUntil);
             const pulse = pulseActive ? (1 + 0.5 * Math.sin(Date.now() / 160)) : 1;
             const r = 8 * pulse;
-            ctx.fillStyle = 'rgba(255,138,101,0.98)'; // slight contrast increase
+            ctx.fillStyle = 'rgba(102,187,106,0.98)'; // garden-green center indicator (subtle)
             ctx.arc(centerX, y, r, 0, Math.PI * 2);
           } catch (e) {
             ctx.fillStyle = 'rgba(255,138,101,0.95)';
@@ -1620,7 +1620,7 @@ if (overlay) {
     // transient on-screen controls hint (shows for tipDuration ms after load)
     if (Date.now() < tipExpires) {
       ctx.save();
-      const tipText = 'Tip: Garden shooter — Arrow keys or A/D to move; Space or tap center to fire. Tap left/right edges to move. Press M to mute, O to toggle auto-pause. Dashed guides indicate touch zones.';
+      const tipText = 'Tip: Garden shooter — Arrow keys or A/D to move; Space or tap center to sow seeds. Tap left/right edges to move. Press M to mute, O to toggle auto-pause. Dashed guides indicate touch zones.';
       const tipW = Math.min(420, Math.max(160, cw - 24));
       ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(12,12,tipW,44);
       ctx.fillStyle = '#fff'; ctx.font = '14px sans-serif'; ctx.textAlign = 'left';

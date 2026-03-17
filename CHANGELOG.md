@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Garden-themed touch center indicator (green) and tip wording updated to 'sow seeds' for consistency (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Dim canvas when manually paused so paused state matches auto-pause dim (tiny) — 2026-03-17
 
 ## Unreleased
