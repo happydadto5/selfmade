@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Document 'N' keyboard shortcut in help overlay to advance to the next wave (tiny) — 2026-03-17
+
+## Unreleased
+
 - Touch: Support touchmove for sliding across zones so dragging finger updates movement/fire (tiny) — 2026-03-17
 
 ## Unreleased
