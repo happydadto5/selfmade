@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Ensure high-score badge appears above HUD (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Strengthen touch-zone separators to start at the top-third and run downward for clearer discoverability (tiny) — 2026-03-17
 
 ## Unreleased

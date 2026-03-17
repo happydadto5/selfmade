@@ -121,6 +121,7 @@ body.colorblind-mode #touch-controls button{ background:#fff; border-color:#999;
   opacity: 0;
   transform: translateY(-6px) scale(0.98);
   transition: opacity 220ms ease, transform 220ms ease;
+  z-index: 10001; /* ensure badge appears above HUD but below overlays */
 }
 #highscore-badge.show {
   opacity: 1;
