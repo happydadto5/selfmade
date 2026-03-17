@@ -71,6 +71,10 @@
             livesEl.appendChild(span);
           }
           livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
+          // Add a low-lives visual hint when player has only one life left
+          try {
+            if (lives <= 1) livesEl.classList.add('low'); else livesEl.classList.remove('low');
+          } catch (e) { /* ignore classList errors */ }
         } catch (e) { /* ignore DOM errors */ }
       }
       // Update wave HUD if present
@@ -1649,6 +1653,8 @@ if (overlay) {
         if (Date.now() < livesPulseUntil) { livesEl.classList.add('lives-pulse'); } else { livesEl.classList.remove('lives-pulse'); }
       } catch (e) { /* ignore DOM errors */ }
       livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
+      // Add a low-lives visual hint when player has only one life left
+      try { if (lives <= 1) livesEl.classList.add('low'); else livesEl.classList.remove('low'); } catch (e) { /* ignore */ }
     }
     // Show the higher of persisted high score and current run score so HUD reflects when the player surpasses the high score live during a run.
     const displayHigh = Math.max(highScore, score);

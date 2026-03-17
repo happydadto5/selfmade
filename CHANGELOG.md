@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Add low-lives pulsing indicator when player has 1 life to improve readability and warn the player (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Update touch hint wording to 'sow seeds' for garden theme (tiny) — 2026-03-17
 
 ## Unreleased

@@ -73,6 +73,17 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
   50% { transform: scale(1.14); color: #ff8a80; }
   100% { transform: scale(1); color: #e53935; }
 }
+/* Low-lives visual indicator: when player is down to 1 life, make hearts pulse and increase contrast to warn the player. Respects prefers-reduced-motion. */
+#ui #lives.low span { color: #ff3b30 !important; }
+#ui #lives.low { animation: lowLivesPulse 1.2s ease-in-out infinite; }
+@keyframes lowLivesPulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.92; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #ui #lives.low { animation: none !important; }
+}
 
 /* Overlay message styling: improve readability and contrast for paused/game-over messages */
 .overlay-message {
