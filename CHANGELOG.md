@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Improve: Responsive HUD — reduce top-left HUD size and spacing for narrow screens to avoid overlap and improve readability. (tiny) — 2026-03-17
+
+## Unreleased
+
+## Unreleased
+
 - UI: Use seedling emoji for Wave HUD to match garden theme (tiny) — 2026-03-17
 
 ## Unreleased

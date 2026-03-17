@@ -181,5 +181,13 @@ body.show-touch-guides #touch-toast { opacity: 1; transform: translateX(-50%) tr
 /* Apply a short shake to the canvas via a class on the body */
 body.wave-shake #game { animation: waveShake 320ms ease; }
 
+/* Responsive HUD: reduce UI footprint on narrow screens for improved readability and avoid overlap */
+@media (max-width:420px) {
+  #ui { font-size:16px; top:6px; left:8px; padding:6px 8px; border-radius:6px; }
+  #ui div { display:block; font-size:16px; }
+  #ui #wave { font-size:20px; }
+  #version { top:6px; right:8px; font-size:12px; }
+}
+
 
 
