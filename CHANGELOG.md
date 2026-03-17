@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Misc: Adjust touch guide timing to 12s (tiny) — 2026-03-17
+
+## Unreleased
+
 - Docs: Add Unreleased changelog entry for small maintenance (tiny) — 2026-03-17
 
 ## Unreleased
