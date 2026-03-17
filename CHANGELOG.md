@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Slightly improved Wave HUD contrast for better readability on busy backgrounds (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Touch hint unified — include 'Press P to pause' in in-game touch hint to match DOM guidance (tiny) — 2026-03-17
 
 ## Unreleased
