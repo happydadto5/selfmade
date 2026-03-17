@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Set mute button type="button" to avoid accidental form submission (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Slightly improved Wave HUD contrast for better readability on busy backgrounds (tiny) — 2026-03-17
 
 ## Unreleased

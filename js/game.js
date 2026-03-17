@@ -297,7 +297,7 @@
   }
   if (muteBtn) {
     // Make mute button explicitly a button for assistive tech and keyboard focus
-    try { muteBtn.setAttribute('role', 'button'); muteBtn.setAttribute('tabindex', '0'); } catch (e) {}
+    try { muteBtn.setAttribute('type', 'button'); muteBtn.setAttribute('role', 'button'); muteBtn.setAttribute('tabindex', '0'); } catch (e) {}
     muteBtn.addEventListener('click', () => {
       soundEnabled = !soundEnabled;
       try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
