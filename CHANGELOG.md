@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Touch: discoverable full-screen touch zones and subtle dashed guide line shown briefly after first touch (tiny) — 2026-03-17
+
+## Unreleased
+
 - Touch: announce when touch controls/guides are revealed for screen readers (aria-live) (tiny) — 2026-03-17
 
 ## Unreleased
