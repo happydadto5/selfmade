@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Add subtle center highlight to touch zones and strengthen left/right separators (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Increase touch guide visibility to 20s and clarify touch hint wording (tiny) — 2026-03-17
 
 ## Unreleased
