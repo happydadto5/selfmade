@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Performance: reduce particle cap from 160 to 120 to lower CPU/GPU load during heavy effects (tiny) — 2026-03-17
+
+## Unreleased
+
 - Docs: Read scripts/prompt.txt, suggestion.txt, and future.md; prepared next small, roadmap-aware improvement. — 2026-03-17
 
 ## Unreleased
