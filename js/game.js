@@ -49,6 +49,7 @@
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
   const enemiesEl = document.getElementById('enemies');
+  const waveProgressEl = document.getElementById('wave-progress');
 
   // Track last shown wave so the HUD can briefly animate when a new wave starts
   let lastWaveShown = null;
@@ -117,6 +118,14 @@
         try {
           const cnt = (typeof enemies !== 'undefined' ? enemies.length : 0);
           enemiesEl.textContent = cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies');
+        } catch (e) { /* ignore DOM errors */ }
+      }
+      // Update wave progress HUD if present (defeated / total for current wave)
+      if (waveProgressEl) {
+        try {
+          const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
+          const defeated = Math.max(0, total - (typeof enemies !== 'undefined' ? enemies.length : 0));
+          waveProgressEl.textContent = 'Progress: ' + defeated + '/' + total;
         } catch (e) { /* ignore DOM errors */ }
       }
     } catch (e) { /* ignore */ }
@@ -1591,7 +1600,7 @@ if (overlay) {
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
   let lastFireFlashUntil = 0;
   const bullets = []; const enemies = []; const particles = []; const scorePopups = []; let screenShake = 0;
-  let lastSpawn = 0; let waveNumber = 0;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
@@ -1639,6 +1648,7 @@ if (overlay) {
       const speed = Math.min(4, 0.6 + Math.random()*1.2 + waveNumber*0.05);
       enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:1 + Math.floor(waveNumber/4)});
     }
+    try { currentWaveEnemyCount = count; } catch (e) { currentWaveEnemyCount = count; }
     // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
     if (waveEl) {
       try {

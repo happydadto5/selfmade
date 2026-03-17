@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: add Wave progress indicator in HUD showing defeated/total enemies for current wave (tiny) — 2026-03-17
 
 ## Unreleased
 - Visual: add a brief enemy-hit flash when bullets strike enemies to improve feedback (tiny) — 2026-03-17
