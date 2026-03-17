@@ -2,7 +2,11 @@
 
 ## Unreleased
 
+## Unreleased
+
 - UX: Reuse existing #touch-toast so screen readers receive touch hints and avoid duplicate DOM nodes (tiny) — 2026-03-17
+
+- UX: Increased touch-guide separator contrast (dashed lines) for improved discoverability on mobile (tiny) — 2026-03-17
 
 ## Unreleased
 
