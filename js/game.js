@@ -1757,11 +1757,12 @@ if (overlay) {
                 } catch (e) {}
               }
             } catch (e) { /* ignore highscore UI errors */ }
-            // spawn simple particles for a little explosion effect
+            // spawn simple particles for a little explosion effect (garden-themed: mix leaf and debris)
             const pc = 12;
             for (let p=0;p<pc;p++) {
               const angle = Math.random() * Math.PI * 2;
               const speed = 1 + Math.random() * 3;
+              const isLeaf = (p % 3 === 0);
               particles.push({
                 x: e.x,
                 y: e.y,
@@ -1769,7 +1770,9 @@ if (overlay) {
                 vy: Math.sin(angle) * speed,
                 r: 2 + Math.random() * 3,
                 life: 600 + Math.random() * 400,
-                born: Date.now()
+                born: Date.now(),
+                color: isLeaf ? '#8BC34A' : '#ffd46a',
+                leaf: isLeaf
               });
             }
             screenShake = Math.min(16, screenShake + 8);
