@@ -199,6 +199,57 @@
           }
         } catch (e) { /* ignore */ }
 
+        // Add transient, low-contrast zone labels (Left / Water / Right) for first-time touch discoverability.
+        // These labels are non-interactive and removed after the touch guide duration to avoid clutter.
+        try {
+          const lbls = document.createElement('div');
+          lbls.id = 'touch-zone-labels';
+          lbls.setAttribute('aria-hidden', 'true');
+          lbls.style.position = 'fixed';
+          lbls.style.left = '0';
+          lbls.style.top = '68vh';
+          lbls.style.width = '100%';
+          lbls.style.display = 'flex';
+          lbls.style.justifyContent = 'space-between';
+          lbls.style.alignItems = 'center';
+          lbls.style.padding = '0 6%';
+          lbls.style.pointerEvents = 'none';
+          lbls.style.zIndex = '10001';
+          lbls.style.fontFamily = 'Segoe UI, Roboto, Arial, sans-serif';
+
+          const makeSpan = (txt) => {
+            const s = document.createElement('span');
+            s.textContent = txt;
+            s.style.background = 'rgba(0,0,0,0.52)';
+            s.style.color = '#fff';
+            s.style.padding = '6px 10px';
+            s.style.borderRadius = '8px';
+            s.style.fontSize = '13px';
+            s.style.opacity = '0';
+            s.style.transition = 'opacity 220ms ease, transform 220ms ease';
+            s.style.transform = 'translateY(6px)';
+            s.style.pointerEvents = 'none';
+            return s;
+          };
+
+          const leftLbl = makeSpan('Left');
+          const centerLbl = makeSpan('Water');
+          const rightLbl = makeSpan('Right');
+          lbls.appendChild(leftLbl);
+          lbls.appendChild(centerLbl);
+          lbls.appendChild(rightLbl);
+          document.body.appendChild(lbls);
+
+          // Animate in
+          requestAnimationFrame(() => {
+            try { leftLbl.style.opacity = '1'; leftLbl.style.transform = 'translateY(0)'; centerLbl.style.opacity = '1'; centerLbl.style.transform = 'translateY(0)'; rightLbl.style.opacity = '1'; rightLbl.style.transform = 'translateY(0)'; } catch (e) {}
+          });
+
+          // Fade out and remove after a short time (no longer than the guide display)
+          setTimeout(() => { try { leftLbl.style.opacity = '0'; centerLbl.style.opacity = '0'; rightLbl.style.opacity = '0'; } catch (e) {} }, Math.min(durationMs, 3500));
+          setTimeout(() => { try { if (lbls && lbls.parentNode) lbls.parentNode.removeChild(lbls); } catch (e) {} }, Math.min(durationMs, 3800));
+        } catch (e) { /* ignore label injection errors */ }
+
         // Remove the class shortly after the guide expiry so the DOM stays clean
         setTimeout(() => {
           try {
