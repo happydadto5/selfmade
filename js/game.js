@@ -968,7 +968,11 @@ if (overlay) {
         }
       } catch (e) { /* ignore */ }
       // Remove the class shortly after the guide expiry so the DOM stays clean
-      
+      try {
+        const removeDelay = Math.max(0, (touchGuideExpires || Date.now()) - Date.now());
+        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) {} }, removeDelay);
+      } catch (e) { /* ignore */ }
+
     }, { passive: true });
     document.addEventListener('touchend', () => { pointerActive = false; }, { passive: true });
     document.addEventListener('touchcancel', () => { pointerActive = false; }, { passive: true });

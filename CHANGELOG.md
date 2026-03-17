@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Mobile: Ensure transient touch-guide CSS class is removed after touch so guides don't linger (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Slightly increase touch-guide display duration to 14s for better discoverability (tiny) — 2026-03-17
 
 ## Unreleased
