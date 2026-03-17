@@ -113,7 +113,7 @@
           if (!t) {
             t = document.createElement('div');
             t.id = 'touch-toast';
-            t.textContent = 'Tip: Tap center to sow seeds; tap left/right edges to move';
+            t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move';
             // Accessibility: make this transient hint discoverable to screen readers
             try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore attribute errors */ }
             try { t.setAttribute('aria-hidden', 'false'); } catch (e) {}
@@ -138,7 +138,7 @@
           } else {
             // Reuse existing touch-toast node when present: make it accessible and temporarily visible
             try {
-              t.textContent = 'Tip: Tap center to sow seeds; tap left/right edges to move';
+              t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move';
               try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore */ }
               try { t.removeAttribute('aria-hidden'); } catch (e) { /* ignore */ }
               try { t.style.opacity = '1'; } catch (e) { /* ignore */ }

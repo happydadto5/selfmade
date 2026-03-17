@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- UX: Clarify touch hint wording to 'water plants' (tiny) — 2026-03-17
+
+## Unreleased
+
+## Unreleased
+
 - UI: Ensure high-score badge appears above HUD (tiny) — 2026-03-17
 
 ## Unreleased
