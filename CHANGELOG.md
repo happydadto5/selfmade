@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Slightly increase touch-guide display duration to 14s for better discoverability (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Add type="button" to top-level buttons to improve semantics and avoid accidental form submission (tiny) — 2026-03-17
 
 ## Unreleased
