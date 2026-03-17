@@ -1368,6 +1368,8 @@ if (overlay) {
     }
 
     // update particles
+    // Cap particle count to avoid performance issues on low-end devices (tiny)
+    if (particles.length > 160) particles.splice(0, particles.length - 160);
     for (let i=particles.length-1;i>=0;i--) {
       const p = particles[i];
       p.x += p.vx;

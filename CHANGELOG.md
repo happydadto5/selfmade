@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Reliability: Cap particle count to 160 to avoid performance issues on low-end devices (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Raise overlay z-index so overlays cover the HUD when active (tiny) — 2026-03-17
 
 - UI: Ensure HUD stays above canvas effects by adding z-index to #ui (tiny) — 2026-03-17
