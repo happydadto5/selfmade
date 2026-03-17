@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Canvas HUD shows a subtle red outline when lives are low (1 life) to improve visibility (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Make wave emoji aria-hidden so screen readers read only the numeric wave label (tiny) — 2026-03-17
 
 ## Unreleased

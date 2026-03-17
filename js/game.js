@@ -1938,6 +1938,18 @@ if (overlay) {
         ctx.fill();
         // subtle border to separate HUD from background
         try { ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.stroke(); } catch (e) {}
+        // If the player is low on lives (1 or fewer), add a subtle red dashed outline to the HUD for stronger visual feedback
+        try {
+          if (typeof lives !== 'undefined' && lives <= 1) {
+            ctx.save();
+            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = 'rgba(230,60,60,0.95)';
+            try { ctx.setLineDash([4,2]); } catch (e) {}
+            try { ctx.stroke(); } catch (e) {}
+            try { ctx.setLineDash([]); } catch (e) {}
+            ctx.restore();
+          }
+        } catch (e) {}
         // Improve readability: add a subtle drop shadow for HUD text (helps on busy backgrounds)
         ctx.shadowColor = 'rgba(0,0,0,0.6)';
         ctx.shadowBlur = 6;
