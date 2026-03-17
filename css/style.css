@@ -229,10 +229,30 @@ body.show-touch-guides {
   background-position: 0 calc(33vh), 0 calc(33vh);
   background-size: 100% 1px, 100% 1px;
 }
-body.show-touch-guides::before, body.show-touch-guides::after {
+/* Ensure pseudo-elements start hidden and transition when guides appear so the separators fade in/out smoothly.
+   Respect user motion preferences by disabling transitions when prefers-reduced-motion is set. */
+body::before, body::after {
+  content: "";
+  position: fixed;
   top: calc(33vh - 1px);
-  height: 36vh; /* slightly taller separators */
-  border-left: 1px dashed rgba(0,0,0,0.12); /* lower contrast */
+  width: 0;
+  height: 36vh; /* starts slightly higher and runs down a bit more for clear discoverability */
+  border-left: 1px dashed rgba(0,0,0,0);
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 240ms ease, border-color 240ms ease;
+}
+/* When guides are shown, make separators visible */
+body.show-touch-guides::before, body.show-touch-guides::after {
+  border-left-color: rgba(0,0,0,0.12);
+  opacity: 1;
+}
+body.show-touch-guides::before { left: 25%; }
+body.show-touch-guides::after  { left: 75%; }
+
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after { transition: none; border-left-color: rgba(0,0,0,0.12); opacity: 1; }
 }
 
 
