@@ -50,6 +50,9 @@
   const waveEl = document.getElementById('wave');
   const enemiesEl = document.getElementById('enemies');
 
+  // Track last shown wave so the HUD can briefly animate when a new wave starts
+  let lastWaveShown = null;
+
   function refreshVersionHUD() {
     try {
       // Update version line (shows version, current or persisted high score, and auto-pause state)
@@ -77,12 +80,23 @@
           } catch (e) { /* ignore classList errors */ }
         } catch (e) { /* ignore DOM errors */ }
       }
-      // Update wave HUD if present
+      // Update wave HUD if present and add a brief pulse when the wave changes
       if (waveEl) {
         try {
           const n = (typeof waveNumber !== 'undefined' ? waveNumber : 0);
           waveEl.textContent = 'Wave: ' + n + ' 🌱';
           try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (err) {}
+          try {
+            if (lastWaveShown !== n) {
+              lastWaveShown = n;
+              // Add pulse class to trigger CSS animation; remove it after animation completes or timeout
+              try { waveEl.classList.add('wave-pulse'); } catch (e) {}
+              const remover = () => { try { waveEl.classList.remove('wave-pulse'); waveEl.removeEventListener('animationend', remover); } catch (e) {} };
+              try { waveEl.addEventListener('animationend', remover); } catch (e) {}
+              // Fallback removal in case animationend doesn't fire (some browsers/user prefs)
+              setTimeout(remover, 900);
+            }
+          } catch (e) { /* ignore pulse errors */ }
         } catch (e) { /* ignore DOM errors */ }
       }
       // Update enemies HUD if present

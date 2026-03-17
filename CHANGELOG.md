@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Wave HUD briefly pulses on new wave start (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Auto-Pause toggle shows visual state (pressed/on styling) (tiny) — 2026-03-17
 
 ## Unreleased
