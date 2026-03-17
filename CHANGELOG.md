@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Mobile: Discoverable full-screen touch zones with subtle in-canvas dashed guides and a top-third guide line (left 25% move; center 50% sow/fire; right 25% move) — 2026-03-17
+
+## Unreleased
+
 - Visual: Draw leaf-shaped firing particles with subtle rotation for garden feel (tiny) — 2026-03-17
 
 ## Unreleased
