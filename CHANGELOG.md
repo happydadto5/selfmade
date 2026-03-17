@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Auto-Pause toggle shows visual state (pressed/on styling) (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Overlay pause message clarifies auto-pause and how to toggle it (press O) — 2026-03-17
 
 ## Unreleased
