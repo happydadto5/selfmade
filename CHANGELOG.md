@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Improve touch feedback pulse — longer, garden-themed green touch pulse on mobile for clearer discoverability (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Resume button label shows keyboard shortcuts (Space/P) for clarity (tiny) — 2026-03-17
 
 ## Unreleased

@@ -578,7 +578,7 @@
       try {
         lastTouchX = Math.max(0, Math.min(rect.width, clientX - rect.left));
         lastTouchY = Math.max(0, Math.min(rect.height, clientY - rect.top));
-        touchFeedbackUntil = Date.now() + 220; // show for ~220ms
+        touchFeedbackUntil = Date.now() + 320; // show for ~320ms (slightly longer, improves discoverability)
       } catch (e) { /* ignore coord errors */ }
     }
     canvas.addEventListener('pointerdown', ev => {
@@ -1419,8 +1419,9 @@ if (overlay) {
     if (typeof touchFeedbackUntil !== 'undefined' && Date.now() < touchFeedbackUntil) {
       ctx.save();
       try {
-        const alpha = Math.max(0, (touchFeedbackUntil - Date.now()) / 220);
-        ctx.fillStyle = 'rgba(255,184,77,' + (0.28 * alpha).toFixed(3) + ')';
+        const alpha = Math.max(0, (touchFeedbackUntil - Date.now()) / 320);
+        // Garden-themed green touch pulse for clearer feedback on mobile
+        ctx.fillStyle = 'rgba(27,94,32,' + (0.6 * alpha).toFixed(3) + ')';
         ctx.beginPath();
         const tx = Math.max(12, Math.min(cw - 12, lastTouchX || 0));
         const ty = Math.max(12, Math.min(ch - 12, lastTouchY || (ch - 80)));
