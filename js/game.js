@@ -473,6 +473,29 @@
     // Announce mute state changes to assistive tech
     try { muteBtn.setAttribute('aria-live', 'polite'); } catch (e) {}
     updateMuteUI();
+    // Fullscreen toggle button (enter/exit fullscreen). Keeps UI accessible and announces state via button attributes.
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    function updateFullscreenUI() {
+      if (!fullscreenBtn) return;
+      const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+      try { fullscreenBtn.setAttribute('aria-pressed', (!!isFs).toString()); } catch (e) {}
+      try { fullscreenBtn.setAttribute('aria-label', isFs ? 'Exit fullscreen' : 'Enter fullscreen'); } catch (e) {}
+      try { fullscreenBtn.title = isFs ? 'Exit fullscreen (F)' : 'Enter fullscreen (F)'; } catch (e) {}
+    }
+    if (fullscreenBtn) {
+      try {
+        fullscreenBtn.setAttribute('type','button'); fullscreenBtn.setAttribute('role','button'); fullscreenBtn.setAttribute('tabindex','0');
+        fullscreenBtn.addEventListener('click', () => {
+          try {
+            if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+            else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+          } catch (e) {}
+          setTimeout(updateFullscreenUI, 80);
+        });
+        document.addEventListener('fullscreenchange', updateFullscreenUI, { passive: true });
+        updateFullscreenUI();
+      } catch (e) { /* ignore fullscreen init errors */ }
+    }
     // Ensure HUD reflects initial values (lives, wave, version) on load
     try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
 
@@ -660,6 +683,13 @@
       try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();
       updateMuteUI();
+    }
+    // 'F' toggles fullscreen mode for a more immersive experience (shortcut: F)
+    if (e.key === 'f' || e.key === 'F') {
+      try {
+        if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+        else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+      } catch (e) { /* ignore fullscreen errors */ }
     }
     // 'O' toggles auto-pause on blur/visibility (accessibility preference)
     if (e.key === 'o' || e.key === 'O') {
