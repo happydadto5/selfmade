@@ -1791,7 +1791,7 @@ if (overlay) {
           // Make the center fire dot slightly larger and subtly pulse while touch guides are visible
           try {
             const pulseActive = (Date.now() < touchGuideExpires) || (Date.now() < showTouchGuidesUntil);
-            const pulse = pulseActive ? (1 + 0.5 * Math.sin(Date.now() / 160)) : 1;
+            const pulse = (pulseActive && !prefersReducedMotion) ? (1 + 0.5 * Math.sin(Date.now() / 160)) : 1;
             const r = 8 * pulse;
             ctx.fillStyle = 'rgba(102,187,106,0.98)'; // garden-green center indicator (subtle)
             ctx.arc(centerX, y, r, 0, Math.PI * 2);
