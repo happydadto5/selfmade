@@ -527,6 +527,10 @@
       // Ensure the Auto-Pause toggle button updates when the preference is changed via the keyboard shortcut
       try { if (typeof updateAutoPauseUI === 'function') updateAutoPauseUI(); } catch (e) { /* ignore */ }
     }
+    // 'H' toggles HUD visibility (keyboard shortcut) — mirror HUD button behavior
+    if (e.key === 'h' || e.key === 'H') {
+      try { const btn = document.getElementById('hudBtn'); if (btn) { btn.click(); } } catch (err) { /* ignore */ }
+    }
     // 'C' toggles colorblind-friendly palette (accessibility). Persisted to localStorage and announced to assistive tech.
     if (e.key === 'c' || e.key === 'C') {
       try {

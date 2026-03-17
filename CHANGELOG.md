@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Add 'H' keyboard shortcut to toggle HUD (mirrors HUD button) (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Show brief touch hint toast for first-time touch users clarifying touch zones and controls (tiny) — 2026-03-17
 
 ## Unreleased
