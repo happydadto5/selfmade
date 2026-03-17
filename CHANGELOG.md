@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Performance: cap particle count at 300 to reduce CPU/GPU load during long runs (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Persist touch-guide discovery so it only shows once per user (localStorage flag) — 2026-03-17
 
 ## Unreleased

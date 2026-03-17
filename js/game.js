@@ -1269,6 +1269,8 @@ if (overlay) {
     player.x = Math.max(20, Math.min(cw-20, player.x));
 
     player.cooldown = Math.max(0, player.cooldown - dt);
+    // Performance: cap particle count to avoid runaway particle growth during long runs
+    try { if (particles && particles.length > 300) particles.splice(0, particles.length - 300); } catch (e) { }
     if (keys.fire && player.cooldown <= 0) {
       bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
       player.cooldown = 180; // ms
