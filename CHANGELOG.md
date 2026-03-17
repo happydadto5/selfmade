@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- UI: Use seedling emoji for Wave HUD to match garden theme (tiny) — 2026-03-17
+
+## Unreleased
+
+## Unreleased
+
 - UX: Briefly reveal on-screen touch buttons on first touch to aid discoverability (tiny) — 2026-03-17
 
 ## Unreleased
