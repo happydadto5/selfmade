@@ -132,6 +132,23 @@
         try { localStorage.setItem('selfmade_touch_guides_shown', '1'); } catch (e) { /* ignore */ }
         // Add a transient class that CSS uses to draw subtle dashed guides on touch devices
         try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
+        // Accessibility: announce that touch controls were revealed so screen readers get immediate feedback
+        try {
+          let tgAnn = document.getElementById('touch-guides-announcer');
+          if (!tgAnn) {
+            tgAnn = document.createElement('div');
+            tgAnn.id = 'touch-guides-announcer';
+            tgAnn.style.position = 'absolute';
+            tgAnn.style.left = '-9999px';
+            tgAnn.style.width = '1px';
+            tgAnn.style.height = '1px';
+            tgAnn.setAttribute('aria-live', 'polite');
+            tgAnn.setAttribute('aria-atomic', 'true');
+            document.body.appendChild(tgAnn);
+          }
+          try { tgAnn.textContent = 'Touch controls shown'; } catch (e) { /* ignore */ }
+          setTimeout(() => { try { tgAnn.textContent = ''; } catch (e) {} }, 2000);
+        } catch (e) { /* ignore announcer errors */ }
         // Create a small transient toast to clarify touch zones for first-time touch users
         try {
           let t = document.getElementById('touch-toast');

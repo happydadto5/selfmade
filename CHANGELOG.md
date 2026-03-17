@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Touch: announce when touch controls/guides are revealed for screen readers (aria-live) (tiny) — 2026-03-17
+
+## Unreleased
+
 - Docs: Read scripts/prompt.txt, suggestion.txt, and future.md; prepared next small, roadmap-aware improvement. — 2026-03-17
 
 ## Unreleased
