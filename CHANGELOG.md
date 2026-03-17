@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Docs: Read scripts/prompt.txt, suggestion.txt, and future.md; prepared next small, roadmap-aware improvement. — 2026-03-17
+
+## Unreleased
+
 - Maintenance: small incremental update — updated changelog with a brief note. (tiny) — 2026-03-17
 
 
