@@ -397,6 +397,12 @@
             if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); downHandler(); }
           } catch (e) {}
         });
+        // Clear inputs on keyboard keyup to avoid stuck controls when using Enter/Space to activate touch buttons
+        btn.addEventListener('keyup', (ev) => {
+          try {
+            if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); clearInputs(); }
+          } catch (e) {}
+        });
       } catch (e) { /* ignore binding errors */ }
     };
     bindTouchControl(touchLeftBtn, () => { keys.left = true; keys.right = false; keys.fire = false; try { canvas.focus(); } catch(e){} });
