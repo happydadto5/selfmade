@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Add on-document touch hint element (#touch-toast) to improve touch discoverability; shows a short tip when touch guides appear (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Slightly increase touch-guide contrast and duration for better discoverability on touch devices (tiny) — 2026-03-17
 
 ## Unreleased
