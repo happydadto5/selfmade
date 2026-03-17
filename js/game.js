@@ -1505,6 +1505,7 @@ if (overlay) {
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
   let livesPulseUntil = 0;
+  let livesFlashUntil = 0;
 
   spawnWave();
   // Focus the canvas on initial load so keyboard users can play without extra click
@@ -1630,6 +1631,7 @@ if (overlay) {
       enemies.splice(i,1);
       lives--;
       livesPulseUntil = Date.now() + 700;
+      livesFlashUntil = Date.now() + 180;
       lives = Math.max(0, lives);
       // Trigger a short HUD pulse to draw attention to the lost life (CSS handles animation)
       try {
@@ -1809,6 +1811,15 @@ if (overlay) {
     if (screenShake > 0 && !prefersReducedMotion) { const sx = (Math.random()*2-1)*screenShake; const sy = (Math.random()*2-1)*screenShake; ctx.translate(sx, sy); }
     ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch);
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
+    // Brief red flash overlay when a life is lost to increase clarity of life loss (respects reduced-motion)
+    try {
+      if (Date.now() < livesFlashUntil && !prefersReducedMotion) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(255,56,56,0.12)';
+        ctx.fillRect(0,0,cw,ch);
+        ctx.restore();
+      }
+    } catch (e) { /* ignore flash errors */ }
 
     // Subtle dashed touch-zone guide lines for touch-capable devices. These lines run up approximately 1/3 of the viewport height
     // and indicate the left/center/right touch regions (left 25% = left, center 50% = fire, right 25% = right).
