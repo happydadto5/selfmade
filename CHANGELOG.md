@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Add in-canvas Wave HUD showing current wave number (tiny) — 2026-03-16
+
+## Unreleased
+
 - UI: Pluralize enemy HUD text so it reads "1 Enemy" vs "N Enemies" (tiny) — 2026-03-16
 
 ## Unreleased
