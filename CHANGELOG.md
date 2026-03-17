@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Increase Score HUD prominence for readability (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Add fallback CSS so touch-zone dashed guide appears on touch devices even if pointer:coarse media query isn't supported (tiny) — 2026-03-17
 
 ## Unreleased
