@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Add persistent high-score badge element to DOM so CSS animations apply reliably (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Add on-document touch hint element (#touch-toast) to improve touch discoverability; shows a short tip when touch guides appear (tiny) — 2026-03-17
 
 ## Unreleased
