@@ -1,8 +1,9 @@
 # Changelog
 
-## Unreleased
+## 3.0.0
 - Fix: restore CHANGELOG.md text header so batch prepare_changelog no longer loops on an empty file.
 - Controls: Android touch now repositions the player on any bottom-half tap, and holding on the bottom half keeps firing until release; touch guides were updated to teach the new gesture.
+- UI: Add toggleable garden grid overlay (press G) for aiming/visual variety (tiny) — 2026-03-17
 - Automation: pass a recent failure hint into the Copilot prompt so repeated rollback patterns like the Unexpected token 'catch' loop are less likely to repeat.
 - Automation: !! suggestions now require three future.md collaboration passes before implementation; the batch loop computes and passes the staged status into the Copilot prompt each cycle.
 
@@ -843,6 +844,3 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
-
-
-

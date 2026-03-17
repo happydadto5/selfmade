@@ -124,7 +124,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '2.188.0';
+  const version = '3.0.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -592,6 +592,9 @@
     // Restore colorblind-friendly palette preference (accessibility)
     let colorblindMode = (function(){ try { const v = localStorage.getItem('selfmade_colorblind'); return v === '1'; } catch (e) { return false; } })();
     try { if (colorblindMode) document.body.classList.add('colorblind-mode'); } catch (e) { /* ignore */ }
+    // Restore persisted garden grid preference (visual)
+    let gardenGrid = (function(){ try { const v = localStorage.getItem('selfmade_garden_grid'); return v === '1'; } catch (e) { return false; } })();
+    try { if (gardenGrid) document.body.classList.add('garden-grid'); } catch (e) { /* ignore */ }
   }
   // Ensure HUD reflects initial values even if mute button is missing (defensive)
   try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
@@ -866,6 +869,26 @@
             setTimeout(() => { try { touchControls.style.display = 'none'; touchControls.setAttribute('aria-hidden','true'); } catch (e) {} }, 5000);
           }
         } catch (e) { /* ignore UI errors */ }
+      } catch (e) { /* ignore */ }
+    }
+
+    // 'G' toggles a subtle garden grid overlay for aiming/visual variety. Persisted across sessions.
+    if (e.key === 'g' || e.key === 'G') {
+      try {
+        const enabled = document.body.classList.toggle('garden-grid');
+        try { localStorage.setItem('selfmade_garden_grid', enabled ? '1' : '0'); } catch (err) { }
+        let announcer = document.getElementById('grid-announcer');
+        if (!announcer) {
+          announcer = document.createElement('div');
+          announcer.id = 'grid-announcer';
+          announcer.style.position = 'absolute';
+          announcer.style.left = '-9999px';
+          announcer.style.width = '1px';
+          announcer.style.height = '1px';
+          announcer.setAttribute('aria-live','polite');
+          document.body.appendChild(announcer);
+        }
+        try { announcer.textContent = enabled ? 'Grid overlay enabled' : 'Grid overlay disabled'; } catch (err) { }
       } catch (e) { /* ignore */ }
     }
 

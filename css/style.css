@@ -268,4 +268,20 @@ body.show-touch-guides::after  { left: 75%; }
   body::before, body::after { transition: none; border-left-color: rgba(0,0,0,0.12); opacity: 1; }
 }
 
+/* Garden grid overlay (toggle with G): subtle, low-contrast grid useful for aiming or visual variety.
+   This respects prefers-reduced-motion by avoiding animation and uses pointer-events:none so it never interferes with play. */
+body.garden-grid::before {
+  content: "";
+  position: fixed;
+  left: 0; top: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 36px 36px, 36px 36px;
+  mix-blend-mode: overlay;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.garden-grid::before { transition: none; }
+}
+
 
