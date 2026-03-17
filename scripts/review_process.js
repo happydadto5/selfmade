@@ -151,11 +151,11 @@ function classifyRelease(body) {
     return 'reliability';
   }
 
-  if (/(accessibility|screen reader|aria|focus|contrast|readability|reduced-motion|keyboard|clarify|copy tweak|badge|guide line|guide lines|overlay layout|auto-pause)/.test(text)) {
+  if (/(accessibility|screen reader|aria|focus|contrast|readability|reduced-motion|keyboard|clarify|copy tweak|badge|guide line|guide lines|touch hint|touch guide|touch guides|touch-zone|touch zone|toast|hud|button size|button contrast|overlay layout|auto-pause)/.test(text)) {
     return 'polish';
   }
 
-  if (/(gameplay|enemy|wave|level|power-up|power up|rapid fire|spread shot|shield|boss|objective|score-based|difficulty|balance|achievement|milestone|beatable|weapon|damage|spawn)/.test(text)) {
+  if (/(gameplay|enemy|wave|level|power-up|power up|rapid fire|spread shot|shield|boss|objective|score-based|difficulty|balance|achievement|milestone|beatable|weapon|damage|spawn|controls? overhaul|touch controls? overhaul)/.test(text)) {
     return 'gameplay';
   }
 

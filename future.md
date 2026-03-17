@@ -13,6 +13,7 @@ Guidance to LLM collaborators
 - Keep the roadmap practical, but do not be afraid to leave short notes for future sessions.
 - If recent changelog history shows many tiny or barely noticeable changes, steer upcoming work toward more visible gameplay, UI, or feel improvements.
 - Roughly every 10 successful releases, expect a lightweight roadmap/process review checkpoint. Use it to refresh direction when needed, but do not let the collaboration docs crowd out actual game progress.
+- For any `!!` suggestion in suggestion.txt, use exact staged-collaboration markers here: `!![slug] Collaboration 1/3: ...`, then `2/3`, then `3/3`. Do not implement that suggestion until the next relevant iteration after all three notes exist.
 
 Priority themes
 - Keep the game fun, readable, and reliable.

@@ -16,6 +16,9 @@ RULES (never violate):
 - Do NOT modify model-verification, version-bump, validation, git-push, tag-push, suggestion-handling, or image-quota logic unless it is required to fix a real bug or the user explicitly asks.
 - Before making changes, read suggestion.txt and future.md (if present). Suggestions in suggestion.txt are higher-priority guidance and should usually be worked into the project over the next day or two, even if not in the very next iteration.
 - If a suggestion line starts with `!`, treat it as the highest-priority safe suggestion and do it next if reasonably possible in a single iteration.
+- If a suggestion line starts with `!!`, do NOT implement it immediately. Use the first such pending line as a staged-collaboration item: spend three separate iterations adding one collaboration note per iteration to `future.md`, then implement it on the fourth relevant iteration.
+- For `!!` suggestions, use the exact future.md marker format `!![slug] Collaboration N/3: <notes>` where `slug` is a short kebab-case summary of the suggestion and `N` is 1, 2, or 3.
+- On `!!` collaboration passes 1/3, 2/3, and 3/3, update `future.md` only plus the changelog; do not implement the feature yet. On the next pass after 3/3 exists, implement the feature using those notes and then remove the `!!` line from suggestion.txt once materially used.
 - You may implement at most one suggestion from suggestion.txt in a single iteration, but suggestions may also shape future.md without being implemented immediately.
 - If you materially used a normal suggestion line in the current change or in an updated roadmap, you may remove that suggestion line from suggestion.txt when it feels fully captured.
 - If you implement or materially capture a `!` suggestion, remove that `!` line from suggestion.txt after using it.
@@ -31,6 +34,10 @@ RULES (never violate):
 - The automation may pass `ProcessReview:` and `MetaReviewDue:` hints into the prompt. Use them as self-adjusting guidance rather than static rules.
 - If `MetaReviewDue:YES`, do a quick roadmap/process review before choosing the one change. Usually still prefer a player-visible improvement, but if the roadmap is stale or conflicting you may spend that iteration refreshing `future.md` and the changelog to realign the project.
 - If `ProcessReview:` indicates `visible-weak:yes`, strongly prefer a more noticeable gameplay, UI, or game-feel improvement over another tiny polish pass.
+- The automation may pass `RecentFailureHint:`. Treat it as a warning about the last repeated rollback pattern and avoid repeating that kind of change.
+- The automation may pass `DeepSuggestionHint:`. Follow that staged-collaboration status for the first pending `!!` suggestion before deciding whether to collaborate in `future.md` or finally implement it.
+- If recent changes have been dominated by touch hints, HUD tweaks, accessibility copy, or other tiny UI polish, strongly prefer graphics, enemy variety, background art, hit feedback, or other clearly visible game improvements next.
+- Avoid revisiting the touch-guide/touch-hint scaffolding repeatedly unless the user explicitly asked for a control change.
 
 GOOD improvements (pick one per iteration):
 - Visible game improvements are great, but invisible improvements are also valid.

@@ -6,7 +6,7 @@
   // keyboard and screen-reader users can discover how to play without editing HTML.
   try {
     canvas.setAttribute('role', 'application');
-    canvas.setAttribute('aria-label', 'Garden shooter game canvas — use arrow keys or A/D to move; Space or tap center to fire. Press I or H for help.');
+    canvas.setAttribute('aria-label', 'Garden shooter game canvas — use arrow keys or A/D to move; Space to fire. On touch devices, tap the bottom half to move there and hold to fire. Press I or H for help.');
     canvas.setAttribute('tabindex', '0');
     // Prevent browser touch scrolling/gestures while interacting with the game canvas (improves mobile responsiveness)
     try { canvas.style.touchAction = 'none'; } catch (e) { /* ignore */ }
@@ -159,7 +159,7 @@
             tgAnn.setAttribute('aria-atomic', 'true');
             document.body.appendChild(tgAnn);
           }
-          try { tgAnn.textContent = 'Touch controls shown: tap left or right to move, tap center to water plants.'; } catch (e) { /* ignore */ }
+          try { tgAnn.textContent = 'Touch controls shown: tap the bottom half to move there, and hold there to water plants.'; } catch (e) { /* ignore */ }
           setTimeout(() => { try { tgAnn.textContent = ''; } catch (e) {} }, 2000);
         } catch (e) { /* ignore announcer errors */ }
         // Create a small transient toast to clarify touch zones for first-time touch users
@@ -168,7 +168,7 @@
           if (!t) {
             t = document.createElement('div');
             t.id = 'touch-toast';
-            t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move. Press P to pause.';
+            t.textContent = 'Tip: Tap the bottom half to move there. Hold there to water plants. Press P to pause.';
             // Accessibility: make this transient hint discoverable to screen readers
             try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore attribute errors */ }
             try { t.setAttribute('aria-hidden', 'false'); } catch (e) {}
@@ -201,7 +201,7 @@
           } else {
             // Reuse existing touch-toast node when present: make it accessible and temporarily visible
             try {
-              t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move';
+              t.textContent = 'Tip: Tap the bottom half to move there. Hold there to water plants.';
               try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore */ }
               try { t.removeAttribute('aria-hidden'); } catch (e) { /* ignore */ }
               const prefersReducedMotion = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -217,17 +217,7 @@
           }
         } catch (e) { /* ignore DOM errors */ }
 
-        // Briefly reveal on-screen touch buttons as an auxiliary discoverability hint (hidden by default on touch devices)
-        try {
-          const tc = document.getElementById('touch-controls');
-          if (tc) {
-            try { tc.style.display = 'flex'; tc.setAttribute('aria-hidden','false'); } catch (e) {}
-            setTimeout(() => { try { tc.style.display = 'none'; tc.setAttribute('aria-hidden','true'); } catch (e) {} }, Math.min(durationMs, 3500));
-          }
-        } catch (e) { /* ignore */ }
-
-        // Add transient, low-contrast zone labels (Left / Water / Right) for first-time touch discoverability.
-        // These labels are non-interactive and removed after the touch guide duration to avoid clutter.
+        // Add a transient hint label for first-time touch discoverability.
         try {
           const lbls = document.createElement('div');
           lbls.id = 'touch-zone-labels';
@@ -237,7 +227,7 @@
           lbls.style.top = '32vh';
           lbls.style.width = '100%';
           lbls.style.display = 'flex';
-          lbls.style.justifyContent = 'space-between';
+          lbls.style.justifyContent = 'center';
           lbls.style.alignItems = 'center';
           lbls.style.padding = '0 6%';
           lbls.style.pointerEvents = 'none';
@@ -259,21 +249,17 @@
             return s;
           };
 
-          const leftLbl = makeSpan('Left');
-          const centerLbl = makeSpan('Water');
-          const rightLbl = makeSpan('Right');
-          lbls.appendChild(leftLbl);
+          const centerLbl = makeSpan('Tap bottom half to move · hold to water');
           lbls.appendChild(centerLbl);
-          lbls.appendChild(rightLbl);
           document.body.appendChild(lbls);
 
           // Animate in
           requestAnimationFrame(() => {
-            try { leftLbl.style.opacity = '1'; leftLbl.style.transform = 'translateY(0)'; centerLbl.style.opacity = '1'; centerLbl.style.transform = 'translateY(0)'; rightLbl.style.opacity = '1'; rightLbl.style.transform = 'translateY(0)'; } catch (e) {}
+            try { centerLbl.style.opacity = '1'; centerLbl.style.transform = 'translateY(0)'; } catch (e) {}
           });
 
           // Fade out and remove after a short time (no longer than the guide display)
-          setTimeout(() => { try { leftLbl.style.opacity = '0'; centerLbl.style.opacity = '0'; rightLbl.style.opacity = '0'; } catch (e) {} }, Math.min(durationMs, 3500));
+          setTimeout(() => { try { centerLbl.style.opacity = '0'; } catch (e) {} }, Math.min(durationMs, 3500));
           setTimeout(() => { try { if (lbls && lbls.parentNode) lbls.parentNode.removeChild(lbls); } catch (e) {} }, Math.min(durationMs, 3800));
         } catch (e) { /* ignore label injection errors */ }
 
@@ -300,12 +286,10 @@
     } catch (e) { /* ignore */ }
   }
 
-  // Full-screen touch zones (left 25% move left, center 50% fire, right 25% move right).
-  // These listeners only act on touch input and intentionally avoid interfering with mouse/keyboard.
+  // Direct touch controls: tap anywhere in the bottom half to move there; hold to auto-fire until release.
   try {
     if (isTouch) {
       const clearTouchInputs = () => { keys.left = keys.right = keys.fire = false; };
-      // show a small green pulse at touch point when center fire is detected (reinforces garden theme)
       const showTouchPulse = (x, y) => {
         try {
           const el = document.createElement('div');
@@ -342,27 +326,68 @@
           setTimeout(() => { try { if (el && el.parentNode) el.parentNode.removeChild(el); } catch (e) {} }, 760);
         } catch (e) { /* ignore */ }
       };
-      const handlePointer = (ev) => {
-        try {
-          if (ev && ev.pointerType && ev.pointerType !== 'touch') return;
-          const x = (typeof ev.clientX !== 'undefined') ? ev.clientX : (ev.touches && ev.touches[0] && ev.touches[0].clientX);
-          const y = (typeof ev.clientY !== 'undefined') ? ev.clientY : (ev.touches && ev.touches[0] && ev.touches[0].clientY);
-          if (typeof x === 'undefined' || x === null) return;
-          const pct = x / window.innerWidth;
-          if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; }
-          else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; }
-          else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(20); } catch (e) {} try { showTouchPulse(x, y); } catch (e) {} }
-          try { canvas.focus(); } catch (e) {}
-        } catch (e) { /* ignore */ }
+      const TOUCH_HOLD_DELAY = 180;
+      let activeBottomTouchId = null;
+      let touchHoldTimer = null;
+      let touchHoldActive = false;
+      const movePlayerToClientX = (clientX) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = clientX - rect.left;
+        player.x = Math.max(20, Math.min(cw - 20, x));
+        return x;
       };
-      window.addEventListener('pointerdown', handlePointer, { passive: true });
-      window.addEventListener('pointermove', handlePointer, { passive: true });
-      window.addEventListener('pointerup', clearTouchInputs, { passive: true });
-      window.addEventListener('pointercancel', clearTouchInputs, { passive: true });
-      window.addEventListener('touchstart', (ev) => { try { const t = ev.touches && ev.touches[0]; if (!t) return; const x = t.clientX; const y = t.clientY; const pct = x / window.innerWidth; if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; } else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; } else { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch (e) {} try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(20); } catch (e) {} try { showTouchPulse(x, y); } catch (e) {} } try { canvas.focus(); } catch (e) {} } catch (e) {} }, { passive: true });
-      // Update inputs while moving a finger across the screen so dragging between zones updates movement/fire responsively
-      window.addEventListener('touchmove', (ev) => { try { const t = ev.touches && ev.touches[0]; if (!t) return; const x = t.clientX; const pct = x / window.innerWidth; if (pct < 0.25) { keys.left = true; keys.right = false; keys.fire = false; } else if (pct > 0.75) { keys.right = true; keys.left = false; keys.fire = false; } else { keys.fire = true; keys.left = false; keys.right = false; } } catch (e) {} }, { passive: true });
-      window.addEventListener('touchend', clearTouchInputs, { passive: true });
+      const isBottomTouchZone = (clientY) => typeof clientY === 'number' && clientY >= window.innerHeight * 0.5;
+      const stopBottomTouchInteraction = (id) => {
+        if (id != null && activeBottomTouchId != null && activeBottomTouchId !== id) return false;
+        if (touchHoldTimer) clearTimeout(touchHoldTimer);
+        touchHoldTimer = null;
+        touchHoldActive = false;
+        activeBottomTouchId = null;
+        clearTouchInputs();
+        return true;
+      };
+      const beginBottomTouchInteraction = (clientX, clientY, id) => {
+        if (!isBottomTouchZone(clientY)) return false;
+        stopBottomTouchInteraction();
+        activeBottomTouchId = id;
+        movePlayerToClientX(clientX);
+        try { canvas.focus(); } catch (e) {}
+        touchHoldTimer = setTimeout(() => {
+          if (activeBottomTouchId !== id || paused || gameOver) return;
+          touchHoldTimer = null;
+          touchHoldActive = true;
+          keys.fire = true;
+          keys.left = false;
+          keys.right = false;
+          if (soundEnabled) ensureAudio();
+          try { playSound('fire'); } catch (e) {}
+          try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(18); } catch (e) {}
+          try { showTouchPulse(clientX, clientY); } catch (e) {}
+        }, TOUCH_HOLD_DELAY);
+        return true;
+      };
+      const updateBottomTouchInteraction = (clientX, clientY, id) => {
+        if (activeBottomTouchId !== id) return false;
+        if (!isBottomTouchZone(clientY)) {
+          stopBottomTouchInteraction(id);
+          return false;
+        }
+        movePlayerToClientX(clientX);
+        if (touchHoldActive) {
+          keys.fire = true;
+          keys.left = false;
+          keys.right = false;
+        }
+        return true;
+      };
+      window.addEventListener('pointerup', () => { stopBottomTouchInteraction(); }, { passive: true });
+      window.addEventListener('pointercancel', () => { stopBottomTouchInteraction(); }, { passive: true });
+      window.addEventListener('touchend', () => { stopBottomTouchInteraction(); }, { passive: true });
+      window.addEventListener('touchcancel', () => { stopBottomTouchInteraction(); }, { passive: true });
+
+      canvas._beginBottomTouchInteraction = beginBottomTouchInteraction;
+      canvas._updateBottomTouchInteraction = updateBottomTouchInteraction;
+      canvas._stopBottomTouchInteraction = stopBottomTouchInteraction;
     }
   } catch (e) { /* ignore touch-zone binding errors */ }
 
@@ -1392,7 +1417,6 @@ if (overlay) {
           setTimeout(() => { try { t.style.opacity = '0'; } catch (e) {} }, 2600);
           setTimeout(() => { try { if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {} }, 3000);
         } catch (e) { /* ignore toast errors */ }
-        } catch (e) { /* ignore announcer errors */ }
         if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       }
       blurTimeout = null;
@@ -2263,13 +2287,17 @@ if (overlay) {
   window.addEventListener('pointercancel', () => { clearInputs(); }, { passive: true });
   // Mouse movement control: move player to the pointer X position (improves mouse playability)
   canvas.addEventListener('pointermove', function(e){
-    if (e.pointerType === 'mouse' || e.pointerType === 'pen') {
+    if (e.pointerType === 'mouse') {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       player.x = Math.max(20, Math.min(cw - 20, x));
+    } else if ((e.pointerType === 'touch' || e.pointerType === 'pen') && typeof canvas._updateBottomTouchInteraction === 'function') {
+      if (canvas._updateBottomTouchInteraction(e.clientX, e.clientY, e.pointerId)) {
+        try { e.preventDefault(); } catch (err) { /* ignore */ }
+      }
     }
   });
-  // Pointer down: mouse repositions/fires; touch/pen map to full-screen touch zones (left 25% move left, center fire, right 25% move right)
+  // Pointer down: mouse repositions/fires; touch/pen on the bottom half repositions immediately and starts firing only after a short hold.
   canvas.addEventListener('pointerdown', function(e){
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -2277,50 +2305,56 @@ if (overlay) {
       player.x = Math.max(20, Math.min(cw - 20, x));
       keys.fire = true;
       if (soundEnabled) ensureAudio();
-    } else if (e.pointerType === 'touch' || e.pointerType === 'pen') {
-      // Map pointer position to the same full-screen touch zones as touchstart for better pointer-event compatibility
-      const zone = x / rect.width;
-      if (zone < 0.25) keys.left = true;
-      else if (zone > 0.75) keys.right = true;
-      else keys.fire = true;
-      if (soundEnabled) ensureAudio();
-      try { e.preventDefault(); } catch (err) { /* ignore */ }
+    } else if ((e.pointerType === 'touch' || e.pointerType === 'pen') && typeof canvas._beginBottomTouchInteraction === 'function') {
+      if (canvas._beginBottomTouchInteraction(e.clientX, e.clientY, e.pointerId)) {
+        if (soundEnabled) ensureAudio();
+        try { e.preventDefault(); } catch (err) { /* ignore */ }
+      }
     }
   }, { passive: false });
   // Some platforms may emit pointercancel/touchcancel when input is interrupted (e.g., OS gestures). Clear transient input there to avoid stuck controls.
   canvas.addEventListener('pointercancel', function(e){
+    if (typeof canvas._stopBottomTouchInteraction === 'function') canvas._stopBottomTouchInteraction(e.pointerId);
     clearInputs();
   }, { passive: true });
-  // Touch zones: left 25% = move left, right 25% = move right, center = fire. Uses touchstart/touchend for responsive mobile controls.
+  // Direct touch fallback for browsers that dispatch Touch Events instead of Pointer Events.
   canvas.addEventListener('touchstart', function(e){
-    const rect = canvas.getBoundingClientRect();
     for (let i=0;i<e.changedTouches.length;i++) {
       const t = e.changedTouches[i];
-      if (t.target === canvas) {
+      if (t.target === canvas && typeof canvas._beginBottomTouchInteraction === 'function') {
         e.preventDefault();
         if (soundEnabled) ensureAudio();
-        const x = t.clientX - rect.left;
-        const zone = x / rect.width;
-        if (zone < 0.25) keys.left = true;
-        else if (zone > 0.75) keys.right = true;
-        else keys.fire = true;
+        if (canvas._beginBottomTouchInteraction(t.clientX, t.clientY, t.identifier)) break;
       }
     }
   }, {passive:false});
   canvas.addEventListener('touchend', function(e){
-    // Clear all transient touch inputs on any touchend to avoid stuck controls on some devices (Android fixes)
     try { e.preventDefault(); } catch (err) { /* ignore if preventDefault not allowed */ }
+    if (typeof canvas._stopBottomTouchInteraction === 'function') {
+      for (let i = 0; i < e.changedTouches.length; i++) {
+        if (canvas._stopBottomTouchInteraction(e.changedTouches[i].identifier)) break;
+      }
+    }
     clearInputs();
   }, {passive:false});
 
-  // Prevent touchmove scrolling when dragging on the canvas so mobile controls stay responsive
+  // Prevent touchmove scrolling when dragging on the canvas so mobile controls stay responsive.
   canvas.addEventListener('touchmove', function(e){
-    e.preventDefault();
+    try { e.preventDefault(); } catch (err) { /* ignore */ }
+    if (typeof canvas._updateBottomTouchInteraction !== 'function') return;
+    for (let i = 0; i < e.touches.length; i++) {
+      const t = e.touches[i];
+      if (canvas._updateBottomTouchInteraction(t.clientX, t.clientY, t.identifier)) break;
+    }
   }, {passive:false});
   // Mirror touchcancel handling to ensure canceled touches also clear transient state
   canvas.addEventListener('touchcancel', function(e){
-    // Ensure canceled touches clear all transient inputs to avoid stuck controls
     try { e.preventDefault(); } catch (err) { /* ignore if preventDefault not allowed */ }
+    if (typeof canvas._stopBottomTouchInteraction === 'function') {
+      for (let i = 0; i < e.changedTouches.length; i++) {
+        if (canvas._stopBottomTouchInteraction(e.changedTouches[i].identifier)) break;
+      }
+    }
     clearInputs();
   }, {passive:false});
   document.body.addEventListener('touchstart', function(e){ if (e.target === canvas) e.preventDefault(); }, {passive:false});

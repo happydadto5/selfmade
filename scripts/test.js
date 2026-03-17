@@ -10,7 +10,7 @@ const version = fs.readFileSync(path.join(root, 'VERSION'), 'utf8').trim();
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const gameJs = fs.readFileSync(path.join(root, 'js', 'game.js'), 'utf8');
 
-for (const id of ['game', 'score', 'lives', 'version', 'muteBtn', 'leftBtn', 'rightBtn', 'fireBtn', 'overlay', 'replayBtn']) {
+for (const id of ['game', 'score', 'lives', 'version', 'muteBtn', 'touch-left', 'touch-right', 'touch-fire', 'overlay', 'replayBtn', 'resumeBtn']) {
   if (!html.includes(`id="${id}"`)) {
     errors.push(`index.html is missing required element id="${id}"`);
   }
@@ -110,11 +110,12 @@ if (!errors.length) {
       lives: makeElement('lives'),
       version: makeElement('version'),
       muteBtn: makeElement('muteBtn'),
-      leftBtn: makeElement('leftBtn'),
-      rightBtn: makeElement('rightBtn'),
-      fireBtn: makeElement('fireBtn'),
+      'touch-left': makeElement('touch-left'),
+      'touch-right': makeElement('touch-right'),
+      'touch-fire': makeElement('touch-fire'),
       overlay: makeElement('overlay'),
       replayBtn: makeElement('replayBtn'),
+      resumeBtn: makeElement('resumeBtn'),
     };
 
     let now = 1000;

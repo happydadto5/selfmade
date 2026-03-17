@@ -6,7 +6,7 @@
 
 ### Controls
 - **Desktop:** A/D or Arrow keys to move · Space or click to shoot
-- **Mobile:** On-screen buttons at bottom
+- **Mobile:** Tap anywhere on the bottom half to move there · hold on the bottom half to keep firing until you release
 
 ### How It Works
 1. `selfmade.bat` runs in a loop on the developer's machine
@@ -31,6 +31,7 @@ The loop also now performs a lightweight self-review before each Copilot call. A
 - `selfmade.bat` now syncs `suggestion.txt` both directions: it pulls remote updates down before each iteration, and it auto-pushes local `suggestion.txt` edits when there are no competing remote commits.
 - If both your local `suggestion.txt` and `origin/main` changed at the same time, the loop pauses instead of guessing how to merge them.
 - Lines starting with `!` mean “do next if safe.” They get the highest short-term priority, and they should be removed after they are materially used.
+- Lines starting with `!!` mean “collaborate first, implement later.” The first three relevant iterations should add one `future.md` collaboration note each, using the exact marker format `!![slug] Collaboration 1/3`, `2/3`, and `3/3`. The fourth relevant iteration may implement that suggestion using those notes, then remove the `!!` line once it has been materially used.
 - Plain lines are temporary suggestions with elevated priority. They do not have to be used immediately, but the LLM should try to work them into the project over the next day or two.
 - Once a plain suggestion has been materially captured in the implemented work or in the roadmap, it may be removed from `suggestion.txt`.
 - Lines starting with `+` are persistent guidance. They should stay in `suggestion.txt` and continue influencing future iterations.
