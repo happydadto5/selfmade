@@ -1307,6 +1307,34 @@ if (overlay) {
           }
           try { announcer.textContent = 'Auto-paused due to focus loss'; } catch (e) { /* ignore */ }
         } catch (e) { /* ignore announcer errors */ }
+        // Also show a transient visible toast for mobile/visual users so auto-pause is apparent without needing to switch tabs
+        try {
+          let t = document.getElementById('autopause-toast');
+          if (!t) {
+            t = document.createElement('div');
+            t.id = 'autopause-toast';
+            t.textContent = 'Paused (lost focus)';
+            t.style.position = 'fixed';
+            t.style.left = '50%';
+            t.style.top = '8vh';
+            t.style.transform = 'translateX(-50%)';
+            t.style.background = 'rgba(0,0,0,0.8)';
+            t.style.color = '#fff';
+            t.style.padding = '8px 12px';
+            t.style.borderRadius = '8px';
+            t.style.zIndex = '10003';
+            t.style.pointerEvents = 'none';
+            t.style.opacity = '0';
+            // Respect reduced-motion preference
+            const prefersReducedMotion = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+            if (prefersReducedMotion) t.style.transition = 'none'; else t.style.transition = 'opacity 240ms ease, transform 240ms ease';
+            document.body.appendChild(t);
+          }
+          try { t.style.opacity = '1'; } catch (e) { /* ignore */ }
+          setTimeout(() => { try { t.style.opacity = '0'; } catch (e) {} }, 2600);
+          setTimeout(() => { try { if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {} }, 3000);
+        } catch (e) { /* ignore toast errors */ }
+        } catch (e) { /* ignore announcer errors */ }
         if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       }
       blurTimeout = null;
