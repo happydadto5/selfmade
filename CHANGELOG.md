@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Make wave emoji aria-hidden so screen readers read only the numeric wave label (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Slightly reduce HUD background opacity for better game visibility (tiny) — 2026-03-17
 
 ## Unreleased

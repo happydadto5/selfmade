@@ -84,19 +84,28 @@
       if (waveEl) {
         try {
           const n = (typeof waveNumber !== 'undefined' ? waveNumber : 0);
-          waveEl.textContent = 'Wave: ' + n + ' 🌱';
-          try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (err) {}
           try {
-            if (lastWaveShown !== n) {
-              lastWaveShown = n;
-              // Add pulse class to trigger CSS animation; remove it after animation completes or timeout
-              try { waveEl.classList.add('wave-pulse'); } catch (e) {}
-              const remover = () => { try { waveEl.classList.remove('wave-pulse'); waveEl.removeEventListener('animationend', remover); } catch (e) {} };
-              try { waveEl.addEventListener('animationend', remover); } catch (e) {}
-              // Fallback removal in case animationend doesn't fire (some browsers/user prefs)
-              setTimeout(remover, 900);
-            }
-          } catch (e) { /* ignore pulse errors */ }
+            // Build accessible wave HUD: text node for the numeric label and a separate emoji span set aria-hidden
+            while (waveEl.firstChild) waveEl.removeChild(waveEl.firstChild);
+            waveEl.appendChild(document.createTextNode('Wave: ' + n + ' '));
+            const emoji = document.createElement('span');
+            emoji.textContent = '🌱';
+            try { emoji.setAttribute('aria-hidden','true'); } catch (e) {}
+            emoji.style.marginLeft = '6px';
+            try { waveEl.appendChild(emoji); } catch(e) { /* ignore */ }
+            try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (err) {}
+            try {
+              if (lastWaveShown !== n) {
+                lastWaveShown = n;
+                // Add pulse class to trigger CSS animation; remove it after animation completes or timeout
+                try { waveEl.classList.add('wave-pulse'); } catch (e) {}
+                const remover = () => { try { waveEl.classList.remove('wave-pulse'); waveEl.removeEventListener('animationend', remover); } catch (e) {} };
+                try { waveEl.addEventListener('animationend', remover); } catch (e) {}
+                // Fallback removal in case animationend doesn't fire (some browsers/user prefs)
+                setTimeout(remover, 900);
+              }
+            } catch (e) { /* ignore pulse errors */ }
+          } catch (e) { /* ignore DOM errors */ }
         } catch (e) { /* ignore DOM errors */ }
       }
       // Update enemies HUD if present
