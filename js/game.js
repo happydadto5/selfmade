@@ -103,9 +103,9 @@
   let touchGuideExpires = 0;
   if (typeof window !== 'undefined') {
     try {
-      const showTouchGuide = () => {
-        touchGuideExpires = Date.now() + 15000;
-        try { document.body.classList.add('show-touch-guides'); } catch (e) { /* ignore */ }
+      const showTouchGuide = (durationMs = 15000) => {
+        try { touchGuideExpires = Date.now() + durationMs; } catch (e) { touchGuideExpires = Date.now() + durationMs; }
+        try { showTouchGuide(12000); } catch (e) { /* ignore */ }
         // Create a small transient toast to clarify touch zones for first-time touch users
         try {
           let t = document.getElementById('touch-toast');
@@ -115,6 +115,7 @@
             t.textContent = 'Tap center to sow seeds • Tap left or right to move';
             // Accessibility: make this transient hint discoverable to screen readers
             try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore attribute errors */ }
+            try { t.setAttribute('aria-hidden', 'false'); } catch (e) {}
             t.style.position = 'fixed';
             t.style.left = '50%';
             t.style.top = '12px';
@@ -132,7 +133,7 @@
             // show and auto-remove after a short delay
             try { void t.offsetWidth; t.style.opacity = '1'; } catch (e) { /* ignore */ }
             setTimeout(() => { try { t.style.opacity = '0'; } catch (e) {} }, 3800);
-            setTimeout(() => { try { if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {} }, 4200);
+            setTimeout(() => { try { try { t.setAttribute('aria-hidden', 'true'); } catch(e){} if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {} }, 4200);
           } else {
             // Reuse existing touch-toast node when present: make it accessible and temporarily visible
             try {
@@ -146,10 +147,10 @@
           }
         } catch (e) { /* ignore DOM errors */ }
         // Remove the class shortly after the guide expiry so the DOM stays clean
-        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 15000);
+        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, durationMs);
       };
       // Prefer the standard touchstart, but many modern devices fire pointerdown with pointerType 'touch' instead.
-      window.addEventListener('touchstart', showTouchGuide, { once: true, passive: true });
+      window.addEventListener('touchstart', () => showTouchGuide(), { once: true, passive: true });
       window.addEventListener('pointerdown', (ev) => {
         try { if (ev && ev.pointerType === 'touch') showTouchGuide(); } catch (e) { /* ignore */ }
       }, { once: true, passive: true });
@@ -518,12 +519,9 @@
     if (e.key === 't' || e.key === 'T') {
       try {
         // Show the same subtle guides used on touch devices so desktop users can preview touch zones
-        document.body.classList.add('show-touch-guides');
-        // Keep the guide visible for ~9s to match the touch-based guide duration
-        touchGuideExpires = Date.now() + 9000;
+        showTouchGuide(9000);
         // Also ensure the in-canvas separators and zone overlays are shown when previewing with the T key
         try { showTouchGuidesUntil = Date.now() + 9000; } catch (e) { /* ignore if variable not available */ }
-        setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) {} }, 9000);
         // Also briefly reveal on-screen touch buttons for desktop preview so users see the alternative control affordance
         try {
           if (touchControls) {
@@ -951,7 +949,7 @@ if (overlay) {
         }
       } catch (e) { /* ignore */ }
       // Remove the class shortly after the guide expiry so the DOM stays clean
-      setTimeout(() => { try { document.body.classList.remove('show-touch-guides'); } catch (e) { /* ignore */ } }, 12000);
+      
     }, { passive: true });
     document.addEventListener('touchend', () => { pointerActive = false; }, { passive: true });
     document.addEventListener('touchcancel', () => { pointerActive = false; }, { passive: true });

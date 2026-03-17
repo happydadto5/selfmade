@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Toggle touch hint visibility for screen readers by updating #touch-toast aria-hidden when guides show (tiny) — 2026-03-17
+
+## Unreleased
+
 - Reliability: Cap particle count to 160 to avoid performance issues on low-end devices (tiny) — 2026-03-17
 
 ## Unreleased
