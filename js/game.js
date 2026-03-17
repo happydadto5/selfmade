@@ -107,7 +107,7 @@
   let touchGuideExpires = 0;
   if (typeof window !== 'undefined') {
     try {
-      const showTouchGuide = (durationMs = 12000) => {
+      const showTouchGuide = (durationMs = 9000) => {
         try { touchGuideExpires = Date.now() + durationMs; } catch (e) { touchGuideExpires = Date.now() + durationMs; }
         // Persist that the user has seen the touch guides so they are not repeatedly shown across sessions
         try { localStorage.setItem('selfmade_touch_guides_shown', '1'); } catch (e) { /* ignore */ }

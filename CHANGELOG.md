@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Show brief touch hint toast for first-time touch users clarifying touch zones and controls (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Add HUD toggle button (click) to improve HUD discoverability; mirrors 'H' keyboard shortcut (tiny) — 2026-03-17
 
 ## Unreleased
