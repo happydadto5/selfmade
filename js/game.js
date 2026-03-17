@@ -374,6 +374,8 @@
       touchControls.setAttribute('aria-hidden', 'true');
     } catch (e) { /* ignore DOM errors */ }
   }
+  // Also clear inputs on window blur to avoid stuck movement/fire when the page loses focus
+  try { window.addEventListener('blur', clearInputs, { passive: true }); } catch (e) { /* ignore */ }
 
   // Bind on-screen touch-control buttons so tapping them triggers the same inputs as full-screen zones.
   // This improves discoverability and ensures keyboard activation works for accessibility.
