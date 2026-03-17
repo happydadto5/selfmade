@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Touch: Support touchmove for sliding across zones so dragging finger updates movement/fire (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: Removed emoji from Wave aria-label so screen readers announce "Wave: <number>" clearly (tiny) — 2026-03-17
 
 ## Unreleased
