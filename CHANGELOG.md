@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Add ARIA label to HUD (#ui) for assistive tech (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Reduce default touch-guide duration to 12s for less visual persistence (tiny) — 2026-03-17
 
 ## Unreleased
