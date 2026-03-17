@@ -841,7 +841,6 @@ if (overlay) {
         if (!btn) {
           btn = document.createElement('button');
           btn.id = 'autopauseBtn';
-          btn.title = 'Toggle auto-pause (shortcut: O)';
           btn.style.marginLeft = '6px';
           // Insert after the mute button if present for consistent placement
           const ref = document.getElementById('muteBtn');
@@ -850,6 +849,8 @@ if (overlay) {
           else document.body.appendChild(btn);
         }
         btn.textContent = autoPauseEnabled ? 'Auto-Pause: On' : 'Auto-Pause: Off';
+        // Always update the title to reflect current state for clarity
+        btn.title = autoPauseEnabled ? 'Auto-pause enabled (shortcut: O) — click to disable' : 'Auto-pause disabled (shortcut: O) — click to enable';
         btn.setAttribute('aria-pressed', autoPauseEnabled.toString());
         btn.setAttribute('aria-label', autoPauseEnabled ? 'Auto-pause enabled. Click to disable.' : 'Auto-pause disabled. Click to enable.');
         btn.setAttribute('role', 'button');

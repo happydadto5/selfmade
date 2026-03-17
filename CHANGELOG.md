@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Auto-pause toggle title updates to reflect current state for clarity and screen-reader users (tiny) — 2026-03-17
+
+## Unreleased
+
 - Visual: Spawn small green leaf particles on fire to reinforce garden theme (tiny) — 2026-03-17
 
 ## Unreleased
