@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Dim canvas when manually paused so paused state matches auto-pause dim (tiny) — 2026-03-17
+
+## Unreleased
+
 - UI: Add subtle HUD border to improve readability on busy backgrounds (tiny) — 2026-03-17
 
 ## Unreleased
