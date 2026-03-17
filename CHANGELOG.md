@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Docs: Read scripts/prompt.txt, suggestion.txt, and future.md; prepared next small, roadmap-aware improvement. — 2026-03-17
+
+## Unreleased
+
 ## Unreleased
 
 - Touch: add brief on-screen zone labels (Left / Water / Right) when touch guides are revealed for discoverability (tiny) — 2026-03-17
