@@ -338,7 +338,7 @@
     // HUD toggle button (mirrors 'H' keyboard shortcut) — improves discoverability for non-keyboard users
     const hudBtn = document.getElementById('hudBtn');
     if (hudBtn) {
-      try { hudBtn.setAttribute('type','button'); hudBtn.setAttribute('role','button'); hudBtn.setAttribute('tabindex','0'); } catch (e) {}
+      try { hudBtn.setAttribute('type','button'); hudBtn.setAttribute('role','button'); hudBtn.setAttribute('tabindex','0'); hudBtn.setAttribute('aria-pressed', (typeof hudVisible !== 'undefined' && hudVisible) ? 'true' : 'false'); } catch (e) {}
       hudBtn.addEventListener('click', () => {
         try {
           const ui = document.getElementById('ui');
