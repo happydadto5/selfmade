@@ -14,6 +14,8 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
   border-radius: 6px;
 }
 #ui{position:fixed;left:12px;top:8px;color:#111;font-size:20px;font-weight:700;background:rgba(255,255,255,0.88);padding:8px 12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);z-index:10000}
+/* When the HUD is hidden via JS using the `data-hidden` attribute, hide it visually and disable pointer events. */
+#ui[data-hidden="true"]{display:none!important;pointer-events:none;opacity:0}
 #ui #lives{color:#b71c1c;font-weight:700;}
 #ui #lives span{ font-size:22px; line-height:1; display:inline-block; margin-right:4px; }
 #ui #wave{margin-top:4px;font-size:28px;color:#063f0d;font-weight:800;text-shadow:0 1px 0 rgba(255,255,255,0.6)}
