@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UX: Touch hint unified — include 'Press P to pause' in in-game touch hint to match DOM guidance (tiny) — 2026-03-17
+
+## Unreleased
+
 - Improve: Responsive HUD — reduce top-left HUD size and spacing for narrow screens to avoid overlap and improve readability. (tiny) — 2026-03-17
 
 ## Unreleased

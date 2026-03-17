@@ -117,7 +117,7 @@
           if (!t) {
             t = document.createElement('div');
             t.id = 'touch-toast';
-            t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move';
+            t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move. Press P to pause.';
             // Accessibility: make this transient hint discoverable to screen readers
             try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore attribute errors */ }
             try { t.setAttribute('aria-hidden', 'false'); } catch (e) {}
