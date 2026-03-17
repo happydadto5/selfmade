@@ -1271,6 +1271,13 @@ if (overlay) {
       lives--;
       livesPulseUntil = Date.now() + 700;
       lives = Math.max(0, lives);
+      // Trigger a short HUD pulse to draw attention to the lost life (CSS handles animation)
+      try {
+        if (livesEl) {
+          try { livesEl.classList.add('lives-pulse'); } catch(e) {}
+          setTimeout(() => { try { livesEl.classList.remove('lives-pulse'); } catch(e) {} }, 700);
+        }
+      } catch (e) { /* ignore HUD update errors */ }
       // Announce life change to assistive tech so screen-reader users hear immediate feedback
       try {
         if (!lifeAnnouncer) lifeAnnouncer = document.getElementById('life-announcer');

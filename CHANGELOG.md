@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Briefly pulse Lives HUD when a life is lost to improve feedback (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Shorten touch guide duration to 3.5s to avoid clutter on mobile (tiny) — 2026-03-17
 
 ## Unreleased
