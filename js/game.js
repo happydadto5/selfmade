@@ -180,22 +180,36 @@
             t.style.fontSize = '14px';
             t.style.pointerEvents = 'none';
             t.style.opacity = '0';
-            t.style.transition = 'opacity 220ms ease, transform 220ms ease';
+            // Respect user motion preferences: disable transitions if user prefers reduced motion
+            const prefersReducedMotion = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+            if (prefersReducedMotion) {
+              t.style.transition = 'none';
+              t.style.opacity = '1';
+            } else {
+              t.style.transition = 'opacity 220ms ease, transform 220ms ease';
+            }
             document.body.appendChild(t);
             // show and auto-remove after a short delay
-            try { void t.offsetWidth; t.style.opacity = '1'; } catch (e) { /* ignore */ }
-            setTimeout(() => { try { t.style.opacity = '0'; } catch (e) {} }, 3800);
-            setTimeout(() => { try { try { t.setAttribute('aria-hidden', 'true'); } catch(e){} if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {} }, 4200);
+            try { if (!prefersReducedMotion) { void t.offsetWidth; t.style.opacity = '1'; } } catch (e) { /* ignore */ }
+            const hideDelay = prefersReducedMotion ? 1200 : 3800;
+            setTimeout(() => { try { t.style.opacity = '0'; } catch (e) {} }, hideDelay);
+            setTimeout(() => { try { try { t.setAttribute('aria-hidden', 'true'); } catch(e){} if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {} }, hideDelay + 400);
           } else {
             // Reuse existing touch-toast node when present: make it accessible and temporarily visible
             try {
               t.textContent = 'Tip: Tap center to water plants; tap left/right edges to move';
               try { t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true'); } catch (e) { /* ignore */ }
               try { t.removeAttribute('aria-hidden'); } catch (e) { /* ignore */ }
-              try { t.style.opacity = '1'; } catch (e) { /* ignore */ }
+              const prefersReducedMotion = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+              if (prefersReducedMotion) {
+                try { t.style.transition = 'none'; t.style.opacity = '1'; } catch (e) { /* ignore */ }
+              } else {
+                try { t.style.transition = 'opacity 220ms ease, transform 220ms ease'; t.style.opacity = '1'; } catch (e) { /* ignore */ }
+              }
             } catch (e) { /* ignore DOM errors */ }
             // Hide it again after a short delay but do not remove the node if it was part of index.html
-            setTimeout(() => { try { t.style.opacity = '0'; try { t.setAttribute('aria-hidden', 'true'); } catch (e) {} } catch (e) {} }, 3800);
+            const hideDelay = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? 1200 : 3800;
+            setTimeout(() => { try { t.style.opacity = '0'; try { t.setAttribute('aria-hidden', 'true'); } catch (e) {} } catch (e) {} }, hideDelay);
           }
         } catch (e) { /* ignore DOM errors */ }
 
