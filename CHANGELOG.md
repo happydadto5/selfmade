@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Ensure HUD stays above canvas effects by adding z-index to #ui (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Add 'Sow' label to center touch guide and clarify touch-zone labels (tiny) — 2026-03-17
 
 ## Unreleased
