@@ -323,6 +323,46 @@
     updateMuteUI();
     // Ensure HUD reflects initial values (lives, wave, version) on load
     try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
+
+    // HUD toggle button (mirrors 'H' keyboard shortcut) — improves discoverability for non-keyboard users
+    const hudBtn = document.getElementById('hudBtn');
+    if (hudBtn) {
+      try { hudBtn.setAttribute('type','button'); hudBtn.setAttribute('role','button'); hudBtn.setAttribute('tabindex','0'); } catch (e) {}
+      hudBtn.addEventListener('click', () => {
+        try {
+          const ui = document.getElementById('ui');
+          hudVisible = !(typeof hudVisible !== 'undefined' && hudVisible === false);
+          if (ui) {
+            const hidden = ui.getAttribute('data-hidden') === 'true';
+            if (hidden) {
+              ui.style.display = '';
+              ui.setAttribute('data-hidden','false');
+              try { ui.setAttribute('aria-hidden','false'); } catch (err) {}
+            } else {
+              ui.style.display = 'none';
+              ui.setAttribute('data-hidden','true');
+              try { ui.setAttribute('aria-hidden','true'); } catch (err) {}
+            }
+          }
+          try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) {}
+          try {
+            let announcer = document.getElementById('hud-announcer');
+            if (!announcer) {
+              announcer = document.createElement('div');
+              announcer.id = 'hud-announcer';
+              announcer.style.position = 'absolute';
+              announcer.style.left = '-9999px';
+              announcer.style.width = '1px';
+              announcer.style.height = '1px';
+              announcer.setAttribute('aria-live','polite');
+              document.body.appendChild(announcer);
+            }
+            try { announcer.textContent = (ui && ui.getAttribute('data-hidden') === 'true') ? 'HUD hidden' : 'HUD visible'; } catch (e) {}
+          } catch (e) {}
+        } catch (e) { /* ignore */ }
+      });
+    }
+
     // Restore colorblind-friendly palette preference (accessibility)
     let colorblindMode = (function(){ try { const v = localStorage.getItem('selfmade_colorblind'); return v === '1'; } catch (e) { return false; } })();
     try { if (colorblindMode) document.body.classList.add('colorblind-mode'); } catch (e) { /* ignore */ }

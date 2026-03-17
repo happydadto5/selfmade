@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Add HUD toggle button (click) to improve HUD discoverability; mirrors 'H' keyboard shortcut (tiny) — 2026-03-17
+
+## Unreleased
+
 - Performance: cap particle count at 300 to reduce CPU/GPU load during long runs (tiny) — 2026-03-17
 
 ## Unreleased

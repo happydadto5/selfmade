@@ -28,6 +28,7 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 #overlay[aria-hidden="false"]{display:flex;pointer-events:auto}
 #replayBtn,#resumeBtn{font-size:20px;padding:12px 20px;border-radius:8px;background:#fff;border:2px solid #222;cursor:pointer}
 #muteBtn{position:fixed;right:12px;top:36px;font-size:16px;background:transparent;border:none;cursor:pointer;padding:6px}
+#hudBtn{position:fixed;right:12px;top:92px;font-size:16px;background:transparent;border:none;cursor:pointer;padding:6px}
 #changesBtn{position:fixed;right:12px;top:64px;font-size:16px;background:transparent;border:none;cursor:pointer;padding:6px}
 
 @media (pointer: coarse) {
