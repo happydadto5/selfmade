@@ -1813,13 +1813,19 @@ if (overlay) {
         ctx.shadowBlur = 6;
         ctx.fillStyle = 'rgba(255,255,255,0.95)';
           ctx.fillText(waveText, rx + pad, ry + 16);
-          // Draw heart icons for lives for clearer, more visual feedback (garden-themed hearts)
+          // Draw a 'Lives:' label then heart icons for lives for clearer, more visual feedback (garden-themed hearts)
           try {
             const heartSize = 16; // px
+            // Draw the Lives text label on its own line for clarity
+            ctx.font = '16px sans-serif';
+            ctx.fillStyle = 'rgba(255,255,255,0.95)';
+            ctx.fillText(livesText, rx + pad, ry + 16 + lineHeight);
+            // Now draw heart icons to the right of the Lives label
             ctx.font = heartSize + 'px sans-serif';
             for (let j = 0; j < Math.max(0, lives); j++) {
               ctx.fillStyle = '#e53935';
-              const hx = rx + pad + j * (heartSize + 6);
+              const hxStart = rx + pad + (typeof livesW !== 'undefined' ? livesW : 60) + 12;
+              const hx = hxStart + j * (heartSize + 6);
               const hy = ry + 16 + lineHeight - 4; // vertically align with text baseline
               ctx.fillText('♥', hx, hy);
             }

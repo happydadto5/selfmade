@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Draw 'Lives:' label before hearts in in-canvas HUD for clarity (tiny) — 2026-03-17
+
+## Unreleased
+
 - Audio: Distinct two-tone chime for new wave starts (WebAudio oscillator) (tiny) — 2026-03-17
 
 ## Unreleased
