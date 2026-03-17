@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Add type="button" to top-level buttons to improve semantics and avoid accidental form submission (tiny) — 2026-03-17
+
+## Unreleased
+
 - Mobile: toggle touch hint aria-hidden when showing guides (tiny) — 2026-03-17
 
 ## Unreleased
