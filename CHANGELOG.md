@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Removed emoji from Wave aria-label so screen readers announce "Wave: <number>" clearly (tiny) — 2026-03-17
+
+## Unreleased
+
 - Accessibility: HUD toggle button now updates aria-pressed to reflect state for assistive tech (tiny) — 2026-03-17
 
 ## Unreleased

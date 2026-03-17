@@ -79,7 +79,11 @@
       }
       // Update wave HUD if present
       if (waveEl) {
-        try { waveEl.textContent = 'Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' 🌱'; waveEl.setAttribute('aria-label', 'Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' 🌱'); } catch (e) { /* ignore DOM errors */ }
+        try {
+          const n = (typeof waveNumber !== 'undefined' ? waveNumber : 0);
+          waveEl.textContent = 'Wave: ' + n + ' 🌱';
+          try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (err) {}
+        } catch (e) { /* ignore DOM errors */ }
       }
       // Update enemies HUD if present
       if (enemiesEl) {
@@ -1726,8 +1730,9 @@ if (overlay) {
 
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
     if (waveEl) {
-      waveEl.textContent = 'Wave: ' + waveNumber + ' 🌱';
-        try { waveEl.setAttribute('aria-label', 'Wave: ' + waveNumber + ' 🌱'); } catch (e) { }
+      const n = waveNumber;
+      waveEl.textContent = 'Wave: ' + n + ' 🌱';
+      try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (e) { }
       try {
         if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
       } catch (e) { }
