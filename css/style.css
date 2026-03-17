@@ -43,14 +43,14 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
     /* Highlight center 50% lightly and draw a thin dashed guide line to help users discover touch zones without cluttering the view */
     background-image: linear-gradient(to right, rgba(0,0,0,0) 0 25%, rgba(76,175,80,0.06) 25% 75%, rgba(0,0,0,0) 75%), repeating-linear-gradient(to right, rgba(0,0,0,0.6) 0 2px, rgba(0,0,0,0) 2px 10px);
     background-repeat: no-repeat;
-    background-position: 0 calc(28vh), 0 calc(28vh);
+    background-position: 0 calc(33vh), 0 calc(33vh);
     background-size: 100% 1px, 100% 1px;
   }
   /* Left and right dashed separators (vertical) to mark 25% and 75% boundaries. Kept subtle so gameplay remains unobstructed. */
   body.show-touch-guides::before, body.show-touch-guides::after {
     content: "";
     position: fixed;
-    top: calc(28vh - 1px);
+    top: calc(33vh - 1px);
     width: 0;
     height: 36vh; /* starts slightly higher and runs down a bit more for clear discoverability */
     /* Slightly reduced contrast so separators are discoverable but not distracting */
@@ -70,13 +70,13 @@ html,body{height:100%;margin:0;background:#87CEEB;font-family:Segoe UI, Roboto, 
 body.show-touch-guides {
   background-image: linear-gradient(to right, rgba(0,0,0,0) 0 25%, rgba(76,175,80,0.06) 25% 75%, rgba(0,0,0,0) 75%), repeating-linear-gradient(to right, rgba(0,0,0,0.6) 0 2px, rgba(0,0,0,0) 2px 10px);
   background-repeat: no-repeat;
-  background-position: 0 calc(28vh), 0 calc(28vh);
+  background-position: 0 calc(33vh), 0 calc(33vh);
   background-size: 100% 1px, 100% 1px;
 }
 body.show-touch-guides::before, body.show-touch-guides::after {
   content: "";
   position: fixed;
-  top: calc(28vh - 1px);
+  top: calc(33vh - 1px);
   width: 0;
   height: 36vh; /* starts slightly higher and runs down a bit more for clear discoverability */
   border-left: 1px dashed rgba(0,0,0,0.14);
