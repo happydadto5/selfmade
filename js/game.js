@@ -854,7 +854,7 @@ if (overlay) {
       } else if (gameOver) {
         overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — Press R or click to play again';
       } else if (pausedByFocus) {
-        overlayMessage.textContent = 'Paused (lost focus) — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press Space, click or tap, or return to this tab to resume';
+        overlayMessage.textContent = 'Paused (lost focus) — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press Space, click or tap, or return to this tab to resume. Auto-pause is enabled; press O to toggle.';
       } else if (paused) {
         overlayMessage.textContent = 'Paused — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press P, Esc, or Space to resume';
       } else {

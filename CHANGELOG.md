@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Accessibility: Overlay pause message clarifies auto-pause and how to toggle it (press O) — 2026-03-17
+
+## Unreleased
+
 - Touch: unify touch-guide duration to 10s for consistent discoverability (tiny) — 2026-03-17
 
 ## Unreleased
