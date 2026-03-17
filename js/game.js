@@ -504,6 +504,8 @@
     if (e.key === 'h' || e.key === 'H') {
       try {
         const ui = document.getElementById('ui');
+        // Toggle our hudVisible flag (used for both DOM HUD and in-canvas HUD rendering)
+        hudVisible = !(typeof hudVisible !== 'undefined' && hudVisible === false);
         if (ui) {
           const hidden = ui.getAttribute('data-hidden') === 'true';
           if (hidden) {
@@ -541,6 +543,20 @@
             }
             try { announcer.textContent = 'HUD hidden'; } catch (e) {}
           }
+        } else {
+          // If no DOM HUD exists, still announce the HUD state change
+          let announcer = document.getElementById('hud-announcer');
+          if (!announcer) {
+            announcer = document.createElement('div');
+            announcer.id = 'hud-announcer';
+            announcer.style.position = 'absolute';
+            announcer.style.left = '-9999px';
+            announcer.style.width = '1px';
+            announcer.style.height = '1px';
+            announcer.setAttribute('aria-live','polite');
+            document.body.appendChild(announcer);
+          }
+          try { announcer.textContent = hudVisible ? 'HUD visible' : 'HUD hidden'; } catch (e) {}
         }
       } catch (e) { /* ignore */ }
     }
@@ -908,6 +924,8 @@ if (overlay) {
   // Preference: allow the user to disable auto-pause on blur/visibility (toggled with O). Defaults to enabled for safety.
   // Persist preference in localStorage ('1' = enabled, '0' = disabled)
   let autoPauseEnabled = (function(){ try { const v = localStorage.getItem('selfmade_autopause'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
+  // HUD visibility flag (toggle with H). When false both DOM HUD and in-canvas HUD are hidden for a distraction-free mode.
+  let hudVisible = true;
   // Create an Auto-pause toggle button in the UI for discoverability and accessibility.
   // This small UI control mirrors the O key and persists the preference to localStorage.
   try {
@@ -1688,62 +1706,64 @@ if (overlay) {
     }
 
     // Draw a small HUD on the canvas so players see Wave, Lives, and Enemies even if the DOM HUD is hidden
-    try {
-      ctx.save();
-      ctx.font = '16px sans-serif';
-      ctx.textAlign = 'left';
-      const waveText = 'Wave: ' + waveNumber + ' 🌱';
-      const livesText = 'Lives: ' + lives;
-      const enemiesText = enemies.length + ' ' + (enemies.length === 1 ? 'Enemy' : 'Enemies');
-      const pad = 10;
-      const lineHeight = 22;
-      const waveW = ctx.measureText(waveText).width;
-      const livesW = ctx.measureText(livesText).width;
-      const enemiesW = ctx.measureText(enemiesText).width;
-      const boxW = Math.max(waveW, livesW, enemiesW) + pad * 2;
-      const boxH = lineHeight * 3 + 8;
-      const rx = 8, ry = 6;
-      // pulse slightly when wave, lives, or enemies changed recently
-      const now = Date.now();
-      const pulse = (now < wavePulseUntil || now < livesPulseUntil) ? 0.18 : 0.06;
-      // Slightly increase the HUD background opacity for better readability on busy scenes (tiny)
-      ctx.fillStyle = 'rgba(0,0,0,' + (0.62 + pulse) + ')';
-      // rounded rect background
-      const r = 6;
-      ctx.beginPath();
-      ctx.moveTo(rx + r, ry);
-      ctx.arcTo(rx + boxW, ry, rx + boxW, ry + boxH, r);
-      ctx.arcTo(rx + boxW, ry + boxH, rx, ry + boxH, r);
-      ctx.arcTo(rx, ry + boxH, rx, ry, r);
-      ctx.arcTo(rx, ry, rx + boxW, ry, r);
-      ctx.closePath();
-      ctx.fill();
-      // subtle border to separate HUD from background
-      try { ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.stroke(); } catch (e) {}
-      // Improve readability: add a subtle drop shadow for HUD text (helps on busy backgrounds)
-      ctx.shadowColor = 'rgba(0,0,0,0.6)';
-      ctx.shadowBlur = 6;
-      ctx.fillStyle = 'rgba(255,255,255,0.95)';
-        ctx.fillText(waveText, rx + pad, ry + 16);
-        // Draw heart icons for lives for clearer, more visual feedback (garden-themed hearts)
-        try {
-          const heartSize = 16; // px
-          ctx.font = heartSize + 'px sans-serif';
-          for (let j = 0; j < Math.max(0, lives); j++) {
-            ctx.fillStyle = '#e53935';
-            const hx = rx + pad + j * (heartSize + 6);
-            const hy = ry + 16 + lineHeight - 4; // vertically align with text baseline
-            ctx.fillText('♥', hx, hy);
-          }
-          // restore text font and color for subsequent text
-          ctx.font = '16px sans-serif';
-          ctx.fillStyle = 'rgba(255,255,255,0.95)';
-        } catch (e) { /* ignore heart draw errors */ }
-        ctx.fillText(enemiesText, rx + pad, ry + 16 + lineHeight * 2);
-      ctx.shadowBlur = 0;
-      ctx.shadowColor = 'transparent';
-      ctx.restore();
-    } catch (e) { /* ignore drawing errors */ }
+    if (typeof hudVisible === 'undefined' || hudVisible) {
+      try {
+        ctx.save();
+        ctx.font = '16px sans-serif';
+        ctx.textAlign = 'left';
+        const waveText = 'Wave: ' + waveNumber + ' 🌱';
+        const livesText = 'Lives: ' + lives;
+        const enemiesText = enemies.length + ' ' + (enemies.length === 1 ? 'Enemy' : 'Enemies');
+        const pad = 10;
+        const lineHeight = 22;
+        const waveW = ctx.measureText(waveText).width;
+        const livesW = ctx.measureText(livesText).width;
+        const enemiesW = ctx.measureText(enemiesText).width;
+        const boxW = Math.max(waveW, livesW, enemiesW) + pad * 2;
+        const boxH = lineHeight * 3 + 8;
+        const rx = 8, ry = 6;
+        // pulse slightly when wave, lives, or enemies changed recently
+        const now = Date.now();
+        const pulse = (now < wavePulseUntil || now < livesPulseUntil) ? 0.18 : 0.06;
+        // Slightly increase the HUD background opacity for better readability on busy scenes (tiny)
+        ctx.fillStyle = 'rgba(0,0,0,' + (0.62 + pulse) + ')';
+        // rounded rect background
+        const r = 6;
+        ctx.beginPath();
+        ctx.moveTo(rx + r, ry);
+        ctx.arcTo(rx + boxW, ry, rx + boxW, ry + boxH, r);
+        ctx.arcTo(rx + boxW, ry + boxH, rx, ry + boxH, r);
+        ctx.arcTo(rx, ry + boxH, rx, ry, r);
+        ctx.arcTo(rx, ry, rx + boxW, ry, r);
+        ctx.closePath();
+        ctx.fill();
+        // subtle border to separate HUD from background
+        try { ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.stroke(); } catch (e) {}
+        // Improve readability: add a subtle drop shadow for HUD text (helps on busy backgrounds)
+        ctx.shadowColor = 'rgba(0,0,0,0.6)';
+        ctx.shadowBlur = 6;
+        ctx.fillStyle = 'rgba(255,255,255,0.95)';
+          ctx.fillText(waveText, rx + pad, ry + 16);
+          // Draw heart icons for lives for clearer, more visual feedback (garden-themed hearts)
+          try {
+            const heartSize = 16; // px
+            ctx.font = heartSize + 'px sans-serif';
+            for (let j = 0; j < Math.max(0, lives); j++) {
+              ctx.fillStyle = '#e53935';
+              const hx = rx + pad + j * (heartSize + 6);
+              const hy = ry + 16 + lineHeight - 4; // vertically align with text baseline
+              ctx.fillText('♥', hx, hy);
+            }
+            // restore text font and color for subsequent text
+            ctx.font = '16px sans-serif';
+            ctx.fillStyle = 'rgba(255,255,255,0.95)';
+          } catch (e) { /* ignore heart draw errors */ }
+          ctx.fillText(enemiesText, rx + pad, ry + 16 + lineHeight * 2);
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+        ctx.restore();
+      } catch (e) { /* ignore drawing errors */ }
+    }
 
     // draw a temporary wave banner when a new wave starts (fades out)
     if (Date.now() < wavePulseUntil) {
