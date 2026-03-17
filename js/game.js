@@ -1513,6 +1513,36 @@ if (overlay) {
         setTimeout(() => waveEl.classList.remove('wave-pulse'), 900);
       } catch (e) { /* ignore DOM errors */ }
     }
+    // Also show a small DOM toast for better discoverability on small or busy screens
+    try {
+      let wt = document.getElementById('wave-toast');
+      if (!wt) {
+        wt = document.createElement('div');
+        wt.id = 'wave-toast';
+        wt.setAttribute('role','status');
+        wt.setAttribute('aria-live','polite');
+        wt.style.position = 'fixed';
+        wt.style.left = '50%';
+        wt.style.top = '6%';
+        wt.style.transform = 'translateX(-50%)';
+        wt.style.background = 'rgba(255,255,255,0.94)';
+        wt.style.color = '#063f0d';
+        wt.style.padding = '8px 14px';
+        wt.style.borderRadius = '8px';
+        wt.style.boxShadow = '0 6px 18px rgba(0,0,0,0.14)';
+        wt.style.fontWeight = '800';
+        wt.style.zIndex = '10003';
+        wt.style.pointerEvents = 'none';
+        wt.style.opacity = '0';
+        wt.style.transition = 'opacity 220ms ease, transform 220ms ease';
+        document.body.appendChild(wt);
+      }
+      wt.textContent = 'Wave ' + waveNumber + ' starting';
+      // show briefly then hide
+      try { wt.style.opacity = '1'; wt.style.transform = 'translateX(-50%) translateY(0)'; } catch(e){}
+      setTimeout(() => { try { wt.style.opacity = '0'; wt.style.transform = 'translateX(-50%) translateY(-8px)'; } catch(e){} }, 900);
+      setTimeout(() => { try { if (wt && wt.parentNode) wt.parentNode.removeChild(wt); } catch(e){} }, 1400);
+    } catch (e) { /* ignore toast errors */ }
   }
 
   function update(dt) {
