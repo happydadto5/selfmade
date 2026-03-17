@@ -1806,7 +1806,7 @@ if (overlay) {
             ctx.font = '12px sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            ctx.fillText('Sow', centerX, y + 12);
+            ctx.fillText('Water', centerX, y + 12);
           } catch (e) { /* ignore label draw errors */ }
         } catch (e) { /* ignore drawing errors */ }
         ctx.fillStyle = 'rgba(255,255,255,0.36)';
