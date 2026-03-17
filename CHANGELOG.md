@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- UI: Slightly increase HUD heart size for lives for better readability (tiny) — 2026-03-17
+
+## Unreleased
+
 - UX: Garden-themed touch center indicator (green) and tip wording updated to 'sow seeds' for consistency (tiny) — 2026-03-17
 
 ## Unreleased
