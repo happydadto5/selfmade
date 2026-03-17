@@ -97,12 +97,16 @@
             try {
               if (lastWaveShown !== n) {
                 lastWaveShown = n;
-                // Add pulse class to trigger CSS animation; remove it after animation completes or timeout
-                try { waveEl.classList.add('wave-pulse'); } catch (e) {}
-                const remover = () => { try { waveEl.classList.remove('wave-pulse'); waveEl.removeEventListener('animationend', remover); } catch (e) {} };
-                try { waveEl.addEventListener('animationend', remover); } catch (e) {}
-                // Fallback removal in case animationend doesn't fire (some browsers/user prefs)
-                setTimeout(remover, 900);
+                // Respect user preference for reduced motion: skip pulse when prefers-reduced-motion is set
+                const prefersReducedMotion = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+                if (!prefersReducedMotion) {
+                  // Add pulse class to trigger CSS animation; remove it after animation completes or timeout
+                  try { waveEl.classList.add('wave-pulse'); } catch (e) {}
+                  const remover = () => { try { waveEl.classList.remove('wave-pulse'); waveEl.removeEventListener('animationend', remover); } catch (e) {} };
+                  try { waveEl.addEventListener('animationend', remover); } catch (e) {}
+                  // Fallback removal in case animationend doesn't fire
+                  setTimeout(remover, 900);
+                }
               }
             } catch (e) { /* ignore pulse errors */ }
           } catch (e) { /* ignore DOM errors */ }
