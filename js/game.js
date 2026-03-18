@@ -1860,6 +1860,24 @@ if (overlay) {
           e.hp--;
           // Brief hit flash to improve visual feedback when an enemy is struck
           try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
+          // If the hit was non-lethal, show a small +1 popup and a few particles to reward the hit visually
+          if (e.hp > 0) {
+            try { scorePopups.push({ x: e.x, y: e.y, text: '+1', vy: -0.04, life: 600, totalLife: 600, color: '#fff9c4' }); } catch (ex) { /* ignore */ }
+            try {
+              for (let sp = 0; sp < 5; sp++) {
+                particles.push({
+                  x: e.x + (Math.random() - 0.5) * 8,
+                  y: e.y + (Math.random() - 0.5) * 8,
+                  vx: (Math.random() - 0.5) * 1.2,
+                  vy: -0.6 - Math.random() * 0.6,
+                  r: 1 + Math.random() * 2,
+                  life: 240 + Math.random() * 160,
+                  born: Date.now(),
+                  color: '#fff59d'
+                });
+              }
+            } catch (ex) { /* ignore particle errors */ }
+          }
           if (e.hp <= 0) {
             enemies.splice(i,1);
             score += 10;
