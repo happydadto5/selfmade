@@ -2293,15 +2293,19 @@ if (overlay) {
     ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8);
     ctx.restore();
 
-    // draw shield ring if active
+    // draw shield ring if active (pulses to indicate remaining time)
     try {
       if (Date.now() < (player.shieldUntil || 0)) {
         ctx.save();
         ctx.translate(player.x, player.y);
-        ctx.strokeStyle = 'rgba(129,212,255,0.95)';
-        ctx.lineWidth = 4;
+        // Show a subtle pulse and alpha change based on remaining shield time so players can see when it will expire
+        const _remaining = Math.max(0, (player.shieldUntil || 0) - Date.now());
+        const _frac = Math.max(0, Math.min(1, _remaining / 12000)); // fraction of 12s duration remaining
+        const _pulse = 1 + 0.08 * Math.sin(Date.now() * 0.02);
+        ctx.strokeStyle = 'rgba(129,212,255,' + (0.5 + 0.45 * _frac).toFixed(3) + ')';
+        ctx.lineWidth = 4 + 2 * (1 - _frac); // slightly thicken as it nears expiration
         ctx.beginPath();
-        ctx.ellipse(0,0,player.w*1.8,player.h*1.8,0,0,Math.PI*2);
+        ctx.ellipse(0,0,player.w*1.8*_pulse,player.h*1.8*_pulse,0,0,Math.PI*2);
         ctx.stroke();
         ctx.restore();
       }
