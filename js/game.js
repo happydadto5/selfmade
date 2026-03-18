@@ -133,7 +133,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '4.0.0';
+  const version = '4.1.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1597,9 +1597,9 @@ if (overlay) {
   });
 
 
-  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0 };
+  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0 };
   let lastFireFlashUntil = 0;
-  const bullets = []; const enemies = []; const particles = []; const scorePopups = []; let screenShake = 0;
+  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = []; let screenShake = 0;
   let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
@@ -1709,11 +1709,13 @@ if (overlay) {
     player.x = Math.max(20, Math.min(cw-20, player.x));
 
     player.cooldown = Math.max(0, player.cooldown - dt);
+    // expire temporary fire rate boosts
+    try { if (player.fireRate > 1 && Date.now() > (player.fireRateUntil || 0)) { player.fireRate = 1; player.fireRateUntil = 0; } } catch (e) {}
     // Performance: cap particle count to avoid runaway particle growth during long runs
     try { if (particles && particles.length > 300) particles.splice(0, particles.length - 300); } catch (e) { }
     if (keys.fire && player.cooldown <= 0) {
       bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
-      player.cooldown = 180; // ms
+      player.cooldown = Math.max(30, Math.round(180 / (player.fireRate || 1))); // ms (respect player's fireRate, min cap)
       lastFireFlashUntil = Date.now() + 120; // brief muzzle flash for firing feedback
       // Small garden-themed leaf particles on fire for visual feedback (tiny, low-cost)
       try {
@@ -1924,6 +1926,12 @@ if (overlay) {
             }
             screenShake = Math.min(16, screenShake + 8);
             playSound('hit');
+            // Small chance to spawn a temporary power-up when an enemy dies
+            try {
+              if (Math.random() < 0.12) {
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'rapid', born: Date.now(), life: 6000 });
+              }
+            } catch (err) { /* ignore powerup spawn errors */ }
           }
           break;
         }
@@ -1952,6 +1960,32 @@ if (overlay) {
       sp.life -= dt;
       if (sp.life <= 0) scorePopups.splice(i,1);
     }
+
+    // update power-ups: drift up slightly, expire, and handle collection by player
+    try {
+      for (let i=powerups.length-1;i>=0;i--) {
+        const pu = powerups[i];
+        pu.y += (pu.vy || -0.4) * dt * 0.06; // gentle upward float (scaled by dt)
+        pu.life -= dt;
+        // remove if expired or off-screen
+        if (pu.life <= 0 || pu.y < -40) { powerups.splice(i,1); continue; }
+        // check collection: simple distance check
+        try {
+          const dx = pu.x - player.x;
+          const dy = pu.y - player.y;
+          if (Math.sqrt(dx*dx + dy*dy) < 28) {
+            // grant temporary rapid-fire boost
+            player.fireRate = 2;
+            player.fireRateUntil = Date.now() + 6000; // 6 seconds
+            // small celebratory feedback
+            try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
+            try { playSound('blip'); } catch (e) {}
+            try { for (let k=0;k<6;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.6, vy: -Math.random()*1.2, r: 2+Math.random()*2, life: 400+Math.random()*300, born: Date.now(), color: '#fff59d' }); } catch (e) {}
+            powerups.splice(i,1);
+          }
+        } catch (e) { /* ignore collection errors */ }
+      }
+    } catch (e) { /* ignore powerup update errors */ }
 
     screenShake = Math.max(0, screenShake - dt * 0.04);
     if (enemies.length === 0) {
@@ -2152,6 +2186,23 @@ if (overlay) {
       ctx.fillText(sp.text, sp.x, sp.y);
       ctx.restore();
     }
+
+    // draw power-ups (small garden-themed icons)
+    try {
+      for (const pu of powerups) {
+        ctx.save();
+        const alpha = Math.max(0, Math.min(1, pu.life / 6000));
+        ctx.globalAlpha = alpha;
+        // gentle green circle with a small spark to indicate rapid-fire
+        ctx.fillStyle = '#66bb6a';
+        ctx.beginPath(); ctx.arc(pu.x, pu.y, 10, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('⚡', pu.x, pu.y + 1);
+        ctx.restore();
+      }
+    } catch (e) { /* ignore draw errors */ }
+
     ctx.fillStyle = '#fff'; for (const b of bullets) { ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
 
     for (const e of enemies) { const sc = 1 + (e.y / ch) * 0.25; ctx.save(); ctx.translate(e.x,e.y); ctx.scale(sc,sc); try {

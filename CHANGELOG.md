@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.1.0
+- Gameplay: add a small Rapid Fire power-up that temporarily doubles firing rate when collected (tiny) — 2026-03-18
+
 ## 4.0.0
 - Levels: add a short recovery delay between waves so players get a brief respite before the next wave (tiny) — 2026-03-18
 
