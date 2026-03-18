@@ -1677,6 +1677,8 @@ if (overlay) {
       const isCharger = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.01);
       // Small chance for a slow, high-HP "snail" enemy (garden-themed slow mover)
       const isSnail = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
+      // Small chance for a "pest" enemy that splits into two mini pests on death
+      const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       if (isZig) {
         const hpVal = 1 + Math.floor(waveNumber/3);
         enemies.push({x:ex,y:ey,w:34,h:30,vy:speed*0.9, hp:hpVal, maxHp:hpVal, type:'zig', t: Math.random()*1000});
@@ -1688,6 +1690,9 @@ if (overlay) {
         // snail: slow descent, larger size, more HP, gentle horizontal wiggle
         const hpVal = 2 + Math.floor(waveNumber/4);
         enemies.push({x:ex,y:ey,w:40,h:36,vy:speed*0.45, baseVy: speed*0.45, vx: (Math.random()-0.5)*0.6, hp:hpVal, maxHp:hpVal, type:'snail', t: Math.random()*1000});
+      } else if (isPest) {
+        // pest: medium speed, low HP, splits into two mini pests on death
+        enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.95, hp:1, maxHp:1, type:'pest'});
       } else {
         const hpVal = 1 + Math.floor(waveNumber/4);
         enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal});
@@ -1959,6 +1964,24 @@ if (overlay) {
             score += 10;
             // spawn a small floating score popup at the enemy position (visual polish)
             try { scorePopups.push({ x: e.x, y: e.y, text: '+10', vy: -0.05, life: 800, totalLife: 800, color: '#ffff88' }); } catch (ex) { /* ignore */ }
+            // pest split: spawn two small mini-pests at the death location when a pest dies
+            try {
+              if (e.type === 'pest') {
+                for (let m = 0; m < 2; m++) {
+                  enemies.push({
+                    x: e.x + (m === 0 ? -8 : 8),
+                    y: e.y,
+                    w: 14,
+                    h: 12,
+                    vy: (Math.random() * 0.6) + 0.4,
+                    vx: (m === 0 ? -0.35 : 0.35),
+                    hp: 1,
+                    maxHp: 1,
+                    type: 'pest-mini'
+                  });
+                }
+              }
+            } catch (ex) { /* ignore pest spawn errors */ }
             // If the player surpasses the previous high score during the run, update and show a small badge
             try {
               const prevHigh = highScore;
@@ -2386,11 +2409,11 @@ if (overlay) {
       try {
           const nowHit = Date.now();
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
-            // brighter tint while hit flash is active (type-specific for snails)
-            ctx.fillStyle = (e.type === 'snail') ? '#a1887f' : '#ffb3b3';
+            // brighter tint while hit flash is active (type-specific for snails and pests)
+            ctx.fillStyle = (e.type === 'snail') ? '#a1887f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : '#ffb3b3');
           } else {
-            // default enemy color, but snails get a distinct earthy tone for readability
-            ctx.fillStyle = (e.type === 'snail') ? '#6d4c41' : '#ff6666';
+            // default enemy color, but snails and pests get distinct tones for readability
+            ctx.fillStyle = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : '#ff6666');
           }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
