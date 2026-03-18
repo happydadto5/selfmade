@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.6.0
 - Gameplay: add a new 'charger' enemy that drifts toward the player and occasionally charges downward (tiny) — 2026-03-18
 
 ## Unreleased
