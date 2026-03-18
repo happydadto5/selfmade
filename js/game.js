@@ -2145,6 +2145,8 @@ if (overlay) {
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<6;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.6, vy: -Math.random()*1.2, r: 2+Math.random()*2, life: 400+Math.random()*300, born: Date.now(), color: '#fff59d' }); } catch (e) {}
+              // Accessibility: announce Rapid power-up collection for screen readers (keeps HUD discoverable)
+              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
             } else if (pu.type === 'shield') {
               // grant a temporary shield that absorbs one life loss
               player.shieldUntil = Date.now() + 12000; // 12 seconds
