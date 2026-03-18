@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: add a new 'charger' enemy that drifts toward the player and occasionally charges downward (tiny) — 2026-03-18
+
+## Unreleased
 
 ## 3.4.0
 - UI: add Wave progress indicator in HUD showing defeated/total enemies for current wave (tiny) — 2026-03-17

@@ -1648,8 +1648,13 @@ if (overlay) {
       const speed = Math.min(4, 0.6 + Math.random()*1.2 + waveNumber*0.05);
       // Small chance to spawn a zigging "hopper" enemy that oscillates horizontally for visual and gameplay variety
       const isZig = Math.random() < Math.min(0.25, 0.04 + waveNumber*0.02);
+      // Small chance for a "charger" enemy type: drifts horizontally and occasionally charges downward
+      const isCharger = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.01);
       if (isZig) {
         enemies.push({x:ex,y:ey,w:34,h:30,vy:speed*0.9, hp:1 + Math.floor(waveNumber/3), type:'zig', t: Math.random()*1000});
+      } else if (isCharger) {
+        // charger: slower base descent, has a baseVy, a countdown to its next charge, and a charging flag
+        enemies.push({x:ex,y:ey,w:32,h:34,vy:speed*0.7, baseVy: speed*0.7, vx:0, hp:1 + Math.floor(waveNumber/3), type:'charger', chargeTimer: 800 + Math.random()*1200, charging: false, t: Math.random()*1000});
       } else {
         enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:1 + Math.floor(waveNumber/4)});
       }
@@ -1739,7 +1744,36 @@ if (overlay) {
       if (e.type === 'zig') {
         e.x += Math.sin(e.t * 0.012) * (1.6 + Math.min(0.8, waveNumber*0.02));
       }
+      // Charger behavior: drift towards player and occasionally perform a short high-speed downward charge
+      if (e.type === 'charger') {
+        try {
+          e.baseVy = (typeof e.baseVy !== 'undefined') ? e.baseVy : (e.vy || 0.7);
+          // decrement charge timer (ms)
+          e.chargeTimer = (typeof e.chargeTimer === 'undefined') ? (800 + Math.random()*1200) : (e.chargeTimer - dt);
+          if (e.charging) {
+            // end charging after the charge duration stored on the enemy
+            if (e.chargeEnd && e.t > e.chargeEnd) {
+              e.charging = false;
+              e.vy = e.baseVy;
+              e.chargeTimer = 800 + Math.random()*1200;
+            }
+          } else {
+            // gentle horizontal drift toward player with a small smoothing factor
+            const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
+            const maxH = 1 + Math.min(1.5, waveNumber*0.03);
+            e.vx = ((e.vx || 0) * 0.94) + Math.max(-maxH, Math.min(maxH, dx * 0.002));
+            // when timer expires, start a short high-speed downward charge
+            if (e.chargeTimer <= 0) {
+              e.charging = true;
+              e.chargeEnd = e.t + (120 + Math.random()*220);
+              e.vy = e.baseVy * (2.2 + Math.random()*1.2);
+            }
+          }
+        } catch (err) { /* ignore charger update errors */ }
+      }
       e.y += e.vy;
+      // apply horizontal velocity if present (fallback for types that don't set vx)
+      e.x += (e.vx || 0);
       if (e.y > ch + 50) {
       enemies.splice(i,1);
       lives--;
