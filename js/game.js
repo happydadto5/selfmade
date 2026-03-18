@@ -1599,7 +1599,7 @@ if (overlay) {
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0 };
   let lastFireFlashUntil = 0;
-  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = []; let screenShake = 0;
+  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = []; let screenShake = 0; let hitStopUntil = 0;
   let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
@@ -1880,6 +1880,8 @@ if (overlay) {
             // Add a small screen-shake and hit sound/vibration for non-lethal enemy hits to improve feedback
             try {
               screenShake = Math.min(6, (screenShake || 0) + 2);
+              // very brief hit-stop (freeze-frame) to improve perceived impact
+              try { hitStopUntil = performance.now() + 60; } catch (err) { hitStopUntil = Date.now() + 60; }
               try { playSound('hit'); } catch (e) { /* ignore sound errors */ }
               try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(12); } catch (e) { /* ignore vibration errors */ }
             } catch (e) { /* ignore feedback errors */ }
@@ -2501,7 +2503,9 @@ if (overlay) {
   let fpsSmoothed = 60;
   function loop(t) {
     const rawDt = t - last;
-    const dt = Math.max(0, Math.min(50, rawDt));
+    let dt = Math.max(0, Math.min(50, rawDt));
+    // brief hit-stop (freeze-frame) when hitStopUntil is set to improve hit feedback
+    if (typeof hitStopUntil !== 'undefined' && t < hitStopUntil) { dt = 0; }
     last = t;
     if (!paused && !gameOver) update(dt);
     draw();
