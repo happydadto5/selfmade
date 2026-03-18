@@ -2378,6 +2378,18 @@ if (overlay) {
           }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
+      // Charger visual: show a small warning triangle above the charger while it is preparing a downward charge
+      try {
+        if (e.type === 'charger' && e.charging) {
+          ctx.fillStyle = 'rgba(255,200,50,0.95)';
+          ctx.beginPath();
+          ctx.moveTo(0, -e.h/2 - 8);
+          ctx.lineTo(-8, -e.h/2 + 2);
+          ctx.lineTo(8, -e.h/2 + 2);
+          ctx.closePath();
+          ctx.fill();
+        }
+      } catch (err) { /* ignore charger draw errors */ }
       // draw a small health bar above multi-HP enemies (garden-theme, lightweight)
       try {
         if (e.hp > 1) {
