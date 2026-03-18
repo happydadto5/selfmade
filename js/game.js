@@ -1877,6 +1877,12 @@ if (overlay) {
                 });
               }
             } catch (ex) { /* ignore particle errors */ }
+            // Add a small screen-shake and hit sound/vibration for non-lethal enemy hits to improve feedback
+            try {
+              screenShake = Math.min(6, (screenShake || 0) + 2);
+              try { playSound('hit'); } catch (e) { /* ignore sound errors */ }
+              try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(12); } catch (e) { /* ignore vibration errors */ }
+            } catch (e) { /* ignore feedback errors */ }
           }
           if (e.hp <= 0) {
             enemies.splice(i,1);

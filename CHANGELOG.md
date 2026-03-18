@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Gameplay: show transient '+1' floating popup and small particles when a bullet damages but does not kill an enemy (tiny) — 2026-03-18
+- Feedback: add small screen shake, hit sound, and short vibration when enemies are damaged to improve combat feel (tiny) — 2026-03-18
 - Gameplay: increase power-up spawn chance to 18% so power-ups appear more often (tiny) — 2026-03-18
 - Gameplay: show small enemy health bars for multi-HP enemies to improve combat clarity (tiny) — 2026-03-18
 
