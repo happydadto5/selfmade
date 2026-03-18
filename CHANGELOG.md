@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual: show remaining seconds above player while Rapid is active and enhance glow (tiny) — 2026-03-18
 - Audio: add a soft shield chime that plays when a shield absorbs damage (tiny) — 2026-03-18
 - Gameplay: add Bomb power-up that clears nearby enemies when collected (tiny) — 2026-03-18
 - Visual: make shield ring pulse to show remaining time and improve visibility (tiny) — 2026-03-18

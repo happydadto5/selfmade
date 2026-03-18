@@ -2336,13 +2336,36 @@ if (overlay) {
         ctx.fill();
       }
     } catch (e) { /* ignore flash drawing errors */ }
-    // If Rapid power-up is active, draw a subtle glow halo to make the effect more visible
+    // If Rapid power-up is active, draw a subtle glow halo and show remaining seconds above the player
     try {
       if (player && (player.fireRate > 1) && Date.now() < (player.fireRateUntil || 0)) {
+        // calculate remaining time
+        const _remainingMs = Math.max(0, (player.fireRateUntil || 0) - Date.now());
+        const _remainingSec = Math.ceil(_remainingMs / 1000);
+
+        // soft yellow glow around player
         ctx.beginPath();
         ctx.fillStyle = 'rgba(255,235,59,0.12)'; // soft yellow glow
         ctx.ellipse(0,0,player.w * 1.8, player.h * 1.8, 0, 0, Math.PI * 2);
         ctx.fill();
+
+        // draw remaining seconds above the player so it's visible while Rapid is active
+        try {
+          ctx.save();
+          // position text just above the player's top
+          ctx.translate(player.x - player.x, -player.h - 8);
+          ctx.font = '14px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          const _txt = _remainingSec + 's';
+          // subtle outline for readability
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+          ctx.fillStyle = 'rgba(255,245,157,0.95)';
+          ctx.strokeText(_txt, 0, 0);
+          ctx.fillText(_txt, 0, 0);
+          ctx.restore();
+        } catch (e) { /* ignore text draw errors */ }
       }
     } catch (e) { /* ignore glow draw errors */ }
     ctx.fillStyle = '#2e8b57';
