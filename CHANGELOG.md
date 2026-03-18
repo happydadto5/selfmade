@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: small chance for extra-life power-up to spawn from defeated enemies (tiny) — 2026-03-18
 - Visual: charger enemies now show a visible warning triangle while charging so players can react (tiny) — 2026-03-18
 - Gameplay: add a slow 'snail' enemy type (larger, more HP, slow-moving with gentle wiggle) — 2026-03-18
 - Gameplay: increase power-up collection radius so pickups are easier to collect (tiny) — 2026-03-18
