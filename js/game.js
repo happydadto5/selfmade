@@ -1675,6 +1675,8 @@ if (overlay) {
       const isZig = Math.random() < Math.min(0.25, 0.04 + waveNumber*0.02);
       // Small chance for a "charger" enemy type: drifts horizontally and occasionally charges downward
       const isCharger = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.01);
+      // Small chance for a slow, high-HP "snail" enemy (garden-themed slow mover)
+      const isSnail = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       if (isZig) {
         const hpVal = 1 + Math.floor(waveNumber/3);
         enemies.push({x:ex,y:ey,w:34,h:30,vy:speed*0.9, hp:hpVal, maxHp:hpVal, type:'zig', t: Math.random()*1000});
@@ -1682,6 +1684,10 @@ if (overlay) {
         // charger: slower base descent, has a baseVy, a countdown to its next charge, and a charging flag
         const hpVal = 1 + Math.floor(waveNumber/3);
         enemies.push({x:ex,y:ey,w:32,h:34,vy:speed*0.7, baseVy: speed*0.7, vx:0, hp:hpVal, maxHp:hpVal, type:'charger', chargeTimer: 800 + Math.random()*1200, charging: false, t: Math.random()*1000});
+      } else if (isSnail) {
+        // snail: slow descent, larger size, more HP, gentle horizontal wiggle
+        const hpVal = 2 + Math.floor(waveNumber/4);
+        enemies.push({x:ex,y:ey,w:40,h:36,vy:speed*0.45, baseVy: speed*0.45, vx: (Math.random()-0.5)*0.6, hp:hpVal, maxHp:hpVal, type:'snail', t: Math.random()*1000});
       } else {
         const hpVal = 1 + Math.floor(waveNumber/4);
         enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal});
@@ -1818,6 +1824,14 @@ if (overlay) {
             }
           }
         } catch (err) { /* ignore charger update errors */ }
+      }
+      // Snail behavior: very slow mover with a gentle horizontal wiggle
+      if (e.type === 'snail') {
+        try {
+          // keep a stable slow descent using baseVy and add a gentle horizontal wobble for personality
+          e.vx = Math.sin(e.t * 0.006) * 0.6;
+          e.vy = (typeof e.baseVy !== 'undefined') ? e.baseVy : (e.vy || 0.45);
+        } catch (err) { /* ignore snail update errors */ }
       }
       const slowFactor = Date.now() < (player.slowUntil || 0) ? 0.6 : 1;
       e.y += e.vy * slowFactor;
@@ -2356,10 +2370,11 @@ if (overlay) {
       try {
           const nowHit = Date.now();
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
-            // brighter tint while hit flash is active
-            ctx.fillStyle = '#ffb3b3';
+            // brighter tint while hit flash is active (type-specific for snails)
+            ctx.fillStyle = (e.type === 'snail') ? '#a1887f' : '#ffb3b3';
           } else {
-            ctx.fillStyle = '#ff6666';
+            // default enemy color, but snails get a distinct earthy tone for readability
+            ctx.fillStyle = (e.type === 'snail') ? '#6d4c41' : '#ff6666';
           }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);

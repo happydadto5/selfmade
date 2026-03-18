@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: add a slow 'snail' enemy type (larger, more HP, slow-moving with gentle wiggle) — 2026-03-18
 - Gameplay: increase power-up collection radius so pickups are easier to collect (tiny) — 2026-03-18
 - Gameplay: Increase power-up durations from 6s to 9s so pickups feel more useful (tiny) — 2026-03-18
 - Gameplay: increase power-up lifetime to 9s so pickups are easier to collect (tiny) — 2026-03-18
