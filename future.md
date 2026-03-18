@@ -2,7 +2,9 @@
 
 - 2026-03-16: Implemented discoverable full-screen touch zones and subtle vertical separators in-canvas (tiny UX improvement).
 
-Last updated: 2026-03-16
+Last updated: 2026-03-18
+
+Meta-review: 2026-03-18 — quick roadmap/process check completed; prioritize gameplay (enemy variety + one simple power-up) for the next visible iteration.
 
 This is a living collaboration document for Selfmade. Any improvement session may update, reorder, replace, or rewrite this file when that helps the project move forward.
 
