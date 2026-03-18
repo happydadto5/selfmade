@@ -2226,6 +2226,18 @@ if (overlay) {
         // gentle green circle with a small spark to indicate rapid-fire
         ctx.fillStyle = '#66bb6a';
         ctx.beginPath(); ctx.arc(pu.x, pu.y, 10, 0, Math.PI*2); ctx.fill();
+        // subtle pulsing ring to make power-ups more discoverable (respects reduced-motion preference)
+        try {
+          if (!(typeof prefersReducedMotion !== 'undefined' && prefersReducedMotion)) {
+            const t = Date.now();
+            const base = 14;
+            const pulse = 1 + 0.08 * Math.sin(t / 240 + ((pu.born||0) / 330));
+            ctx.lineWidth = 2;
+            const ringAlpha = Math.max(0, Math.min(0.8, 0.35 + 0.25 * Math.sin(t / 320 + ((pu.born||0) / 420))));
+            ctx.strokeStyle = 'rgba(255,255,255,' + ringAlpha.toFixed(3) + ')';
+            ctx.beginPath(); ctx.arc(pu.x, pu.y, base * pulse, 0, Math.PI*2); ctx.stroke();
+          }
+        } catch (e) { /* ignore pulsing ring errors */ }
         ctx.fillStyle = '#fff';
         ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText('⚡', pu.x, pu.y + 1);
