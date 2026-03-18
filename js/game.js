@@ -1651,12 +1651,15 @@ if (overlay) {
       // Small chance for a "charger" enemy type: drifts horizontally and occasionally charges downward
       const isCharger = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.01);
       if (isZig) {
-        enemies.push({x:ex,y:ey,w:34,h:30,vy:speed*0.9, hp:1 + Math.floor(waveNumber/3), type:'zig', t: Math.random()*1000});
+        const hpVal = 1 + Math.floor(waveNumber/3);
+        enemies.push({x:ex,y:ey,w:34,h:30,vy:speed*0.9, hp:hpVal, maxHp:hpVal, type:'zig', t: Math.random()*1000});
       } else if (isCharger) {
         // charger: slower base descent, has a baseVy, a countdown to its next charge, and a charging flag
-        enemies.push({x:ex,y:ey,w:32,h:34,vy:speed*0.7, baseVy: speed*0.7, vx:0, hp:1 + Math.floor(waveNumber/3), type:'charger', chargeTimer: 800 + Math.random()*1200, charging: false, t: Math.random()*1000});
+        const hpVal = 1 + Math.floor(waveNumber/3);
+        enemies.push({x:ex,y:ey,w:32,h:34,vy:speed*0.7, baseVy: speed*0.7, vx:0, hp:hpVal, maxHp:hpVal, type:'charger', chargeTimer: 800 + Math.random()*1200, charging: false, t: Math.random()*1000});
       } else {
-        enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:1 + Math.floor(waveNumber/4)});
+        const hpVal = 1 + Math.floor(waveNumber/4);
+        enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal});
       }
     }
     try { currentWaveEnemyCount = count; } catch (e) { currentWaveEnemyCount = count; }
@@ -2206,7 +2209,12 @@ if (overlay) {
 
     ctx.fillStyle = '#fff'; for (const b of bullets) { ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
 
-    for (const e of enemies) { const sc = 1 + (e.y / ch) * 0.25; ctx.save(); ctx.translate(e.x,e.y); ctx.scale(sc,sc); try {
+    for (const e of enemies) {
+      const sc = 1 + (e.y / ch) * 0.25;
+      ctx.save();
+      ctx.translate(e.x,e.y);
+      ctx.scale(sc,sc);
+      try {
           const nowHit = Date.now();
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
             // brighter tint while hit flash is active
@@ -2214,9 +2222,26 @@ if (overlay) {
           } else {
             ctx.fillStyle = '#ff6666';
           }
-        } catch (err) { ctx.fillStyle = '#ff6666'; }
-        ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
-        ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4); ctx.restore(); }
+      } catch (err) { ctx.fillStyle = '#ff6666'; }
+      ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
+      // draw a small health bar above multi-HP enemies (garden-theme, lightweight)
+      try {
+        if (e.hp > 1) {
+          const barW = e.w * 0.8;
+          const barH = 5;
+          const barX = -barW/2;
+          const barY = -e.h/2 - barH - 6;
+          ctx.fillStyle = 'rgba(0,0,0,0.45)';
+          ctx.fillRect(barX, barY, barW, barH);
+          const maxHp = (typeof e.maxHp === 'number' ? e.maxHp : e.hp);
+          const pct = Math.max(0, Math.min(1, e.hp / maxHp));
+          ctx.fillStyle = '#66bb6a';
+          ctx.fillRect(barX + 1, barY + 1, Math.max(2, (barW - 2) * pct), barH - 2);
+        }
+      } catch (err) { /* ignore health bar errors */ }
+      ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4);
+      ctx.restore();
+    }
 
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
     if (waveEl) {

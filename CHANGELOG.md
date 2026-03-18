@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Gameplay: increase power-up spawn chance to 18% so power-ups appear more often (tiny) — 2026-03-18
+- Gameplay: show small enemy health bars for multi-HP enemies to improve combat clarity (tiny) — 2026-03-18
 
 ## 4.2.0
 - Visual/UI: add subtle background gradient and improve HUD contrast for better readability (tiny) — 2026-03-18
