@@ -50,6 +50,8 @@
   const waveEl = document.getElementById('wave');
   const enemiesEl = document.getElementById('enemies');
   const waveProgressEl = document.getElementById('wave-progress');
+  // Active power-up HUD element (shows current power-up and remaining time)
+  const activePowerEl = document.getElementById('active-powerup');
 
   // Track last shown wave so the HUD can briefly animate when a new wave starts
   let lastWaveShown = null;
@@ -120,6 +122,26 @@
           enemiesEl.textContent = cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies');
         } catch (e) { /* ignore DOM errors */ }
       }
+      // Update active power-up HUD if present
+      try {
+        if (activePowerEl) {
+          const now = Date.now();
+          let text = '';
+          if (player && now < (player.spreadUntil || 0)) {
+            const s = Math.ceil(((player.spreadUntil || 0) - now) / 1000);
+            text = '🌿 Spread (' + s + 's)';
+          } else if (player && (player.fireRate > 1) && now < (player.fireRateUntil || 0)) {
+            const s = Math.ceil(((player.fireRateUntil || 0) - now) / 1000);
+            text = '⚡ Rapid (' + s + 's)';
+          } else if (player && now < (player.shieldUntil || 0)) {
+            const s = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
+            text = '🛡 Shield (' + s + 's)';
+          } else {
+            text = '';
+          }
+          try { activePowerEl.textContent = text; activePowerEl.setAttribute('aria-hidden', text ? 'false' : 'true'); } catch (e) {}
+        }
+      } catch (e) { /* ignore HUD update errors */ }
       // Update wave progress HUD if present (defeated / total for current wave)
       if (waveProgressEl) {
         try {
@@ -2293,7 +2315,7 @@ if (overlay) {
         } catch (e) { /* ignore pulsing ring errors */ }
         ctx.fillStyle = '#fff';
         ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        const icon = (pu.type === 'shield') ? '🛡' : '⚡';
+        const icon = (pu.type === 'shield') ? '🛡' : (pu.type === 'rapid' ? '⚡' : '🌿');
         ctx.fillText(icon, pu.x, pu.y + 1);
         ctx.restore();
       }
