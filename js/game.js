@@ -1690,6 +1690,8 @@ if (overlay) {
       const isSnail = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       // Small chance for a "pest" enemy that splits into two mini pests on death
       const isBee = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.02);
+      // Small chance for a "moth" enemy that sways horizontally in a sinuous pattern
+      const isMoth = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       if (isZig) {
         const hpVal = 1 + Math.floor(waveNumber/3);
@@ -1705,6 +1707,9 @@ if (overlay) {
       } else if (isBee) {
         // bee: small, fast, slight homing towards player
         enemies.push({x:ex,y:ey,w:20,h:18,vy:speed*1.35, hp:1, maxHp:1, type:'bee', t: Math.random()*1000});
+      } else if (isMoth) {
+        // moth: medium descent, sinuous horizontal motion for visual variety
+        enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:6 + Math.random()*4, swayFreq: 0.009 + Math.random()*0.008, t: Math.random()*1000});
       } else if (isPest) {
         // pest: medium speed, low HP, splits into two mini pests on death
         enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.95, hp:1, maxHp:1, type:'pest'});
@@ -1817,6 +1822,15 @@ if (overlay) {
       // Zigging enemies gently oscillate horizontally as they descend for a livelier garden feel
       if (e.type === 'zig') {
         e.x += Math.sin(e.t * 0.012) * (1.6 + Math.min(0.8, waveNumber*0.02));
+      }
+      // Moth enemies move with a sinuous horizontal sway to add visible variety
+      if (e.type === 'moth') {
+        try {
+          const amp = (typeof e.swayAmp !== 'undefined') ? e.swayAmp : 6;
+          const freq = (typeof e.swayFreq !== 'undefined') ? e.swayFreq : 0.01;
+          // scale sway slightly with wave number for subtle challenge increase
+          e.x += Math.sin(e.t * freq) * amp * (0.9 + Math.min(0.5, waveNumber*0.01));
+        } catch (err) { /* ignore moth update errors */ }
       }
       // Charger behavior: drift towards player and occasionally perform a short high-speed downward charge
       if (e.type === 'charger') {
