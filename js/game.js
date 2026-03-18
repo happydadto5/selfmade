@@ -1928,7 +1928,8 @@ if (overlay) {
             playSound('hit');
             // Small chance to spawn a temporary power-up when an enemy dies
             try {
-              if (Math.random() < 0.12) {
+              // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
+              if (Math.random() < 0.18) {
                 powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'rapid', born: Date.now(), life: 6000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
