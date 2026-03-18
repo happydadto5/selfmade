@@ -1,5 +1,100 @@
 # Changelog
 
+## Unreleased
+- Automation: fix `selfmade.bat` launcher persistence so the top-level batch process stays alive, reloads itself safely between iterations, and no longer dies on the old re-exec path.
+- Automation: replace fragile startup status reads in `selfmade.bat` so cleanup/sync status logging no longer throws batch parsing errors during startup.
+- Automation: normalize `CHANGELOG.md` to a single top `## Unreleased` section so changelog prep stops drifting into malformed duplicate sections.
+
+- Visual: add a brief enemy-hit flash when bullets strike enemies to improve feedback (tiny) — 2026-03-17
+- Gameplay: add a new zigging "hopper" enemy that oscillates horizontally for gameplay variety (tiny) — 2026-03-18
+- Automation: rotate each iteration through gameplay, levels, visual/UI, and stability focus lanes so the loop delivers a healthier mix of visible and behind-the-scenes work.
+- Automation: selfmade.bat now stays alive as a small launcher and runs each cycle as a fresh child invocation so updated batch logic is picked up without the process silently dying after a re-exec handoff.
+- Automation: poll the full repo for remote changes each iteration so pushed fixes do not sit unseen while the local poller is already running.
+
+- Automation: add a self-tuning process review that analyzes recent changelog history, nudges the prompt toward visible work when needed, and records a lightweight roadmap/process checkpoint about every 10 successful releases.
+- Automation: bias future iterations toward more noticeable gameplay/UI progress when recent changelog history has been dominated by tiny polish, accessibility, or roadmap-only updates.
+- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
+
+- Collaboration: update guidance so `future.md` changes only when it adds meaningful roadmap or collaboration value, not on most loops.
+
+- Automation: reduce the self-evolving loop delay from 5 minutes to 1 minute.
+- Automation: clean up unfinished prior-iteration files at startup before starting a new loop, while preserving collaborator-managed files like `suggestion.txt`.
+- Chore: read scripts/prompt.txt, suggestion.txt, and future.md; added small changelog entry (2026-03-16)
+- Perf: debounce window resize handler to reduce layout thrash on rapid resizes (small)
+- UI: add z-index to overlay so pause/game-over overlay sits above other UI elements (small)
+
+- UI: allow clicking the overlay when game over to restart the game (small)
+
+- Accessibility: focus canvas after unpausing via overlay so keyboard users regain control (small)
+
+- UI: add aria-live to Wave HUD for screen-reader announcements (small)
+
+- Fix: clear input on pointercancel/touchcancel to avoid stuck controls when touches are cancelled (small)
+
+- Accessibility: pause on window blur/visibility and resume on focus (small)
+
+- UI: improve touch-guide contrast for touch devices (small)
+
+- Chore: add short changelog entry for this iteration (2026-03-16) ΓÇö verified auto-pause/visibility debounce and input-clearing (small)
+
+- Accessibility: add tabindex and aria-label to the main canvas for keyboard and screen-reader users (small)
+
+- Fix: persist high score when the game ends so a final score is saved (small)
+
+- UI: colorize Lives HUD hearts using accessible DOM spans (small)
+
+- Accessibility: focus canvas on resume when returning to the page so keyboard users regain control (small)
+
+- Tweak: increase auto-pause debounce from 150ms to 250ms to reduce accidental pauses when quickly switching tabs (small)
+
+- Pause: show distinct overlay message when auto-paused vs user-paused (small accessibility/UX)
+
+- UI: colorize Lives HUD hearts for clearer at-a-glance status (small)
+
+- Accessibility: pause on window blur/visibility to avoid background execution and resume when focus returns (small)
+
+- Controls: accept uppercase A/D for left/right keys (small accessibility fix)
+
+- Pause: pause on pagehide to handle navigation away (small)
+
+- Mobile: hide redundant on-screen buttons on touch devices to prefer full-screen touch zones (small)
+
+- Accessibility: focus canvas on click to improve keyboard discoverability (small)
+
+- Accessibility: add aria-label and tabindex to canvas for keyboard and screen-reader users (small)
+
+- UI: pulse the Wave HUD when a new wave starts (small visual)
+
+- Accessibility: debounce visibilitychange auto-pause to avoid accidental pauses when quickly switching tabs (small)
+
+- UI: add subtle dashed touch-guide vertical line at 1/3 width for touch devices (small)
+
+- Accessibility: add aria-label to Play Again button so screen readers announce restart shortcut. (small)
+
+- Docs: read scripts/prompt.txt, suggestion.txt, and future.md to align priorities and roadmap. (small)
+
+- Chore: add short changelog entry for this iteration (small incremental improvement touching CHANGELOG.md)
+
+- Accessibility: focus overlay when auto-paused so screen readers are notified.
+
+- Accessibility: add aria-label to canvas for screen-reader clarity.
+
+- Accessibility: add 'R' keyboard shortcut to restart the game when it's over.
+
+- Accessibility: overlay now sets role=dialog and aria-modal when visible for improved screen-reader semantics.
+
+- UI: overlay now includes a contextual accessible message when paused or on game over.
+
+- Collaboration: expand `future.md` into a shared roadmap plus chat/notes document so LLM sessions can leave ideas, questions, and handoff notes.
+
+- Collaboration: `!` suggestion lines now mean do next if safe, then remove after they are materially used.
+
+- Collaboration: treat `suggestion.txt` as higher-priority guidance over time and use `future.md` as a living roadmap that any iteration may rewrite.
+- Automation: make the batch `Implemented:` line show the actual `Change:` summary from Copilot output instead of the exploratory preamble.
+- Automation: fix suggestion syncing so local suggestion edits can still upload when newer remote commits did not also change `suggestion.txt`, and make version syncing tolerate attributes on the version HUD.
+- Automation: auto-merge trusted local and remote suggestion additions instead of stalling the loop on every shared `suggestion.txt` edit.
+- Accessibility: announce HUD version to screen readers (added aria-live to #version)
+
 ## 4.1.0
 - Gameplay: add a small Rapid Fire power-up that temporarily doubles firing rate when collected (tiny) — 2026-03-18
 
@@ -9,17 +104,8 @@
 ## 3.6.0
 - Gameplay: add a new 'charger' enemy that drifts toward the player and occasionally charges downward (tiny) — 2026-03-18
 
-## Unreleased
-
 ## 3.4.0
 - UI: add Wave progress indicator in HUD showing defeated/total enemies for current wave (tiny) — 2026-03-17
-
-## Unreleased
-- Visual: add a brief enemy-hit flash when bullets strike enemies to improve feedback (tiny) — 2026-03-17
-- Gameplay: add a new zigging "hopper" enemy that oscillates horizontally for gameplay variety (tiny) — 2026-03-18
-- Automation: rotate each iteration through gameplay, levels, visual/UI, and stability focus lanes so the loop delivers a healthier mix of visible and behind-the-scenes work.
-- Automation: selfmade.bat now stays alive as a small launcher and runs each cycle as a fresh child invocation so updated batch logic is picked up without the process silently dying after a re-exec handoff.
-- Automation: poll the full repo for remote changes each iteration so pushed fixes do not sit unseen while the local poller is already running.
 
 ## 3.3.0
 - UI: mention 'G' garden-grid toggle in help overlay and hidden game description.
@@ -141,11 +227,6 @@
 
 ## 2.154.0
 - UX: show vertical touch-zone separators when touch detected to make mobile touch zones clearer (tiny) ΓÇö 2026-03-16
-
-## Unreleased
-- Automation: add a self-tuning process review that analyzes recent changelog history, nudges the prompt toward visible work when needed, and records a lightweight roadmap/process checkpoint about every 10 successful releases.
-- Automation: bias future iterations toward more noticeable gameplay/UI progress when recent changelog history has been dominated by tiny polish, accessibility, or roadmap-only updates.
-- Accessibility: pause on blur/visibility; improved auto-pause debounce; screen-reader announcements (small).
 
 ## 2.149.0
 - UI: add subtle drop shadow to canvas HUD and wave banner for improved readability on busy backgrounds (tiny)
@@ -567,9 +648,6 @@
 ## 2.8.0
 - Fix: correct touch coordinate math so touch zones map to canvas; fixes Android right-stuck movement (small)
 
-## Unreleased
-- Collaboration: update guidance so `future.md` changes only when it adds meaningful roadmap or collaboration value, not on most loops.
-
 ## 2.7.0
 - Accessibility/UX: prevent touch scrolling on the game canvas (touch-action: none) to improve mobile controls (small)
 
@@ -591,136 +669,16 @@
 ## 2.1.0
 - Fix: clear pending auto-pause timer when user toggles pause to avoid race with blur/visibility auto-pause (small)
 
-## Unreleased
-- Automation: reduce the self-evolving loop delay from 5 minutes to 1 minute.
-- Automation: clean up unfinished prior-iteration files at startup before starting a new loop, while preserving collaborator-managed files like `suggestion.txt`.
-- Chore: read scripts/prompt.txt, suggestion.txt, and future.md; added small changelog entry (2026-03-16)
-- Perf: debounce window resize handler to reduce layout thrash on rapid resizes (small)
-- UI: add z-index to overlay so pause/game-over overlay sits above other UI elements (small)
-
 ## 2.0.0
 - Accessibility: improve overlay message readability when paused (small) ΓÇö 2026-03-16
 
 - Chore: read scripts/prompt.txt, suggestion.txt, and future.md; small incremental update (2026-03-16)
-
-## Unreleased
-- UI: allow clicking the overlay when game over to restart the game (small)
-
-## Unreleased
-- Accessibility: focus canvas after unpausing via overlay so keyboard users regain control (small)
-
-## Unreleased
-- UI: add aria-live to Wave HUD for screen-reader announcements (small)
-
-## Unreleased
-
-## Unreleased
-
-- Fix: clear input on pointercancel/touchcancel to avoid stuck controls when touches are cancelled (small)
-
-## Unreleased
-
-## Unreleased
-
-- Accessibility: pause on window blur/visibility and resume on focus (small)
-
-## Unreleased
-
-- UI: improve touch-guide contrast for touch devices (small)
-
-## Unreleased
-
-- Chore: add short changelog entry for this iteration (2026-03-16) ΓÇö verified auto-pause/visibility debounce and input-clearing (small)
-
-## Unreleased
-
-- Accessibility: add tabindex and aria-label to the main canvas for keyboard and screen-reader users (small)
-
-## Unreleased
-
-- Fix: persist high score when the game ends so a final score is saved (small)
-
-## Unreleased
-
-- UI: colorize Lives HUD hearts using accessible DOM spans (small)
-
-## Unreleased
-
-- Accessibility: focus canvas on resume when returning to the page so keyboard users regain control (small)
-
-## Unreleased
-
-- Tweak: increase auto-pause debounce from 150ms to 250ms to reduce accidental pauses when quickly switching tabs (small)
-
-## Unreleased
-- Pause: show distinct overlay message when auto-paused vs user-paused (small accessibility/UX)
-
-## Unreleased
-- UI: colorize Lives HUD hearts for clearer at-a-glance status (small)
-
-## Unreleased
-- Accessibility: pause on window blur/visibility to avoid background execution and resume when focus returns (small)
-
-## Unreleased
-- Controls: accept uppercase A/D for left/right keys (small accessibility fix)
-
-## Unreleased
-- Pause: pause on pagehide to handle navigation away (small)
-
-## Unreleased
-- Mobile: hide redundant on-screen buttons on touch devices to prefer full-screen touch zones (small)
-
-## Unreleased
-- Accessibility: focus canvas on click to improve keyboard discoverability (small)
-
-## Unreleased
-- Accessibility: add aria-label and tabindex to canvas for keyboard and screen-reader users (small)
-
-## Unreleased
-- UI: pulse the Wave HUD when a new wave starts (small visual)
-
-## Unreleased
-
-- Accessibility: debounce visibilitychange auto-pause to avoid accidental pauses when quickly switching tabs (small)
-
-## Unreleased
-
-- UI: add subtle dashed touch-guide vertical line at 1/3 width for touch devices (small)
-
-## Unreleased
-
-- Accessibility: add aria-label to Play Again button so screen readers announce restart shortcut. (small)
-
-## Unreleased
-
-- Docs: read scripts/prompt.txt, suggestion.txt, and future.md to align priorities and roadmap. (small)
-
-## Unreleased
-- Chore: add short changelog entry for this iteration (small incremental improvement touching CHANGELOG.md)
-
-## Unreleased
-- Accessibility: focus overlay when auto-paused so screen readers are notified.
-
-## Unreleased
-- Accessibility: add aria-label to canvas for screen-reader clarity.
-
-## Unreleased
-- Accessibility: add 'R' keyboard shortcut to restart the game when it's over.
-
-## Unreleased
-- Accessibility: overlay now sets role=dialog and aria-modal when visible for improved screen-reader semantics.
-
-## Unreleased
-- UI: overlay now includes a contextual accessible message when paused or on game over.
 
 ## 1.29.0
 - Pause: suspend AudioContext when auto-paused by blur/visibilitychange; resume on focus/visibility restore when appropriate.
 
 ## 1.28.0
 - UI: add 'M' keyboard shortcut to toggle mute (persisted to localStorage).
-
-## Unreleased
-- Collaboration: expand `future.md` into a shared roadmap plus chat/notes document so LLM sessions can leave ideas, questions, and handoff notes.
 
 ## 1.27.0
 - Code: declare `wavePulseUntil` to avoid implicit global when spawning waves.
@@ -733,9 +691,6 @@
 
 ## 1.24.0
 - Add subtle dashed touch-zone guide lines for mobile to make controls more discoverable.
-
-## Unreleased
-- Collaboration: `!` suggestion lines now mean do next if safe, then remove after they are materially used.
 
 ## 1.23.0
 - UI: start first wave immediately on load so Wave counter reflects active gameplay.
@@ -790,13 +745,6 @@
 
 ## 1.6.0
 - Mobile: add simple touch zones (left/right edges to move, center to fire) and update in-game tip.
-
-## Unreleased
-- Collaboration: treat `suggestion.txt` as higher-priority guidance over time and use `future.md` as a living roadmap that any iteration may rewrite.
-- Automation: make the batch `Implemented:` line show the actual `Change:` summary from Copilot output instead of the exploratory preamble.
-- Automation: fix suggestion syncing so local suggestion edits can still upload when newer remote commits did not also change `suggestion.txt`, and make version syncing tolerate attributes on the version HUD.
-- Automation: auto-merge trusted local and remote suggestion additions instead of stalling the loop on every shared `suggestion.txt` edit.
-- Accessibility: announce HUD version to screen readers (added aria-live to #version)
 
 ## 1.5.0
 - Accessibility: focus Play Again button on Game Over so keyboard and screen-reader users can restart the game more easily.

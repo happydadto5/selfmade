@@ -25,8 +25,10 @@ set "DEEP_SUGGESTION_LOG=%TEMP%\selfmade_deep_suggestion.txt"
 set "DEEP_SUGGESTION_ERR=%TEMP%\selfmade_deep_suggestion_error.txt"
 set "ITERATION_FOCUS_LOG=%TEMP%\selfmade_iteration_focus.txt"
 set "ITERATION_FOCUS_ERR=%TEMP%\selfmade_iteration_focus_error.txt"
+set "RUN_MODE=%~1"
 
-if /I "%~1"=="--reexec" goto LOOP
+if /I "%RUN_MODE%"=="--once" goto LOOP
+if /I "%RUN_MODE%"=="--reexec" goto LOOP
 
 echo ============================================================
 echo   SELFMADE — Self-Evolving Game Engine
@@ -35,6 +37,21 @@ echo   Live at: https://happydadto5.github.io/selfmade/
 echo   Press any key during pause to skip wait.
 echo ============================================================
 echo.
+
+:LAUNCHER
+call "%~f0" --once
+set "CHILD_EXIT=%ERRORLEVEL%"
+if not "%CHILD_EXIT%"=="0" (
+    echo [!] Iteration worker exited with code %CHILD_EXIT%.
+    call :LOG Iteration worker exited with code %CHILD_EXIT%.
+)
+echo.
+echo Waiting (%PAUSE_MIN% minutes). Press any key to skip...
+call :LOG Waiting (%PAUSE_MIN% minutes) before next iteration.
+node scripts\pause_with_skip.js %PAUSE_SEC%
+echo Reloading selfmade.bat from disk...
+call :LOG Reloading selfmade.bat from disk through launcher loop.
+goto LAUNCHER
 
 :LOOP
 call :LOG ============================================================
@@ -49,10 +66,9 @@ if not "%STARTUP_CLEANUP_EXIT%"=="0" (
     call :LOG Startup cleanup failed.
     goto PAUSE
 )
-if exist "%TEMP%\selfmade_startup_cleanup.txt" (
-    for /f "usebackq delims=" %%A in ("%TEMP%\selfmade_startup_cleanup.txt") do set "STARTUP_CLEANUP_STATUS=%%A"
-    call :LOG startup cleanup status: !STARTUP_CLEANUP_STATUS!
-)
+set "STARTUP_CLEANUP_STATUS="
+if exist "%TEMP%\selfmade_startup_cleanup.txt" set /p STARTUP_CLEANUP_STATUS=<"%TEMP%\selfmade_startup_cleanup.txt"
+if defined STARTUP_CLEANUP_STATUS call :LOG startup cleanup status: %STARTUP_CLEANUP_STATUS%
 del "%TEMP%\selfmade_startup_cleanup.txt" >nul 2>&1
 
 node scripts\sync_suggestion_file.js > "%TEMP%\selfmade_suggestion_sync.txt" 2>&1
@@ -64,10 +80,9 @@ if not "%SUGGESTION_SYNC_EXIT%"=="0" (
     call :LOG suggestion.txt sync failed.
     goto PAUSE
 )
-if exist "%TEMP%\selfmade_suggestion_sync.txt" (
-    for /f "usebackq delims=" %%A in ("%TEMP%\selfmade_suggestion_sync.txt") do set "SUGGESTION_SYNC_STATUS=%%A"
-    call :LOG suggestion.txt sync status: !SUGGESTION_SYNC_STATUS!
-)
+set "SUGGESTION_SYNC_STATUS="
+if exist "%TEMP%\selfmade_suggestion_sync.txt" set /p SUGGESTION_SYNC_STATUS=<"%TEMP%\selfmade_suggestion_sync.txt"
+if defined SUGGESTION_SYNC_STATUS call :LOG suggestion.txt sync status: %SUGGESTION_SYNC_STATUS%
 del "%TEMP%\selfmade_suggestion_sync.txt" >nul 2>&1
 
 node scripts\sync_repo_state.js > "%REPO_SYNC_LOG%" 2>&1
@@ -79,14 +94,13 @@ if not "%REPO_SYNC_EXIT%"=="0" (
     call :LOG Repo sync failed.
     goto PAUSE
 )
-if exist "%REPO_SYNC_LOG%" (
-    for /f "usebackq delims=" %%A in ("%REPO_SYNC_LOG%") do set "REPO_SYNC_STATUS=%%A"
-    call :LOG repo sync status: !REPO_SYNC_STATUS!
-    if /I "!REPO_SYNC_STATUS!"=="REPO_SYNC=BLOCKED_DIRTY" (
-        echo [!] Repo sync blocked by local changes. Resolve them so remote fixes can be pulled.
-        call :LOG Repo sync blocked by dirty working tree.
-        goto PAUSE
-    )
+set "REPO_SYNC_STATUS="
+if exist "%REPO_SYNC_LOG%" set /p REPO_SYNC_STATUS=<"%REPO_SYNC_LOG%"
+if defined REPO_SYNC_STATUS call :LOG repo sync status: %REPO_SYNC_STATUS%
+if /I "%REPO_SYNC_STATUS%"=="REPO_SYNC=BLOCKED_DIRTY" (
+    echo [!] Repo sync blocked by local changes. Resolve them so remote fixes can be pulled.
+    call :LOG Repo sync blocked by dirty working tree.
+    goto PAUSE
 )
 del "%REPO_SYNC_LOG%" >nul 2>&1
 
@@ -395,13 +409,6 @@ call :LOG Released: v%NEWVER%
 call :LOG URL: https://happydadto5.github.io/selfmade/
 
 :PAUSE
-echo.
-echo Waiting (%PAUSE_MIN% minutes). Press any key to skip...
-call :LOG Waiting (%PAUSE_MIN% minutes) before next iteration.
-node scripts\pause_with_skip.js %PAUSE_SEC%
-echo Reloading selfmade.bat from disk...
-call :LOG Re-executing selfmade.bat from disk.
-start "" /b cmd /c ""%~f0" --reexec""
 exit /b 0
 
 :LOG
