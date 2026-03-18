@@ -1597,7 +1597,7 @@ if (overlay) {
   });
 
 
-  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0 };
+  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
   const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = []; let screenShake = 0; let hitStopUntil = 0;
   let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0;
@@ -1717,7 +1717,14 @@ if (overlay) {
     // Performance: cap particle count to avoid runaway particle growth during long runs
     try { if (particles && particles.length > 300) particles.splice(0, particles.length - 300); } catch (e) { }
     if (keys.fire && player.cooldown <= 0) {
-      bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
+      if (Date.now() < (player.spreadUntil || 0)) {
+        // spread shot: center + two angled pellets
+        bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
+        bullets.push({x:player.x - 8, y:player.y-28, vx:-1.6, vy:-8.6, r:5});
+        bullets.push({x:player.x + 8, y:player.y-28, vx:1.6, vy:-8.6, r:5});
+      } else {
+        bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
+      }
       player.cooldown = Math.max(30, Math.round(180 / (player.fireRate || 1))); // ms (respect player's fireRate, min cap)
       lastFireFlashUntil = Date.now() + 120; // brief muzzle flash for firing feedback
       // Small garden-themed leaf particles on fire for visual feedback (tiny, low-cost)
@@ -1741,7 +1748,11 @@ if (overlay) {
       playSound('fire');
     }
 
-    for (let i=bullets.length-1;i>=0;i--) { bullets[i].y += bullets[i].vy; if (bullets[i].y < -10) bullets.splice(i,1); }
+    for (let i=bullets.length-1;i>=0;i--) {
+      bullets[i].x += (bullets[i].vx || 0);
+      bullets[i].y += bullets[i].vy;
+      if (bullets[i].y < -10 || bullets[i].x < -20 || bullets[i].x > cw + 20) bullets.splice(i,1);
+    }
     for (let i=enemies.length-1;i>=0;i--) {
       const e = enemies[i];
       e.t = (e.t || 0) + dt;
@@ -1969,7 +1980,9 @@ if (overlay) {
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
               if (Math.random() < 0.32) {
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (Math.random() < 0.5 ? 'rapid' : 'shield'), born: Date.now(), life: 6000 });
+                // slightly favor rapid/shield but occasionally spawn a new spread power-up
+                const _r = Math.random();
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.45 ? 'rapid' : (_r < 0.85 ? 'shield' : 'spread')), born: Date.now(), life: 6000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }
@@ -2028,6 +2041,12 @@ if (overlay) {
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#81d4fa' }); } catch (e) {}
+            } else if (pu.type === 'spread') {
+              // grant a temporary spread shot that fires three angled pellets
+              player.spreadUntil = Date.now() + 6000; // 6 seconds
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Spread!', vy: -0.05, life: 900, totalLife: 900, color: '#ffd180' }); } catch (e) {}
+              try { playSound('blip'); } catch (e) {}
+              try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#ffd180' }); } catch (e) {}
             }
             powerups.splice(i,1);
           }
