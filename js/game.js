@@ -1890,6 +1890,21 @@ if (overlay) {
           e.x += Math.sin(e.t * 0.024) * 0.9;
         } catch (err) { /* ignore pest-mini update errors */ }
       }
+      // Sprout behavior: gentle bobbing and occasional leaf-shedding for livelier garden visuals
+      if (e.type === 'sprout') {
+        try {
+          // gentle horizontal bob and slight smoothing of vx so sprouts feel organic
+          e.vx = (Math.sin(e.t * 0.018) * 0.42) + ((e.vx || 0) * 0.92);
+          // ensure a steady, slightly slower descent for sprouts
+          e.vy = (typeof e.vy === 'number') ? e.vy : 0.65;
+          // occasional tiny leaf particle to make sprouts feel alive (very low frequency to limit cost)
+          try {
+            if (Math.random() < 0.002) {
+              particles.push({ x: e.x, y: e.y, vx: (Math.random() - 0.5) * 0.6, vy: -0.6 - Math.random() * 0.4, r: 1 + Math.random() * 2, life: 300 + Math.random() * 200, born: Date.now(), color: '#8BC34A', leaf: true, spin: (Math.random() - 0.5) * 0.08 });
+            }
+          } catch (pe) { /* ignore particle push errors */ }
+        } catch (err) { /* ignore sprout update errors */ }
+      }
       e.y += e.vy * slowFactor;
       // apply horizontal velocity if present (fallback for types that don't set vx)
       e.x += (e.vx || 0) * slowFactor;
