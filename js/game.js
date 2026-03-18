@@ -133,7 +133,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '3.6.0';
+  const version = '4.0.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1954,7 +1954,11 @@ if (overlay) {
     }
 
     screenShake = Math.max(0, screenShake - dt * 0.04);
-    if (enemies.length === 0 && Date.now() - lastSpawn > 600) { lastSpawn = Date.now(); spawnWave(); }
+    if (enemies.length === 0) {
+      // Add a short recovery window between waves so players get a brief respite.
+      const interWaveDelay = 1600 + Math.min(2000, Math.floor(waveNumber * 80));
+      if (Date.now() - lastSpawn > interWaveDelay) { lastSpawn = Date.now(); spawnWave(); }
+    }
   }
 
   function draw() {

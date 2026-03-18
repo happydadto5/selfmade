@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.0.0
+- Levels: add a short recovery delay between waves so players get a brief respite before the next wave (tiny) — 2026-03-18
+
 ## 3.6.0
 - Gameplay: add a new 'charger' enemy that drifts toward the player and occasionally charges downward (tiny) — 2026-03-18
 
