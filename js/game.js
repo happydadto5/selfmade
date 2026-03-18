@@ -2255,8 +2255,9 @@ if (overlay) {
         ctx.save();
         const alpha = Math.max(0, Math.min(1, pu.life / 6000));
         ctx.globalAlpha = alpha;
-        // gentle green circle with a small spark to indicate rapid-fire
-        ctx.fillStyle = '#66bb6a';
+        // gentle circle with a type-specific color to make pickups readable at-a-glance
+        const baseColor = (pu.type === 'shield') ? '#29b6f6' : '#66bb6a';
+        ctx.fillStyle = baseColor;
         ctx.beginPath(); ctx.arc(pu.x, pu.y, 10, 0, Math.PI*2); ctx.fill();
         // subtle pulsing ring to make power-ups more discoverable (respects reduced-motion preference)
         try {
@@ -2272,7 +2273,8 @@ if (overlay) {
         } catch (e) { /* ignore pulsing ring errors */ }
         ctx.fillStyle = '#fff';
         ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText('⚡', pu.x, pu.y + 1);
+        const icon = (pu.type === 'shield') ? '🛡' : '⚡';
+        ctx.fillText(icon, pu.x, pu.y + 1);
         ctx.restore();
       }
     } catch (e) { /* ignore draw errors */ }

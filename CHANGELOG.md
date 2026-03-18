@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual: power-up icons now reflect type (⚡ Rapid, 🛡 Shield) so players can identify pickups more quickly (tiny) — 2026-03-18
 - Gameplay: add shield power-up that absorbs one life loss while active and shows a shield ring around the player (tiny) — 2026-03-18
 - Gameplay: show transient '+1' floating popup and small particles when a bullet damages but does not kill an enemy (tiny) — 2026-03-18
 - Visual/UI: make power-ups more noticeable by adding a subtle pulsing ring around spawned power-ups (tiny) — 2026-03-18
