@@ -2050,9 +2050,9 @@ if (overlay) {
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
               if (Math.random() < 0.38) {
-                // slightly favor rapid/shield but occasionally spawn a new spread or slow power-up
+                // slightly favor rapid/shield but occasionally spawn a new spread, slow, or bomb power-up
                 const _r = Math.random();
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.33 ? 'rapid' : (_r < 0.59 ? 'shield' : (_r < 0.83 ? 'spread' : (_r < 0.95 ? 'slow' : 'life')))), born: Date.now(), life: 12000 });
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.30 ? 'rapid' : (_r < 0.56 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.94 ? 'slow' : (_r < 0.98 ? 'bomb' : 'life'))))), born: Date.now(), life: 12000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }
@@ -2118,6 +2118,29 @@ if (overlay) {
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Spread!', vy: -0.05, life: 900, totalLife: 900, color: '#ffd180' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#ffd180' }); } catch (e) {}
+            } else if (pu.type === 'bomb') {
+              // Bomb: clear nearby enemies around the pickup location
+              const blastRadius = 120;
+              let killed = 0;
+              try {
+                for (let k = enemies.length - 1; k >= 0; k--) {
+                  const en = enemies[k];
+                  const dx2 = en.x - player.x;
+                  const dy2 = en.y - player.y;
+                  if (Math.sqrt(dx2*dx2 + dy2*dy2) <= blastRadius) {
+                    // spawn particles for each killed enemy
+                    try {
+                      for (let m=0;m<10;m++) particles.push({ x: en.x + (Math.random()-0.5)*8, y: en.y + (Math.random()-0.5)*8, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#ffccbc' });
+                    } catch(ex) {}
+                    try { scorePopups.push({ x: en.x, y: en.y, text: '+10', vy: -0.05, life: 800, totalLife: 800, color: '#ffff88' }); } catch(ex) {}
+                    enemies.splice(k,1);
+                    score += 10;
+                    killed++;
+                  }
+                }
+              } catch (ex) { /* ignore bomb cleanup errors */ }
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Bomb!', vy: -0.05, life: 900, totalLife: 900, color: '#ffccbc' }); } catch (e) {}
+              try { playSound('blip'); } catch (e) {}
             } else if (pu.type === 'slow') {
               // grant a temporary slow effect that reduces enemy speed
               player.slowUntil = Date.now() + 12000; // 12 seconds
@@ -2393,7 +2416,7 @@ if (overlay) {
         } catch (e) { /* ignore pulsing ring errors */ }
         ctx.fillStyle = '#fff';
         ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        const icon = (pu.type === 'shield') ? '🛡' : (pu.type === 'rapid' ? '⚡' : (pu.type === 'spread' ? '🌿' : (pu.type === 'slow' ? '🍃' : (pu.type === 'life' ? '+' : ''))));
+        const icon = (pu.type === 'shield') ? '🛡' : (pu.type === 'rapid' ? '⚡' : (pu.type === 'spread' ? '🌿' : (pu.type === 'slow' ? '🍃' : (pu.type === 'bomb' ? '💣' : (pu.type === 'life' ? '+' : '')))));
         ctx.fillText(icon, pu.x, pu.y + 1);
         ctx.restore();
       }
