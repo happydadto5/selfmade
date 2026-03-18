@@ -8,7 +8,7 @@
 - Visual/UI: make power-ups more noticeable by adding a subtle pulsing ring around spawned power-ups (tiny) — 2026-03-18
 - Gameplay: add brief hit-stop (freeze-frame) on enemy hit to improve combat feel (tiny) — 2026-03-18
 - Feedback: add small screen shake, hit sound, and short vibration when enemies are damaged to improve combat feel (tiny) — 2026-03-18
-- Gameplay: increase power-up spawn chance to 24% so power-ups appear more often (tiny) — 2026-03-18
+- Gameplay: increase power-up spawn chance to 32% so power-ups appear more often (tiny) — 2026-03-18
 - Gameplay: show small enemy health bars for multi-HP enemies to improve combat clarity (tiny) — 2026-03-18
 
 ## 4.2.0
