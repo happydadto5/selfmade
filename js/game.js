@@ -1597,7 +1597,7 @@ if (overlay) {
   });
 
 
-  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0 };
+  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0 };
   let lastFireFlashUntil = 0;
   const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = []; let screenShake = 0; let hitStopUntil = 0;
   let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0;
@@ -1781,6 +1781,16 @@ if (overlay) {
       e.x += (e.vx || 0);
       if (e.y > ch + 50) {
       enemies.splice(i,1);
+      // Shield absorbs bottom-leak life loss if active
+      try {
+        if (Date.now() < (player.shieldUntil || 0)) {
+          player.shieldUntil = 0;
+          try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
+          try { playSound('shield'); } catch (e) {}
+          try { for (let k=0;k<10;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#81d4fa' }); } catch(e){}
+          continue;
+        }
+      } catch (e) { /* ignore shield check errors */ }
       lives--;
       livesPulseUntil = Date.now() + 700;
       livesFlashUntil = Date.now() + 180;
@@ -1959,7 +1969,7 @@ if (overlay) {
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
               if (Math.random() < 0.24) {
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'rapid', born: Date.now(), life: 6000 });
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (Math.random() < 0.5 ? 'rapid' : 'shield'), born: Date.now(), life: 6000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }
@@ -2004,13 +2014,21 @@ if (overlay) {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
           if (Math.sqrt(dx*dx + dy*dy) < 28) {
-            // grant temporary rapid-fire boost
-            player.fireRate = 2;
-            player.fireRateUntil = Date.now() + 6000; // 6 seconds
-            // small celebratory feedback
-            try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
-            try { playSound('blip'); } catch (e) {}
-            try { for (let k=0;k<6;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.6, vy: -Math.random()*1.2, r: 2+Math.random()*2, life: 400+Math.random()*300, born: Date.now(), color: '#fff59d' }); } catch (e) {}
+            // handle different power-up types
+            if (pu.type === 'rapid') {
+              player.fireRate = 2;
+              player.fireRateUntil = Date.now() + 6000; // 6 seconds
+              // small celebratory feedback
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
+              try { playSound('blip'); } catch (e) {}
+              try { for (let k=0;k<6;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.6, vy: -Math.random()*1.2, r: 2+Math.random()*2, life: 400+Math.random()*300, born: Date.now(), color: '#fff59d' }); } catch (e) {}
+            } else if (pu.type === 'shield') {
+              // grant a temporary shield that absorbs one life loss
+              player.shieldUntil = Date.now() + 6000; // 6 seconds
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
+              try { playSound('blip'); } catch (e) {}
+              try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#81d4fa' }); } catch (e) {}
+            }
             powerups.splice(i,1);
           }
         } catch (e) { /* ignore collection errors */ }
@@ -2181,6 +2199,20 @@ if (overlay) {
       }
     } catch (e) { /* ignore flash drawing errors */ }
     ctx.fillStyle = '#2e8b57'; ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8); ctx.restore();
+
+    // draw shield ring if active
+    try {
+      if (Date.now() < (player.shieldUntil || 0)) {
+        ctx.save();
+        ctx.translate(player.x, player.y);
+        ctx.strokeStyle = 'rgba(129,212,255,0.95)';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.ellipse(0,0,player.w*1.8,player.h*1.8,0,0,Math.PI*2);
+        ctx.stroke();
+        ctx.restore();
+      }
+    } catch (e) { /* ignore shield draw errors */ }
 
     // draw particles
     for (const p of particles) {
