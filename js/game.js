@@ -2141,7 +2141,7 @@ if (overlay) {
         try {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
-          if (Math.sqrt(dx*dx + dy*dy) < 36) { // slightly increased pickup radius to make power-ups easier to collect
+          if (Math.sqrt(dx*dx + dy*dy) < 48) { // slightly increased pickup radius to make power-ups easier to collect
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 2;
