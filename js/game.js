@@ -2038,6 +2038,7 @@ if (overlay) {
             } else if (pu.type === 'shield') {
               // grant a temporary shield that absorbs one life loss
               player.shieldUntil = Date.now() + 6000; // 6 seconds
+              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#81d4fa' }); } catch (e) {}

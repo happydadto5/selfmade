@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: announce collected power-ups to screen readers (tiny) — 2026-03-18
 - UI: clarify touch hint toast copy for touch users so controls read more clearly (tiny) — 2026-03-18
 - Visual: power-up icons now reflect type (⚡ Rapid, 🛡 Shield) so players can identify pickups more quickly (tiny) — 2026-03-18
 - Gameplay: add shield power-up that absorbs one life loss while active and shows a shield ring around the player (tiny) — 2026-03-18
