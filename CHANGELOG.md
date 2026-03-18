@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: add subtle background gradient and improve HUD contrast for better readability (tiny) — 2026-03-18
 - Automation: fix `selfmade.bat` launcher persistence so the top-level batch process stays alive, reloads itself safely between iterations, and no longer dies on the old re-exec path.
 - Automation: replace fragile startup status reads in `selfmade.bat` so cleanup/sync status logging no longer throws batch parsing errors during startup.
 - Automation: normalize `CHANGELOG.md` to a single top `## Unreleased` section so changelog prep stops drifting into malformed duplicate sections.
