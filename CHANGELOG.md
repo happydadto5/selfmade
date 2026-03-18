@@ -31,6 +31,7 @@
 - Gameplay: add Vine power-up (🍃) that briefly slows enemies for 6s (tiny) — 2026-03-18
 - Gameplay: add pest enemy that splits into two mini pests on death (tiny) — 2026-03-18
 - Gameplay: pest now splits into two mini-pests on death (tiny) — 2026-03-18
+- Gameplay: add a fast 'bee' enemy that homes slightly toward the player for more lively challenge (tiny) — 2026-03-18
 
 ## 4.2.0
 - Visual/UI: add subtle background gradient and improve HUD contrast for better readability (tiny) — 2026-03-18

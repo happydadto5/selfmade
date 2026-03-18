@@ -2467,10 +2467,10 @@ if (overlay) {
           const nowHit = Date.now();
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
             // brighter tint while hit flash is active (type-specific for snails and pests)
-            ctx.fillStyle = (e.type === 'snail') ? '#a1887f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : '#ffb3b3');
+            ctx.fillStyle = (e.type === 'snail') ? '#a1887f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : '#ffb3b3'));
           } else {
             // default enemy color, but snails and pests get distinct tones for readability
-            ctx.fillStyle = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : '#ff6666');
+            ctx.fillStyle = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : '#ff6666'));
           }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
