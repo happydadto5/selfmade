@@ -1689,6 +1689,7 @@ if (overlay) {
       // Small chance for a slow, high-HP "snail" enemy (garden-themed slow mover)
       const isSnail = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       // Small chance for a "pest" enemy that splits into two mini pests on death
+      const isBee = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.02);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       if (isZig) {
         const hpVal = 1 + Math.floor(waveNumber/3);
@@ -1701,6 +1702,9 @@ if (overlay) {
         // snail: slow descent, larger size, more HP, gentle horizontal wiggle
         const hpVal = 2 + Math.floor(waveNumber/4);
         enemies.push({x:ex,y:ey,w:40,h:36,vy:speed*0.45, baseVy: speed*0.45, vx: (Math.random()-0.5)*0.6, hp:hpVal, maxHp:hpVal, type:'snail', t: Math.random()*1000});
+      } else if (isBee) {
+        // bee: small, fast, slight homing towards player
+        enemies.push({x:ex,y:ey,w:20,h:18,vy:speed*1.35, hp:1, maxHp:1, type:'bee', t: Math.random()*1000});
       } else if (isPest) {
         // pest: medium speed, low HP, splits into two mini pests on death
         enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.95, hp:1, maxHp:1, type:'pest'});
@@ -1844,10 +1848,21 @@ if (overlay) {
       // Snail behavior: very slow mover with a gentle horizontal wiggle
       if (e.type === 'snail') {
         try {
-          // keep a stable slow descent using baseVy and add a gentle horizontal wobble for personality
           e.vx = Math.sin(e.t * 0.006) * 0.6;
           e.vy = (typeof e.baseVy !== 'undefined') ? e.baseVy : (e.vy || 0.45);
         } catch (err) { /* ignore snail update errors */ }
+      }
+      // Bee behavior: small fast enemies that slightly home toward player's X for lively challenge
+      if (e.type === 'bee') {
+        try {
+          const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
+          const homing = 0.006 + Math.min(0.02, waveNumber*0.002);
+          e.vx = ((e.vx || 0) * 0.92) + Math.max(-2, Math.min(2, dx * homing));
+          // gentle vertical smoothing so bees don't jitter; they already have a fast base vy from spawn
+          e.vy = (e.vy || 1) * 0.98;
+          // boost bees once to ensure they're noticeably faster than basic enemies
+          if (!e._beeBoosted) { e.vy = (e.vy || 1) * 1.12; e._beeBoosted = true; }
+        } catch (err) { /* ignore bee update errors */ }
       }
       const slowFactor = Date.now() < (player.slowUntil || 0) ? 0.6 : 1;
       e.y += e.vy * slowFactor;
