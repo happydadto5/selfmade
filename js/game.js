@@ -2203,6 +2203,7 @@ if (overlay) {
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 500+Math.random()*300, born: Date.now(), color: '#ff8a65' }); } catch (e) {}
             }
+            try { screenShake = Math.min(16, (typeof screenShake === 'number' ? screenShake : 0) + 6); } catch (e) {}
             powerups.splice(i,1);
           }
         } catch (e) { /* ignore collection errors */ }
