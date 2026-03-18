@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: slightly increase default projectile speed for a snappier weapon feel (tiny) — 2026-03-18
 - Visual: show remaining seconds above player while Rapid is active and enhance glow (tiny) — 2026-03-18
 - Audio: add a soft shield chime that plays when a shield absorbs damage (tiny) — 2026-03-18
 - Gameplay: add Bomb power-up that clears nearby enemies when collected (tiny) — 2026-03-18
