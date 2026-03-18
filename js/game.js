@@ -1692,6 +1692,8 @@ if (overlay) {
       const isBee = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.02);
       // Small chance for a "moth" enemy that sways horizontally in a sinuous pattern
       const isMoth = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
+      // Small chance for a "sprout" enemy (small garden sprout, low HP, green-themed)
+      const isSprout = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       if (isZig) {
         const hpVal = 1 + Math.floor(waveNumber/3);
@@ -1710,6 +1712,9 @@ if (overlay) {
       } else if (isMoth) {
         // moth: medium descent, sinuous horizontal motion for visual variety
         enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:6 + Math.random()*4, swayFreq: 0.009 + Math.random()*0.008, t: Math.random()*1000});
+      } else if (isSprout) {
+        // sprout: small garden sprout, slightly slow, low HP, subtle horizontal drift
+        enemies.push({x:ex,y:ey,w:22,h:20,vy:speed*0.65, vx:(Math.random()-0.5)*0.4, hp:1, maxHp:1, type:'sprout', t: Math.random()*1000});
       } else if (isPest) {
         // pest: medium speed, low HP, splits into two mini pests on death
         enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.95, hp:1, maxHp:1, type:'pest'});
@@ -2498,10 +2503,10 @@ if (overlay) {
           const nowHit = Date.now();
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
             // brighter tint while hit flash is active (type-specific for snails and pests)
-            ctx.fillStyle = (e.type === 'snail') ? '#a1887f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : '#ffb3b3'));
+            ctx.fillStyle = (e.type === 'snail') ? '#a1887f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#c5e1a5' : '#ffb3b3')));
           } else {
             // default enemy color, but snails and pests get distinct tones for readability
-            ctx.fillStyle = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : '#ff6666'));
+            ctx.fillStyle = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#8BC34A' : '#ff6666')));
           }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
