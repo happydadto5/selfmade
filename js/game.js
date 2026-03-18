@@ -2077,6 +2077,13 @@ if (overlay) {
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Spread!', vy: -0.05, life: 900, totalLife: 900, color: '#ffd180' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#ffd180' }); } catch (e) {}
+            } else if (pu.type === 'life') {
+              // grant one extra life (cap to avoid runaway)
+              try { lives = Math.min(9, (typeof lives === 'number' ? lives : 0) + 1); } catch (e) { lives = (typeof lives === 'number' ? lives : 0) + 1; }
+              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Extra life collected'; } catch (e) {}
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Life +1', vy: -0.05, life: 900, totalLife: 900, color: '#ff8a65' }); } catch (e) {}
+              try { playSound('blip'); } catch (e) {}
+              try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 500+Math.random()*300, born: Date.now(), color: '#ff8a65' }); } catch (e) {}
             }
             powerups.splice(i,1);
           }
