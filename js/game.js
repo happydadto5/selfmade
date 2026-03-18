@@ -1646,7 +1646,13 @@ if (overlay) {
       const ex = 40 + Math.random() * (cw-80);
       const ey = -20 - Math.random()*200;
       const speed = Math.min(4, 0.6 + Math.random()*1.2 + waveNumber*0.05);
-      enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:1 + Math.floor(waveNumber/4)});
+      // Small chance to spawn a zigging "hopper" enemy that oscillates horizontally for visual and gameplay variety
+      const isZig = Math.random() < Math.min(0.25, 0.04 + waveNumber*0.02);
+      if (isZig) {
+        enemies.push({x:ex,y:ey,w:34,h:30,vy:speed*0.9, hp:1 + Math.floor(waveNumber/3), type:'zig', t: Math.random()*1000});
+      } else {
+        enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:1 + Math.floor(waveNumber/4)});
+      }
     }
     try { currentWaveEnemyCount = count; } catch (e) { currentWaveEnemyCount = count; }
     // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
@@ -1727,8 +1733,14 @@ if (overlay) {
 
     for (let i=bullets.length-1;i>=0;i--) { bullets[i].y += bullets[i].vy; if (bullets[i].y < -10) bullets.splice(i,1); }
     for (let i=enemies.length-1;i>=0;i--) {
-    enemies[i].y += enemies[i].vy;
-    if (enemies[i].y > ch + 50) {
+      const e = enemies[i];
+      e.t = (e.t || 0) + dt;
+      // Zigging enemies gently oscillate horizontally as they descend for a livelier garden feel
+      if (e.type === 'zig') {
+        e.x += Math.sin(e.t * 0.012) * (1.6 + Math.min(0.8, waveNumber*0.02));
+      }
+      e.y += e.vy;
+      if (e.y > ch + 50) {
       enemies.splice(i,1);
       lives--;
       livesPulseUntil = Date.now() + 700;

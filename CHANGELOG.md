@@ -1,12 +1,15 @@
 # Changelog
 
+## Unreleased
+
 ## 3.4.0
 - UI: add Wave progress indicator in HUD showing defeated/total enemies for current wave (tiny) — 2026-03-17
 
 ## Unreleased
 - Visual: add a brief enemy-hit flash when bullets strike enemies to improve feedback (tiny) — 2026-03-17
+- Gameplay: add a new zigging "hopper" enemy that oscillates horizontally for gameplay variety (tiny) — 2026-03-18
 - Automation: rotate each iteration through gameplay, levels, visual/UI, and stability focus lanes so the loop delivers a healthier mix of visible and behind-the-scenes work.
-- Automation: selfmade.bat now re-executes a fresh copy of itself after each pause so batch-file edits are picked up on the next cycle.
+- Automation: selfmade.bat now stays alive as a small launcher and runs each cycle as a fresh child invocation so updated batch logic is picked up without the process silently dying after a re-exec handoff.
 - Automation: poll the full repo for remote changes each iteration so pushed fixes do not sit unseen while the local poller is already running.
 
 ## 3.3.0
