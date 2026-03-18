@@ -2094,7 +2094,7 @@ if (overlay) {
             // Small chance to spawn a temporary power-up when an enemy dies
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
-              if (Math.random() < 0.38) {
+              if (Math.random() < 0.46) {
                 // slightly favor rapid/shield but occasionally spawn a new spread, slow, or bomb power-up
                 const _r = Math.random();
                 powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.30 ? 'rapid' : (_r < 0.56 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.94 ? 'slow' : (_r < 0.98 ? 'bomb' : 'life'))))), born: Date.now(), life: 12000 });

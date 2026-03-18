@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: slightly increase power-up drop rate so pickups spawn more often (tiny) — 2026-03-18
 - Gameplay: add subtle screen shake when collecting power-ups to improve feedback (tiny) — 2026-03-18
 - Accessibility: announce Rapid power-up collection to screen readers (tiny) — 2026-03-18
 - Gameplay: slightly increase default projectile speed for a snappier weapon feel (tiny) — 2026-03-18
