@@ -2063,27 +2063,27 @@ if (overlay) {
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 2;
-              player.fireRateUntil = Date.now() + 6000; // 6 seconds
+              player.fireRateUntil = Date.now() + 9000; // 9 seconds
               // small celebratory feedback
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<6;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.6, vy: -Math.random()*1.2, r: 2+Math.random()*2, life: 400+Math.random()*300, born: Date.now(), color: '#fff59d' }); } catch (e) {}
             } else if (pu.type === 'shield') {
               // grant a temporary shield that absorbs one life loss
-              player.shieldUntil = Date.now() + 6000; // 6 seconds
+              player.shieldUntil = Date.now() + 9000; // 9 seconds
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#81d4fa' }); } catch (e) {}
             } else if (pu.type === 'spread') {
               // grant a temporary spread shot that fires three angled pellets
-              player.spreadUntil = Date.now() + 6000; // 6 seconds
+              player.spreadUntil = Date.now() + 9000; // 9 seconds
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Spread!', vy: -0.05, life: 900, totalLife: 900, color: '#ffd180' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#ffd180' }); } catch (e) {}
             } else if (pu.type === 'slow') {
               // grant a temporary slow effect that reduces enemy speed
-              player.slowUntil = Date.now() + 6000; // 6 seconds
+              player.slowUntil = Date.now() + 9000; // 9 seconds
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Vine collected: enemies slowed'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Vine! Slow enemies', vy: -0.05, life: 900, totalLife: 900, color: '#c8e6c9' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
@@ -2320,7 +2320,7 @@ if (overlay) {
     try {
       for (const pu of powerups) {
         ctx.save();
-        const alpha = Math.max(0, Math.min(1, pu.life / 6000));
+        const alpha = Math.max(0, Math.min(1, pu.life / 9000));
         ctx.globalAlpha = alpha;
         // gentle circle with a type-specific color to make pickups readable at-a-glance
         const baseColor = (pu.type === 'shield') ? '#29b6f6' : '#66bb6a';

@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: Increase power-up durations from 6s to 9s so pickups feel more useful (tiny) — 2026-03-18
 - Gameplay: increase power-up lifetime to 9s so pickups are easier to collect (tiny) — 2026-03-18
 - Fix: active power-up HUD was incorrectly hidden by inline style; now shows collected power-ups (tiny) — 2026-03-18
 - Gameplay: Rapid power-up now increases projectile speed for a snappier feel (tiny) — 2026-03-18
