@@ -1,7 +1,8 @@
 # Changelog
 
 ## Unreleased
- - Gameplay: sprout enemies now gently bob and occasionally shed leaf particles for livelier visuals (tiny) — 2026-03-18
+- Accessibility: announce shield absorption to screen readers so players using assistive tech hear when their shield prevents a life loss (tiny) — 2026-03-18
+- Gameplay: sprout enemies now gently bob and occasionally shed leaf particles for livelier visuals (tiny) — 2026-03-18
 - Gameplay: pest-mini now wobble slightly for livelier visuals (tiny) — 2026-03-18
 - Gameplay: slightly increase power-up drop rate so pickups spawn more often (tiny) — 2026-03-18
 - Gameplay: add subtle screen shake when collecting power-ups to improve feedback (tiny) — 2026-03-18
