@@ -1884,6 +1884,12 @@ if (overlay) {
         } catch (err) { /* ignore bee update errors */ }
       }
       const slowFactor = Date.now() < (player.slowUntil || 0) ? 0.6 : 1;
+      // Pest-mini behavior: nimble mini-pests have a small horizontal wobble for visual variety
+      if (e.type === 'pest-mini') {
+        try {
+          e.x += Math.sin(e.t * 0.024) * 0.9;
+        } catch (err) { /* ignore pest-mini update errors */ }
+      }
       e.y += e.vy * slowFactor;
       // apply horizontal velocity if present (fallback for types that don't set vx)
       e.x += (e.vx || 0) * slowFactor;
