@@ -136,6 +136,9 @@
           } else if (player && now < (player.shieldUntil || 0)) {
             const s = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
             text = '🛡 Shield (' + s + 's)';
+          } else if (player && now < (player.slowUntil || 0)) {
+            const s = Math.ceil(((player.slowUntil || 0) - now) / 1000);
+            text = '🍃 Slow (' + s + 's)';
           } else {
             text = '';
           }
@@ -1816,9 +1819,10 @@ if (overlay) {
           }
         } catch (err) { /* ignore charger update errors */ }
       }
-      e.y += e.vy;
+      const slowFactor = Date.now() < (player.slowUntil || 0) ? 0.6 : 1;
+      e.y += e.vy * slowFactor;
       // apply horizontal velocity if present (fallback for types that don't set vx)
-      e.x += (e.vx || 0);
+      e.x += (e.vx || 0) * slowFactor;
       if (e.y > ch + 50) {
       enemies.splice(i,1);
       // Shield absorbs bottom-leak life loss if active
@@ -2009,9 +2013,9 @@ if (overlay) {
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
               if (Math.random() < 0.32) {
-                // slightly favor rapid/shield but occasionally spawn a new spread power-up
+                // slightly favor rapid/shield but occasionally spawn a new spread or slow power-up
                 const _r = Math.random();
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.45 ? 'rapid' : (_r < 0.85 ? 'shield' : 'spread')), born: Date.now(), life: 6000 });
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.35 ? 'rapid' : (_r < 0.65 ? 'shield' : (_r < 0.9 ? 'spread' : 'slow'))), born: Date.now(), life: 6000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }
@@ -2077,6 +2081,13 @@ if (overlay) {
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Spread!', vy: -0.05, life: 900, totalLife: 900, color: '#ffd180' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#ffd180' }); } catch (e) {}
+            } else if (pu.type === 'slow') {
+              // grant a temporary slow effect that reduces enemy speed
+              player.slowUntil = Date.now() + 6000; // 6 seconds
+              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Vine collected: enemies slowed'; } catch (e) {}
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Vine! Slow enemies', vy: -0.05, life: 900, totalLife: 900, color: '#c8e6c9' }); } catch (e) {}
+              try { playSound('blip'); } catch (e) {}
+              try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 500+Math.random()*300, born: Date.now(), color: '#c8e6c9' }); } catch (e) {}
             } else if (pu.type === 'life') {
               // grant one extra life (cap to avoid runaway)
               try { lives = Math.min(9, (typeof lives === 'number' ? lives : 0) + 1); } catch (e) { lives = (typeof lives === 'number' ? lives : 0) + 1; }
@@ -2329,7 +2340,7 @@ if (overlay) {
         } catch (e) { /* ignore pulsing ring errors */ }
         ctx.fillStyle = '#fff';
         ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        const icon = (pu.type === 'shield') ? '🛡' : (pu.type === 'rapid' ? '⚡' : '🌿');
+        const icon = (pu.type === 'shield') ? '🛡' : (pu.type === 'rapid' ? '⚡' : (pu.type === 'spread' ? '🌿' : (pu.type === 'slow' ? '🍃' : (pu.type === 'life' ? '+' : ''))));
         ctx.fillText(icon, pu.x, pu.y + 1);
         ctx.restore();
       }
