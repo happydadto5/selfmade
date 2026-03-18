@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: Rapid power-up now increases projectile speed for a snappier feel (tiny) — 2026-03-18
 - Accessibility: announce collected power-ups to screen readers (tiny) — 2026-03-18
 - UI: clarify touch hint toast copy for touch users so controls read more clearly (tiny) — 2026-03-18
 - Visual: power-up icons now reflect type (⚡ Rapid, 🛡 Shield) so players can identify pickups more quickly (tiny) — 2026-03-18

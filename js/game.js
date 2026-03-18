@@ -1741,11 +1741,18 @@ if (overlay) {
     if (keys.fire && player.cooldown <= 0) {
       if (Date.now() < (player.spreadUntil || 0)) {
         // spread shot: center + two angled pellets
-        bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
-        bullets.push({x:player.x - 8, y:player.y-28, vx:-1.6, vy:-8.6, r:5});
-        bullets.push({x:player.x + 8, y:player.y-28, vx:1.6, vy:-8.6, r:5});
+        // adjust bullet speed slightly when Rapid power-up is active for a snappier feel
+        const _rapid = Date.now() < (player.fireRateUntil || 0);
+        const _bv_center = _rapid ? -11 : -9;
+        const _bv_angled = _rapid ? -10 : -8.6;
+        bullets.push({x:player.x, y:player.y-28, vy:_bv_center, r:6});
+        bullets.push({x:player.x - 8, y:player.y-28, vx:-1.6, vy:_bv_angled, r:5});
+        bullets.push({x:player.x + 8, y:player.y-28, vx:1.6, vy:_bv_angled, r:5});
       } else {
-        bullets.push({x:player.x, y:player.y-28, vy:-9, r:6});
+        // adjust bullet speed when Rapid power-up is active
+        const _rapid = Date.now() < (player.fireRateUntil || 0);
+        const _bv = _rapid ? -11 : -9;
+        bullets.push({x:player.x, y:player.y-28, vy:_bv, r:6});
       }
       player.cooldown = Math.max(30, Math.round(180 / (player.fireRate || 1))); // ms (respect player's fireRate, min cap)
       lastFireFlashUntil = Date.now() + 120; // brief muzzle flash for firing feedback
