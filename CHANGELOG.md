@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Audio: add a soft shield chime that plays when a shield absorbs damage (tiny) — 2026-03-18
 - Gameplay: add Bomb power-up that clears nearby enemies when collected (tiny) — 2026-03-18
 - Visual: make shield ring pulse to show remaining time and improve visibility (tiny) — 2026-03-18
 - Visual: add a subtle rapid-fire glow around the player while Rapid power-up is active so the effect is clearer (tiny) — 2026-03-18

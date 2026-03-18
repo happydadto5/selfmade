@@ -557,6 +557,17 @@
       o.stop(now + 0.32);
       return;
     }
+    else if (type === 'shield') {
+      // Soft rising triangle chime for shield events
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(520, now);
+      o.frequency.linearRampToValueAtTime(780, now + 0.12);
+      g.gain.setValueAtTime(0.035, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
+      o.start(now);
+      o.stop(now + 0.34);
+      return;
+    }
     else { o.type='sine'; o.frequency.setValueAtTime(440, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1); }
     o.start(now); o.stop(now + 0.2);
   }
