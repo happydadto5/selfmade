@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual: add a subtle rapid-fire glow around the player while Rapid power-up is active so the effect is clearer (tiny) — 2026-03-18
 - Gameplay: increase power-up duration to 12s so pickups feel more impactful (tiny) — 2026-03-18
 - Gameplay: small chance for extra-life power-up to spawn from defeated enemies (tiny) — 2026-03-18
 - Visual: charger enemies now show a visible warning triangle while charging so players can react (tiny) — 2026-03-18

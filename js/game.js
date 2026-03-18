@@ -2279,7 +2279,19 @@ if (overlay) {
         ctx.fill();
       }
     } catch (e) { /* ignore flash drawing errors */ }
-    ctx.fillStyle = '#2e8b57'; ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8); ctx.restore();
+    // If Rapid power-up is active, draw a subtle glow halo to make the effect more visible
+    try {
+      if (player && (player.fireRate > 1) && Date.now() < (player.fireRateUntil || 0)) {
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255,235,59,0.12)'; // soft yellow glow
+        ctx.ellipse(0,0,player.w * 1.8, player.h * 1.8, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } catch (e) { /* ignore glow draw errors */ }
+    ctx.fillStyle = '#2e8b57';
+    ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8);
+    ctx.restore();
 
     // draw shield ring if active
     try {
