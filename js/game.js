@@ -2015,7 +2015,7 @@ if (overlay) {
               if (Math.random() < 0.38) {
                 // slightly favor rapid/shield but occasionally spawn a new spread or slow power-up
                 const _r = Math.random();
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.35 ? 'rapid' : (_r < 0.65 ? 'shield' : (_r < 0.9 ? 'spread' : 'slow'))), born: Date.now(), life: 6000 });
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.35 ? 'rapid' : (_r < 0.65 ? 'shield' : (_r < 0.9 ? 'spread' : 'slow'))), born: Date.now(), life: 9000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }
