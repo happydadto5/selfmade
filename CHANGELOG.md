@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Visual/UI: add subtle semi-opaque dark backdrop behind HUD for improved contrast on busy backgrounds (tiny) — 2026-03-19
+- Visual/UI: increase HUD backdrop contrast for better readability on bright backgrounds (tiny) — 2026-03-19
 - Visual/UI: radial garden hit flash centered on hit location to improve hit feedback (tiny) — 2026-03-19
 - Visual: Add brief hit flash and subtle screen shake on enemy hits for clearer feedback. (small)
 - Visual/UI: stronger shield-absorb feedback — brighter petal burst, brief canvas flash, and subtle screen shake (tiny) — 2026-03-19
