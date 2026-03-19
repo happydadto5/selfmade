@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.1.0
 - UI: make active power-up HUD more visible with subtle badge background and border (tiny) — 2026-03-19
 
 ## 5.0.0
