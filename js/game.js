@@ -1555,6 +1555,27 @@ if (overlay) {
       if (!paused && !gameOver && typeof overlayMessage !== 'undefined' && overlayMessage) { try { overlayMessage.textContent = ''; } catch (e) {} }
     }
   });
+  // Also handle pagehide (navigation, mobile back) to pause immediately when the page is being hidden or unloaded.
+  // This helps mobile users and ensures backgrounded sessions are paused reliably.
+  try {
+    window.addEventListener('pagehide', (ev) => {
+      if (!autoPauseEnabled) return;
+      if (pointerActive) return; // don't pause while a pointer/touch is active
+      try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
+      if (!paused && !gameOver) {
+        paused = true;
+        pausedByFocus = true;
+        try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
+        // clear transient inputs and suspend audio similar to blur-based auto-pause
+        clearInputs();
+        if (audioCtx && audioCtx.state === 'running') {
+          try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
+          suspendedAudioByFocus = true;
+        }
+        if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+      }
+    }, { passive: true });
+  } catch (e) { /* ignore pagehide availability issues */ }
   // Allow pointer/click to resume when auto-paused due to focus loss (helpful for touch users)
   try {
     window.addEventListener('pointerdown', () => {
