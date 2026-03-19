@@ -32,7 +32,7 @@
       player.y = ch - 80;
       player.x = Math.max(20, Math.min(cw - 20, player.x));
     }
-    try { if (typeof spawnBgLeaves === 'function') spawnBgLeaves(); } catch (e) { /* ignore */ }
+    try { if (typeof spawnBgLeaves === 'function') spawnBgLeaves(); if (typeof spawnBgClouds === 'function') spawnBgClouds(); } catch (e) { /* ignore */ }
   }
   let resizeTimeout = null;
   window.addEventListener('resize', () => {
@@ -60,6 +60,25 @@
         });
       }
     } catch (e) { /* ignore bg leaf init errors */ }
+  }
+
+  // subtle drifting cloud layer (parallax, behind leaves)
+  const bgClouds = [];
+  function spawnBgClouds(count) {
+    try {
+      bgClouds.length = 0;
+      const n = typeof count === 'number' ? count : Math.max(3, Math.floor(cw / 420));
+      for (let i = 0; i < n; i++) {
+        bgClouds.push({
+          x: Math.random() * cw,
+          y: Math.random() * (ch * 0.45),
+          vx: 0.12 + Math.random() * 0.3,
+          w: 80 + Math.random() * 160,
+          h: 24 + Math.random() * 40,
+          alpha: 0.04 + Math.random() * 0.08
+        });
+      }
+    } catch (e) { /* ignore cloud init errors */ }
   }
   // Prevent right-click context menu on game canvas to avoid accidental interruption
   try { canvas.addEventListener('contextmenu', e => { e.preventDefault(); }); } catch (e) { /* ignore */ }
@@ -1837,7 +1856,19 @@ if (overlay) {
           if (l.y < -40) l.y = ch + 40;
         }
       }
-    } catch (e) { /* ignore bg leaf update errors */ }
+      if (bgClouds) {
+        for (const c of bgClouds) {
+          const speed = (prefersReducedMotion ? (c.vx * 0.25) : c.vx);
+          c.x += speed;
+          if (c.x < -c.w) c.x = cw + c.w;
+          if (c.x > cw + c.w) c.x = -c.w;
+          // gentle vertical bob
+          c.y += Math.sin(Date.now() * 0.0005 + c.x) * 0.02;
+          if (c.y < 0) c.y = 0;
+          if (c.y > ch * 0.5) c.y = ch * 0.5;
+        }
+      }
+    } catch (e) { /* ignore bg layer update errors */ }
     if (keys.fire && player.cooldown <= 0) {
       if (Date.now() < (player.spreadUntil || 0)) {
         // spread shot: center + two angled pellets
@@ -2485,6 +2516,28 @@ if (overlay) {
       }
       ctx.fillRect(0,0,cw,ch);
     } catch (e) { ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch); }
+    // draw subtle drifting background clouds (behind leaves)
+    try {
+      if (bgClouds && bgClouds.length) {
+        for (const c of bgClouds) {
+          try {
+            ctx.save();
+            ctx.globalAlpha = c.alpha;
+            ctx.fillStyle = '#ffffff';
+            const x = c.x, y = c.y, w = c.w, h = c.h;
+            // soft cloud made from overlapping ellipses
+            ctx.beginPath();
+            ctx.ellipse(x, y, w * 0.5, h * 0.6, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + w * 0.22, y - h * 0.12, w * 0.36, h * 0.5, 0, 0, Math.PI * 2);
+            ctx.ellipse(x - w * 0.22, y - h * 0.12, w * 0.36, h * 0.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          } catch (e) { /* ignore single cloud draw error */ }
+        }
+        ctx.globalAlpha = 1;
+      }
+    } catch (e) { /* ignore bg cloud draw errors */ }
+
     // draw subtle drifting background leaves behind game objects
     try {
       if (bgLeaves && bgLeaves.length) {

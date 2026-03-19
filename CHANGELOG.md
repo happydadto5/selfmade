@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: add subtle drifting cloud layer to background and improve hit atmosphere (tiny) — 2026-03-19
+
 ## 5.32.0
 - Visual: brief white canvas flash when an enemy is hit to improve hit feedback (tiny) — 2026-03-19
 
