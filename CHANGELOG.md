@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 4.7.0
 - Visual: add subtle animated background gradient to canvas (tiny) — 2026-03-19
 
 ## 4.6.0
