@@ -375,11 +375,17 @@ html::before {
     /* radial gradient anchored at the hit location -- uses CSS variables set by JS */
     background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,255,0.98), rgba(255,255,255,0.36) 24%, rgba(255,255,255,0) 62%);
     opacity: 1;
-    transition: opacity 160ms ease;
     mix-blend-mode: screen;
+    /* short fade+pop animation to make hit feedback more visible and satisfying */
+    animation: hitPopFade 260ms ease-out forwards;
   }
 }
+@keyframes hitPopFade {
+  0% { opacity: 1; transform: scale(1.02); }
+  60% { opacity: 0.9; transform: scale(1.01); }
+  100% { opacity: 0; transform: scale(1); }
+}
 @media (prefers-reduced-motion: reduce) {
-  body.hit-pop::after { transition: none; }
+  body.hit-pop::after { transition: none; animation: none !important; }
 }
 
