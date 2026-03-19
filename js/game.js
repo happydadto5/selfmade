@@ -2240,7 +2240,7 @@ if (overlay) {
               if (Math.random() < 0.46) {
                 // slightly favor rapid/shield but occasionally spawn a new spread, slow, bomb, or rare pierce power-up
                 const _r = Math.random();
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.30 ? 'rapid' : (_r < 0.56 ? 'shield' : (_r < 0.78 ? 'spread' : (_r < 0.90 ? 'slow' : (_r < 0.96 ? 'bomb' : (_r < 0.99 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 });
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.995 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }

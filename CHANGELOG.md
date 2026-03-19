@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- 2026-03-19: Slightly increased shield power-up spawn frequency to make Shields more discoverable during play (small gameplay improvement).
+
+
 ## 5.29.0
 - Stability: debounce high-score saves to reduce frequent localStorage writes (tiny) — 2026-03-19
 
