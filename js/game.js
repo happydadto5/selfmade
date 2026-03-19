@@ -1714,7 +1714,8 @@ if (overlay) {
       const ey = -20 - Math.random()*200;
       const speed = Math.min(4, 0.6 + Math.random()*1.2 + waveNumber*0.05);
       // Small chance to spawn a zigging "hopper" enemy that oscillates horizontally for visual and gameplay variety
-      const isZig = Math.random() < Math.min(0.25, 0.04 + waveNumber*0.02);
+      // Increase visibility of zigging "hopper" enemies so players notice new behavior more often
+      const isZig = Math.random() < Math.min(0.35, 0.08 + waveNumber*0.025);
       // Small chance for a "charger" enemy type: drifts horizontally and occasionally charges downward
       const isCharger = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.01);
       // Small chance for a slow, high-HP "snail" enemy (garden-themed slow mover)
