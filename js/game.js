@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.57.0';
+  const version = '5.58.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2055,6 +2055,8 @@ if (overlay) {
       lives--;
       livesPulseUntil = Date.now() + 700;
       livesFlashUntil = Date.now() + 180;
+      // brief player hit flash for clearer visual feedback (respects reduced-motion preference)
+      try { player.hitFlashUntil = Date.now() + 220; } catch (e) {}
       lives = Math.max(0, lives);
       // Trigger a short HUD pulse to draw attention to the lost life (CSS handles animation)
       try {
@@ -2891,6 +2893,17 @@ if (overlay) {
         ctx.stroke();
       }
     } catch (e) { /* ignore pulse draw errors */ }
+    // player body (with brief hit flash ring when recently hit)
+    try {
+      if (Date.now() < (player.hitFlashUntil || 0) && !prefersReducedMotion) {
+        const _alpha = Math.max(0, Math.min(1, ((player.hitFlashUntil || 0) - Date.now()) / 220));
+        ctx.strokeStyle = 'rgba(255,255,255,' + (_alpha * 0.9).toFixed(3) + ')';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.ellipse(0,0,player.w * 1.36, player.h * 1.36, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    } catch (e) {}
     ctx.fillStyle = '#2e8b57';
     ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8);

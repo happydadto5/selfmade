@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: add brief white hit-ring around the player when a life is lost to improve hit clarity (tiny) — 2026-03-19
+
 - Visual/UI: slight increase to canvas hit flash intensity and duration for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: slightly stronger garden-themed hit flash for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: garden petal particles on enemy hits for clearer, themed feedback (tiny) — 2026-03-19
