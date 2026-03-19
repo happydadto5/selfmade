@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: add brief glowing ring around player when collecting a power-up for more satisfying feedback (tiny) — 2026-03-19
+
 ## 5.13.0
 - Stability: guard refreshVersionHUD against missing autoPauseEnabled to avoid early startup ReferenceError (tiny) — 2026-03-19
 

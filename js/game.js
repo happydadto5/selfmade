@@ -1640,6 +1640,9 @@ if (overlay) {
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
   const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0;
+  // transient visual pulse when a power-up is collected
+  let powerupPulseUntil = 0;
+  let lastPowerupColor = '';
   let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
@@ -2296,6 +2299,11 @@ if (overlay) {
               try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 500+Math.random()*300, born: Date.now(), color: '#ff8a65' }); } catch (e) {}
             }
             try { screenShake = Math.min(16, (typeof screenShake === 'number' ? screenShake : 0) + 6); } catch (e) {}
+            try { 
+              // small pulse effect on power-up collection for satisfying feedback
+              powerupPulseUntil = Date.now() + 420;
+              lastPowerupColor = (pu.type === 'rapid' ? '#ffe082' : (pu.type === 'shield' ? '#81d4fa' : (pu.type === 'spread' ? '#ffd180' : (pu.type === 'bomb' ? '#ffccbc' : (pu.type === 'pierce' ? '#b39ddb' : (pu.type === 'slow' ? '#c8e6c9' : '#ff8a65'))))));
+            } catch (e) {}
             powerups.splice(i,1);
           }
         } catch (e) { /* ignore collection errors */ }
@@ -2621,6 +2629,20 @@ if (overlay) {
         } catch (e) { /* ignore text draw errors */ }
       }
     } catch (e) { /* ignore glow draw errors */ }
+
+    // Brief player pulse when a power-up was recently collected
+    try {
+      if (Date.now() < (powerupPulseUntil || 0)) {
+        const rem = Math.max(0, (powerupPulseUntil || 0) - Date.now());
+        const alpha = Math.max(0, Math.min(1, rem / 420));
+        const col = lastPowerupColor || '#ffd54f';
+        ctx.beginPath();
+        ctx.strokeStyle = col.replace('#','rgba(' + parseInt(col.slice(1,3),16) + ',' + parseInt(col.slice(3,5),16) + ',' + parseInt(col.slice(5,7),16) + ',') + alpha.toFixed(3) + ')';
+        ctx.lineWidth = 6 * (0.8 + 0.4 * alpha);
+        ctx.ellipse(0,0,player.w * (1.6 + 0.4 * (1 - alpha)), player.h * (1.6 + 0.4 * (1 - alpha)), 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    } catch (e) { /* ignore pulse draw errors */ }
     ctx.fillStyle = '#2e8b57';
     ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8);
