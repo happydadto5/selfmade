@@ -32,6 +32,7 @@
       player.y = ch - 80;
       player.x = Math.max(20, Math.min(cw - 20, player.x));
     }
+    try { if (typeof spawnBgLeaves === 'function') spawnBgLeaves(); } catch (e) { /* ignore */ }
   }
   let resizeTimeout = null;
   window.addEventListener('resize', () => {
@@ -39,6 +40,27 @@
     resizeTimeout = setTimeout(resize, 120);
   }, { passive: true });
   resize();
+  // background leaves (parallax) — lightweight layer
+  const bgLeaves = [];
+  function spawnBgLeaves(count) {
+    try {
+      bgLeaves.length = 0;
+      const n = typeof count === 'number' ? count : Math.max(8, Math.floor(cw / 120));
+      for (let i = 0; i < n; i++) {
+        bgLeaves.push({
+          x: Math.random() * cw,
+          y: Math.random() * ch,
+          vx: (Math.random() * 0.6 - 0.3),
+          vy: 0.12 + Math.random() * 0.28,
+          r: 6 + Math.random() * 10,
+          angle: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.02,
+          color: ['#8BC34A', '#66BB6A', '#A5D6A7'][Math.floor(Math.random() * 3)],
+          alpha: 0.10 + Math.random() * 0.18
+        });
+      }
+    } catch (e) { /* ignore bg leaf init errors */ }
+  }
   // Prevent right-click context menu on game canvas to avoid accidental interruption
   try { canvas.addEventListener('contextmenu', e => { e.preventDefault(); }); } catch (e) { /* ignore */ }
   // Improve accessibility: focus the canvas on pointer interaction so keyboard controls work after tap/click
@@ -1816,6 +1838,19 @@ if (overlay) {
     try { if (player.fireRate > 1 && Date.now() > (player.fireRateUntil || 0)) { player.fireRate = 1; player.fireRateUntil = 0; } } catch (e) {}
     // Performance: cap particle count to avoid runaway particle growth during long runs
     try { if (particles && particles.length > 300) particles.splice(0, particles.length - 300); } catch (e) { }
+    try {
+      if (bgLeaves) {
+        for (const l of bgLeaves) {
+          l.x += (l.vx || 0);
+          l.y += (l.vy || 0);
+          l.angle += (l.spin || 0);
+          if (l.x < -40) l.x = cw + 40;
+          if (l.x > cw + 40) l.x = -40;
+          if (l.y > ch + 40) l.y = -40;
+          if (l.y < -40) l.y = ch + 40;
+        }
+      }
+    } catch (e) { /* ignore bg leaf update errors */ }
     if (keys.fire && player.cooldown <= 0) {
       if (Date.now() < (player.spreadUntil || 0)) {
         // spread shot: center + two angled pellets
@@ -2336,6 +2371,25 @@ if (overlay) {
       }
       ctx.fillRect(0,0,cw,ch);
     } catch (e) { ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch); }
+    // draw subtle drifting background leaves behind game objects
+    try {
+      if (bgLeaves && bgLeaves.length) {
+        for (const l of bgLeaves) {
+          try {
+            ctx.save();
+            ctx.globalAlpha = l.alpha;
+            ctx.translate(l.x, l.y);
+            ctx.rotate(l.angle || 0);
+            ctx.fillStyle = l.color || '#8BC34A';
+            ctx.beginPath();
+            ctx.ellipse(0, 0, l.r * 1.2, Math.max(1, l.r * 0.5), 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          } catch (e) { /* ignore single leaf draw error */ }
+        }
+        ctx.globalAlpha = 1;
+      }
+    } catch (e) { /* ignore bg leaf draw errors */ }
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
     // Compact in-canvas HUD when DOM HUD is hidden: show wave and remaining enemies in top-right
     try {
