@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.34.0
+- Visual: add subtle shield sparkles while Shield power-up is active so players can better notice temporary invulnerability (tiny) — 2026-03-19
+
 ## 5.33.0
 - Visual/UI: add subtle drifting cloud layer to background and improve hit atmosphere (tiny) — 2026-03-19
 

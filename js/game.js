@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.33.0';
+  const version = '5.34.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2404,6 +2404,14 @@ if (overlay) {
         } catch (e) { /* ignore collection errors */ }
       }
     } catch (e) { /* ignore powerup update errors */ }
+
+    // Shield sparkle: while shield active, spawn small spark particles for subtle continuous feedback
+    try {
+      if (Date.now() < (player.shieldUntil || 0) && Math.random() < 0.06) {
+        // small, short-lived sparkles that orbit near the player
+        particles.push({ x: player.x + (Math.random()-0.5)*(player.w*1.2), y: player.y + (Math.random()-0.5)*(player.h*1.2), vx: (Math.random()-0.5)*0.6, vy: -Math.random()*0.6, r: 1 + Math.random()*1.4, life: 300 + Math.random()*200, born: Date.now(), color: '#bbdefb' });
+      }
+    } catch (e) { /* ignore shield sparkle errors */ }
 
     screenShake = Math.max(0, screenShake - dt * 0.04);
     if (enemies.length === 0) {
