@@ -177,7 +177,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.1.0';
+  const version = '5.2.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2051,6 +2051,27 @@ if (overlay) {
           }
           if (e.hp <= 0) {
             enemies.splice(i,1);
+            // small explosion particle burst on enemy death (garden-themed petals)
+            try {
+              const pc = Math.min(14, 6 + Math.round(Math.random()*8));
+              for (let p=0;p<pc;p++) {
+                const ang = Math.random()*Math.PI*2;
+                const spd = 0.6 + Math.random()*2.2;
+                particles.push({
+                  x: e.x + (Math.random()-0.5)*6,
+                  y: e.y + (Math.random()-0.5)*6,
+                  vx: Math.cos(ang)*spd,
+                  vy: Math.sin(ang)*spd,
+                  r: 1 + Math.random()*3,
+                  life: 380 + Math.random()*240,
+                  born: Date.now(),
+                  color: (e.type === 'sprout' ? '#8BC34A' : (e.type === 'bee' ? '#FFD54F' : '#FF8A65')),
+                  petal: true
+                });
+              }
+              try { screenShake = Math.min(12, (screenShake||0) + 4); } catch(e){}
+              try { playSound('hit'); } catch(e){}
+            } catch (err) {}
             score += 10;
             // spawn a small floating score popup at the enemy position (visual polish)
             try { scorePopups.push({ x: e.x, y: e.y, text: '+10', vy: -0.05, life: 800, totalLife: 800, color: '#ffff88' }); } catch (ex) { /* ignore */ }

@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.2.0
+- Visual: add small explosion particle burst on enemy death for clearer feedback (tiny) — 2026-03-19
+
 ## 5.1.0
 - UI: make active power-up HUD more visible with subtle badge background and border (tiny) — 2026-03-19
 
