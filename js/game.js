@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.61.0';
+  const version = '5.62.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2138,7 +2138,7 @@ if (overlay) {
           try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
-          try { canvasHitFlashUntil = Date.now() + 180; } catch (err) { /* ignore */ }
+          try { canvasHitFlashUntil = Date.now() + 260; } catch (err) { /* ignore */ }
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
               for (let k=0;k<4;k++) particles.push({
@@ -3372,11 +3372,11 @@ if (overlay) {
       const prefersReducedMotion = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
-        const alpha = Math.max(0, Math.min(1, remaining / 120));
+        const alpha = Math.max(0, Math.min(1, remaining / 200)); // slightly longer fade for clearer hit feedback
         ctx.save();
         // soft pale green tint that blends gently with the garden palette
         ctx.globalCompositeOperation = 'source-over';
-        ctx.fillStyle = 'rgba(198,255,196,' + (0.18 * alpha).toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(246,255,208,' + (0.26 * alpha).toFixed(3) + ')'; // warmer, stronger garden tint
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }
