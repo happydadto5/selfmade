@@ -1724,6 +1724,7 @@ if (overlay) {
         enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.95, hp:1, maxHp:1, type:'pest'});
       } else {
         const hpVal = 1 + Math.floor(waveNumber/4);
+        if (Math.random() < Math.min(0.06, 0.02 + waveNumber*0.01)) { enemies.push({x:ex,y:ey,w:24,h:20,vy:speed*0.8, baseVy: speed*0.8, vx:0, hp:2, maxHp:2, type:'ladybug', hopTimer: 500 + Math.random()*700, t: Math.random()*1000}); }
         enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal});
       }
     }
@@ -1899,6 +1900,20 @@ if (overlay) {
           // boost bees once to ensure they're noticeably faster than basic enemies
           if (!e._beeBoosted) { e.vy = (e.vy || 1) * 1.12; e._beeBoosted = true; }
         } catch (err) { /* ignore bee update errors */ }
+      }
+      // Ladybug behavior: medium speed, small HP, occasional quick lateral hops for variety
+      if (e.type === 'ladybug') {
+        try {
+          // gentle horizontal wobble
+          e.x += Math.sin(e.t * 0.02) * 1.8;
+          // occasional lateral hop: use a hopTimer stored on the enemy
+          if (typeof e.hopTimer === 'undefined') e.hopTimer = 600 + Math.random() * 800;
+          e.hopTimer -= dt;
+          if (e.hopTimer <= 0) {
+            e.vx = (Math.random() - 0.5) * 2.4;
+            e.hopTimer = 700 + Math.random() * 1000;
+          }
+        } catch (err) { /* ignore ladybug update errors */ }
       }
       const slowFactor = Date.now() < (player.slowUntil || 0) ? 0.6 : 1;
       // Pest-mini behavior: nimble mini-pests have a small horizontal wobble for visual variety
@@ -2702,10 +2717,10 @@ if (overlay) {
           let enemyColor;
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
             // brighter tint while hit flash is active (type-specific for snails and pests)
-            enemyColor = (e.type === 'snail') ? '#a1887f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#c5e1a5' : '#ffb3b3')));
+            enemyColor = (e.type === 'snail') ? '#a1887f' : ((e.type === 'ladybug') ? '#ff8a80' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#c5e1a5' : '#ffb3b3'))));
           } else {
             // default enemy color, but snails and pests get distinct tones for readability
-            enemyColor = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#8BC34A' : '#ff6666')));
+            enemyColor = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'ladybug') ? '#d32f2f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#8BC34A' : '#ff6666'))));
           }
           // If hit flash is active, draw a brief radial glow under the enemy for stronger hit feedback
           try {

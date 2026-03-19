@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: add new "ladybug" enemy — medium HP with occasional lateral hops for visible variety (tiny) — 2026-03-19
+
 ## 5.9.0
 - Fix: prevent duplicate HUD toggle from H key handler (stability) — 2026-03-19
 
