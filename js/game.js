@@ -1844,7 +1844,7 @@ if (overlay) {
     // expire temporary fire rate boosts
     try { if (player.fireRate > 1 && Date.now() > (player.fireRateUntil || 0)) { player.fireRate = 1; player.fireRateUntil = 0; } } catch (e) {}
     // Performance: cap particle count to avoid runaway particle growth during long runs
-    try { if (particles && particles.length > 300) particles.splice(0, particles.length - 300); } catch (e) { }
+    try { if (particles && particles.length > 100) particles.splice(0, particles.length - 100); } catch (e) { }
     try {
       if (bgLeaves) {
         for (const l of bgLeaves) {
@@ -2288,7 +2288,7 @@ if (overlay) {
 
     // update particles
     // Cap particle count to avoid performance issues on low-end devices (tiny)
-    if (particles.length > 120) particles.splice(0, particles.length - 120);
+    if (particles.length > 100) particles.splice(0, particles.length - 100);
     for (let i=particles.length-1;i>=0;i--) {
       const p = particles[i];
       // initialize small spin for petals and leaves so they rotate subtly

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Performance: lower particle cap to 100 to improve low-end device stability (tiny) — 2026-03-19
+
 ## 5.38.0
 - UI: show active power-up and remaining time in HUD (tiny) — 2026-03-19
 
