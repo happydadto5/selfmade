@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.28.0
+- Gameplay: play shield chime when collecting Shield power-up for clearer feedback (tiny) — 2026-03-19
+
 ## 5.27.0
 - UI: update browser title to include current wave and score for quicker visibility (tiny) — 2026-03-19
 
