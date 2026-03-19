@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.15.0
+- Levels/UI: show remaining enemies for the current wave in the HUD (e.g. "3/10 left") for clearer progression feedback — 2026-03-19
+
 ## 5.14.0
 - Visual: add brief glowing ring around player when collecting a power-up for more satisfying feedback (tiny) — 2026-03-19
 

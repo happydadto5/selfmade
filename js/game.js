@@ -141,7 +141,10 @@
       if (enemiesEl) {
         try {
           const cnt = (typeof enemies !== 'undefined' ? enemies.length : 0);
-          enemiesEl.textContent = cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies');
+          // Show remaining / total when a wave is active to make progression clearer
+          const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
+          const rem = Math.max(0, total - cnt);
+          enemiesEl.textContent = (total > 0 ? (rem + '/' + total + ' left') : (cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies')));
         } catch (e) { /* ignore DOM errors */ }
       }
       // Update active power-up HUD if present
@@ -219,7 +222,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.14.0';
+  const version = '5.15.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2839,7 +2842,10 @@ if (overlay) {
     if (enemiesEl) {
       try {
         const cnt = enemies.length;
-        enemiesEl.textContent = cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies');
+        // Show remaining / total when a wave is active
+        const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
+        const rem = Math.max(0, total - cnt);
+        enemiesEl.textContent = (total > 0 ? (rem + '/' + total + ' left') : (cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies')));
       } catch (e) { /* ignore DOM errors */ }
     }
     // Update document title to include current wave and score for better visibility when tabbed away
