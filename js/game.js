@@ -2186,6 +2186,7 @@ if (overlay) {
                   life: 380 + Math.random()*240,
                   born: Date.now(),
                   color: (e.type === 'sprout' ? '#8BC34A' : (e.type === 'bee' ? '#FFD54F' : '#FF8A65')),
+                  blend: 'lighter',
                   petal: true
                 });
               }
