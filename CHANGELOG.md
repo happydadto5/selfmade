@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.6.0
+- Reliability: clear transient inputs on focusout/blur to avoid stuck movement or firing when focus shifts (small) — 2026-03-19
+
 ## 5.5.0
 - Gameplay: increase Shield power-up duration from 12s to 14s so pickups feel slightly more impactful (tiny) — 2026-03-19
 
