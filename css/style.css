@@ -297,4 +297,34 @@ body.garden-grid::before {
   body.garden-grid::before { transition: none; }
 }
 
+/* Subtle atmospheric layer: slow-moving soft radial highlights to add garden-like depth and warmth.
+   Uses the html::before pseudo-element so it doesn't conflict with existing body::before/after touch guides.
+   Respects prefers-reduced-motion by disabling animation. */
+html::before {
+  content: "";
+  position: fixed;
+  left: -20%;
+  top: -10%;
+  width: 140%;
+  height: 140%;
+  pointer-events: none;
+  z-index: 0; /* behind HUD and overlays */
+  mix-blend-mode: screen;
+  opacity: 0.92;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), rgba(255,255,255,0) 25%),
+    radial-gradient(circle at 80% 80%, rgba(76,175,80,0.04), rgba(255,255,255,0) 20%);
+  transform: translate3d(0,0,0);
+  animation: atmosphereDrift 18s linear infinite;
+}
+@keyframes atmosphereDrift {
+  0% { transform: translate3d(0,0,0) rotate(0deg); }
+  50% { transform: translate3d(-3%,2%,0) rotate(3deg); }
+  100% { transform: translate3d(0,0,0) rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html::before { animation: none !important; }
+}
+
+
 

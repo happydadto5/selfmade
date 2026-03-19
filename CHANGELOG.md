@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: add soft garden atmospheric background for depth and contrast (tiny) — 2026-03-19
 - Visual/UI: stronger wave progress bar with brighter garden-green fill and subtle inner glow for clearer wave progress (tiny) — 2026-03-19
 - Visual/UI: garden-themed hit markers (leaf burst) for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: improve HUD text contrast for better readability on bright backgrounds (tiny) — 2026-03-19
