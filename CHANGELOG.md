@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.37.0
 - Levels: ensure wave enemy count reflects actual spawned enemies so the wave progress HUD is accurate (tiny) — 2026-03-19
 
 ## 5.36.0
