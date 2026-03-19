@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: show brief 'Wave X cleared' toast and ARIA announcement when a wave finishes (tiny) — 2026-03-19
+
 ## 5.7.0
 - Visual: add subtle parallax leaf background for stronger atmosphere (tiny) — 2026-03-19
 

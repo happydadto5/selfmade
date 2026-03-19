@@ -1697,7 +1697,7 @@ if (overlay) {
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
   const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0;
-  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
@@ -2346,6 +2346,40 @@ if (overlay) {
 
     screenShake = Math.max(0, screenShake - dt * 0.04);
     if (enemies.length === 0) {
+      // Wave cleared: show a brief "Wave X cleared!" toast once per wave for clear progression feedback
+      try {
+        if ((typeof currentWaveEnemyCount === 'number' && currentWaveEnemyCount > 0) && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
+          lastClearedWave = waveNumber;
+          try {
+            let wt = document.getElementById('wave-cleared-toast');
+            if (!wt) {
+              wt = document.createElement('div');
+              wt.id = 'wave-cleared-toast';
+              wt.setAttribute('role','status');
+              wt.setAttribute('aria-live','polite');
+              wt.style.position = 'fixed';
+              wt.style.left = '50%';
+              wt.style.top = '14px';
+              wt.style.transform = 'translateX(-50%)';
+              wt.style.background = 'rgba(0,0,0,0.72)';
+              wt.style.color = '#fff';
+              wt.style.padding = '8px 12px';
+              wt.style.borderRadius = '8px';
+              wt.style.zIndex = '10001';
+              wt.style.fontSize = '15px';
+              wt.style.pointerEvents = 'none';
+              wt.style.opacity = '0';
+              wt.style.transition = 'opacity 200ms ease, transform 200ms ease';
+              document.body.appendChild(wt);
+            }
+            try { wt.textContent = 'Wave ' + waveNumber + ' cleared!'; } catch(e){}
+            try { wt.style.opacity = '1'; wt.style.transform = 'translateX(-50%) translateY(0)'; } catch(e){}
+            try { playSound('blip'); } catch(e){}
+            setTimeout(() => { try { wt.style.opacity = '0'; } catch(e){} }, 900);
+            setTimeout(() => { try { if (wt && wt.parentNode) wt.parentNode.removeChild(wt); } catch(e){} }, 1400);
+          } catch(e){}
+        }
+      } catch(e){}
       // Add a short recovery window between waves so players get a brief respite.
       const interWaveDelay = 1600 + Math.min(2000, Math.floor(waveNumber * 80));
       if (Date.now() - lastSpawn > interWaveDelay) { lastSpawn = Date.now(); spawnWave(); }
