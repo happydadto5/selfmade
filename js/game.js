@@ -1709,6 +1709,7 @@ if (overlay) {
   let canvasHitFlashUntil = 0;
   let canvasWhiteFlashUntil = 0;
   let canvasPlayerHitFlashUntil = 0;
+let hitPopTimeout = null;
 
   spawnWave();
   // Focus the canvas on initial load so keyboard users can play without extra click
@@ -3455,9 +3456,16 @@ if (overlay) {
               const _cy = (typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45);
               try { document.body.style.setProperty('--hit-x', (100 * (_cx / Math.max(1, cw))) + '%'); } catch(e){}
               try { document.body.style.setProperty('--hit-y', (100 * (_cy / Math.max(1, ch))) + '%'); } catch(e){}
-              try { document.body.classList.add('hit-pop'); } catch(e){}
+              try {
+                // Clear any pending removal timeout so rapid consecutive hits keep the overlay visible and we only schedule one removal
+                try { if (typeof hitPopTimeout !== 'undefined' && hitPopTimeout) { clearTimeout(hitPopTimeout); hitPopTimeout = null; } } catch(e){}
+                document.body.classList.add('hit-pop');
+              } catch(e){}
             } else {
-              try { setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch(e){} }, 340); } catch(e){}
+              try {
+                try { if (typeof hitPopTimeout !== 'undefined' && hitPopTimeout) { clearTimeout(hitPopTimeout); hitPopTimeout = null; } } catch(e){}
+                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch(e){} try { hitPopTimeout = null; } catch(e){} }, 320);
+              } catch(e){}
             }
           }
         } catch (e) { /* ignore body overlay sync errors */ }
