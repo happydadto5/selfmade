@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.13.0
+- Stability: guard refreshVersionHUD against missing autoPauseEnabled to avoid early startup ReferenceError (tiny) — 2026-03-19
+
 ## 5.12.0
 - Visual: strengthen hit marker visibility with a brighter yellow glow and slightly larger marker for clearer hit feedback (tiny) — 2026-03-19
 

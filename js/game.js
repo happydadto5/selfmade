@@ -83,7 +83,7 @@
       // Update version line (shows version, current or persisted high score, and auto-pause state)
       const displayHigh = Math.max(highScore, score);
       if (versionEl) {
-        try { versionEl.textContent = 'v' + version + ' — High: ' + displayHigh + (autoPauseEnabled ? ' — Auto-pause: On' : ' — Auto-pause: Off'); } catch (e) { /* ignore DOM errors */ }
+        try { versionEl.textContent = 'v' + version + ' — High: ' + displayHigh + ((typeof autoPauseEnabled !== 'undefined' && autoPauseEnabled) ? ' — Auto-pause: On' : ' — Auto-pause: Off'); } catch (e) { /* ignore DOM errors */ }
       }
       // Update lives HUD to reflect current lives (keeps existing DOM structure)
       if (livesEl) {
@@ -219,7 +219,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.12.0';
+  const version = '5.13.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
