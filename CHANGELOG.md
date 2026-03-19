@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.39.0
 - Performance: lower particle cap to 100 to improve low-end device stability (tiny) — 2026-03-19
 
 ## 5.38.0
