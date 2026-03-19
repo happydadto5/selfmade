@@ -177,7 +177,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '4.7.0';
+  const version = '4.8.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1654,7 +1654,7 @@ if (overlay) {
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
-  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = []; let screenShake = 0; let hitStopUntil = 0;
+  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0;
   let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
@@ -2022,6 +2022,7 @@ if (overlay) {
           e.hp--;
           // Brief hit flash to improve visual feedback when an enemy is struck
           try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
+          try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // If the hit was non-lethal, show a small +1 popup and a few particles to reward the hit visually
           if (e.hp > 0) {
             try { scorePopups.push({ x: e.x, y: e.y, text: '+1', vy: -0.04, life: 600, totalLife: 600, color: '#fff9c4' }); } catch (ex) { /* ignore */ }
@@ -2558,6 +2559,25 @@ if (overlay) {
       }
     } catch (e) { /* ignore draw errors */ }
 
+    // draw small hit markers (fades/outward pulse)
+    try {
+      const nowM = Date.now();
+      for (let hm = hitMarkers.length - 1; hm >= 0; hm--) {
+        const m = hitMarkers[hm];
+        const life = Math.max(0, m.until - nowM);
+        if (life <= 0) { hitMarkers.splice(hm,1); continue; }
+        const pct = life / 160;
+        const alpha = Math.max(0, Math.min(1, pct));
+        const r = 4 + (1 - pct) * 10;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = 'rgba(255,255,255,' + (0.9 * alpha).toFixed(3) + ')';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(m.x, m.y, r, 0, Math.PI*2); ctx.stroke();
+        ctx.restore();
+      }
+    } catch (e) { /* ignore hit marker draw errors */ }
+    // bullets
     ctx.fillStyle = '#fff'; for (const b of bullets) { ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
 
     for (const e of enemies) {
