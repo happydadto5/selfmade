@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.60.0';
+  const version = '5.61.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3168,11 +3168,26 @@ if (overlay) {
         span.setAttribute('aria-hidden', 'true');
         livesEl.appendChild(span);
       }
+      // Show shield badge in the Lives HUD when shield is active (small visual + screen-reader label)
+      try {
+        if (player && Date.now() < (player.shieldUntil || 0)) {
+          const secShield = Math.ceil(((player.shieldUntil || 0) - Date.now()) / 1000);
+          const shieldSpan = document.createElement('span');
+          shieldSpan.textContent = ' 🛡';
+          shieldSpan.style.color = '#42a5f5';
+          shieldSpan.style.marginLeft = '8px';
+          shieldSpan.setAttribute('aria-hidden', 'true');
+          livesEl.appendChild(shieldSpan);
+          // include shield status in the accessible label
+          livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + (secShield ? (', shield ' + secShield + 's') : ', shield'));
+        } else {
+          livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
+        }
+      } catch (e) { /* ignore DOM errors */ }
       // Pulse visual feedback when a life was recently lost
       try {
         if (Date.now() < livesPulseUntil) { livesEl.classList.add('lives-pulse'); } else { livesEl.classList.remove('lives-pulse'); }
       } catch (e) { /* ignore DOM errors */ }
-      livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
       // Add a low-lives visual hint when player has only one life left
       try { if (lives <= 1) livesEl.classList.add('low'); else livesEl.classList.remove('low'); } catch (e) { /* ignore */ }
     }

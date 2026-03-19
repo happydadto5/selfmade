@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: show shield badge next to Lives when active (tiny) — 2026-03-19
 - Visual/UI: improve HUD text outline for better readability on busy backgrounds (tiny) — 2026-03-19
 - Visual/UI: stronger garden hit flash (warmer, punchier) to improve enemy-hit feedback (tiny) — 2026-03-19
 
