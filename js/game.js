@@ -3159,6 +3159,24 @@ if (overlay) {
     }
 
     // Draw a small HUD on the canvas so players see Wave, Lives, and Enemies even if the DOM HUD is hidden
+    // subtle vignette to darken edges for improved contrast (respects reduced-motion)
+    try {
+      const prefersReducedMotionLocal = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      if (!prefersReducedMotionLocal) {
+        ctx.save();
+        try {
+          const g = ctx.createRadialGradient(cw/2, ch/2, Math.min(cw, ch) * 0.25, cw/2, ch/2, Math.max(cw, ch) * 0.9);
+          g.addColorStop(0, 'rgba(0,0,0,0)');
+          g.addColorStop(1, 'rgba(0,0,0,0.28)');
+          ctx.fillStyle = g;
+          // multiply slightly to darken corners without obscuring content
+          try { ctx.globalCompositeOperation = 'multiply'; } catch (e) {}
+          ctx.fillRect(0, 0, cw, ch);
+          try { ctx.globalCompositeOperation = 'source-over'; } catch (e) {}
+        } catch (e) { /* ignore gradient errors */ }
+        ctx.restore();
+      }
+    } catch (e) { /* ignore vignette errors */ }
     if (typeof hudVisible === 'undefined' || hudVisible) {
       try {
         ctx.save();
