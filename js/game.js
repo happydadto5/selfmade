@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.59.0';
+  const version = '5.60.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2693,16 +2693,16 @@ if (overlay) {
       }
     } catch (e) { /* ignore flash errors */ }
 
-    // Brief white flash overlay when an enemy is hit to improve hit feedback (respects reduced-motion)
+    // Brief garden hit flash overlay when an enemy is hit to improve hit feedback (respects reduced-motion)
     try {
       if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
-        const dur = 380; // slightly longer duration for clearer feedback
-        // Use a warmer garden-themed flash (soft yellow). Increase intensity and duration slightly for visibility.
+        const dur = 260; // shorter, punchier flash
+        // Use a warmer garden-themed flash with eased falloff for a stronger initial hit impression.
         const t = Math.max(0, Math.min(1, remaining / dur));
-        const alpha = Math.max(0, Math.min(0.56, 0.48 * t + 0.08));
+        const alpha = Math.max(0, Math.min(0.72, 0.6 * Math.sqrt(t)));
         ctx.save();
-        ctx.fillStyle = 'rgba(255,240,140,' + alpha.toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(255,244,160,' + alpha.toFixed(3) + ')';
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }
