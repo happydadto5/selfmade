@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: white radial hit pop centered on hit location for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: add subtle semi-opaque dark backdrop behind HUD for improved contrast on busy backgrounds (tiny) — 2026-03-19
 - Visual/UI: increase HUD backdrop contrast for better readability on bright backgrounds (tiny) — 2026-03-19
 - Visual/UI: radial garden hit flash centered on hit location to improve hit feedback (tiny) — 2026-03-19

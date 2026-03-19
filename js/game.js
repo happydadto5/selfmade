@@ -3417,11 +3417,22 @@ if (overlay) {
           const remW = (canvasWhiteFlashUntil || 0) - Date.now();
           const durW = 80;
           const alphaW = Math.max(0, Math.min(1, remW / durW));
-          ctx.save();
-          ctx.globalCompositeOperation = 'lighter';
-          ctx.fillStyle = 'rgba(255,255,255,' + (0.9 * alphaW).toFixed(3) + ')';
-          ctx.fillRect(0,0,cw,ch);
-          ctx.restore();
+          // center the white pop on the last hit location (fall back to center)
+          const cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
+          const cy = (typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45);
+          const maxR = Math.max(80, Math.min(Math.max(cw, ch) * 0.28, 220));
+          try {
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+            const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+            g.addColorStop(0, 'rgba(255,255,255,' + (0.95 * alphaW).toFixed(3) + ')');
+            g.addColorStop(0.5, 'rgba(255,255,255,' + (0.30 * alphaW).toFixed(3) + ')');
+            g.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = g;
+            // draw only the affected region for minimal overdraw
+            ctx.fillRect(Math.max(0, cx - maxR), Math.max(0, cy - maxR), Math.min(cw, maxR * 2), Math.min(ch, maxR * 2));
+            ctx.restore();
+          } catch (e) { /* ignore white flash errors */ }
         }
       } catch (e) { /* ignore white flash errors */ }
       // If the player lost a life recently, draw a stronger red flash on top for clearer player-hit feedback
