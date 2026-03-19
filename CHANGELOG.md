@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: ensure wave enemy count reflects actual spawned enemies so the wave progress HUD is accurate (tiny) — 2026-03-19
+
 ## 5.36.0
 - Gameplay: reduce touch hold delay from 180ms to 150ms for snappier mobile hold-to-fire responsiveness (tiny)
 

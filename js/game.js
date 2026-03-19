@@ -1743,6 +1743,7 @@ if (overlay) {
       try { waveAnn.textContent = 'Wave ' + waveNumber + ' starting.'; } catch (e) { }
     } catch (e) { /* ignore announcer creation errors */ }
     const count = 3 + Math.min(8, Math.floor(waveNumber * 0.6));
+    const beforeWaveEnemies = enemies.length;
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);
       const ey = -20 - Math.random()*200;
@@ -1790,7 +1791,7 @@ if (overlay) {
         if (Math.random() < 0.08) { enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.9, vx:(Math.random()-0.5)*0.4, hp:1, maxHp:1, type:'weevil', t: Math.random()*1000, baseVy: speed*0.9}); } else { enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal}); }
       }
     }
-    try { currentWaveEnemyCount = count; } catch (e) { currentWaveEnemyCount = count; }
+    try { currentWaveEnemyCount = enemies.length - beforeWaveEnemies; } catch (e) { currentWaveEnemyCount = count; }
     // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
     if (waveEl) {
       try {
