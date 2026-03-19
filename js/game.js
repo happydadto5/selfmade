@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.52.0';
+  const version = '5.53.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2135,8 +2135,8 @@ if (overlay) {
           // Brief hit flash to improve visual feedback when an enemy is struck
           try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
-          // Canvas-wide white flash to make hits more visually obvious (respects reduced-motion)
-          try { canvasHitFlashUntil = Date.now() + 120; } catch (err) { /* ignore */ }
+          // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
+          try { canvasHitFlashUntil = Date.now() + 180; } catch (err) { /* ignore */ }
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
               for (let k=0;k<4;k++) particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*1.2, vy: -0.6 - Math.random()*0.6, r: 1 + Math.random()*1.6, life: 180 + Math.random()*160, born: Date.now(), color: '#fff59d' });
@@ -2683,9 +2683,9 @@ if (overlay) {
     try {
       if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
-        const dur = 200;
-        // Use a warmer garden-themed flash (soft yellow). Increase intensity and duration slightly for clearer feedback.
-        const alpha = Math.max(0, Math.min(0.30, 0.22 * (remaining / dur) + 0.05));
+        const dur = 260;
+        // Use a warmer garden-themed flash (soft yellow). Slightly increase intensity and duration for clearer feedback.
+        const alpha = Math.max(0, Math.min(0.36, 0.28 * (remaining / dur) + 0.06));
         ctx.save();
         ctx.fillStyle = 'rgba(255,245,157,' + alpha.toFixed(3) + ')';
         ctx.fillRect(0,0,cw,ch);
