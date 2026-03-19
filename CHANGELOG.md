@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.0.0
 - Visual: add brief radial hit glow on enemy hits for clearer feedback (tiny) — 2026-03-19
 
 ## 4.10.0
