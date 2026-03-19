@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: shield now grants +5 score when it absorbs a leaking enemy and shows a small +5 popup (tiny) — 2026-03-19
+
 ## 5.34.0
 - Visual: add subtle shield sparkles while Shield power-up is active so players can better notice temporary invulnerability (tiny) — 2026-03-19
 

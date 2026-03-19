@@ -2042,7 +2042,9 @@ if (overlay) {
       try {
         if (Date.now() < (player.shieldUntil || 0)) {
           player.shieldUntil = 0;
+          // small visual feedback and a minor score reward to make shield use feel satisfying
           try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
+          try { score += 5; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+5', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
           try { playSound('shield'); } catch (e) {}
           try { for (let k=0;k<10;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#81d4fa' }); } catch(e){}
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
