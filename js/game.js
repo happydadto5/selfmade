@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.39.0';
+  const version = '5.40.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2137,6 +2137,10 @@ if (overlay) {
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide white flash to make hits more visually obvious (respects reduced-motion)
           try { canvasHitFlashUntil = Date.now() + 120; } catch (err) { /* ignore */ }
+            try {
+              // tiny red-tinged particle burst to make hits feel more satisfying (low-cost)
+              for (let k=0;k<4;k++) particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*1.2, vy: -0.6 - Math.random()*0.6, r: 1 + Math.random()*1.6, life: 180 + Math.random()*160, born: Date.now(), color: '#ff8a80' });
+            } catch (pe) { /* ignore particle errors */ }
           // If the hit was non-lethal, show a small +1 popup and a few particles to reward the hit visually
           if (e.hp > 0) {
             try { scorePopups.push({ x: e.x, y: e.y, text: '+1', vy: -0.04, life: 600, totalLife: 600, color: '#fff9c4' }); } catch (ex) { /* ignore */ }
@@ -2673,7 +2677,7 @@ if (overlay) {
         const dur = 120;
         const alpha = Math.max(0, Math.min(0.18, 0.12 * (remaining / dur) + 0.02));
         ctx.save();
-        ctx.fillStyle = 'rgba(255,255,255,' + alpha.toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(255,80,80,' + alpha.toFixed(3) + ')';
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }

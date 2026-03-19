@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.40.0
+- Visual/UI: add red-tinted canvas flash and small particle burst when an enemy is hit to improve hit feedback (tiny) — 2026-03-19
+
 ## 5.39.0
 - Performance: lower particle cap to 100 to improve low-end device stability (tiny) — 2026-03-19
 
