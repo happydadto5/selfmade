@@ -2705,9 +2705,10 @@ if (overlay) {
         const dur = 260; // shorter, punchier flash
         // Use a warmer garden-themed flash with eased falloff for a stronger initial hit impression.
         const t = Math.max(0, Math.min(1, remaining / dur));
-        const alpha = Math.max(0, Math.min(0.72, 0.6 * Math.sqrt(t)));
+        const alpha = Math.max(0, Math.min(0.9, 0.75 * Math.sqrt(t)));
         ctx.save();
-        ctx.fillStyle = 'rgba(255,244,160,' + alpha.toFixed(3) + ')';
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fillStyle = 'rgba(255,220,120,' + alpha.toFixed(3) + ')';
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }
