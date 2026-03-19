@@ -361,4 +361,25 @@ html::before {
 }
 
 
+/* Full-screen white pop overlay synced with canvas hit flash for clearer hit feedback.
+   Respects prefers-reduced-motion. Position is driven by CSS variables --hit-x and --hit-y
+   which the game sets while the white canvas flash is active so the visual pop aligns with
+   the in-canvas hit location. */
+@media (prefers-reduced-motion: no-preference) {
+  body.hit-pop::after {
+    content: "";
+    position: fixed;
+    left: 0; top: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 10001;
+    /* radial gradient anchored at the hit location -- uses CSS variables set by JS */
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,255,0.96), rgba(255,255,255,0.34) 18%, rgba(255,255,255,0) 48%);
+    opacity: 1;
+    transition: opacity 120ms ease;
+    mix-blend-mode: screen;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.hit-pop::after { transition: none; }
+}
 

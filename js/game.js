@@ -3434,6 +3434,21 @@ if (overlay) {
             ctx.restore();
           } catch (e) { /* ignore white flash errors */ }
         }
+        // Sync a lightweight body-level CSS white pop overlay with canvas white pop for an extra visible hit flash.
+        try {
+          const _flashActive = (Date.now() < (canvasWhiteFlashUntil || 0) && !prefersReducedMotion);
+          if (typeof document !== 'undefined' && document.body) {
+            if (_flashActive) {
+              const _cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
+              const _cy = (typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45);
+              try { document.body.style.setProperty('--hit-x', (100 * (_cx / Math.max(1, cw))) + '%'); } catch(e){}
+              try { document.body.style.setProperty('--hit-y', (100 * (_cy / Math.max(1, ch))) + '%'); } catch(e){}
+              try { document.body.classList.add('hit-pop'); } catch(e){}
+            } else {
+              try { document.body.classList.remove('hit-pop'); } catch(e){}
+            }
+          }
+        } catch (e) { /* ignore body overlay sync errors */ }
       } catch (e) { /* ignore white flash errors */ }
       // If the player lost a life recently, draw a stronger red flash on top for clearer player-hit feedback
       if (Date.now() < (canvasPlayerHitFlashUntil || 0) && !prefersReducedMotion) {
