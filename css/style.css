@@ -22,7 +22,7 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#a0d8ff 0%,#87C
 /* Improve Wave HUD contrast and readability on busy scenes: subtle semi-transparent background, left accent and extra padding */
 #ui #wave { background: rgba(102,170,120,0.08); padding: 4px 10px 4px 10px; border-radius:6px; border-left: 4px solid rgba(27,94,32,0.12); }
 /* Active power-up HUD: small badge under the wave counter showing current power-up and remaining time */
-#ui #active-powerup { margin-top:6px; font-size:14px; color:#2e7d32; font-weight:700; }
+#ui #active-powerup { margin-top:6px; font-size:14px; color:#2e7d32; font-weight:700; background: rgba(230, 252, 238, 0.9); padding:4px 8px; border-radius:6px; border:1px solid rgba(46,125,50,0.12); display:inline-block; }
 #ui #active-powerup[aria-hidden="true"] { display:none !important; }
 /* Small wave progress indicator shown in the HUD: defeated / total for the current wave */
 #ui #wave-progress { margin-top:4px; font-size:16px; color:#1b5e20; font-weight:700; opacity:0.95; }
