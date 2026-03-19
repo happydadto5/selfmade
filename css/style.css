@@ -30,7 +30,7 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#a0d8ff 0%,#87C
 #ui #wave-progress .wave-bar { margin-top:6px; width:140px; height:8px; background: rgba(0,0,0,0.06); border-radius:6px; overflow:hidden; }
 #ui #wave-progress .wave-bar-fill { height:100%; width:0%; background: linear-gradient(90deg,#c8e6c9,#66bb6a); transition: width 320ms ease; }
 /* Score HUD: increase prominence for readability without changing layout (tiny) */
-#ui #score { font-size:22px; font-weight:800; color:#0b3f12; margin-bottom:4px; }
+#ui #score { font-size:22px; font-weight:800; color:#0b3f12; margin-bottom:4px; text-shadow:0 1px 0 rgba(255,255,255,0.85), 0 3px 8px rgba(0,0,0,0.18); }
 #version{position:fixed;right:12px;top:8px;color:#222;font-size:14px}
 #touch-controls{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);display:none;gap:8px}
 #touch-controls button{font-size:22px;padding:16px 20px;min-width:56px;border-radius:12px;background:rgba(255,255,255,0.95);border:1px solid #ddd;box-shadow:0 2px 6px rgba(0,0,0,0.06);}

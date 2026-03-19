@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: improve HUD text contrast for better readability on bright backgrounds (tiny) — 2026-03-19
 - Images: replace the placeholder image generator with a real Cloudflare Workers AI path and explicitly permit that local helper in the automation prompt so future art iterations can create actual local assets instead of only dummy SVG placeholders.
 
 ## 5.41.0
