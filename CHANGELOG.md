@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.11.0
+- Levels: show countdown until next wave during inter-wave delay so players know when the next wave starts (tiny) — 2026-03-19
+
 ## 5.10.0
 - Gameplay: add new "ladybug" enemy — medium HP with occasional lateral hops for visible variety (tiny) — 2026-03-19
 

@@ -219,7 +219,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.10.0';
+  const version = '5.11.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2340,7 +2340,41 @@ if (overlay) {
       } catch(e){}
       // Add a short recovery window between waves so players get a brief respite.
       const interWaveDelay = 1600 + Math.min(2000, Math.floor(waveNumber * 80));
-      if (Date.now() - lastSpawn > interWaveDelay) { lastSpawn = Date.now(); spawnWave(); }
+      // Show a small countdown HUD during the inter-wave delay so players know when the next wave starts.
+      try {
+        const elapsed = Date.now() - lastSpawn;
+        const remainingMs = Math.max(0, interWaveDelay - elapsed);
+        if (remainingMs > 0) {
+          let nw = document.getElementById('next-wave-countdown');
+          if (!nw) {
+            nw = document.createElement('div');
+            nw.id = 'next-wave-countdown';
+            nw.setAttribute('role','status');
+            nw.setAttribute('aria-live','polite');
+            nw.style.position = 'fixed';
+            nw.style.right = '14px';
+            nw.style.top = '14px';
+            nw.style.background = 'rgba(0,0,0,0.62)';
+            nw.style.color = '#fff';
+            nw.style.padding = '6px 10px';
+            nw.style.borderRadius = '8px';
+            nw.style.zIndex = '10001';
+            nw.style.fontSize = '13px';
+            nw.style.pointerEvents = 'none';
+            nw.style.opacity = '0';
+            nw.style.transition = 'opacity 200ms ease, transform 200ms ease';
+            document.body.appendChild(nw);
+          }
+          try { nw.textContent = 'Next wave in ' + Math.ceil(remainingMs/1000) + 's'; nw.style.opacity = '1'; nw.style.transform = 'translateY(0)'; } catch(e){}
+        } else {
+          // ready to spawn: remove countdown if present then spawn
+          const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
+          lastSpawn = Date.now(); spawnWave();
+        }
+      } catch(e) {
+        // fallback to original behaviour on any error
+        if (Date.now() - lastSpawn > interWaveDelay) { lastSpawn = Date.now(); spawnWave(); }
+      }
     }
   }
 
