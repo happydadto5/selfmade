@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.22.0
 - Gameplay: increase zig/hopper spawn rate to make enemy variety more noticeable (tiny) — 2026-03-19
 
 ## 5.21.0
