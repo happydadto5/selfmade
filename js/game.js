@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.37.0';
+  const version = '5.38.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2415,6 +2415,43 @@ if (overlay) {
         particles.push({ x: player.x + (Math.random()-0.5)*(player.w*1.2), y: player.y + (Math.random()-0.5)*(player.h*1.2), vx: (Math.random()-0.5)*0.6, vy: -Math.random()*0.6, r: 1 + Math.random()*1.4, life: 300 + Math.random()*200, born: Date.now(), color: '#bbdefb' });
       }
     } catch (e) { /* ignore shield sparkle errors */ }
+
+    // Update active power-up HUD: show the most important active power-up and remaining seconds
+    try {
+      if (activePowerEl) {
+        const now = Date.now();
+        let label = '';
+        if (now < (player.shieldUntil || 0)) {
+          const sec = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
+          label = 'Shield — ' + sec + 's';
+        } else if (now < (player.fireRateUntil || 0)) {
+          const sec = Math.ceil(((player.fireRateUntil || 0) - now) / 1000);
+          label = 'Rapid — ' + sec + 's';
+        } else if (now < (player.spreadUntil || 0)) {
+          const sec = Math.ceil(((player.spreadUntil || 0) - now) / 1000);
+          label = 'Spread — ' + sec + 's';
+        } else if (now < (player.pierceUntil || 0)) {
+          const sec = Math.ceil(((player.pierceUntil || 0) - now) / 1000);
+          label = 'Pierce — ' + sec + 's';
+        } else if (now < (player.slowUntil || 0)) {
+          const sec = Math.ceil(((player.slowUntil || 0) - now) / 1000);
+          label = 'Vine — ' + sec + 's';
+        } else {
+          label = '';
+        }
+        try {
+          if (label) {
+            activePowerEl.textContent = label;
+            try { activePowerEl.style.opacity = '0.95'; } catch (e) {}
+            try { activePowerEl.setAttribute('aria-hidden', 'false'); } catch (e) {}
+          } else {
+            try { activePowerEl.textContent = ''; } catch (e) {}
+            try { activePowerEl.style.opacity = '0.0'; } catch (e) {}
+            try { activePowerEl.setAttribute('aria-hidden', 'true'); } catch (e) {}
+          }
+        } catch (e) { /* ignore HUD update errors */ }
+      }
+    } catch (e) { /* ignore active power HUD errors */ }
 
     screenShake = Math.max(0, screenShake - dt * 0.04);
     if (enemies.length === 0) {
