@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.65.0';
+  const version = '5.66.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1707,6 +1707,7 @@ if (overlay) {
   let livesPulseUntil = 0;
   let livesFlashUntil = 0;
   let canvasHitFlashUntil = 0;
+  let canvasPlayerHitFlashUntil = 0;
 
   spawnWave();
   // Focus the canvas on initial load so keyboard users can play without extra click
@@ -2057,6 +2058,7 @@ if (overlay) {
       livesFlashUntil = Date.now() + 180;
       // brief player hit flash for clearer visual feedback (respects reduced-motion preference)
       try { player.hitFlashUntil = Date.now() + 220; } catch (e) {}
+      try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
       lives = Math.max(0, lives);
       // Trigger a short HUD pulse to draw attention to the lost life (CSS handles animation)
       try {
@@ -3384,6 +3386,16 @@ if (overlay) {
         // soft pale green tint that blends gently with the garden palette
         ctx.globalCompositeOperation = 'source-over';
         ctx.fillStyle = 'rgba(246,255,208,' + (0.26 * alpha).toFixed(3) + ')'; // warmer, stronger garden tint
+        ctx.fillRect(0,0,cw,ch);
+        ctx.restore();
+      }
+      // If the player lost a life recently, draw a stronger red flash on top for clearer player-hit feedback
+      if (Date.now() < (canvasPlayerHitFlashUntil || 0) && !prefersReducedMotion) {
+        const remainingP = (canvasPlayerHitFlashUntil || 0) - Date.now();
+        const alphaP = Math.max(0, Math.min(1, remainingP / 240));
+        ctx.save();
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = 'rgba(255,80,80,' + (0.36 * alphaP).toFixed(3) + ')';
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }
