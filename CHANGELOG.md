@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: cap active power-ups to 6 to prevent power-up overload and occasional performance spikes (tiny) — 2026-03-19
+
 ## 5.40.0
 - Visual/UI: add red-tinted canvas flash and small particle burst when an enemy is hit to improve hit feedback (tiny) — 2026-03-19
 

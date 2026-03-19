@@ -2281,7 +2281,13 @@ if (overlay) {
               if (Math.random() < 0.46) {
                 // slightly favor rapid/shield but occasionally spawn a new spread, slow, bomb, or rare pierce power-up
                 const _r = Math.random();
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.995 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 });
+                // limit active power-ups to avoid overload
+                if (powerups.length < 6) {
+                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.995 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 });
+                } else {
+                  // occasionally replace the oldest power-up to keep variety without growing arrays
+                  if (Math.random() < 0.12) { powerups.shift(); powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.995 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 }); }
+                }
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }
