@@ -2273,7 +2273,21 @@ if (overlay) {
     ctx.clearRect(0,0,cw,ch);
     ctx.save();
     if (screenShake > 0 && !prefersReducedMotion) { const sx = (Math.random()*2-1)*screenShake; const sy = (Math.random()*2-1)*screenShake; ctx.translate(sx, sy); }
-    ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch);
+    // animated background gradient (subtle, respects reduced-motion)
+    try {
+      if (prefersReducedMotion) {
+        ctx.fillStyle = '#b3e5fc';
+      } else {
+        const bgShift = Math.sin(Date.now() * 0.00032) * 8;
+        const topColor = 'hsl(' + (197 + bgShift).toFixed(2) + ', 70%, 92%)';
+        const bottomColor = 'hsl(' + (210 + bgShift).toFixed(2) + ', 70%, 82%)';
+        const bgGrad = ctx.createLinearGradient(0,0,0,ch);
+        bgGrad.addColorStop(0, topColor);
+        bgGrad.addColorStop(1, bottomColor);
+        ctx.fillStyle = bgGrad;
+      }
+      ctx.fillRect(0,0,cw,ch);
+    } catch (e) { ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch); }
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
     // Brief red flash overlay when a life is lost to increase clarity of life loss (respects reduced-motion)
     try {

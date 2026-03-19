@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: add subtle animated background gradient to canvas (tiny) — 2026-03-19
+
 ## 4.6.0
 - UI: pre-render wave progress bar in HUD for reduced layout shift and improved readability (tiny) — 2026-03-19
 
