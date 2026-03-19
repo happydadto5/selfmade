@@ -177,7 +177,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.2.0';
+  const version = '5.3.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2177,10 +2177,16 @@ if (overlay) {
     if (particles.length > 120) particles.splice(0, particles.length - 120);
     for (let i=particles.length-1;i>=0;i--) {
       const p = particles[i];
+      // initialize small spin for petals and leaves so they rotate subtly
+      if (typeof p.spin === 'undefined') {
+        if (p.petal) p.spin = (Math.random() * 0.14) - 0.07;
+        else if (p.leaf) p.spin = (Math.random() * 0.18) - 0.09;
+        else p.spin = 0;
+      }
       p.x += p.vx;
       p.y += p.vy;
       p.vy += 0.05; // gravity
-      if (p.leaf) {
+      if (p.leaf || p.petal) {
         p.angle = (p.angle || 0) + (p.spin || 0);
       }
       p.life -= dt;
@@ -2553,6 +2559,17 @@ if (overlay) {
           ctx.ellipse(0, 0, p.r * 1.6, Math.max(1, p.r * 0.8), 0, 0, Math.PI * 2);
           ctx.fill();
         } catch (e) { /* ignore draw errors for leaves */ }
+      } else if (p.petal) {
+        try {
+          // draw a rotated petal-like shape for explosion particles for nicer garden feel
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle || 0);
+          ctx.fillStyle = p.color || '#ff8a65';
+          ctx.beginPath();
+          // petal: elongated ellipse with taper
+          ctx.ellipse(0, 0, p.r * 2.0, Math.max(1, p.r * 0.7), 0, 0, Math.PI * 2);
+          ctx.fill();
+        } catch (e) { /* ignore draw errors for petals */ }
       } else {
         ctx.fillStyle = p.color || 'rgba(255,220,100,1)';
         ctx.beginPath();

@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.3.0
+- Visual: add subtle petal rotation to enemy-death particles for livelier feedback (tiny) — 2026-03-19
+
 ## 5.2.0
 - Visual: add small explosion particle burst on enemy death for clearer feedback (tiny) — 2026-03-19
 
