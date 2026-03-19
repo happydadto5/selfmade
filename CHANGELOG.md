@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: radial garden hit flash centered on hit location to improve hit feedback (tiny) — 2026-03-19
 - Visual/UI: stronger shield-absorb feedback — brighter petal burst, brief canvas flash, and subtle screen shake (tiny) — 2026-03-19
 - Visual/UI: add brief white hit flash and extra white spark on enemy hits for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: stronger red flash when player loses a life for clearer hit feedback (tiny) — 2026-03-19

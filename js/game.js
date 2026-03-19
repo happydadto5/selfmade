@@ -1696,7 +1696,7 @@ if (overlay) {
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
-  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0;
+  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0;
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let lastPowerupColor = '';
@@ -2151,7 +2151,7 @@ if (overlay) {
           try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
-          try { canvasHitFlashUntil = Date.now() + 260; } catch (err) { /* ignore */ }
+          try { canvasHitFlashUntil = Date.now() + 260; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
           try { canvasWhiteFlashUntil = Date.now() + 80; } catch (err) { /* ignore */ }
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
@@ -2220,7 +2220,7 @@ if (overlay) {
               }
               try { screenShake = Math.min(12, (screenShake||0) + 4); } catch(e){}
               // Stronger flash and extra bright particles for enemy death to improve clarity (respects reduced-motion)
-              try { if (!prefersReducedMotion) { canvasHitFlashUntil = Date.now() + 380; } } catch(e) {}
+              try { if (!prefersReducedMotion) { canvasHitFlashUntil = Date.now() + 380; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
               try {
                 for (let q=0;q<16;q++) particles.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (Math.random()-0.5)*10, vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3, r: 0.8 + Math.random()*2.6, life: 220 + Math.random()*260, born: Date.now(), color: '#fff59d', blend: 'lighter' });
               } catch(e) {}
@@ -2717,14 +2717,24 @@ if (overlay) {
       if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
         const dur = 260; // shorter, punchier flash
-        // Use a warmer garden-themed flash with eased falloff for a stronger initial hit impression.
         const t = Math.max(0, Math.min(1, remaining / dur));
-        const alpha = Math.max(0, Math.min(0.9, 0.75 * Math.sqrt(t)));
-        ctx.save();
-        ctx.globalCompositeOperation = 'lighter';
-        ctx.fillStyle = 'rgba(255,220,120,' + alpha.toFixed(3) + ')';
-        ctx.fillRect(0,0,cw,ch);
-        ctx.restore();
+        const alpha = Math.max(0, Math.min(0.95, 0.85 * Math.sqrt(t)));
+        const cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
+        const cy = (typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45);
+        const radius = Math.max(cw, ch) * 0.9;
+        try {
+          const g2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+          g2.addColorStop(0, 'rgba(122,215,122,' + (alpha * 0.9).toFixed(3) + ')');
+          g2.addColorStop(0.35, 'rgba(255,220,120,' + (alpha * 0.65).toFixed(3) + ')');
+          g2.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.save();
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.fillStyle = g2;
+          ctx.fillRect(0,0,cw,ch);
+          ctx.restore();
+        } catch (innerE) { /* ignore gradient/create errors and fallback to solid flash */
+          try { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = 'rgba(255,220,120,' + alpha.toFixed(3) + ')'; ctx.fillRect(0,0,cw,ch); ctx.restore(); } catch (e) { /* ignore fallback errors */ }
+        }
       }
     } catch (e) { /* ignore hit flash errors */ }
 
