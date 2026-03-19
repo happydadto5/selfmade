@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+- Visual/UI: garden-tinted hit-pop flash for clearer, thematic hit feedback (tiny) — 2026-03-19
 - Visual/UI: short fade+pop animation for hit-pop overlay to improve hit feedback (tiny) — 2026-03-19
 - Visual/UI: extend white hit-pop duration and soften fade for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: slightly increased white hit flash duration for clearer hit feedback (tiny) — 2026-03-19

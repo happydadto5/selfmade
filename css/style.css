@@ -372,12 +372,12 @@ html::before {
     left: 0; top: 0; right: 0; bottom: 0;
     pointer-events: none;
     z-index: 10001;
-    /* radial gradient anchored at the hit location -- uses CSS variables set by JS */
-    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,255,0.98), rgba(255,255,255,0.36) 24%, rgba(255,255,255,0) 62%);
+    /* radial gradient anchored at the hit location -- garden-tinted so hits feel thematic and remain visible */
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(229,255,218,0.98), rgba(196,255,170,0.44) 24%, rgba(196,255,170,0) 62%);
     opacity: 1;
-    mix-blend-mode: screen;
-    /* short fade+pop animation to make hit feedback more visible and satisfying */
-    animation: hitPopFade 260ms ease-out forwards;
+    mix-blend-mode: overlay; /* garden tint blends nicely with canvas colors */
+    /* slightly longer fade for a more noticeable, satisfying hit feel */
+    animation: hitPopFade 300ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {
