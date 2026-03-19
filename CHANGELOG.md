@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.6.0
+- UI: pre-render wave progress bar in HUD for reduced layout shift and improved readability (tiny) — 2026-03-19
+
 ## 4.5.0
 - Gameplay: add rare Pierce power-up that lets bullets pierce enemies for 12s (tiny) — 2026-03-19
 
