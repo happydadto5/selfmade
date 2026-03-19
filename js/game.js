@@ -2682,9 +2682,9 @@ if (overlay) {
     try {
       if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
-        const dur = 160;
-        // Use a warmer garden-themed flash (soft yellow) with a slightly stronger peak for clearer feedback.
-        const alpha = Math.max(0, Math.min(0.24, 0.18 * (remaining / dur) + 0.04));
+        const dur = 200;
+        // Use a warmer garden-themed flash (soft yellow). Increase intensity and duration slightly for clearer feedback.
+        const alpha = Math.max(0, Math.min(0.30, 0.22 * (remaining / dur) + 0.05));
         ctx.save();
         ctx.fillStyle = 'rgba(255,245,157,' + alpha.toFixed(3) + ')';
         ctx.fillRect(0,0,cw,ch);
