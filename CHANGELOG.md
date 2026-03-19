@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: improve HUD text outline for better readability on busy backgrounds (tiny) — 2026-03-19
+
 - Visual/UI: add brief white hit-ring around the player when a life is lost to improve hit clarity (tiny) — 2026-03-19
 
 - Visual/UI: slight increase to canvas hit flash intensity and duration for clearer hit feedback (tiny) — 2026-03-19
