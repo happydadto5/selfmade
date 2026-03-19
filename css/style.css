@@ -265,6 +265,29 @@ body.show-touch-guides {
   background-position: 0 calc(33vh), 0 calc(33vh);
   background-size: 100% 1px, 100% 1px;
 }
+
+/* HUD contrast backdrop: subtle dark semi-opaque backdrop behind HUD to improve text readability on varied backgrounds */
+#ui::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  top: -8px;
+  bottom: -8px;
+  background: rgba(0,0,0,0.28);
+  border-radius: 10px;
+  z-index: -1;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+/* Ensure the HUD keeps its stacking context and allows the pseudo-element to position correctly */
+#ui { position: fixed; overflow: visible; }
+
+@media (prefers-reduced-motion: reduce) {
+  #ui::before { transition: none; }
+}
+
 /* Ensure pseudo-elements start hidden and transition when guides appear so the separators fade in/out smoothly.
    Respect user motion preferences by disabling transitions when prefers-reduced-motion is set. */
 body::before, body::after {
