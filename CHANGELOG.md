@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.33.0
 - Visual/UI: add subtle drifting cloud layer to background and improve hit atmosphere (tiny) — 2026-03-19
 
 ## 5.32.0
