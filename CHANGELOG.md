@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.35.0
 - Gameplay: shield now grants +5 score when it absorbs a leaking enemy and shows a small +5 popup (tiny) — 2026-03-19
 
 ## 5.34.0
