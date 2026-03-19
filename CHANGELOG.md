@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.25.0
+- Roadmap refreshed (future.md) and meta-review performed; planned next visible change: add a simple Shield power-up and one small enemy behavior to boost variety (meta-check 2026-03-19).
+
 ## 5.24.0
 - Visual/UI: increase hit marker size and add soft fill for stronger hit feedback (tiny) — 2026-03-19
 
