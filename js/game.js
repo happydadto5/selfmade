@@ -2167,7 +2167,7 @@ if (overlay) {
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel
-              player.fireRateUntil = Date.now() + 12000; // 12 seconds
+              player.fireRateUntil = Date.now() + 15000; // 15 seconds
               // small celebratory feedback
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
@@ -2902,4 +2902,7 @@ if (overlay) {
 
 
 })();
+
+
+
 
