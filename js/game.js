@@ -2015,7 +2015,10 @@ if (overlay) {
       for (let j=bullets.length-1;j>=0;j--) {
         const b = bullets[j];
         if (Math.abs(b.x - e.x) < (e.w/2 + b.r) && Math.abs(b.y - e.y) < (e.h/2 + b.r)) {
-          bullets.splice(j,1);
+          // If the player has a temporary pierce power-up active, bullets pierce enemies and are not removed on hit
+          if (!(Date.now() < (player.pierceUntil || 0))) {
+            bullets.splice(j,1);
+          }
           e.hp--;
           // Brief hit flash to improve visual feedback when an enemy is struck
           try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
@@ -2136,9 +2139,9 @@ if (overlay) {
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
               if (Math.random() < 0.46) {
-                // slightly favor rapid/shield but occasionally spawn a new spread, slow, or bomb power-up
+                // slightly favor rapid/shield but occasionally spawn a new spread, slow, bomb, or rare pierce power-up
                 const _r = Math.random();
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.30 ? 'rapid' : (_r < 0.56 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.94 ? 'slow' : (_r < 0.98 ? 'bomb' : 'life'))))), born: Date.now(), life: 12000 });
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.30 ? 'rapid' : (_r < 0.56 ? 'shield' : (_r < 0.78 ? 'spread' : (_r < 0.90 ? 'slow' : (_r < 0.96 ? 'bomb' : (_r < 0.99 ? 'pierce' : 'life')))))), born: Date.now(), life: 12000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }
@@ -2229,6 +2232,13 @@ if (overlay) {
               } catch (ex) { /* ignore bomb cleanup errors */ }
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Bomb!', vy: -0.05, life: 900, totalLife: 900, color: '#ffccbc' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
+            } else if (pu.type === 'pierce') {
+              // grant a temporary piercing shot: bullets do not disappear on hit for a short time
+              player.pierceUntil = Date.now() + 12000; // 12 seconds
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Pierce!', vy: -0.05, life: 900, totalLife: 900, color: '#b39ddb' }); } catch (e) {}
+              try { playSound('blip'); } catch (e) {}
+              try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#b39ddb' }); } catch (e) {}
+              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Pierce collected'; } catch (e) {}
             } else if (pu.type === 'slow') {
               // grant a temporary slow effect that reduces enemy speed
               player.slowUntil = Date.now() + 12000; // 12 seconds
