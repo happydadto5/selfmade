@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: extend white hit-pop duration and soften fade for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: slightly increased white hit flash duration for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: improved HUD text outline for better readability on busy backgrounds (tiny) — 2026-03-19
 - Fix: prevent duplicate shield HUD badges and keep shield timer updated (tiny) — 2026-03-19

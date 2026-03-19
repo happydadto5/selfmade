@@ -2059,7 +2059,7 @@ if (overlay) {
             }
           } catch(e){}
           try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
-          try { canvasWhiteFlashUntil = Date.now() + 180; canvasHitFlashUntil = Date.now() + 260; } catch(e){}
+          try { canvasWhiteFlashUntil = Date.now() + 260; canvasHitFlashUntil = Date.now() + 340; } catch(e){}
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
           continue;
         }
@@ -2152,8 +2152,8 @@ if (overlay) {
           try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
-          try { canvasHitFlashUntil = Date.now() + 260; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
-          try { canvasWhiteFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
+          try { canvasHitFlashUntil = Date.now() + 360; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
+          try { canvasWhiteFlashUntil = Date.now() + 220; } catch (err) { /* ignore */ }
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
               for (let k=0;k<4;k++) particles.push({
@@ -2221,7 +2221,7 @@ if (overlay) {
               }
               try { screenShake = Math.min(12, (screenShake||0) + 4); } catch(e){}
               // Stronger flash and extra bright particles for enemy death to improve clarity (respects reduced-motion)
-              try { if (!prefersReducedMotion) { canvasHitFlashUntil = Date.now() + 380; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
+              try { if (!prefersReducedMotion) { canvasHitFlashUntil = Date.now() + 500; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
                try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(22); } catch(e) {}
               try {
                 for (let q=0;q<16;q++) particles.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (Math.random()-0.5)*10, vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3, r: 0.8 + Math.random()*2.6, life: 220 + Math.random()*260, born: Date.now(), color: '#fff59d', blend: 'lighter' });
@@ -3427,7 +3427,7 @@ if (overlay) {
       try {
         if (Date.now() < (canvasWhiteFlashUntil || 0) && !prefersReducedMotion) {
           const remW = (canvasWhiteFlashUntil || 0) - Date.now();
-          const durW = 80;
+          const durW = 120;
           const alphaW = Math.max(0, Math.min(1, remW / durW));
           // center the white pop on the last hit location (fall back to center)
           const cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
