@@ -222,7 +222,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.25.0';
+  const version = '5.26.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1753,7 +1753,7 @@ if (overlay) {
       } else {
         const hpVal = 1 + Math.floor(waveNumber/4);
         if (Math.random() < Math.min(0.06, 0.02 + waveNumber*0.01)) { enemies.push({x:ex,y:ey,w:24,h:20,vy:speed*0.8, baseVy: speed*0.8, vx:0, hp:2, maxHp:2, type:'ladybug', hopTimer: 500 + Math.random()*700, t: Math.random()*1000}); }
-        enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal});
+        if (Math.random() < 0.08) { enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.9, vx:(Math.random()-0.5)*0.4, hp:1, maxHp:1, type:'weevil', t: Math.random()*1000, baseVy: speed*0.9}); } else { enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal}); }
       }
     }
     try { currentWaveEnemyCount = count; } catch (e) { currentWaveEnemyCount = count; }
@@ -1928,6 +1928,28 @@ if (overlay) {
           // boost bees once to ensure they're noticeably faster than basic enemies
           if (!e._beeBoosted) { e.vy = (e.vy || 1) * 1.12; e._beeBoosted = true; }
         } catch (err) { /* ignore bee update errors */ }
+       // Weevil behavior: nimble little weevils that occasionally dart horizontally toward the player
+       if (e.type === 'weevil') {
+         try {
+           if (typeof e.burstTimer === 'undefined') e.burstTimer = 400 + Math.random() * 600;
+           e.burstTimer -= dt;
+           if (e.burstTimer <= 0) {
+             e.bursting = true;
+             e.burstEnd = e.t + 220 + Math.random() * 260;
+             e.burstTimer = 900 + Math.random() * 1200;
+             const dir = (player && typeof player.x === 'number') ? Math.sign(player.x - e.x) : (Math.random() < 0.5 ? -1 : 1);
+             e.vx = dir * (1.8 + Math.random() * 1.2 + Math.min(1.2, waveNumber * 0.02));
+             e.vy = (typeof e.baseVy === 'number' ? e.baseVy : (e.vy || 0.9)) * 1.05;
+           } else if (e.bursting && e.t > (e.burstEnd || 0)) {
+             e.bursting = false;
+             e.vx = (Math.random() - 0.5) * 0.6;
+             e.vy = (typeof e.baseVy === 'number' ? e.baseVy : (e.vy || 0.9));
+           } else {
+             // gentle drift toward player's X so weevils feel purposeful
+             e.vx = ((e.vx || 0) * 0.92) + ((player && typeof player.x === 'number') ? (player.x - e.x) * 0.0012 : 0);
+           }
+         } catch (err) { /* ignore weevil update errors */ }
+       }
       }
       // Ladybug behavior: medium speed, small HP, occasional quick lateral hops for variety
       if (e.type === 'ladybug') {
