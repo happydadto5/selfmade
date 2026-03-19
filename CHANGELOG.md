@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.21.0
+- Visual/UI: improve pause overlay readability with subtle backdrop, padding, and rounded corners for better mobile contrast (tiny) — 2026-03-19
+
 ## 5.20.0
 - Visual/UI: add subtle backdrop behind compact in-canvas HUD for improved readability (tiny) — 2026-03-19
 
