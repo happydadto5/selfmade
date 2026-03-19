@@ -338,7 +338,7 @@ if /I "%SHOULD_RECORD_PROCESS_REVIEW%"=="YES" (
     node scripts\review_process.js record "%NEWVER%" %META_REVIEW_DUE% %UI_REVIEW_DUE% > "%PROCESS_RECORD_LOG%" 2>&1
     set "PROCESS_RECORD_EXIT=%ERRORLEVEL%"
     call :APPEND_FILE "%PROCESS_RECORD_LOG%" "record process review"
-    if not "%PROCESS_RECORD_EXIT%"=="0" (
+    if not "!PROCESS_RECORD_EXIT!"=="0" (
         if exist "%PROCESS_RECORD_LOG%" type "%PROCESS_RECORD_LOG%"
         echo [!] Process review state update failed. Rolling back this iteration.
         call :LOG Process review state update failed for %NEWVER%.

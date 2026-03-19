@@ -1,6 +1,10 @@
 {
   "metaReviewEvery": 10,
-  "lastMetaReviewReleaseCount": 209,
-  "lastMetaReviewVersion": "2.187.0",
-  "lastMetaReviewAt": "2026-03-16T22:43:32.053Z"
+  "lastMetaReviewReleaseCount": 219,
+  "lastMetaReviewVersion": "4.3.0",
+  "lastMetaReviewAt": "2026-03-19T02:05:28.334Z",
+  "uiReviewEvery": 20,
+  "lastUiReviewReleaseCount": null,
+  "lastUiReviewVersion": "",
+  "lastUiReviewAt": ""
 }
