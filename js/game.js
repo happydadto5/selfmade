@@ -2183,7 +2183,7 @@ if (overlay) {
               if (Math.random() < 0.46) {
                 // slightly favor rapid/shield but occasionally spawn a new spread, slow, bomb, or rare pierce power-up
                 const _r = Math.random();
-                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.30 ? 'rapid' : (_r < 0.56 ? 'shield' : (_r < 0.78 ? 'spread' : (_r < 0.90 ? 'slow' : (_r < 0.96 ? 'bomb' : (_r < 0.99 ? 'pierce' : 'life')))))), born: Date.now(), life: 12000 });
+                powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.30 ? 'rapid' : (_r < 0.56 ? 'shield' : (_r < 0.78 ? 'spread' : (_r < 0.90 ? 'slow' : (_r < 0.96 ? 'bomb' : (_r < 0.99 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 });
               }
             } catch (err) { /* ignore powerup spawn errors */ }
           }
@@ -2246,7 +2246,7 @@ if (overlay) {
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
             } else if (pu.type === 'shield') {
               // grant a temporary shield that absorbs one life loss
-              player.shieldUntil = Date.now() + 12000; // 12 seconds
+              player.shieldUntil = Date.now() + 14000; // 14 seconds
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}

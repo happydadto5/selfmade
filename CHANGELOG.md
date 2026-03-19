@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: increase Shield power-up duration from 12s to 14s so pickups feel slightly more impactful (tiny) — 2026-03-19
+
 ## 5.4.0
 - UI: show active power-up icon on touch-fire button for better mobile discoverability (tiny) — 2026-03-19
 
