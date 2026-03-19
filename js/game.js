@@ -3326,6 +3326,20 @@ if (overlay) {
       ctx.restore();
     } catch (e) { /* ignore FPS draw errors */ }
     ctx.restore();
+    // Garden-themed canvas hit flash: soft green overlay on hits (respects prefers-reduced-motion)
+    try {
+      const prefersReducedMotion = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
+        const remaining = (canvasHitFlashUntil || 0) - Date.now();
+        const alpha = Math.max(0, Math.min(1, remaining / 120));
+        ctx.save();
+        // soft pale green tint that blends gently with the garden palette
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = 'rgba(198,255,196,' + (0.18 * alpha).toFixed(3) + ')';
+        ctx.fillRect(0,0,cw,ch);
+        ctx.restore();
+      }
+    } catch (e) { /* ignore hit flash overlay errors */ }
     if (paused || gameOver) {
       ctx.fillStyle = 'rgba(0,0,0,0.45)';
       ctx.fillRect(0,0,cw,ch);

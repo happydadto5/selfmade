@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: garden-themed soft green canvas hit flash to improve hit feedback (tiny) — 2026-03-19
 - Visual/UI: brighter petal explosion uses additive blending for clearer enemy-death feedback (tiny) — 2026-03-19
 - Visual/UI: add subtle vignette to improve contrast and readability on busy backgrounds (tiny) — 2026-03-19
 - Visual/UI: increase hit flash intensity and duration slightly for clearer hit feedback (tiny) — 2026-03-19
