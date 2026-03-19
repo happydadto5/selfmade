@@ -2139,7 +2139,19 @@ if (overlay) {
           try { canvasHitFlashUntil = Date.now() + 180; } catch (err) { /* ignore */ }
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
-              for (let k=0;k<4;k++) particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*1.2, vy: -0.6 - Math.random()*0.6, r: 1 + Math.random()*1.6, life: 180 + Math.random()*160, born: Date.now(), color: '#fff59d' });
+              for (let k=0;k<4;k++) particles.push({
+  x: e.x + (Math.random()-0.5)*6,
+  y: e.y + (Math.random()-0.5)*6,
+  vx: (Math.random()-0.5)*1.2,
+  vy: -0.6 - Math.random()*0.6,
+  r: 1 + Math.random()*1.6,
+  life: 180 + Math.random()*160,
+  born: Date.now(),
+  color: '#fff59d',
+  petal: true,
+  angle: Math.random() * Math.PI * 2,
+  spin: (Math.random()-0.5) * 0.14
+});
               // add a few bright spark particles with additive blending for clearer impact
               for (let s=0;s<3;s++) particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*2.2, vy: -0.4 - Math.random()*0.8, r: 0.8 + Math.random()*1.2, life: 100 + Math.random()*120, born: Date.now(), color: '#ffffff', blend: 'lighter' });
             } catch (pe) { /* ignore particle errors */ }
