@@ -2205,6 +2205,11 @@ if (overlay) {
                 });
               }
               try { screenShake = Math.min(12, (screenShake||0) + 4); } catch(e){}
+              // Stronger flash and extra bright particles for enemy death to improve clarity (respects reduced-motion)
+              try { if (!prefersReducedMotion) { canvasHitFlashUntil = Date.now() + 380; } } catch(e) {}
+              try {
+                for (let q=0;q<16;q++) particles.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (Math.random()-0.5)*10, vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3, r: 0.8 + Math.random()*2.6, life: 220 + Math.random()*260, born: Date.now(), color: '#fff59d', blend: 'lighter' });
+              } catch(e) {}
               try { playSound('hit'); } catch(e){}
             } catch (err) {}
             score += 10;

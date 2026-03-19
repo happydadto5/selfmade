@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: Brighter petal burst and stronger canvas flash on enemy deaths for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: slightly longer, warmer canvas hit flash for clearer enemy-hit feedback (tiny) — 2026-03-19
 - UI: show shield badge next to Lives when active (tiny) — 2026-03-19
 - Visual/UI: emphasize shield badge with a subtle glow and improved contrast so temporary invulnerability is easier to notice (tiny) — 2026-03-19
