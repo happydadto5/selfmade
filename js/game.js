@@ -195,7 +195,7 @@
         try {
           const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
           const defeated = Math.max(0, total - (typeof enemies !== 'undefined' ? enemies.length : 0));
-          waveProgressEl.textContent = 'Progress: ' + defeated + '/' + total;
+          waveProgressEl.textContent = 'Progress: ' + defeated + '/' + total + (total > 0 ? ' (' + Math.round((defeated / total) * 100) + '%)' : '');
           // Create or update a small visual progress bar under the progress text so players get at-a-glance feedback
           try {
             let bar = waveProgressEl.querySelector('.wave-bar');
@@ -222,7 +222,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.22.0';
+  const version = '5.23.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

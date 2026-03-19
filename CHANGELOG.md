@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.23.0
+- UI: show wave progress percentage in HUD so players can see at-a-glance how close a wave is (tiny) — 2026-03-19
+
 ## 5.22.0
 - Gameplay: increase zig/hopper spawn rate to make enemy variety more noticeable (tiny) — 2026-03-19
 
