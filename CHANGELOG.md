@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.5.0
 - Gameplay: increase Shield power-up duration from 12s to 14s so pickups feel slightly more impactful (tiny) — 2026-03-19
 
 ## 5.4.0
