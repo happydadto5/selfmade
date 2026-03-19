@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.7.0
 - Visual: add subtle parallax leaf background for stronger atmosphere (tiny) — 2026-03-19
 
 ## 5.6.0
