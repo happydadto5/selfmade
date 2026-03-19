@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.19.0
+- Levels: award 1 extra life every 5 waves to reinforce progression (small) — 2026-03-19
+
 ## 5.18.0
 - Gameplay: telegraph charger enemy charge with a pulsing warning icon so players can react (tiny) — 2026-03-19
 
