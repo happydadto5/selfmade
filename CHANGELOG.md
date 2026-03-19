@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.29.0
+- Stability: debounce high-score saves to reduce frequent localStorage writes (tiny) — 2026-03-19
+
 ## 5.28.0
 - Gameplay: play shield chime when collecting Shield power-up for clearer feedback (tiny) — 2026-03-19
 

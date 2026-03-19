@@ -224,11 +224,23 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.28.0';
+  const version = '5.29.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
   let gameOver = false;
+
+  // Debounced high score saver to reduce frequent localStorage writes when score updates rapidly
+  let _highScoreSaveTimeout = null;
+  function saveHighScoreDebounced(hs) {
+    try {
+      if (_highScoreSaveTimeout) clearTimeout(_highScoreSaveTimeout);
+      _highScoreSaveTimeout = setTimeout(() => {
+        try { localStorage.setItem('selfmade_highscore', hs); } catch (e) { /* ignore storage errors */ }
+        _highScoreSaveTimeout = null;
+      }, 2000);
+    } catch (e) { /* ignore */ }
+  }
   const keys = {left:false,right:false,fire:false};
   function clearInputs() { keys.left = keys.right = keys.fire = false; }
   // Detect touch-capable devices to show subtle touch-zone guides for discoverability
@@ -2049,7 +2061,7 @@ if (overlay) {
         // Persist high score when the run ends
         if (score > highScore) {
           highScore = score;
-          try { localStorage.setItem('selfmade_highscore', highScore); } catch (e) { /* ignore storage errors */ }
+          try { saveHighScoreDebounced(highScore); } catch (e) { /* ignore storage errors */ }
           // Announce new high score to assistive tech so screen-reader users hear the achievement
           try {
             let scoreAnn = document.getElementById('score-announcer');
@@ -2163,7 +2175,7 @@ if (overlay) {
               const prevHigh = highScore;
               if (score > prevHigh) {
                 highScore = score;
-                try { localStorage.setItem('selfmade_highscore', highScore); } catch (e) { /* ignore storage errors */ }
+                try { saveHighScoreDebounced(highScore); } catch (e) { /* ignore storage errors */ }
                 // create or update a transient high-score badge to celebrate the achievement
                 let badge = document.getElementById('highscore-badge');
                 if (!badge) {
