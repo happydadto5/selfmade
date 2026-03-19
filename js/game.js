@@ -2059,7 +2059,7 @@ if (overlay) {
             }
           } catch(e){}
           try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
-          try { canvasWhiteFlashUntil = Date.now() + 120; canvasHitFlashUntil = Date.now() + 180; } catch(e){}
+          try { canvasWhiteFlashUntil = Date.now() + 180; canvasHitFlashUntil = Date.now() + 260; } catch(e){}
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
           continue;
         }
@@ -2153,7 +2153,7 @@ if (overlay) {
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
           try { canvasHitFlashUntil = Date.now() + 260; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
-          try { canvasWhiteFlashUntil = Date.now() + 80; } catch (err) { /* ignore */ }
+          try { canvasWhiteFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
               for (let k=0;k<4;k++) particles.push({
