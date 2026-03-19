@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.46.0';
+  const version = '5.47.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2140,6 +2140,8 @@ if (overlay) {
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
               for (let k=0;k<4;k++) particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*1.2, vy: -0.6 - Math.random()*0.6, r: 1 + Math.random()*1.6, life: 180 + Math.random()*160, born: Date.now(), color: '#fff59d' });
+              // add a few bright spark particles with additive blending for clearer impact
+              for (let s=0;s<3;s++) particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*2.2, vy: -0.4 - Math.random()*0.8, r: 0.8 + Math.random()*1.2, life: 100 + Math.random()*120, born: Date.now(), color: '#ffffff', blend: 'lighter' });
             } catch (pe) { /* ignore particle errors */ }
           // If the hit was non-lethal, show a small +1 popup and a few particles to reward the hit visually
           if (e.hp > 0) {
@@ -2902,6 +2904,10 @@ if (overlay) {
     for (const p of particles) {
       const alpha = Math.max(0, Math.min(1, p.life / 1000));
       ctx.save();
+      // allow individual particles to request additive or other blending modes for stronger visual feedback
+      if (p.blend) {
+        try { ctx.globalCompositeOperation = p.blend; } catch (e) { /* ignore */ }
+      }
       ctx.globalAlpha = alpha;
       if (p.leaf) {
         try {
