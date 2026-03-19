@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.66.0';
+  const version = '5.67.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1707,6 +1707,7 @@ if (overlay) {
   let livesPulseUntil = 0;
   let livesFlashUntil = 0;
   let canvasHitFlashUntil = 0;
+  let canvasWhiteFlashUntil = 0;
   let canvasPlayerHitFlashUntil = 0;
 
   spawnWave();
@@ -2141,6 +2142,7 @@ if (overlay) {
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
           try { canvasHitFlashUntil = Date.now() + 260; } catch (err) { /* ignore */ }
+          try { canvasWhiteFlashUntil = Date.now() + 80; } catch (err) { /* ignore */ }
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
               for (let k=0;k<4;k++) particles.push({
@@ -3389,6 +3391,19 @@ if (overlay) {
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }
+      // Brief white pop flash for clearer immediate hit feedback (respects prefers-reduced-motion)
+      try {
+        if (Date.now() < (canvasWhiteFlashUntil || 0) && !prefersReducedMotion) {
+          const remW = (canvasWhiteFlashUntil || 0) - Date.now();
+          const durW = 80;
+          const alphaW = Math.max(0, Math.min(1, remW / durW));
+          ctx.save();
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.fillStyle = 'rgba(255,255,255,' + (0.9 * alphaW).toFixed(3) + ')';
+          ctx.fillRect(0,0,cw,ch);
+          ctx.restore();
+        }
+      } catch (e) { /* ignore white flash errors */ }
       // If the player lost a life recently, draw a stronger red flash on top for clearer player-hit feedback
       if (Date.now() < (canvasPlayerHitFlashUntil || 0) && !prefersReducedMotion) {
         const remainingP = (canvasPlayerHitFlashUntil || 0) - Date.now();
