@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: garden-themed hit markers (leaf burst) for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: improve HUD text contrast for better readability on bright backgrounds (tiny) — 2026-03-19
 - Visual/UI: stronger garden-themed hit flash (soft yellow) to improve hit feedback (tiny) — 2026-03-19
 - Visual/UI: change hit particle color to soft yellow to match garden theme (tiny) — 2026-03-19

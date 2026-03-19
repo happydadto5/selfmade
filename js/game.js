@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.44.0';
+  const version = '5.45.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2986,10 +2986,36 @@ if (overlay) {
         const r = 4 + (1 - pct) * 10;
         ctx.save();
         ctx.globalAlpha = alpha;
-        try { ctx.shadowColor = 'rgba(255,235,120,' + (0.7 * alpha).toFixed(3) + ')'; ctx.shadowBlur = 8; } catch (e) { /* ignore shadow errors */ }
-        ctx.strokeStyle = 'rgba(255,235,59,' + (0.95 * alpha).toFixed(3) + ')';
-        ctx.lineWidth = 3;
+        try { ctx.shadowColor = 'rgba(76,175,80,' + (0.7 * alpha).toFixed(3) + ')'; ctx.shadowBlur = 10; } catch (e) { /* ignore shadow errors */ }
+        // gentle radial bloom with a green-yellow garden tint
+        try {
+          const grad = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, r * 1.6);
+          grad.addColorStop(0, 'rgba(255,255,200,' + (0.9 * alpha).toFixed(3) + ')');
+          grad.addColorStop(0.5, 'rgba(156,204,101,' + (0.9 * alpha).toFixed(3) + ')');
+          grad.addColorStop(1, 'rgba(102,187,106,0)');
+          ctx.fillStyle = grad;
+          ctx.beginPath(); ctx.arc(m.x, m.y, r * 0.9, 0, Math.PI*2); ctx.fill();
+        } catch (e) { /* ignore gradient errors */ }
+        // outer ring in a soft green
+        ctx.strokeStyle = 'rgba(67,160,71,' + (0.95 * alpha).toFixed(3) + ')';
+        ctx.lineWidth = 2;
         ctx.beginPath(); ctx.arc(m.x, m.y, r, 0, Math.PI*2); ctx.stroke();
+        // small leaf flourish: two mirrored leaf ellipses for a gardening feel
+        try {
+          ctx.save();
+          ctx.translate(m.x, m.y);
+          ctx.rotate((1 - pct) * Math.PI / 8);
+          ctx.fillStyle = 'rgba(34,139,34,' + alpha.toFixed(3) + ')';
+          // left leaf
+          ctx.beginPath();
+          ctx.ellipse(-r*0.35, 0, r*0.8, r*0.36, -0.6, 0, Math.PI*2);
+          ctx.fill();
+          // right leaf
+          ctx.beginPath();
+          ctx.ellipse(r*0.35, 0, r*0.8, r*0.36, 0.6, 0, Math.PI*2);
+          ctx.fill();
+          ctx.restore();
+        } catch (e) { /* ignore leaf draw errors */ }
         try { ctx.shadowBlur = 0; } catch (e) {}
         ctx.restore();
       }
