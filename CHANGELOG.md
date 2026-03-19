@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: use brighter 'screen' blend for garden hit-pop overlay and lengthen fade to 380ms for clearer hit feedback (tiny) — 2026-03-19
 - Fix: debounce body hit-pop overlay removal to avoid stacked timeouts on rapid hits (tiny) — 2026-03-19
 - Fix: ensure CSS hit-pop overlay removal is delayed so the hit animation runs fully (tiny) — 2026-03-19
 - Visual/UI: garden-tinted hit-pop flash for clearer, thematic hit feedback (tiny) — 2026-03-19

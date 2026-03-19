@@ -373,11 +373,12 @@ html::before {
     pointer-events: none;
     z-index: 10001;
     /* radial gradient anchored at the hit location -- garden-tinted so hits feel thematic and remain visible */
-    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(229,255,218,0.98), rgba(196,255,170,0.44) 24%, rgba(196,255,170,0) 62%);
+    /* slightly stronger mid-tone and using 'screen' blend for a brighter, more consistent pop across backgrounds */
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(229,255,218,0.98), rgba(196,255,170,0.56) 24%, rgba(196,255,170,0) 62%);
     opacity: 1;
-    mix-blend-mode: overlay; /* garden tint blends nicely with canvas colors */
+    mix-blend-mode: screen; /* brighter blend to improve visibility */
     /* slightly longer fade for a more noticeable, satisfying hit feel */
-    animation: hitPopFade 300ms ease-out forwards;
+    animation: hitPopFade 380ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {
