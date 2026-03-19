@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.67.0';
+  const version = '5.68.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2049,7 +2049,17 @@ if (overlay) {
           try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
           try { score += 5; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+5', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
           try { playSound('shield'); } catch (e) {}
-          try { for (let k=0;k<10;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#81d4fa' }); } catch(e){}
+          try {
+            // burst of sparkles and larger brighter petals for stronger visual feedback on shield absorb
+            for (let k=0;k<10;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#81d4fa' });
+            for (let p=0;p<8;p++) {
+              const ang = Math.random()*Math.PI*2;
+              const spd = 1 + Math.random()*2.2;
+              particles.push({ x: player.x + (Math.random()-0.5)*6, y: player.y + (Math.random()-0.5)*6, vx: Math.cos(ang)*spd, vy: Math.sin(ang)*spd, r: 2 + Math.random()*3, life: 420 + Math.random()*280, born: Date.now(), color: '#fff59d', petal: true, blend: 'lighter' });
+            }
+          } catch(e){}
+          try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
+          try { canvasWhiteFlashUntil = Date.now() + 120; canvasHitFlashUntil = Date.now() + 180; } catch(e){}
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
           continue;
         }
