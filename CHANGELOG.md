@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.41.0
 - Stability: cap active power-ups to 6 to prevent power-up overload and occasional performance spikes (tiny) — 2026-03-19
 
 ## 5.40.0
