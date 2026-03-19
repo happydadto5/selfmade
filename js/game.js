@@ -2610,13 +2610,28 @@ if (overlay) {
       ctx.scale(sc,sc);
       try {
           const nowHit = Date.now();
+          let enemyColor;
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
             // brighter tint while hit flash is active (type-specific for snails and pests)
-            ctx.fillStyle = (e.type === 'snail') ? '#a1887f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#c5e1a5' : '#ffb3b3')));
+            enemyColor = (e.type === 'snail') ? '#a1887f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#c5e1a5' : '#ffb3b3')));
           } else {
             // default enemy color, but snails and pests get distinct tones for readability
-            ctx.fillStyle = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#8BC34A' : '#ff6666')));
+            enemyColor = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#8BC34A' : '#ff6666')));
           }
+          // If hit flash is active, draw a brief radial glow under the enemy for stronger hit feedback
+          try {
+            if (e.hitFlashUntil && Date.now() < e.hitFlashUntil && !prefersReducedMotion) {
+              const flashRadius = Math.max(e.w, e.h) * 1.6;
+              const grad = ctx.createRadialGradient(0,0,0,0,0,flashRadius);
+              grad.addColorStop(0, 'rgba(255,255,200,0.88)');
+              grad.addColorStop(0.28, 'rgba(255,200,60,0.36)');
+              grad.addColorStop(1, 'rgba(255,200,60,0)');
+              ctx.fillStyle = grad;
+              ctx.beginPath(); ctx.arc(0,0,flashRadius,0,Math.PI*2); ctx.fill();
+            }
+          } catch (err) { /* ignore flash draw errors */ }
+          // finally draw the enemy body using the chosen color
+          try { ctx.fillStyle = enemyColor; } catch (err) { ctx.fillStyle = '#ff6666'; }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
       // Charger visual: show a small warning triangle above the charger while it is preparing a downward charge

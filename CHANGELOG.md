@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: add brief radial hit glow on enemy hits for clearer feedback (tiny) — 2026-03-19
+
 ## 4.10.0
 - Levels: show compact in-canvas wave & remaining-enemies indicator when HUD is hidden (small)
 
