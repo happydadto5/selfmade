@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.16.0
 - Visual/UI: improve HUD readability with a slightly stronger backdrop and text-shadow for better contrast (tiny) — 2026-03-19
 
 ## 5.15.0
