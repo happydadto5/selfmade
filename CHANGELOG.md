@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.36.0
+- Gameplay: reduce touch hold delay from 180ms to 150ms for snappier mobile hold-to-fire responsiveness (tiny)
+
 ## 5.35.0
 - Gameplay: shield now grants +5 score when it absorbs a leaking enemy and shows a small +5 popup (tiny) — 2026-03-19
 
