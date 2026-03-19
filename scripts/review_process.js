@@ -11,7 +11,11 @@ const defaults = {
   metaReviewEvery: 10,
   lastMetaReviewReleaseCount: 0,
   lastMetaReviewVersion: '',
-  lastMetaReviewAt: ''
+  lastMetaReviewAt: '',
+  uiReviewEvery: 20,
+  lastUiReviewReleaseCount: null,
+  lastUiReviewVersion: '',
+  lastUiReviewAt: ''
 };
 
 try {
@@ -20,12 +24,14 @@ try {
   if (mode === 'prompt') {
     console.log(`PROCESS_REVIEW=${analysis.promptReview}`);
     console.log(`META_REVIEW_DUE=${analysis.metaReviewDue ? 'YES' : 'NO'}`);
+    console.log(`UI_REVIEW_DUE=${analysis.uiReviewDue ? 'YES' : 'NO'}`);
     process.exit(0);
   }
 
   if (mode === 'record') {
     const version = (process.argv[3] || '').trim();
     const reviewed = /^yes$/i.test((process.argv[4] || '').trim());
+    const uiReviewed = /^yes$/i.test((process.argv[5] || '').trim());
     if (!/^\d+\.\d+\.\d+$/.test(version)) {
       console.error(`Invalid semver version: ${version || '[missing]'}`);
       process.exit(1);
@@ -33,7 +39,8 @@ try {
 
     const nextState = {
       ...analysis.state,
-      lastMetaReviewAt: analysis.state.lastMetaReviewAt || ''
+      lastMetaReviewAt: analysis.state.lastMetaReviewAt || '',
+      lastUiReviewAt: analysis.state.lastUiReviewAt || ''
     };
 
     if (reviewed) {
@@ -42,11 +49,19 @@ try {
       nextState.lastMetaReviewAt = new Date().toISOString();
     }
 
+    if (uiReviewed) {
+      nextState.lastUiReviewReleaseCount = analysis.releaseCount;
+      nextState.lastUiReviewVersion = version;
+      nextState.lastUiReviewAt = new Date().toISOString();
+    }
+
     fs.writeFileSync(statePath, `${JSON.stringify(nextState, null, 2)}\n`, 'utf8');
     console.log(
       reviewed
         ? `Recorded process review at ${version} after ${analysis.releaseCount} releases.`
-        : `Process review state unchanged at ${version}.`
+        : uiReviewed
+          ? `Recorded Android UI review at ${version} after ${analysis.releaseCount} releases.`
+          : `Process review state unchanged at ${version}.`
     );
     process.exit(0);
   }
@@ -83,7 +98,14 @@ function analyze() {
   const metaReviewEvery = Number.isInteger(state.metaReviewEvery) && state.metaReviewEvery > 0
     ? state.metaReviewEvery
     : defaults.metaReviewEvery;
+  const uiReviewEvery = Number.isInteger(state.uiReviewEvery) && state.uiReviewEvery > 0
+    ? state.uiReviewEvery
+    : defaults.uiReviewEvery;
+  const lastUiReviewReleaseCount = Number.isInteger(state.lastUiReviewReleaseCount) && state.lastUiReviewReleaseCount >= 0
+    ? state.lastUiReviewReleaseCount
+    : releases.length;
   const metaReviewDue = releases.length - (state.lastMetaReviewReleaseCount || 0) >= metaReviewEvery;
+  const uiReviewDue = releases.length - lastUiReviewReleaseCount >= uiReviewEvery;
   const focus = buildFocus({ metaReviewDue, visibleWeak, windowSize, counts });
   const promptReview = [
     `recent${windowSize || 0}`,
@@ -102,6 +124,7 @@ function analyze() {
     state,
     releaseCount: releases.length,
     metaReviewDue,
+    uiReviewDue,
     promptReview
   };
 }
@@ -124,7 +147,19 @@ function loadState() {
       : defaults.lastMetaReviewVersion,
     lastMetaReviewAt: typeof raw.lastMetaReviewAt === 'string'
       ? raw.lastMetaReviewAt
-      : defaults.lastMetaReviewAt
+      : defaults.lastMetaReviewAt,
+    uiReviewEvery: Number.isInteger(raw.uiReviewEvery) && raw.uiReviewEvery > 0
+      ? raw.uiReviewEvery
+      : defaults.uiReviewEvery,
+    lastUiReviewReleaseCount: Number.isInteger(raw.lastUiReviewReleaseCount) && raw.lastUiReviewReleaseCount >= 0
+      ? raw.lastUiReviewReleaseCount
+      : defaults.lastUiReviewReleaseCount,
+    lastUiReviewVersion: typeof raw.lastUiReviewVersion === 'string'
+      ? raw.lastUiReviewVersion
+      : defaults.lastUiReviewVersion,
+    lastUiReviewAt: typeof raw.lastUiReviewAt === 'string'
+      ? raw.lastUiReviewAt
+      : defaults.lastUiReviewAt
   };
 }
 

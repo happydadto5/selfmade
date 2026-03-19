@@ -4,7 +4,7 @@ cd /d "%~dp0"
 
 REM ── Configuration ──────────────────────────────────────────────
 set MODEL=gpt-5-mini
-set PAUSE_SEC=60
+set PAUSE_SEC=420
 set /a PAUSE_MIN=PAUSE_SEC/60
 set IMAGE_DAILY_BUDGET=100
 set IMAGE_SMALL_REQUEST_COST=1
@@ -19,6 +19,8 @@ set "REPO_SYNC_LOG=%TEMP%\selfmade_repo_sync.txt"
 set "PROCESS_REVIEW_LOG=%TEMP%\selfmade_process_review.txt"
 set "PROCESS_REVIEW_ERR=%TEMP%\selfmade_process_review_error.txt"
 set "PROCESS_RECORD_LOG=%TEMP%\selfmade_process_record.txt"
+set "UI_REVIEW_LOG=%TEMP%\selfmade_ui_review.txt"
+set "UI_REVIEW_ERR=%TEMP%\selfmade_ui_review_error.txt"
 set "FAILURE_HINT_LOG=%TEMP%\selfmade_failure_hint.txt"
 set "FAILURE_HINT_ERR=%TEMP%\selfmade_failure_hint_error.txt"
 set "DEEP_SUGGESTION_LOG=%TEMP%\selfmade_deep_suggestion.txt"
@@ -167,6 +169,8 @@ set "RECENT_FAILURE_HINT=none"
 set "DEEP_SUGGESTION_HINT=none"
 set "ITERATION_FOCUS=gameplay"
 set "ITERATION_FOCUS_HINT=prioritize enemies weapons objectives controls or other changes players can immediately feel"
+set "UI_REVIEW_DUE=NO"
+set "UI_REVIEW_SCREENSHOT=none"
 del "%PROCESS_REVIEW_LOG%" >nul 2>&1
 del "%PROCESS_REVIEW_ERR%" >nul 2>&1
 node scripts\review_process.js prompt > "%PROCESS_REVIEW_LOG%" 2> "%PROCESS_REVIEW_ERR%"
@@ -176,6 +180,7 @@ if "%PROCESS_REVIEW_EXIT%"=="0" (
     for /f "usebackq tokens=1,* delims==" %%A in ("%PROCESS_REVIEW_LOG%") do (
         if /I "%%A"=="PROCESS_REVIEW" set "PROCESS_REVIEW=%%B"
         if /I "%%A"=="META_REVIEW_DUE" set "META_REVIEW_DUE=%%B"
+        if /I "%%A"=="UI_REVIEW_DUE" set "UI_REVIEW_DUE=%%B"
     )
 ) else (
     call :LOG Process review analysis failed. Using default guidance.
@@ -183,6 +188,25 @@ if "%PROCESS_REVIEW_EXIT%"=="0" (
 del "%PROCESS_REVIEW_LOG%" >nul 2>&1
 del "%PROCESS_REVIEW_ERR%" >nul 2>&1
 call :LOG Process review: %PROCESS_REVIEW%
+call :LOG Android UI review due: %UI_REVIEW_DUE%
+if /I "%UI_REVIEW_DUE%"=="YES" (
+    del "%UI_REVIEW_LOG%" >nul 2>&1
+    del "%UI_REVIEW_ERR%" >nul 2>&1
+    node scripts\capture_android_ui_review.js > "%UI_REVIEW_LOG%" 2> "%UI_REVIEW_ERR%"
+    set "UI_REVIEW_CAPTURE_EXIT=%ERRORLEVEL%"
+    call :APPEND_FILE "%UI_REVIEW_LOG%" "android ui review"
+    call :APPEND_FILE "%UI_REVIEW_ERR%" "android ui review"
+    if "%UI_REVIEW_CAPTURE_EXIT%"=="0" (
+        for /f "usebackq tokens=1,* delims==" %%A in ("%UI_REVIEW_LOG%") do (
+            if /I "%%A"=="UI_REVIEW_SCREENSHOT" set "UI_REVIEW_SCREENSHOT=%%B"
+        )
+    ) else (
+        call :LOG Android UI review capture failed. Continuing without screenshot.
+    )
+    del "%UI_REVIEW_LOG%" >nul 2>&1
+    del "%UI_REVIEW_ERR%" >nul 2>&1
+)
+call :LOG Android UI review screenshot: %UI_REVIEW_SCREENSHOT%
 del "%FAILURE_HINT_LOG%" >nul 2>&1
 del "%FAILURE_HINT_ERR%" >nul 2>&1
 node scripts\recent_failure_hint.js > "%FAILURE_HINT_LOG%" 2> "%FAILURE_HINT_ERR%"
@@ -229,7 +253,7 @@ if "%ITERATION_FOCUS_EXIT%"=="0" (
 del "%ITERATION_FOCUS_LOG%" >nul 2>&1
 del "%ITERATION_FOCUS_ERR%" >nul 2>&1
 call :LOG Iteration focus: %ITERATION_FOCUS% -- %ITERATION_FOCUS_HINT%
-set "PROMPT_EXTRA=ImageStatusSmall:%IMAGE_STATUS_SMALL% ImageStatusLarge:%IMAGE_STATUS_LARGE% ProcessReview:%PROCESS_REVIEW% MetaReviewDue:%META_REVIEW_DUE% RecentFailureHint:%RECENT_FAILURE_HINT% DeepSuggestionHint:%DEEP_SUGGESTION_HINT% IterationFocus:%ITERATION_FOCUS% IterationFocusHint:%ITERATION_FOCUS_HINT%"
+set "PROMPT_EXTRA=ImageStatusSmall:%IMAGE_STATUS_SMALL% ImageStatusLarge:%IMAGE_STATUS_LARGE% ProcessReview:%PROCESS_REVIEW% MetaReviewDue:%META_REVIEW_DUE% UiReviewDue:%UI_REVIEW_DUE% UiReviewScreenshot:%UI_REVIEW_SCREENSHOT% RecentFailureHint:%RECENT_FAILURE_HINT% DeepSuggestionHint:%DEEP_SUGGESTION_HINT% IterationFocus:%ITERATION_FOCUS% IterationFocusHint:%ITERATION_FOCUS_HINT%"
 set "COPILOT_OUT=%TEMP%\selfmade_copilot.txt"
 set "CHANGE_SUMMARY="
 set "CHANGE_SUMMARY_FILE=%TEMP%\selfmade_change_summary.txt"
@@ -306,9 +330,12 @@ if not "%FINALIZE_CHANGELOG_EXIT%"=="0" (
     if exist "%ROLLBACK_LOG%" type "%ROLLBACK_LOG%"
     goto PAUSE
 )
-if /I "%META_REVIEW_DUE%"=="YES" (
+set "SHOULD_RECORD_PROCESS_REVIEW=NO"
+if /I "%META_REVIEW_DUE%"=="YES" set "SHOULD_RECORD_PROCESS_REVIEW=YES"
+if /I "%UI_REVIEW_DUE%"=="YES" set "SHOULD_RECORD_PROCESS_REVIEW=YES"
+if /I "%SHOULD_RECORD_PROCESS_REVIEW%"=="YES" (
     del "%PROCESS_RECORD_LOG%" >nul 2>&1
-    node scripts\review_process.js record "%NEWVER%" YES > "%PROCESS_RECORD_LOG%" 2>&1
+    node scripts\review_process.js record "%NEWVER%" %META_REVIEW_DUE% %UI_REVIEW_DUE% > "%PROCESS_RECORD_LOG%" 2>&1
     set "PROCESS_RECORD_EXIT=%ERRORLEVEL%"
     call :APPEND_FILE "%PROCESS_RECORD_LOG%" "record process review"
     if not "%PROCESS_RECORD_EXIT%"=="0" (
@@ -321,7 +348,7 @@ if /I "%META_REVIEW_DUE%"=="YES" (
         if exist "%ROLLBACK_LOG%" type "%ROLLBACK_LOG%"
         goto PAUSE
     )
-    call :LOG Recorded process review checkpoint for %NEWVER%.
+    call :LOG Recorded process review checkpoints for %NEWVER%.
 )
 call :LOG Bumped version to %NEWVER%.
 

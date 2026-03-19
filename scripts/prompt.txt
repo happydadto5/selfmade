@@ -32,6 +32,7 @@ RULES (never violate):
 - Avoid "changelog-only", "roadmap-only", or other non-user-visible housekeeping iterations unless the user explicitly asked for them or they are required to keep the loop healthy.
 - If your available tools can inspect rendered UI visually (for example via screenshots or image viewing), occasionally use that to spot obvious UI/layout/readability improvements. Do not force this every loop, but use it when helpful.
 - The automation may pass `ProcessReview:` and `MetaReviewDue:` hints into the prompt. Use them as self-adjusting guidance rather than static rules.
+- The automation may pass `UiReviewDue:` and `UiReviewScreenshot:` hints. When `UiReviewDue:YES`, briefly review the Android-sized screenshot if available in your tools, then add up to TWO concise mobile/UI improvement ideas to future.md before choosing the one incremental change. Do not add more than two ideas, and keep them specific enough to implement later.
 - The automation may pass `IterationFocus:` and `IterationFocusHint:`. Treat that as the primary lane for the current iteration unless you are fixing a breakage that must be handled first.
 - Keep a healthy mix over time across gameplay, levels/progression, visual/UI presentation, and stability. Avoid staying in behind-the-scenes work for multiple consecutive successful releases unless the project is actively broken.
 - If `MetaReviewDue:YES`, do a quick roadmap/process review before choosing the one change. Usually still prefer a player-visible improvement, but if the roadmap is stale or conflicting you may spend that iteration refreshing `future.md` and the changelog to realign the project.
@@ -58,6 +59,7 @@ GOOD improvements (pick one per iteration):
 - Code quality improvements (simplify logic, remove duplication, improve maintainability)
 - Performance improvements (small rendering or update-loop optimizations)
 - Occasional `selfmade.bat` UX improvements (clearer status text, better summaries, lightweight console UI polish) as long as the automation and safety rails stay intact
+- Occasional Android/mobile UI review notes in future.md when the automation says a screenshot-based UI review is due
 
 De-prioritize when visible progress has been lacking recently:
 - Tiny copy tweaks
