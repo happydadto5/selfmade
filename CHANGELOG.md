@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.4.0
+- UI: show active power-up icon on touch-fire button for better mobile discoverability (tiny) — 2026-03-19
+
 ## 5.3.0
 - Visual: add subtle petal rotation to enemy-death particles for livelier feedback (tiny) — 2026-03-19
 

@@ -142,7 +142,27 @@
           } else {
             text = '';
           }
-          try { activePowerEl.textContent = text; activePowerEl.setAttribute('aria-hidden', text ? 'false' : 'true'); } catch (e) {}
+          try {
+            activePowerEl.textContent = text;
+            activePowerEl.setAttribute('aria-hidden', text ? 'false' : 'true');
+            // Also update on-screen touch fire button to show active power-up icon for mobile discoverability.
+            try {
+              const touchFireBtn = document.getElementById('touch-fire');
+              if (touchFireBtn) {
+                if (text) {
+                  // Prepend the power-up emoji to the fire button while preserving water icon
+                  const emoji = (String(text).split(' ')[0] || '');
+                  touchFireBtn.textContent = '💧' + ' ' + emoji;
+                  try { touchFireBtn.setAttribute('aria-label', 'Water / Fire — ' + text); } catch(e){}
+                  try { touchFireBtn.title = (touchFireBtn.title || 'Water plants') + ' · ' + text; } catch(e){}
+                } else {
+                  touchFireBtn.textContent = '💧';
+                  try { touchFireBtn.setAttribute('aria-label', 'Water / Fire'); } catch(e){}
+                  try { touchFireBtn.title = 'Water plants'; } catch(e){}
+                }
+              }
+            } catch(e){}
+          } catch (e) {}
         }
       } catch (e) { /* ignore HUD update errors */ }
       // Update wave progress HUD if present (defeated / total for current wave)
@@ -177,7 +197,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.3.0';
+  const version = '5.4.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
