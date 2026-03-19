@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.8.0
 - Levels: show brief 'Wave X cleared' toast and ARIA announcement when a wave finishes (tiny) — 2026-03-19
 
 ## 5.7.0
