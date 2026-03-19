@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 4.5.0
 - Gameplay: add rare Pierce power-up that lets bullets pierce enemies for 12s (tiny) — 2026-03-19
 
 ## 4.4.0
