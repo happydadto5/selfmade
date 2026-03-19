@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: slightly increased HUD backdrop opacity for improved readability on bright/busy backgrounds (tiny) — 2026-03-19
 - Visual/UI: add body-level white pop overlay synchronized with canvas hit flash for stronger hit feedback (tiny) — 2026-03-19
 - Visual/UI: white radial hit pop centered on hit location for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: add subtle semi-opaque dark backdrop behind HUD for improved contrast on busy backgrounds (tiny) — 2026-03-19
