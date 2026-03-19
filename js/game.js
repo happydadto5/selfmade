@@ -222,7 +222,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.17.0';
+  const version = '5.18.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2820,16 +2820,26 @@ if (overlay) {
           try { ctx.fillStyle = enemyColor; } catch (err) { ctx.fillStyle = '#ff6666'; }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
-      // Charger visual: show a small warning triangle above the charger while it is preparing a downward charge
+      // Charger visual: show a warning triangle above the charger while it is preparing or actively charging
       try {
-        if (e.type === 'charger' && e.charging) {
-          ctx.fillStyle = 'rgba(255,200,50,0.95)';
+        if (e.type === 'charger' && (e.charging || (typeof e.chargeTimer !== 'undefined' && e.chargeTimer <= 360))) {
+          // treat near-expiry as 'imminent' to make the telegraph more visible
+          const isImminent = e.charging || (e.chargeTimer <= 220);
+          const pulse = Math.sin(Date.now() * 0.02);
+          const alpha = Math.max(0.35, Math.min(0.95, isImminent ? 0.95 : 0.45 + 0.25 * pulse));
+          ctx.fillStyle = 'rgba(255,100,40,' + alpha.toFixed(3) + ')';
           ctx.beginPath();
-          ctx.moveTo(0, -e.h/2 - 8);
-          ctx.lineTo(-8, -e.h/2 + 2);
-          ctx.lineTo(8, -e.h/2 + 2);
+          ctx.moveTo(0, -e.h/2 - 10);
+          ctx.lineTo(-9, -e.h/2 + 4);
+          ctx.lineTo(9, -e.h/2 + 4);
           ctx.closePath();
           ctx.fill();
+          // draw an exclamation mark to make the warning clearer
+          ctx.fillStyle = 'rgba(255,255,255,' + (alpha * 0.95).toFixed(3) + ')';
+          ctx.font = 'bold 12px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('!', 0, -e.h/2 - 3);
         }
       } catch (err) { /* ignore charger draw errors */ }
       // draw a small health bar above multi-HP enemies (garden-theme, lightweight)

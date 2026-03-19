@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.18.0
+- Gameplay: telegraph charger enemy charge with a pulsing warning icon so players can react (tiny) — 2026-03-19
+
 ## 5.17.0
 - Stability: pause on pagehide/navigation to ensure backgrounded sessions are paused reliably (tiny) — 2026-03-19
 
