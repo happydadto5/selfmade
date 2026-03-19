@@ -3457,7 +3457,7 @@ if (overlay) {
               try { document.body.style.setProperty('--hit-y', (100 * (_cy / Math.max(1, ch))) + '%'); } catch(e){}
               try { document.body.classList.add('hit-pop'); } catch(e){}
             } else {
-              try { document.body.classList.remove('hit-pop'); } catch(e){}
+              try { setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch(e){} }, 340); } catch(e){}
             }
           }
         } catch (e) { /* ignore body overlay sync errors */ }

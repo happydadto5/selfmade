@@ -1,7 +1,7 @@
 # Changelog
 
 ## Unreleased
-
+- Fix: ensure CSS hit-pop overlay removal is delayed so the hit animation runs fully (tiny) — 2026-03-19
 - Visual/UI: garden-tinted hit-pop flash for clearer, thematic hit feedback (tiny) — 2026-03-19
 - Visual/UI: short fade+pop animation for hit-pop overlay to improve hit feedback (tiny) — 2026-03-19
 - Visual/UI: extend white hit-pop duration and soften fade for clearer hit feedback (tiny) — 2026-03-19
