@@ -13,14 +13,15 @@ Policy
 - A **large image** such as a background costs **10 credits**, allowing up to **10 large images per day**.
 - If you add more image profiles later, assign their costs relative to those two defaults.
 - The batch runner builds a dynamic prompt that tells the LLM whether images are currently allowed. The LLM must not add image-generation code if images are disallowed.
-- The `scripts/generate_image.js` script will create a placeholder SVG and increment the daily quota. Replace or extend it to call the real Cloudflare Images API if you want real images.
+- The `scripts/generate_image.js` script now calls Cloudflare Workers AI (`@cf/black-forest-labs/flux-1-schnell`) to generate a local image file inside `assets/images/`, then increments the daily quota only after a successful response.
 
 Operational notes
 - `secrets.txt` is in `.gitignore` to prevent accidental commits.
 - If you need to change the budget or per-profile cost, edit `IMAGE_DAILY_BUDGET`, `IMAGE_SMALL_REQUEST_COST`, and `IMAGE_LARGE_REQUEST_COST` in `selfmade.bat`, or pass a direct credit cost to `scripts/check_image_quota.js`.
 - To reset the counter manually: `node scripts/check_image_quota.js reset 100 1`.
-- To generate with the placeholder script: `node scripts/generate_image.js small` or `node scripts/generate_image.js large`.
+- To generate a small or large image: `node scripts/generate_image.js small "your prompt here"` or `node scripts/generate_image.js large "your prompt here"`.
+- Each generated image also writes a sidecar JSON file with the prompt and profile details so later iterations can understand what was created.
 
 Security
 - Do not commit `secrets.txt`. Treat it like any secret.
-- The validation script blocks network calls in code by default; any automated cloud uploads must be explicit and use `scripts/generate_image.js` guarded by quota checks.
+- The validation script blocks network calls in shipped game code by default; the explicit exception is `scripts/generate_image.js`, which is the approved quota-guarded path for Cloudflare image generation.

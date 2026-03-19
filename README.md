@@ -1,6 +1,6 @@
 # Selfmade — A Self-Evolving Game
 
-> **This game is built and continuously improved by an AI.** Every ~1 minute, GitHub Copilot CLI makes one small improvement — sometimes something visible in the game, sometimes a behind-the-scenes reliability or code-quality improvement, and occasionally a small upgrade to the automation UI itself. Watch it evolve.
+> **This game is built and continuously improved by an AI.** Every ~7 minutes, GitHub Copilot CLI makes one small improvement — sometimes something visible in the game, sometimes a behind-the-scenes reliability or code-quality improvement, and occasionally a small upgrade to the automation UI itself. Watch it evolve.
 
 ## [▶ Play Now](https://happydadto5.github.io/selfmade/)
 
@@ -18,6 +18,8 @@
 7. The loop pauses, then repeats
 
 The automation is intended to balance reliability work with visible progress. If recent iterations have been dominated by tiny polish or accessibility tweaks, the guidance now biases the next changes toward more noticeable gameplay or UI improvements.
+
+When image credits are available, the automation can also create local art assets through `scripts\generate_image.js`, which calls the configured Cloudflare Workers AI image model and stores the resulting files in `assets/images/` for the game to use.
 
 The loop also now performs a lightweight self-review before each Copilot call. A small `PROCESS_STATE.json` file tracks when the last process review checkpoint happened, and `scripts/review_process.js` analyzes the recent changelog mix. If visible progress has been weak, the prompt is automatically biased harder toward noticeable gameplay/UI work. About every 10 successful releases, the system marks a roadmap/process review as due so future sessions can refresh direction before drift gets too large.
 
