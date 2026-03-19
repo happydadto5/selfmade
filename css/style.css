@@ -26,6 +26,9 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#a0d8ff 0%,#87C
 #ui #active-powerup[aria-hidden="true"] { display:none !important; }
 /* Small wave progress indicator shown in the HUD: defeated / total for the current wave */
 #ui #wave-progress { margin-top:4px; font-size:16px; color:#1b5e20; font-weight:700; opacity:0.95; }
+/* Small visual progress bar under the Wave HUD showing defeated / total enemies for quick readability */
+#ui #wave-progress .wave-bar { margin-top:6px; width:140px; height:8px; background: rgba(0,0,0,0.06); border-radius:6px; overflow:hidden; }
+#ui #wave-progress .wave-bar-fill { height:100%; width:0%; background: linear-gradient(90deg,#c8e6c9,#66bb6a); transition: width 320ms ease; }
 /* Score HUD: increase prominence for readability without changing layout (tiny) */
 #ui #score { font-size:22px; font-weight:800; color:#0b3f12; margin-bottom:4px; }
 #version{position:fixed;right:12px;top:8px;color:#222;font-size:14px}

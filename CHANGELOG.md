@@ -1,6 +1,7 @@
 # Changelog
 
-## Unreleased
+## 4.4.0
+- UI: add a small visual wave progress bar in the HUD showing defeated/total enemies (tiny) — 2026-03-19
 - Gameplay: increase Rapid power-up duration from 12s to 15s so pickups feel more impactful — 2026-03-19
 - Gameplay: increase Rapid power-up potency to 3x fire rate (more impactful) — 2026-03-19
 - Automation: slow the loop pause to 7 minutes and add a 20-release Android UI review cadence that can capture a phone-sized screenshot and feed up to two future.md UI ideas into the roadmap.
@@ -868,4 +869,3 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
-
