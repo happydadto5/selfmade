@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.27.0
+- UI: update browser title to include current wave and score for quicker visibility (tiny) — 2026-03-19
+
 ## 5.26.0
 - Gameplay: add a small 'weevil' enemy that occasionally darts toward the player for extra variety (tiny) — 2026-03-19
 
