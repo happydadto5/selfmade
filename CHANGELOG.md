@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.9.0
+- UI: add subtle translucent backdrop blur and improved HUD background for better readability (tiny) — 2026-03-19
+
 ## 4.8.0
 - Visual: add brief hit markers on enemy hits for clearer feedback (tiny) — 2026-03-19
 
