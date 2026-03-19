@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.32.0
+- Visual: brief white canvas flash when an enemy is hit to improve hit feedback (tiny) — 2026-03-19
+
 ## 5.31.0
 - Visual: add a stronger shield bubble when the Shield power-up is active so the player can easily notice invulnerability (tiny) — 2026-03-19
 
