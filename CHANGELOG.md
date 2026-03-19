@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.10.0
+- Levels: show compact in-canvas wave & remaining-enemies indicator when HUD is hidden (small)
+
 ## 4.9.0
 - UI: add subtle translucent backdrop blur and improved HUD background for better readability (tiny) — 2026-03-19
 

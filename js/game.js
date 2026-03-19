@@ -177,7 +177,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '4.9.0';
+  const version = '4.10.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2290,6 +2290,29 @@ if (overlay) {
       ctx.fillRect(0,0,cw,ch);
     } catch (e) { ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch); }
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
+    // Compact in-canvas HUD when DOM HUD is hidden: show wave and remaining enemies in top-right
+    try {
+      if (typeof hudVisible !== 'undefined' && !hudVisible) {
+        ctx.save();
+        try {
+          const rem = Math.max(0, (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0) - (typeof enemies !== 'undefined' ? enemies.length : 0));
+          const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
+          const txt = 'Wave ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — ' + rem + '/' + total + ' left';
+          ctx.font = '13px sans-serif';
+          ctx.textAlign = 'right';
+          ctx.textBaseline = 'top';
+          const x = Math.max(12, cw - 12);
+          const y = 12;
+          // subtle outline for readability
+          ctx.lineWidth = 4;
+          ctx.strokeStyle = 'rgba(0,0,0,0.52)';
+          ctx.strokeText(txt, x, y);
+          ctx.fillStyle = 'rgba(255,255,255,0.92)';
+          ctx.fillText(txt, x, y);
+        } catch (e) { /* ignore compact HUD draw errors */ }
+        ctx.restore();
+      }
+    } catch (e) { /* ignore HUD visibility check errors */ }
     // Brief red flash overlay when a life is lost to increase clarity of life loss (respects reduced-motion)
     try {
       if (Date.now() < livesFlashUntil && !prefersReducedMotion) {
