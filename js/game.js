@@ -219,7 +219,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.11.0';
+  const version = '5.12.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2732,9 +2732,11 @@ if (overlay) {
         const r = 4 + (1 - pct) * 10;
         ctx.save();
         ctx.globalAlpha = alpha;
-        ctx.strokeStyle = 'rgba(255,255,255,' + (0.9 * alpha).toFixed(3) + ')';
-        ctx.lineWidth = 2;
+        try { ctx.shadowColor = 'rgba(255,235,120,' + (0.7 * alpha).toFixed(3) + ')'; ctx.shadowBlur = 8; } catch (e) { /* ignore shadow errors */ }
+        ctx.strokeStyle = 'rgba(255,235,59,' + (0.95 * alpha).toFixed(3) + ')';
+        ctx.lineWidth = 3;
         ctx.beginPath(); ctx.arc(m.x, m.y, r, 0, Math.PI*2); ctx.stroke();
+        try { ctx.shadowBlur = 0; } catch (e) {}
         ctx.restore();
       }
     } catch (e) { /* ignore hit marker draw errors */ }
