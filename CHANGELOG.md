@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix: prevent duplicate shield HUD badges and keep shield timer updated (tiny) — 2026-03-19
 - Visual/UI: slightly increased HUD backdrop opacity for improved readability on bright/busy backgrounds (tiny) — 2026-03-19
 - Feedback: add brief haptic vibration on enemy deaths and player hits for stronger tactile feedback (tiny) — 2026-03-19
 - Visual/UI: slightly increased hit-pop overlay radius and intensity for clearer hit feedback (tiny) — 2026-03-19

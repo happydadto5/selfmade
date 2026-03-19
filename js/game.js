@@ -3204,16 +3204,26 @@ if (overlay) {
       try {
         if (player && Date.now() < (player.shieldUntil || 0)) {
           const secShield = Math.ceil(((player.shieldUntil || 0) - Date.now()) / 1000);
-          const shieldSpan = document.createElement('span');
-          shieldSpan.className = 'shield-badge';
-          shieldSpan.textContent = ' 🛡';
-          shieldSpan.style.color = '#42a5f5';
-          shieldSpan.style.marginLeft = '8px';
-          shieldSpan.setAttribute('aria-hidden', 'true');
-          livesEl.appendChild(shieldSpan);
+          // Reuse existing badge if present, otherwise create it once
+          let existingBadge = livesEl.querySelector('.shield-badge');
+          if (!existingBadge) {
+            existingBadge = document.createElement('span');
+            existingBadge.className = 'shield-badge';
+            existingBadge.setAttribute('aria-hidden', 'true');
+            existingBadge.style.marginLeft = '8px';
+            livesEl.appendChild(existingBadge);
+          }
+          // Update badge text with remaining seconds for quick readability
+          existingBadge.textContent = ' 🛡 ' + secShield + 's';
+          existingBadge.style.color = '#42a5f5';
           // include shield status in the accessible label
           livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + (secShield ? (', shield ' + secShield + 's') : ', shield'));
         } else {
+          // Remove existing badge when shield expires to avoid duplicates
+          try {
+            const existingBadge = livesEl.querySelector('.shield-badge');
+            if (existingBadge && existingBadge.parentNode) existingBadge.parentNode.removeChild(existingBadge);
+          } catch (e) { /* ignore DOM errors */ }
           livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
         }
       } catch (e) { /* ignore DOM errors */ }
