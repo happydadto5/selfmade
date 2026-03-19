@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: slightly stronger garden-themed hit flash for clearer hit feedback (tiny) — 2026-03-19
 - Visual/UI: garden petal particles on enemy hits for clearer, themed feedback (tiny) — 2026-03-19
 - Visual/UI: increase wave progress bar background contrast and strengthen fill for improved readability (tiny) — 2026-03-19
 - Visual/UI: garden-themed soft green canvas hit flash to improve hit feedback (tiny) — 2026-03-19
