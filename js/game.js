@@ -219,7 +219,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.8.0';
+  const version = '5.9.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -931,66 +931,9 @@
         try { announcer.textContent = enabled ? 'Colorblind mode enabled' : 'Colorblind mode disabled'; } catch (err) { /* ignore */ }
       } catch (e) { /* ignore */ }
     }
-    // 'H' toggles HUD visibility (accessibility / distraction-free). Announces state to assistive tech.
-    if (e.key === 'h' || e.key === 'H') {
-      try {
-        const ui = document.getElementById('ui');
-        // Toggle our hudVisible flag (used for both DOM HUD and in-canvas HUD rendering)
-        hudVisible = !(typeof hudVisible !== 'undefined' && hudVisible === false);
-        if (ui) {
-          const hidden = ui.getAttribute('data-hidden') === 'true';
-          if (hidden) {
-            ui.style.display = '';
-            ui.setAttribute('data-hidden','false');
-            // Keep ARIA in sync so screen readers know when HUD is hidden
-            try { ui.setAttribute('aria-hidden','false'); } catch (err) {}
-            // Announce visibility
-            let announcer = document.getElementById('hud-announcer');
-            if (!announcer) {
-              announcer = document.createElement('div');
-              announcer.id = 'hud-announcer';
-              announcer.style.position = 'absolute';
-              announcer.style.left = '-9999px';
-              announcer.style.width = '1px';
-              announcer.style.height = '1px';
-              announcer.setAttribute('aria-live','polite');
-              document.body.appendChild(announcer);
-            }
-            try { announcer.textContent = 'HUD visible'; } catch (e) {}
-          } else {
-            ui.style.display = 'none';
-            ui.setAttribute('data-hidden','true');
-            try { ui.setAttribute('aria-hidden','true'); } catch (err) {}
-            let announcer = document.getElementById('hud-announcer');
-            if (!announcer) {
-              announcer = document.createElement('div');
-              announcer.id = 'hud-announcer';
-              announcer.style.position = 'absolute';
-              announcer.style.left = '-9999px';
-              announcer.style.width = '1px';
-              announcer.style.height = '1px';
-              announcer.setAttribute('aria-live','polite');
-              document.body.appendChild(announcer);
-            }
-            try { announcer.textContent = 'HUD hidden'; } catch (e) {}
-          }
-        } else {
-          // If no DOM HUD exists, still announce the HUD state change
-          let announcer = document.getElementById('hud-announcer');
-          if (!announcer) {
-            announcer = document.createElement('div');
-            announcer.id = 'hud-announcer';
-            announcer.style.position = 'absolute';
-            announcer.style.left = '-9999px';
-            announcer.style.width = '1px';
-            announcer.style.height = '1px';
-            announcer.setAttribute('aria-live','polite');
-            document.body.appendChild(announcer);
-          }
-          try { announcer.textContent = hudVisible ? 'HUD visible' : 'HUD hidden'; } catch (e) {}
-        }
-      } catch (e) { /* ignore */ }
-    }
+    // HUD visibility is toggled via the hudBtn click handler above. Keep the keydown handler lightweight and
+    // avoid duplicating the detailed toggling logic here to prevent double-toggle behavior.
+    // The keydown shortcut that invokes hudBtn.click() remains in place earlier in this function.
 
     // 'T' briefly shows touch-zone guides for preview (useful on desktop). Honor reduced-motion preference by keeping this non-animated.
     if (e.key === 't' || e.key === 'T') {

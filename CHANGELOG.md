@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.9.0
+- Fix: prevent duplicate HUD toggle from H key handler (stability) — 2026-03-19
+
 ## 5.8.0
 - Levels: show brief 'Wave X cleared' toast and ARIA announcement when a wave finishes (tiny) — 2026-03-19
 
