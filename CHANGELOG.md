@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.14.0
 - Visual: add brief glowing ring around player when collecting a power-up for more satisfying feedback (tiny) — 2026-03-19
 
 ## 5.13.0
