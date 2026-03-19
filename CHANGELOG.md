@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.20.0
+- Visual/UI: add subtle backdrop behind compact in-canvas HUD for improved readability (tiny) — 2026-03-19
+
 ## 5.19.0
 - Levels: award 1 extra life every 5 waves to reinforce progression (small) — 2026-03-19
 

@@ -222,7 +222,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.19.0';
+  const version = '5.20.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2478,6 +2478,33 @@ if (overlay) {
           ctx.textBaseline = 'top';
           const x = Math.max(12, cw - 12);
           const y = 12;
+
+          // draw a subtle rounded backdrop behind the compact HUD text to improve readability
+          try {
+            const padding = 8;
+            const metrics = ctx.measureText ? ctx.measureText(txt) : { width: txt.length * 8 };
+            const textWidth = Math.ceil(metrics.width);
+            const rectW = textWidth + padding * 2;
+            const rectH = 20;
+            const rectX = x - rectW;
+            const rectY = y - 4;
+            const radius = 8;
+            ctx.fillStyle = 'rgba(0,0,0,0.28)';
+            // rounded rect
+            ctx.beginPath();
+            ctx.moveTo(rectX + radius, rectY);
+            ctx.arcTo(rectX + rectW, rectY, rectX + rectW, rectY + rectH, radius);
+            ctx.arcTo(rectX + rectW, rectY + rectH, rectX, rectY + rectH, radius);
+            ctx.arcTo(rectX, rectY + rectH, rectX, rectY, radius);
+            ctx.arcTo(rectX, rectY, rectX + rectW, rectY, radius);
+            ctx.closePath();
+            ctx.fill();
+            // subtle border for separation
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.stroke();
+          } catch (be) { /* ignore backdrop drawing errors */ }
+
           // subtle outline for readability
           ctx.lineWidth = 4;
           ctx.strokeStyle = 'rgba(0,0,0,0.52)';
