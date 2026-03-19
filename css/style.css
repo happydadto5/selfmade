@@ -24,6 +24,16 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#a0d8ff 0%,#87C
 /* Active power-up HUD: small badge under the wave counter showing current power-up and remaining time */
 #ui #active-powerup { margin-top:6px; font-size:14px; color:#2e7d32; font-weight:700; background: rgba(230, 252, 238, 0.9); padding:4px 8px; border-radius:6px; border:1px solid rgba(46,125,50,0.12); display:inline-block; }
 #ui #active-powerup[aria-hidden="true"] { display:none !important; }
+
+/* Shield badge: subtle blue badge next to Lives when Shield power-up is active. Keeps a gentle glow and increased contrast for readability. Respects prefers-reduced-motion. */
+#ui #lives .shield-badge { display:inline-block; margin-left:8px; padding:2px 6px; border-radius:6px; background:linear-gradient(90deg,#e1f5fe,#b3e5fc); color:#03314a; font-weight:800; box-shadow:0 4px 12px rgba(33,150,243,0.14); font-size:0.95em; }
+@keyframes shieldPulse { 0% { transform: scale(1); box-shadow:0 4px 12px rgba(33,150,243,0.14);} 50% { transform: scale(1.06); box-shadow:0 8px 22px rgba(33,150,243,0.22);} 100% { transform: scale(1); box-shadow:0 4px 12px rgba(33,150,243,0.14);} }
+@media (prefers-reduced-motion: no-preference) {
+  #ui #lives .shield-badge.pulse { animation: shieldPulse 1.6s ease-in-out infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #ui #lives .shield-badge { transition: none !important; }
+}
 /* Small wave progress indicator shown in the HUD: defeated / total for the current wave */
 #ui #wave-progress { margin-top:4px; font-size:16px; color:#1b5e20; font-weight:700; opacity:0.95; }
 /* Small visual progress bar under the Wave HUD showing defeated / total enemies for quick readability */

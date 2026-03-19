@@ -3,6 +3,7 @@
 ## Unreleased
 - Visual/UI: slightly longer, warmer canvas hit flash for clearer enemy-hit feedback (tiny) — 2026-03-19
 - UI: show shield badge next to Lives when active (tiny) — 2026-03-19
+- Visual/UI: emphasize shield badge with a subtle glow and improved contrast so temporary invulnerability is easier to notice (tiny) — 2026-03-19
 - Visual/UI: improve HUD text outline for better readability on busy backgrounds (tiny) — 2026-03-19
 - Visual/UI: stronger garden hit flash (warmer, punchier) to improve enemy-hit feedback (tiny) — 2026-03-19
 

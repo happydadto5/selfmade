@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.62.0';
+  const version = '5.63.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3173,6 +3173,7 @@ if (overlay) {
         if (player && Date.now() < (player.shieldUntil || 0)) {
           const secShield = Math.ceil(((player.shieldUntil || 0) - Date.now()) / 1000);
           const shieldSpan = document.createElement('span');
+          shieldSpan.className = 'shield-badge';
           shieldSpan.textContent = ' 🛡';
           shieldSpan.style.color = '#42a5f5';
           shieldSpan.style.marginLeft = '8px';
