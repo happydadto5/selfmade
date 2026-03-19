@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 5.24.0
 - Visual/UI: increase hit marker size and add soft fill for stronger hit feedback (tiny) — 2026-03-19
 
 ## 5.23.0
