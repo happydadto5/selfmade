@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.11.0
 - Visual/UI: add subtle vignette to canvas to focus play area and improve HUD readability (tiny) — 2026-03-20
 
 ## 6.10.0
