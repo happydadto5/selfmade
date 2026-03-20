@@ -414,6 +414,19 @@ html::before {
   body.hit-pop::after { transition: none; animation: none !important; }
 }
 
+/* Ensure hit-pop overlay remains visible on very light backgrounds by providing a subtle warm wash fallback.
+   This layer is additive and kept small so it doesn't change the intended feel for most users. */
+body.hit-pop::after {
+  background:
+    linear-gradient(rgba(255,255,230,0.06), rgba(210,255,190,0.04)),
+    radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%),
+      rgba(255,255,230,1),
+      rgba(210,255,190,1) 48%,
+      rgba(210,255,190,0) 88%) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
 /* Subtle hit shake synchronized with the hit-pop overlay to improve perceived impact.
    Respects prefers-reduced-motion. This briefly nudges the canvas while the pop runs. */
 @media (prefers-reduced-motion: no-preference) {

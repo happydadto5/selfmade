@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.19.0
+- Visual/UI: improve hit-pop overlay fallback so hits remain visible on very light backgrounds (tiny)
+
 ## 6.18.0
 - Levels: ensure wave target uses intended spawn count so waves reliably complete (tiny)
 
