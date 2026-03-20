@@ -3,6 +3,8 @@
 ## Unreleased
 - Levels: shorten base inter-wave delay from 2200ms to 1600ms for snappier pacing (small) — 2026-03-20
 
+- UI: improve visibility for wave transitions by styling wave-start/cleared toasts and countdown (tiny) — 2026-03-20
+
 - Levels/UI: display Wave as “X/Y” when maxWaves is configured so players know remaining waves (small) — 2026-03-20
 
 - Levels: reduce wave spawn watchdog delay so fallback enemies appear sooner and prevent stalled waves (small) — 2026-03-20
