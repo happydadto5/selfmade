@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.25.0';
+  const version = '6.26.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1720,6 +1720,7 @@ let hitPopTimeout = null;
 
   function spawnWave() {
     waveNumber++;
+    try { lastSpawn = Date.now(); } catch (e) {}
     // briefly show a wave banner so players notice wave transitions
     wavePulseUntil = Date.now() + 800;
   // small, optional screen shake to emphasize wave start (skip for reduced-motion users)

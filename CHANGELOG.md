@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.26.0
+- Levels: set lastSpawn when a wave starts to ensure inter-wave countdowns behave reliably (tiny)
+
 ## 6.25.0
 - Gameplay: increase power-up spawn chance and bias shield drops when player is low on lives to improve recovery (small)
 
