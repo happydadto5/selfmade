@@ -2843,6 +2843,8 @@ let hitPopTimeout = null;
       // Previously early waves used a very short 600ms delay; increase early delay to at least 900ms
       // and reduce the aggressive subtraction so early pacing feels less abrupt.
       try { if (waveNumber <= 3) interWaveDelay = Math.max(900, interWaveDelay - 400); } catch (e) {}
+      // If the player is low on lives, extend the inter-wave delay to provide extra recovery time.
+      try { if (typeof lives === 'number' && lives <= 1) interWaveDelay += 800; } catch (e) {}
       // Show a small countdown HUD during the inter-wave delay so players know when the next wave starts.
       try {
         const elapsed = Date.now() - lastSpawn;
