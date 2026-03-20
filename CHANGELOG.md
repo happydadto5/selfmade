@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: add subtle animated background overlay behind the canvas for improved atmosphere and readable HUD (tiny) — 2026-03-20
+
 ## 6.110.0
 - Levels: slightly reduce final wave enemy count and give an extra start-of-wave grace period to make the final wave feel achievable (tiny) — 2026-03-20
 - Levels: auto-advance to next wave 1.2s after clearing to improve pacing (tiny) — 2026-03-20
