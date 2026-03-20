@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.40.0
+- Visual/UI: increase background leaf density slightly for richer garden atmosphere (tiny)
+
 ## 6.39.0
 - Levels: add a small watchdog to auto-fill missing wave enemies to prevent stalled waves during spawning (tiny) — 2026-03-20
 
