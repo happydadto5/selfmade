@@ -275,7 +275,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.77.0';
+  const version = '6.78.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3596,8 +3596,34 @@ let hitPopTimeout = null;
           setTimeout(()=>{ try{ if (wt && wt.parentNode) wt.parentNode.removeChild(wt); }catch(e){} }, 1100);
         } catch (e) { /* ignore toast errors */ }
         try { playSound('blip'); } catch (e) {}
-        // Advance to the next wave after a short moment to give the player a brief breather
-        setTimeout(function(){ try { if (!gameOver) spawnWave(); } catch(e) {} }, 900);
+        // Advance to the next wave after a short moment — show a brief countdown so players know when the next wave starts
+        (function(){
+          const delay = 900;
+          const start = Date.now();
+          let el = null;
+          try {
+            el = document.createElement('div');
+            el.id = 'wave-next-countdown';
+            el.setAttribute('role','status'); el.setAttribute('aria-live','polite');
+            el.style.position = 'fixed'; el.style.left = '50%'; el.style.top = '12%';
+            el.style.transform = 'translateX(-50%)';
+            el.style.background = 'rgba(0,0,0,0.72)'; el.style.color = '#fff';
+            el.style.padding = '6px 10px'; el.style.borderRadius = '8px'; el.style.zIndex = '10004'; el.style.pointerEvents = 'none';
+            document.body.appendChild(el);
+          } catch (e) { el = null; }
+          const update = function(){
+            const rem = Math.max(0, delay - (Date.now() - start));
+            const sec = Math.ceil(rem/1000);
+            try { if (el) el.textContent = 'Next wave in ' + (sec > 0 ? sec : '...'); } catch(e){}
+            if (rem <= 0) {
+              try { if (el && el.parentNode) el.parentNode.removeChild(el); } catch(e){}
+              clearInterval(iv);
+              try { if (!gameOver) spawnWave(); } catch(e){}
+            }
+          };
+          update();
+          const iv = setInterval(update, 200);
+        })();
       }
     } catch (e) { /* ignore wave-complete detection errors */ }
     // Update document title to include current wave and score for better visibility when tabbed away
