@@ -275,7 +275,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.72.0';
+  const version = '6.73.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2785,6 +2785,14 @@ let hitPopTimeout = null;
             try { wt.textContent = 'Wave ' + waveNumber + ' cleared!'; } catch(e){}
             try { wt.style.opacity = '1'; wt.style.transform = 'translateX(-50%) translateY(0)'; } catch(e){}
             try { playSound('blip'); } catch(e){}
+            // highlight Next Wave button briefly to signal manual advance is available
+            try {
+              const nb = document.getElementById('nextWaveBtn');
+              if (nb) {
+                nb.classList.add('highlight-next-wave');
+                setTimeout(() => { try { nb.classList.remove('highlight-next-wave'); } catch(e) {} }, 1800);
+              }
+            } catch(e) {}
             setTimeout(() => { try { wt.style.opacity = '0'; } catch(e){} }, 900);
             setTimeout(() => { try { if (wt && wt.parentNode) wt.parentNode.removeChild(wt); } catch(e){} }, 1400);
           } catch(e){}

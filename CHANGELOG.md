@@ -23,6 +23,7 @@
 - Levels: add short wave-start grace (enemies slowed ~35% for 0.8s) to improve beatability and give players reaction time (tiny) — 2026-03-20
 - Levels: consider wave cleared when its remaining enemies are defeated (prevents stalled waves) — tiny
 - UI: show total waves in Wave HUD when maxWaves configured (small) — 2026-03-20
+- UI: briefly highlight Next Wave button when a wave is cleared to make progression clearer (tiny) — 2026-03-20
 
 ## 6.55.0
 - Visual/UI: increase background leaf density for richer garden atmosphere (tiny) — 2026-03-20
