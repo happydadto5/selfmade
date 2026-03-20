@@ -1,5 +1,5 @@
 html,body{height:100%;margin:0;background:linear-gradient(180deg,#a0d8ff 0%,#87CEEB 40%,#eafbe8 100%);font-family:Segoe UI, Roboto, Arial, sans-serif;-webkit-font-smoothing:antialiased}
-:root{--hud-backdrop-opacity:0.66}
+:root{--hud-backdrop-opacity:0.72}
 #game{display:block;width:100%;height:100vh;touch-action:none;-ms-touch-action:none;-webkit-user-select:none;user-select:none}
 /* Accessibility: visible focus ring for keyboard users to improve canvas discoverability without changing gameplay */
 #game:focus, #game:focus-visible { outline: 3px solid rgba(30,136,229,0.55); outline-offset: 4px; }
