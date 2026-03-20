@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.12.0
+- Gameplay: strengthen Shield power-up — now grants 3 charges and lasts 16s; clearer collect feedback (small)
+
 ## 6.11.0
 - Visual/UI: add subtle vignette to canvas to focus play area and improve HUD readability (tiny) — 2026-03-20
 

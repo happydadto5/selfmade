@@ -258,7 +258,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.11.0';
+  const version = '6.12.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2458,12 +2458,12 @@ let hitPopTimeout = null;
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
             } else if (pu.type === 'shield') {
               // grant a temporary shield that can absorb up to two life losses
-              player.shieldUntil = Date.now() + 14000; // 14 seconds
-              try { player.shieldCharges = 2; } catch(e) { player.shieldCharges = 2; }
+              player.shieldUntil = Date.now() + 16000; // 16 seconds (slightly stronger)
+              try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('shield'); } catch (e) {}
-              try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*1.6, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#81d4fa' }); } catch (e) {}
+              try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.6, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 420+Math.random()*320, born: Date.now(), color: '#81d4fa' }); } catch (e) {}
             } else if (pu.type === 'spread') {
               // grant a temporary spread shot that fires three angled pellets
               player.spreadUntil = Date.now() + 12000; // 12 seconds
