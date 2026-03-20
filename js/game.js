@@ -311,7 +311,8 @@
                   wt.style.transition = 'opacity 220ms ease, transform 220ms ease';
                   document.body.appendChild(wt);
                 }
-                wt.textContent = 'Wave ' + waveNumber + ' cleared!';
+                const bonusToast = 10 + (typeof lives === 'number' ? (lives * 5) : 0);
+                wt.textContent = 'Wave ' + waveNumber + ' cleared! +' + bonusToast + ' pts';
                 wt.style.opacity = '1';
                 setTimeout(() => { try { wt.style.opacity = '0'; } catch(e){} }, 1400);
                 setTimeout(() => { try { if (wt && wt.parentNode) wt.parentNode.removeChild(wt); } catch(e){} }, 1800);
@@ -2987,7 +2988,7 @@ let hitPopTimeout = null;
               // Schedule the next wave after a short pause so players get a clear recovery window
               try {
                 if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
-                scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(900, Math.min(interWaveDelay, 1200)));
+                scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(1300, Math.min(interWaveDelay, 1600)));
               } catch(e){}
             } else {
               // There are still enemies from this wave; update countdown element to indicate waiting.

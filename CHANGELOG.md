@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: increase wave-clear recovery pause and show bonus on toast (tiny) — 2026-03-20
 - UI: improve Next Wave button styling and accessibility for better discoverability (tiny) — 2026-03-20
 - Levels: reduce initial wave sizes for better beatability (tiny) — 2026-03-20
 - Levels: award wave-clear bonus scaled by remaining lives to reward survival (tiny) — 2026-03-20
