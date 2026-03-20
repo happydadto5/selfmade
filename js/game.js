@@ -2155,6 +2155,20 @@ let hitPopTimeout = null;
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
           try { canvasHitFlashUntil = Date.now() + 360; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
           try { canvasWhiteFlashUntil = Date.now() + 220; } catch (err) { /* ignore */ }
+          // Trigger body-level hit-pop overlay (CSS) for stronger, thematic hit feedback.
+          try {
+            if (typeof document !== 'undefined' && document.body) {
+              const _prm = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+              if (!_prm) {
+                const hx = Math.max(0, Math.min(1, (e.x / cw)));
+                const hy = Math.max(0, Math.min(1, (e.y / ch)));
+                document.body.style.setProperty('--hit-x', (hx*100).toFixed(2) + '%');
+                document.body.style.setProperty('--hit-y', (hy*100).toFixed(2) + '%');
+                document.body.classList.add('hit-pop');
+                setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} }, 660);
+              }
+            }
+          } catch (err) { /* ignore overlay errors */ }
             try {
               // tiny garden-themed particle burst to make hits feel more satisfying (low-cost)
               for (let k=0;k<4;k++) particles.push({
