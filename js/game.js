@@ -198,16 +198,28 @@
           try {
             // Build accessible wave HUD: text node for the numeric label and a separate emoji span set aria-hidden
             while (waveEl.firstChild) waveEl.removeChild(waveEl.firstChild);
-            // Show total waves when configured so players understand remaining progression (e.g., "Wave: 2/6")
+            // Show total waves when configured so players understand remaining progression (e.g., "Wave: 2/6"). Mark the final wave clearly.
             let labelText = 'Wave: ' + n + ' ';
-            try { if (typeof maxWaves === 'number' && maxWaves > 0) { labelText = 'Wave: ' + n + '/' + maxWaves + ' '; } } catch (e) {}
+            try {
+              if (typeof maxWaves === 'number' && maxWaves > 0) {
+                if (n === maxWaves) {
+                  labelText = 'Wave: ' + n + '/' + maxWaves + ' (Final) ';
+                } else {
+                  labelText = 'Wave: ' + n + '/' + maxWaves + ' ';
+                }
+              }
+            } catch (e) {}
             waveEl.appendChild(document.createTextNode(labelText));
             const emoji = document.createElement('span');
-            emoji.textContent = '🌱';
+            emoji.textContent = (typeof maxWaves === 'number' && maxWaves > 0 && n === maxWaves) ? '🏆' : '🌱';
             try { emoji.setAttribute('aria-hidden','true'); } catch (e) {}
             emoji.style.marginLeft = '6px';
             try { waveEl.appendChild(emoji); } catch(e) { /* ignore */ }
-            try { waveEl.setAttribute('aria-label', 'Wave: ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? ' of ' + maxWaves : '')); } catch (err) {}
+            try {
+              let ariaLabel = 'Wave: ' + n;
+              try { if (typeof maxWaves === 'number' && maxWaves > 0) ariaLabel = 'Wave: ' + n + ' of ' + maxWaves + (n === maxWaves ? ' (Final)' : ''); } catch(e){}
+              waveEl.setAttribute('aria-label', ariaLabel);
+            } catch (err) {}
             // Also update the browser tab title so players can see progress when the tab is backgrounded
             try { document.title = 'Selfmade — Wave ' + n + ' — Score ' + (typeof score !== 'undefined' ? score : 0); } catch (e) {}
             try {
@@ -3738,14 +3750,26 @@ let hitPopTimeout = null;
         // Keep the compact DOM wave HUD consistent with refreshVersionHUD: show X/Y when maxWaves configured
         while (waveEl.firstChild) waveEl.removeChild(waveEl.firstChild);
         let labelText = 'Wave: ' + n + ' ';
-        try { if (typeof maxWaves === 'number' && maxWaves > 0) { labelText = 'Wave: ' + n + '/' + maxWaves + ' '; } } catch (e) {}
+        try {
+          if (typeof maxWaves === 'number' && maxWaves > 0) {
+            if (n === maxWaves) {
+              labelText = 'Wave: ' + n + '/' + maxWaves + ' (Final) ';
+            } else {
+              labelText = 'Wave: ' + n + '/' + maxWaves + ' ';
+            }
+          }
+        } catch (e) {}
         waveEl.appendChild(document.createTextNode(labelText));
         const emoji = document.createElement('span');
-        emoji.textContent = '🌱';
+        emoji.textContent = (typeof maxWaves === 'number' && maxWaves > 0 && n === maxWaves) ? '🏆' : '🌱';
         try { emoji.setAttribute('aria-hidden','true'); } catch (e) {}
         emoji.style.marginLeft = '6px';
         try { waveEl.appendChild(emoji); } catch(e) { /* ignore */ }
-        try { waveEl.setAttribute('aria-label', 'Wave: ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? ' of ' + maxWaves : '')); } catch (e) {}
+        try {
+          let ariaLabel = 'Wave: ' + n;
+          try { if (typeof maxWaves === 'number' && maxWaves > 0) ariaLabel = 'Wave: ' + n + ' of ' + maxWaves + (n === maxWaves ? ' (Final)' : ''); } catch(e){}
+          waveEl.setAttribute('aria-label', ariaLabel);
+        } catch (e) {}
       } catch (e) { /* ignore DOM errors */ }
       try {
         if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
