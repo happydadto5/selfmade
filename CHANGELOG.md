@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: consider wave cleared when its remaining enemies are defeated (prevents stalled waves) — tiny
+
 ## 6.55.0
 - Visual/UI: increase background leaf density for richer garden atmosphere (tiny) — 2026-03-20
 
