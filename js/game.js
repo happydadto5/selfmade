@@ -353,7 +353,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.101.0';
+  const version = '6.102.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2038,7 +2038,19 @@ let hitPopTimeout = null;
         wt.style.transition = 'opacity 220ms ease, transform 220ms ease';
         document.body.appendChild(wt);
       }
-      wt.textContent = 'Wave ' + waveNumber + ' — Defeat ' + currentWaveEnemyCount + ' enemies';
+      // Make the final configured wave more obvious: label it "Final Wave" and tint the toast slightly for visibility
+      try {
+        const isFinal = (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves);
+        if (isFinal) {
+          wt.textContent = 'Final Wave — Defeat ' + currentWaveEnemyCount + ' enemies';
+          try { wt.style.background = '#fff8e1'; wt.style.color = '#4e2b00'; } catch (e) {}
+          try { var waveAnnEl = document.getElementById('wave-announcer'); if (waveAnnEl) waveAnnEl.textContent = 'Final wave starting.'; } catch (e) {}
+        } else {
+          wt.textContent = 'Wave ' + waveNumber + ' — Defeat ' + currentWaveEnemyCount + ' enemies';
+        }
+      } catch (e) {
+        wt.textContent = 'Wave ' + waveNumber + ' — Defeat ' + currentWaveEnemyCount + ' enemies';
+      }
       // show briefly then hide
       try { wt.style.opacity = '1'; wt.style.transform = 'translateX(-50%) translateY(0)'; } catch(e){}
       setTimeout(() => { try { wt.style.opacity = '0'; wt.style.transform = 'translateX(-50%) translateY(-8px)'; } catch(e){} }, 900);
