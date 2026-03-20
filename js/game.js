@@ -2739,7 +2739,8 @@ let hitPopTimeout = null;
       }
     } catch (e) {}
 
-    if (enemies.length === 0) {
+    const presentForWave = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+    if (presentForWave === 0) {
       // Wave cleared: show a brief "Wave X cleared!" toast once per wave for clear progression feedback
       try {
         if ((typeof currentWaveEnemyCount === 'number' && currentWaveEnemyCount > 0) && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {

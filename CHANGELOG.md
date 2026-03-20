@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix: detect wave cleared by current-wave enemy count, preventing stalled waves when stray enemies remain (tiny) — 2026-03-20
 - UI: ensure Wave HUD consistently shows total waves when configured (tiny) — 2026-03-20
 - Levels: prevent automatic inter-wave spawn from starting while previous wave enemies remain; show 'Waiting for X enemies' during countdown (small) — 2026-03-20
 - Levels: auto-advance to next wave when current wave enemies are cleared (small) — 2026-03-20
