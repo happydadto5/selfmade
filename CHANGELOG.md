@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 6.31.0
 - Visual/UI: stronger radial red player-hit flash centered on the player; respects prefers-reduced-motion and falls back to a full-screen red fill on error (tiny)
 
@@ -357,6 +359,7 @@
 - Automation: fix `selfmade.bat` launcher persistence so the top-level batch process stays alive, reloads itself safely between iterations, and no longer dies on the old re-exec path.
 - Automation: replace fragile startup status reads in `selfmade.bat` so cleanup/sync status logging no longer throws batch parsing errors during startup.
 - Automation: normalize `CHANGELOG.md` to a single top `## Unreleased` section so changelog prep stops drifting into malformed duplicate sections.
+- Game: increase power-up pickup radius to 56 to make power-ups easier to collect.
 
 - Visual: add a brief enemy-hit flash when bullets strike enemies to improve feedback (tiny) — 2026-03-17
 - Gameplay: add a new zigging "hopper" enemy that oscillates horizontally for gameplay variety (tiny) — 2026-03-18
