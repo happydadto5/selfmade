@@ -346,7 +346,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.98.0';
+  const version = '6.99.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2976,19 +2976,35 @@ let hitPopTimeout = null;
             const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
             if (present === 0) {
               const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
-              // Give player a brief recovery pause and a small reward for clearing the wave
+              // If this was the final configured wave, trigger a victory state so runs feel beatable
               try {
-                const bonus = 10 + (typeof lives === 'number' ? (lives * 5) : 0);
-                score += bonus;
-                if (scoreEl) try { scoreEl.textContent = 'Score: ' + score; } catch(e){}
-                try { scorePopups.push({ x: player.x, y: player.y - 20, text: '+' + bonus, vy: -0.05, life: 900, totalLife: 900, color: '#ffff88' }); } catch(e){}
-                try { playSound('blip'); } catch(e) {}
-              } catch(e) {}
-              try { let ann = document.getElementById('wave-announcer'); if (ann) try { ann.textContent = 'Wave ' + waveNumber + ' cleared!'; } catch(e) {} } catch(e) {}
-              // Schedule the next wave after a short pause so players get a clear recovery window
-              try {
-                if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
-                scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(1300, Math.min(interWaveDelay, 1600)));
+                if (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves) {
+                  gameOver = true;
+                  paused = true;
+                  // Persist high score if beaten
+                  try { if (score > highScore) { highScore = score; saveHighScoreDebounced(highScore); } } catch(e){}
+                  // celebratory audio/particles
+                  try { playSound('blip'); } catch(e){}
+                  try {
+                    for (let p=0;p<28;p++) particles.push({ x: player.x + (Math.random()-0.5)*40, y: player.y - 20 + (Math.random()-0.5)*20, vx: (Math.random()-0.5)*3, vy: -Math.random()*2 - 0.6, r: 2 + Math.random()*3, life: 800 + Math.random()*600, born: Date.now(), color: (Math.random()<0.5? '#ffe082' : '#a5d6a7') });
+                  } catch(e){}
+                  try { if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); if (replayBtn) try { replayBtn.focus(); } catch(e){} } } catch(e){}
+                } else {
+                  // Give player a brief recovery pause and a small reward for clearing the wave
+                  try {
+                    const bonus = 10 + (typeof lives === 'number' ? (lives * 5) : 0);
+                    score += bonus;
+                    if (scoreEl) try { scoreEl.textContent = 'Score: ' + score; } catch(e){}
+                    try { scorePopups.push({ x: player.x, y: player.y - 20, text: '+' + bonus, vy: -0.05, life: 900, totalLife: 900, color: '#ffff88' }); } catch(e){}
+                    try { playSound('blip'); } catch(e) {}
+                  } catch(e) {}
+                  try { let ann = document.getElementById('wave-announcer'); if (ann) try { ann.textContent = 'Wave ' + waveNumber + ' cleared!'; } catch(e) {} } catch(e) {}
+                  // Schedule the next wave after a short pause so players get a clear recovery window
+                  try {
+                    if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
+                    scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(1300, Math.min(interWaveDelay, 1600)));
+                  } catch(e){}
+                }
               } catch(e){}
             } else {
               // There are still enemies from this wave; update countdown element to indicate waiting.
