@@ -274,12 +274,12 @@ body.show-touch-guides {
   right: -8px;
   top: -8px;
   bottom: -8px;
-  /* increased opacity for stronger contrast on bright or busy backgrounds (tweaked for better readability) */
-  background: rgba(0,0,0,0.58);
+  /* slightly increased opacity and blur for stronger contrast on bright or busy backgrounds (tiny, improves readability) */
+  background: rgba(0,0,0,0.66);
   border-radius: 10px;
   z-index: -1;
   pointer-events: none;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
 }
 
 /* Ensure the HUD keeps its stacking context and allows the pseudo-element to position correctly */
