@@ -159,8 +159,7 @@
           try {
             // Build accessible wave HUD: text node for the numeric label and a separate emoji span set aria-hidden
             while (waveEl.firstChild) waveEl.removeChild(waveEl.firstChild);
-            const waveLabel = 'Wave: ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? '/' + maxWaves : '') + ' ';
-            waveEl.appendChild(document.createTextNode(waveLabel));
+            waveEl.appendChild(document.createTextNode('Wave: ' + n + ' '));
             const emoji = document.createElement('span');
             emoji.textContent = '🌱';
             try { emoji.setAttribute('aria-hidden','true'); } catch (e) {}
@@ -2673,7 +2672,7 @@ let hitPopTimeout = null;
         const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
         const deficit = Math.max(0, currentWaveEnemyCount - present);
         // only act if some time has passed since the wave was initiated to avoid immediate interference
-        if (deficit > 0 && Date.now() - (waveSpawnWatchdog || 0) > 600) {
+        if (deficit > 0 && Date.now() - (waveSpawnWatchdog || 0) > 300) {
           for (let _i = 0; _i < Math.min(deficit, 3); _i++) {
             const ex = 40 + Math.random() * (cw - 80);
             const ey = -20 - Math.random() * 120;
@@ -2684,9 +2683,7 @@ let hitPopTimeout = null;
       }
     } catch (e) {}
 
-    try {
-      const presentCurrentWave = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
-      if (presentCurrentWave === 0) {
+    if (enemies.length === 0) {
       // Wave cleared: show a brief "Wave X cleared!" toast once per wave for clear progression feedback
       try {
         if ((typeof currentWaveEnemyCount === 'number' && currentWaveEnemyCount > 0) && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
@@ -2755,7 +2752,7 @@ let hitPopTimeout = null;
       } catch(e){}
 
       // Base inter-wave delay (ms). Slightly shorter early waves for snappier progression and better beatability
-      let interWaveDelay = Math.max(800, Math.round((2200 + Math.min(2000, Math.floor(waveNumber * 80))) * 0.8));
+      let interWaveDelay = 2200 + Math.min(2000, Math.floor(waveNumber * 80));
       // Reduce delay for the first two waves so new players see clearer progression quickly
       try { if (waveNumber <= 2) interWaveDelay = Math.max(900, interWaveDelay - 900); } catch (e) {}
       // Show a small countdown HUD during the inter-wave delay so players know when the next wave starts.
@@ -3481,7 +3478,7 @@ let hitPopTimeout = null;
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
     if (waveEl) {
       const n = waveNumber;
-      waveEl.textContent = 'Wave: ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? '/' + maxWaves : '') + ' 🌱';
+      waveEl.textContent = 'Wave: ' + n + ' 🌱';
       try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (e) { }
       try {
         if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
@@ -3583,7 +3580,7 @@ let hitPopTimeout = null;
         ctx.save();
         ctx.font = '18px sans-serif';
         ctx.textAlign = 'left';
-        const waveText = 'Wave: ' + waveNumber + (typeof maxWaves === 'number' && maxWaves > 0 ? '/' + maxWaves : '') + ' 🌱';
+        const waveText = 'Wave: ' + waveNumber + ' 🌱';
         const livesText = 'Lives: ' + lives;
         const enemiesText = enemies.length + ' ' + (enemies.length === 1 ? 'Enemy' : 'Enemies');
         const pad = 10;
