@@ -85,6 +85,10 @@ if not "%SUGGESTION_SYNC_EXIT%"=="0" (
 set "SUGGESTION_SYNC_STATUS="
 if exist "%TEMP%\selfmade_suggestion_sync.txt" set /p SUGGESTION_SYNC_STATUS=<"%TEMP%\selfmade_suggestion_sync.txt"
 if defined SUGGESTION_SYNC_STATUS call :LOG suggestion.txt sync status: %SUGGESTION_SYNC_STATUS%
+if /I "%SUGGESTION_SYNC_STATUS%"=="SUGGESTION_SYNC=BLOCKED_DIRTY_NON_SUGGESTION" (
+    echo [!] suggestion.txt sync blocked by other local changes. Continuing with local files.
+    call :LOG suggestion.txt sync blocked by dirty non-suggestion files; continuing locally.
+)
 del "%TEMP%\selfmade_suggestion_sync.txt" >nul 2>&1
 
 node scripts\sync_repo_state.js > "%REPO_SYNC_LOG%" 2>&1

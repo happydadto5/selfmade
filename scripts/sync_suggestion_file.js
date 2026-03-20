@@ -21,6 +21,16 @@ function hasLocalSuggestionChanges() {
   return git(`status --porcelain -- ${suggestionPath}`) !== '';
 }
 
+function listDirtyPaths() {
+  return git('status --porcelain=v1')
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .map((line) => {
+      const rawPath = line.slice(3).trim();
+      return rawPath.includes(' -> ') ? rawPath.split(' -> ').pop() : rawPath;
+    });
+}
+
 function hasRemoteAhead() {
   const head = git('rev-parse HEAD');
   const remote = git('rev-parse origin/main');
@@ -70,6 +80,12 @@ try {
 const localChanges = hasLocalSuggestionChanges();
 const remoteAhead = hasRemoteAhead();
 const remoteTouchesSuggestion = remoteAhead && remoteChangedSuggestion();
+const dirtyNonSuggestion = listDirtyPaths().some((filePath) => filePath !== suggestionPath);
+
+if (remoteAhead && dirtyNonSuggestion) {
+  console.log('SUGGESTION_SYNC=BLOCKED_DIRTY_NON_SUGGESTION');
+  process.exit(0);
+}
 
 if (localChanges) {
   const localContent = fs.readFileSync(path.join(root, suggestionPath), 'utf8');

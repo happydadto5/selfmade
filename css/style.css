@@ -378,7 +378,8 @@ html::before {
     opacity: 1;
     mix-blend-mode: screen; /* brighter blend to improve visibility */
     /* slightly longer fade for a more noticeable, satisfying hit feel */
-    animation: hitPopFade 380ms ease-out forwards;
+    /* increased to 420ms for a clearer, more noticeable hit flash */
+    animation: hitPopFade 420ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {
