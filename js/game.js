@@ -159,13 +159,16 @@
           try {
             // Build accessible wave HUD: text node for the numeric label and a separate emoji span set aria-hidden
             while (waveEl.firstChild) waveEl.removeChild(waveEl.firstChild);
-            waveEl.appendChild(document.createTextNode('Wave: ' + n + ' '));
+            // Show total waves when configured so players understand remaining progression (e.g., "Wave: 2/6")
+            let labelText = 'Wave: ' + n + ' ';
+            try { if (typeof maxWaves === 'number' && maxWaves > 0) { labelText = 'Wave: ' + n + '/' + maxWaves + ' '; } } catch (e) {}
+            waveEl.appendChild(document.createTextNode(labelText));
             const emoji = document.createElement('span');
             emoji.textContent = '🌱';
             try { emoji.setAttribute('aria-hidden','true'); } catch (e) {}
             emoji.style.marginLeft = '6px';
             try { waveEl.appendChild(emoji); } catch(e) { /* ignore */ }
-            try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (err) {}
+            try { waveEl.setAttribute('aria-label', 'Wave: ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? ' of ' + maxWaves : '')); } catch (err) {}
             // Also update the browser tab title so players can see progress when the tab is backgrounded
             try { document.title = 'Selfmade — Wave ' + n + ' — Score ' + (typeof score !== 'undefined' ? score : 0); } catch (e) {}
             try {
@@ -272,7 +275,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.57.0';
+  const version = '6.58.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
