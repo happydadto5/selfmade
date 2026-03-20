@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: show waves-remaining in wave progress HUD for clearer beatability (tiny) — 2026-03-20
 - Levels: slightly increase early-wave enemy counts for better pacing (tiny) — 2026-03-20
 - Levels: trigger victory overlay when final configured wave is cleared so runs have a clear beatable end (tiny) — 2026-03-20
 - Levels: increase wave-clear recovery pause and show bonus on toast (tiny) — 2026-03-20

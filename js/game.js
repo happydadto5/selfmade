@@ -287,7 +287,14 @@
           const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
           const remaining = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
           const defeated = Math.max(0, total - remaining);
-          waveProgressEl.textContent = 'Progress: ' + defeated + '/' + total + (total > 0 ? ' (' + Math.round((defeated / total) * 100) + '%)' : '');
+          let progressText = 'Progress: ' + defeated + '/' + total + (total > 0 ? ' (' + Math.round((defeated / total) * 100) + '%)' : '');
+          try {
+            if (typeof maxWaves === 'number' && maxWaves > 0) {
+              const wavesLeft = Math.max(0, maxWaves - (typeof waveNumber === 'number' ? waveNumber : 0));
+              progressText += ' • Waves left: ' + wavesLeft;
+            }
+          } catch (e) {}
+          waveProgressEl.textContent = progressText;
           // If the current wave has just been cleared, show a brief toast so players notice the pause between waves and get a recovery moment.
           try {
             if (total > 0 && remaining === 0 && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
@@ -346,7 +353,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.100.0';
+  const version = '6.101.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
