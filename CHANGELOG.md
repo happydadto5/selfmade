@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.46.0
+- Mobile: reduce touch hold delay from 120ms to 100ms to make hold-to-fire more responsive (tiny) — 2026-03-20
+
 ## 6.45.0
 - Visual/UI: add subtle dark outline to HUD, wave banner, FPS, and pause/game-over text for improved readability on busy backgrounds (tiny) — 2026-03-20
 
