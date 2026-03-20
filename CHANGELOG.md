@@ -1,8 +1,7 @@
 # Changelog
 
-## Unreleased
+## 6.35.0
 - Levels: ensure dynamically spawned mini-enemies are correctly counted toward the current wave so wave progress and beatability are accurate (tiny)
-
 
 ## 6.34.0
 - Gameplay: reduce Shield charges from 3 to 2 to align with documented two-charge design (tiny) — 2026-03-20
