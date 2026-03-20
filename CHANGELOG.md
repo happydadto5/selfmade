@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.34.0
+- Gameplay: reduce Shield charges from 3 to 2 to align with documented two-charge design (tiny) — 2026-03-20
+
 ## 6.33.0
 - Stability: increase auto-pause debounce from 500ms to 700ms to reduce accidental pauses when switching tabs (tiny)
 
