@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.18.0
 - Levels: ensure wave target uses intended spawn count so waves reliably complete (tiny)
 
 ## 6.17.0
