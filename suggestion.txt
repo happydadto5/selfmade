@@ -4,3 +4,5 @@
 # Plain suggestions may stay here until used. Lines starting with + are persistent guidance and should stay.
 +This is a garden-themed game. Focus on gardening activities (weeding, pests, mulching, planning) with clear goals and challenges (for example, drought). Controls should remain consistent and prioritize touch and mouse input; prefer mobile-first UX. Ensure significant changes include basic tests and avoid regressions. Aim for a fun, shareable experience for gardening communities.
 
+Somehow level 1 had two enemies never a 3rd and never finished.  Nothing more came.
+Get rid of the stupid plants across the bottom.

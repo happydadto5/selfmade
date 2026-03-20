@@ -104,7 +104,15 @@ if (localChanges) {
       console.log('SUGGESTION_SYNC=WOULD_DOWNLOAD_THEN_UPLOAD');
       process.exit(0);
     }
-    git('pull --rebase origin main');
+    git(`checkout -- ${suggestionPath}`);
+    try {
+      git('pull --rebase origin main');
+    } catch (error) {
+      fs.writeFileSync(path.join(root, suggestionPath), localContent, 'utf8');
+      console.error(error.stderr || error.message);
+      process.exit(1);
+    }
+    fs.writeFileSync(path.join(root, suggestionPath), localContent, 'utf8');
   }
   if (dryRun) {
     console.log('SUGGESTION_SYNC=WOULD_UPLOAD');
