@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 6.17.0
 - Visual/UI: stronger garden hit flash overlay to improve hit readability (tiny)
 

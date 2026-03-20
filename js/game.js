@@ -1813,7 +1813,13 @@ let hitPopTimeout = null;
         if (Math.random() < 0.08) { enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.9, vx:(Math.random()-0.5)*0.4, hp:1, maxHp:1, type:'weevil', t: Math.random()*1000, baseVy: speed*0.9}); } else { enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal}); }
       }
     }
-    try { currentWaveEnemyCount = enemies.length - beforeWaveEnemies; } catch (e) { currentWaveEnemyCount = count; }
+    try {
+      currentWaveEnemyCount = enemies.length - beforeWaveEnemies;
+      // Ensure the reported target is at least the intended spawn count so waves can't report a smaller total
+      if (typeof currentWaveEnemyCount !== 'number' || currentWaveEnemyCount < count) {
+        currentWaveEnemyCount = count;
+      }
+    } catch (e) { currentWaveEnemyCount = count; }
     try { for (let i = beforeWaveEnemies; i < enemies.length; i++) { try { enemies[i].wave = waveNumber; } catch(e){} } } catch(e){}
     try { let waveAnnEl = document.getElementById('wave-announcer'); if (waveAnnEl) { try { waveAnnEl.textContent = 'Wave ' + waveNumber + ' starting. Defeat ' + currentWaveEnemyCount + ' enemies.'; } catch(e){} } } catch(e) {}
     // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
