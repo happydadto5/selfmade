@@ -374,7 +374,7 @@ html::before {
     z-index: 10001;
     /* radial gradient anchored at the hit location -- garden-tinted so hits feel thematic and remain visible */
     /* slightly stronger mid-tone and using 'screen' blend for a brighter, more consistent pop across backgrounds */
-    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(229,255,218,1), rgba(196,255,170,0.64) 24%, rgba(196,255,170,0) 62%);
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(229,255,218,1), rgba(196,255,170,0.78) 24%, rgba(196,255,170,0) 62%);
     opacity: 1;
     mix-blend-mode: screen; /* brighter blend to improve visibility */
     /* slightly longer fade for a more noticeable, satisfying hit feel */
