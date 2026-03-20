@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.16.0';
+  const version = '6.17.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3546,7 +3546,7 @@ let hitPopTimeout = null;
         ctx.save();
         // soft pale green tint that blends gently with the garden palette
         ctx.globalCompositeOperation = 'source-over';
-        ctx.fillStyle = 'rgba(246,255,208,' + (0.26 * alpha).toFixed(3) + ')'; // warmer, stronger garden tint
+        ctx.fillStyle = 'rgba(246,255,208,' + (0.36 * alpha).toFixed(3) + ')'; // warmer, stronger garden tint (increased)
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }

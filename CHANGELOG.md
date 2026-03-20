@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.17.0
+- Visual/UI: stronger garden hit flash overlay to improve hit readability (tiny)
+
 ## 6.16.0
 - Gameplay: align Shield power-up to absorb two hits (set charges to 2) (tiny)
 
