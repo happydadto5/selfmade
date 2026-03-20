@@ -159,7 +159,8 @@
           try {
             // Build accessible wave HUD: text node for the numeric label and a separate emoji span set aria-hidden
             while (waveEl.firstChild) waveEl.removeChild(waveEl.firstChild);
-            waveEl.appendChild(document.createTextNode('Wave: ' + n + ' '));
+            const waveLabel = 'Wave: ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? '/' + maxWaves : '') + ' ';
+            waveEl.appendChild(document.createTextNode(waveLabel));
             const emoji = document.createElement('span');
             emoji.textContent = '🌱';
             try { emoji.setAttribute('aria-hidden','true'); } catch (e) {}
@@ -3480,7 +3481,7 @@ let hitPopTimeout = null;
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
     if (waveEl) {
       const n = waveNumber;
-      waveEl.textContent = 'Wave: ' + n + ' 🌱';
+      waveEl.textContent = 'Wave: ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? '/' + maxWaves : '') + ' 🌱';
       try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (e) { }
       try {
         if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
@@ -3582,7 +3583,7 @@ let hitPopTimeout = null;
         ctx.save();
         ctx.font = '18px sans-serif';
         ctx.textAlign = 'left';
-        const waveText = 'Wave: ' + waveNumber + ' 🌱';
+        const waveText = 'Wave: ' + waveNumber + (typeof maxWaves === 'number' && maxWaves > 0 ? '/' + maxWaves : '') + ' 🌱';
         const livesText = 'Lives: ' + lives;
         const enemiesText = enemies.length + ' ' + (enemies.length === 1 ? 'Enemy' : 'Enemies');
         const pad = 10;
