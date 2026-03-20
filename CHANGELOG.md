@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: increase HUD backdrop opacity to 0.92 to improve HUD readability on busy backgrounds (tiny) — 2026-03-20
+
 ## 6.5.0
 - Visual/UI: add brief HUD score pulse when enemies are hit to improve hit feedback (tiny) — 2026-03-20
 - UI: Slightly darkened HUD backdrop to improve readability on busy backgrounds. — 2026-03-20
