@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.95.0';
+  const version = '5.96.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2150,7 +2150,7 @@ let hitPopTimeout = null;
           }
           e.hp--;
           // Brief hit flash to improve visual feedback when an enemy is struck
-          try { e.hitFlashUntil = Date.now() + 140; } catch (err) { /* ignore */ }
+          try { e.hitFlashUntil = Date.now() + 220; } catch (err) { /* ignore */ }
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
           try { canvasHitFlashUntil = Date.now() + 360; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
@@ -3133,11 +3133,11 @@ let hitPopTimeout = null;
           // If hit flash is active, draw a brief radial glow under the enemy for stronger hit feedback
           try {
             if (e.hitFlashUntil && Date.now() < e.hitFlashUntil && !prefersReducedMotion) {
-              const flashRadius = Math.max(e.w, e.h) * 1.6;
+              const flashRadius = Math.max(e.w, e.h) * 1.9;
               const grad = ctx.createRadialGradient(0,0,0,0,0,flashRadius);
-              grad.addColorStop(0, 'rgba(255,255,200,0.88)');
-              grad.addColorStop(0.28, 'rgba(255,200,60,0.36)');
-              grad.addColorStop(1, 'rgba(255,200,60,0)');
+              grad.addColorStop(0, 'rgba(255,255,220,0.96)');
+              grad.addColorStop(0.28, 'rgba(255,200,80,0.54)');
+              grad.addColorStop(1, 'rgba(255,200,80,0)');
               ctx.fillStyle = grad;
               ctx.beginPath(); ctx.arc(0,0,flashRadius,0,Math.PI*2); ctx.fill();
             }
