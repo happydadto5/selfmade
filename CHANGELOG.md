@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Fix: prevent duplicate shield HUD badges and keep shield timer updated in HUD (tiny) — 2026-03-20
+- Fix: consolidate shield badge update logic to avoid duplicate DOM nodes and ensure timer/charges refresh correctly — 2026-03-20
 - Fix: avoid spawning duplicate Shield power-ups when awarding nearby shields (tiny) — 2026-03-20
 
 ## 6.115.0
