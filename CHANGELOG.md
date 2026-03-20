@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: sync hit-pop body overlay CSS animation duration with JS removal timeout (760ms) so canvas and body-level hit flashes align (tiny) — 2026-03-20
 - Visual/UI: add subtle parallax to background clouds for improved depth (tiny) — 2026-03-20
 - Visual/UI: increase HUD text contrast (white text + darker HUD backdrop) for improved readability on busy backgrounds (tiny) — 2026-03-20
 - Visual/UI: tweak garden hit-pop overlay colors and bloom for clearer hit feedback (tiny) — 2026-03-20

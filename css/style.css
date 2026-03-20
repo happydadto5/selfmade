@@ -395,7 +395,7 @@ html::before {
     box-shadow: 0 0 160px rgba(144,238,144,0.42);
     filter: blur(12px);
     /* slightly longer fade for a more noticeable, satisfying hit feel */
-    animation: hitPopFade 860ms ease-out forwards;
+    animation: hitPopFade 760ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {
