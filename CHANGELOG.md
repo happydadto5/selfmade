@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Reduced wave spawn watchdog delay so fallback enemies appear sooner when fewer enemies spawn (improves wave reliability).
+
 
 ## 6.42.0
 - Stability: guard main loop against uncaught exceptions so an update/draw error won't stop animation; auto-pause and overlay shown on error (tiny) — 2026-03-20
@@ -1208,3 +1210,4 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
+
