@@ -1898,11 +1898,21 @@ let hitPopTimeout = null;
     // Occasionally branching or transient errors can cause fewer spawns than intended; fill the deficit immediately for stable wave behavior.
     try {
       const newAdded = enemies.length - beforeWaveEnemies;
-      const deficit = Math.max(0, count - newAdded);
+      let deficit = Math.max(0, count - newAdded);
       for (let j = 0; j < deficit; j++) {
         const ex2 = 40 + Math.random() * (cw - 80);
         const ey2 = -20 - Math.random() * 160;
         enemies.push({ x: ex2, y: ey2, w: 30, h: 28, vy: 0.9, hp: 1, maxHp: 1 });
+      }
+      // Re-check immediately and do a small capped retry if still short; this guards against rare branching issues
+      const stillAdded = enemies.length - beforeWaveEnemies;
+      deficit = Math.max(0, count - stillAdded);
+      if (deficit > 0) {
+        for (let j = 0; j < Math.min(deficit, 3); j++) {
+          const ex3 = 40 + Math.random() * (cw - 80);
+          const ey3 = -20 - Math.random() * 160;
+          enemies.push({ x: ex3, y: ey3, w: 30, h: 28, vy: 0.9, hp: 1, maxHp: 1 });
+        }
       }
     } catch (e) {}
     try {
