@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: adaptive inter-wave delay (longer early waves) to improve pacing and beatability (tiny) — 2026-03-20
 - Levels: award extra life every 5 waves (was 4) to improve beatability (tiny) — 2026-03-20
 - Levels: add manual 'Next Wave' button to let players advance when a wave stalls (tiny) — 2026-03-20
 - Levels: extend inter-wave recovery when player is low on lives to improve beatability (tiny) — 2026-03-20

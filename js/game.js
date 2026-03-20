@@ -3682,7 +3682,7 @@ let hitPopTimeout = null;
         try { playSound('blip'); } catch (e) {}
         // Advance to the next wave after a short moment — show a brief countdown so players know when the next wave starts
         (function(){
-          const delay = 900;
+          const delay = (typeof interWaveDelayMs === 'number' ? interWaveDelayMs : ((waveNumber <= 2) ? 1400 : 900));
           const start = Date.now();
           let el = null;
           try {
