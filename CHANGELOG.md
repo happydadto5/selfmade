@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.53.0
+- Visual/UI: increase wave progress bar contrast and animation speed for snappier, more readable feedback (tiny) — 2026-03-20
+
 ## 6.52.0
 - Levels: add finite waves and victory state (small) — 2026-03-20
 
