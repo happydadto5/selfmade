@@ -189,11 +189,10 @@
       // Update enemies HUD if present
       if (enemiesEl) {
         try {
-          const cnt = (typeof enemies !== 'undefined' ? enemies.length : 0);
-          // Show remaining / total when a wave is active to make progression clearer
+          // Count only enemies that belong to the current wave so HUD shows accurate remaining/total
+          const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
           const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
-          const rem = Math.max(0, total - cnt);
-          enemiesEl.textContent = (total > 0 ? (rem + '/' + total + ' left') : (cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies')));
+          enemiesEl.textContent = (total > 0 ? (present + '/' + total + ' left') : ((typeof enemies !== 'undefined' ? enemies.length : 0) + ' ' + ((typeof enemies !== 'undefined' && enemies.length === 1) ? 'Enemy' : 'Enemies')));
         } catch (e) { /* ignore DOM errors */ }
       }
       // Update active power-up HUD if present
@@ -273,7 +272,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.47.0';
+  const version = '6.48.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3449,11 +3448,10 @@ let hitPopTimeout = null;
     }
     if (enemiesEl) {
       try {
-        const cnt = enemies.length;
-        // Show remaining / total when a wave is active
+        // Count only enemies from the current wave so the compact HUD shows accurate remaining/total
+        const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
         const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
-        const rem = Math.max(0, total - cnt);
-        enemiesEl.textContent = (total > 0 ? (rem + '/' + total + ' left') : (cnt + ' ' + (cnt === 1 ? 'Enemy' : 'Enemies')));
+        enemiesEl.textContent = (total > 0 ? (present + '/' + total + ' left') : ((typeof enemies !== 'undefined' ? enemies.length : 0) + ' ' + ((typeof enemies !== 'undefined' && enemies.length === 1) ? 'Enemy' : 'Enemies')));
       } catch (e) { /* ignore DOM errors */ }
     }
     // Update document title to include current wave and score for better visibility when tabbed away

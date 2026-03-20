@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.48.0
+- Levels: count remaining enemies for the current wave in HUD so wave progress is accurate (tiny) — 2026-03-20
+
 ## 6.47.0
 - Gameplay: briefly pulse active power-up HUD when Shield absorbs a hit so players see immediate feedback (tiny) — 2026-03-20
 
