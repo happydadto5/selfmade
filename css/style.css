@@ -274,8 +274,8 @@ body.show-touch-guides {
   right: -8px;
   top: -8px;
   bottom: -8px;
-  /* slightly increased opacity and blur for stronger contrast on bright or busy backgrounds (tiny, improves readability) */
-  background: rgba(0,0,0,0.66);
+  /* slightly reduced backdrop darkness to improve readability while keeping contrast on busy backgrounds (tiny) */
+  background: rgba(0,0,0,0.36);
   border-radius: 10px;
   z-index: -1;
   pointer-events: none;
