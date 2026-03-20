@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: Shield now also absorbs direct enemy collisions (in addition to bottom-leak). Shielded collisions produce a satisfying visual/score feedback so players notice the effect immediately. — 2026-03-20
+
 ## 6.113.0
 - Levels: add keyboard shortcut N to advance to next wave when cleared (tiny) — 2026-03-20
 

@@ -2317,55 +2317,133 @@ let hitPopTimeout = null;
       e.y += e.vy * finalMoveFactor;
       // apply horizontal velocity if present (fallback for types that don't set vx)
       e.x += (e.vx || 0) * slowFactor;
-      if (e.y > ch + 50) {
-      enemies.splice(i,1);
-      // Shield absorbs bottom-leak life loss if active
+
+      // New: check for direct collision with the player (visible and immediate feedback). If an enemy touches
+      // the player, consume the enemy and either let the shield absorb it or cause a life loss. This makes
+      // the Shield power-up more useful and immediately noticeable when it protects the player.
       try {
-        if (Date.now() < (player.shieldUntil || 0)) {
-          // consume one shield charge (support multi-charge shields)
-          player.shieldCharges = (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1;
-          if (player.shieldCharges <= 0) {
-            player.shieldCharges = 0;
-            player.shieldUntil = 0;
-          } else {
-            // keep shield active; ensure remaining time is at least now
-            player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
+        if (player && typeof player.x === 'number' && typeof player.y === 'number') {
+          const overlapX = Math.abs((e.x || 0) - player.x) <= ((e.w || 20) / 2 + (player.w || 40) / 2 + 6);
+          const overlapY = Math.abs((e.y || 0) - player.y) <= ((e.h || 20) / 2 + (player.h || 22) / 2 + 6);
+          if (overlapX && overlapY) {
+            // remove the enemy on collision
+            enemies.splice(i,1);
+            // Shield absorbs collisions too
+            try {
+              if (Date.now() < (player.shieldUntil || 0)) {
+                player.shieldCharges = (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1;
+                if (player.shieldCharges <= 0) {
+                  player.shieldCharges = 0;
+                  player.shieldUntil = 0;
+                } else {
+                  player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
+                }
+                try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
+                try { score += 6; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+6', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
+                try { playSound('shield'); } catch (e) {}
+                try {
+                  for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.8, vy: -Math.random()*2.2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#81d4fa' });
+                } catch(e){}
+                try { screenShake = Math.min(20, (screenShake||0) + 8); } catch(e){}
+                try { canvasWhiteFlashUntil = Date.now() + 300; canvasHitFlashUntil = Date.now() + 360; } catch(e){}
+                try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
+                try {
+                  if (activePowerEl) {
+                    const _prev = activePowerEl.textContent || '';
+                    try { activePowerEl.textContent = '🛡 Shield absorbed'; activePowerEl.setAttribute('aria-hidden','false'); } catch(e){}
+                    setTimeout(function(){
+                      try { activePowerEl.textContent = _prev; if (!_prev) activePowerEl.setAttribute('aria-hidden','true'); } catch(e){}
+                    }, 900);
+                  }
+                } catch(e){}
+                // skip life loss
+                continue;
+              }
+            } catch (e) { /* ignore shield check errors */ }
+
+            // No shield: apply normal life loss feedback
+            lives--;
+            livesPulseUntil = Date.now() + 700;
+            livesFlashUntil = Date.now() + 260;
+            try { player.hitFlashUntil = Date.now() + 320; } catch (e) {}
+            try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
+            lives = Math.max(0, lives);
+
+            // small hit feedback (particles/screen shake) — reuse existing life-loss visuals
+            try {
+              const pcLost = 8;
+              for (let p=0;p<pcLost;p++) {
+                const angle = Math.PI + (Math.random() - 0.5) * 1.5;
+                const speed = 1 + Math.random() * 2;
+                particles.push({ x: player.x, y: player.y - 12, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, r: 2 + Math.random() * 3, life: 400 + Math.random() * 300, born: Date.now() });
+              }
+              screenShake = Math.min(20, screenShake + 6);
+            } catch(e){}
+
+            try {
+              if (!lifeAnnouncer) lifeAnnouncer = document.getElementById('life-announcer');
+              if (lifeAnnouncer) {
+                const msg = lives > 0 ? ('Life lost. ' + lives + (lives === 1 ? ' life remaining.' : ' lives remaining.')) : 'Last life lost. Game over.';
+                try { lifeAnnouncer.textContent = msg; } catch (e) { }
+              }
+            } catch(e){}
+
+            // continue to next enemy iteration
+            continue;
           }
-          // small visual feedback and a minor score reward to make shield use feel satisfying
-          try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
-          try { score += 5; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+5', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
-          try { playSound('shield'); } catch (e) {}
-          try {
-            // burst of sparkles and larger brighter petals for stronger visual feedback on shield absorb
-            for (let k=0;k<10;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#81d4fa' });
-            for (let p=0;p<8;p++) {
-              const ang = Math.random()*Math.PI*2;
-              const spd = 1 + Math.random()*2.2;
-              particles.push({ x: player.x + (Math.random()-0.5)*6, y: player.y + (Math.random()-0.5)*6, vx: Math.cos(ang)*spd, vy: Math.sin(ang)*spd, r: 2 + Math.random()*3, life: 420 + Math.random()*280, born: Date.now(), color: '#fff59d', petal: true, blend: 'lighter' });
-            }
-          } catch(e){}
-          try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
-          try { canvasWhiteFlashUntil = Date.now() + 260; canvasHitFlashUntil = Date.now() + 340; } catch(e){}
-          try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
-          try {
-            if (activePowerEl) {
-              const _prev = activePowerEl.textContent || '';
-              try { activePowerEl.textContent = '🛡 Shield absorbed'; activePowerEl.setAttribute('aria-hidden','false'); } catch(e){}
-              setTimeout(function(){
-                try { activePowerEl.textContent = _prev; if (!_prev) activePowerEl.setAttribute('aria-hidden','true'); } catch(e){}
-              }, 900);
-            }
-          } catch(e){}
-          continue;
         }
-      } catch (e) { /* ignore shield check errors */ }
-      lives--;
-      livesPulseUntil = Date.now() + 700;
-      livesFlashUntil = Date.now() + 260;
-      // brief player hit flash for clearer visual feedback (respects reduced-motion preference)
-      try { player.hitFlashUntil = Date.now() + 320; } catch (e) {}
-      try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
-      lives = Math.max(0, lives);
+      } catch (err) { /* ignore collision errors */ }
+
+      // previous behavior: if an enemy leaks past bottom of the screen, treat as life loss (or shield absorption)
+      if (e.y > ch + 50) {
+        enemies.splice(i,1);
+        // Shield absorbs bottom-leak life loss if active
+        try {
+          if (Date.now() < (player.shieldUntil || 0)) {
+            // consume one shield charge (support multi-charge shields)
+            player.shieldCharges = (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1;
+            if (player.shieldCharges <= 0) {
+              player.shieldCharges = 0;
+              player.shieldUntil = 0;
+            } else {
+              // keep shield active; ensure remaining time is at least now
+              player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
+            }
+            // small visual feedback and a minor score reward to make shield use feel satisfying
+            try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
+            try { score += 5; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+5', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
+            try { playSound('shield'); } catch (e) {}
+            try {
+              // burst of sparkles and larger brighter petals for stronger visual feedback on shield absorb
+              for (let k=0;k<10;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#81d4fa' });
+              for (let p=0;p<8;p++) {
+                const ang = Math.random()*Math.PI*2;
+                const spd = 1 + Math.random()*2.2;
+                particles.push({ x: player.x + (Math.random()-0.5)*6, y: player.y + (Math.random()-0.5)*6, vx: Math.cos(ang)*spd, vy: Math.sin(ang)*spd, r: 2 + Math.random()*3, life: 420 + Math.random()*280, born: Date.now(), color: '#fff59d', petal: true, blend: 'lighter' });
+              }
+            } catch(e){}
+            try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
+            try { canvasWhiteFlashUntil = Date.now() + 260; canvasHitFlashUntil = Date.now() + 340; } catch(e){}
+            try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
+            try {
+              if (activePowerEl) {
+                const _prev = activePowerEl.textContent || '';
+                try { activePowerEl.textContent = '🛡 Shield absorbed'; activePowerEl.setAttribute('aria-hidden','false'); } catch(e){}
+                setTimeout(function(){
+                  try { activePowerEl.textContent = _prev; if (!_prev) activePowerEl.setAttribute('aria-hidden','true'); } catch(e){}
+                }, 900);
+              }
+            } catch(e){}
+            continue;
+          }
+        } catch (e) { /* ignore shield check errors */ }
+        lives--;
+        livesPulseUntil = Date.now() + 700;
+        livesFlashUntil = Date.now() + 260;
+        // brief player hit flash for clearer visual feedback (respects reduced-motion preference)
+        try { player.hitFlashUntil = Date.now() + 320; } catch (e) {}
+        try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
+        lives = Math.max(0, lives);
       // Trigger a short HUD pulse to draw attention to the lost life (CSS handles animation)
       try {
         if (livesEl) {
