@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: spawn a guaranteed Shield power-up every 3 waves to aid pacing and recovery (tiny) — 2026-03-20
 - Levels: slightly reduce enemy count growth and slow enemy speed scaling to improve beatability and pacing (tiny) — 2026-03-20
 - Levels: bump initial wave enemy count so wave 1 has 4 enemies to avoid occasional stalled early waves (tiny) — 2026-03-20
 - Levels: ensure spawnWave always reaches intended enemy count (tiny) — 2026-03-20

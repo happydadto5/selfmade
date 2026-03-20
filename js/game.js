@@ -275,7 +275,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.74.0';
+  const version = '6.75.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2811,6 +2811,25 @@ let hitPopTimeout = null;
               // small visual pulse on the lives HUD
               try { livesPulseUntil = Date.now() + 700; } catch(e){}
             }
+          } catch(e){}
+        }
+      } catch(e){}
+
+      // Pacing aid: spawn a guaranteed Shield power-up every 3 waves to aid recovery and pacing.
+      try {
+        if (waveNumber % 3 === 0) {
+          try {
+            // spawn shield slightly above the player so it's easy to collect but not instant
+            const spawnY = (typeof player === 'object' && typeof player.y === 'number') ? Math.max(40, player.y - 120) : Math.max(40, ch * 0.2);
+            if (powerups.length < 6) {
+              powerups.push({ x: (player && typeof player.x === 'number') ? player.x : cw/2, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 16000 });
+            } else {
+              // if full, rotate oldest out to keep variety
+              powerups.shift();
+              powerups.push({ x: (player && typeof player.x === 'number') ? player.x : cw/2, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 16000 });
+            }
+            try { playSound('shield'); } catch(e){}
+            try { scorePopups.push({ x: (player && typeof player.x === 'number') ? player.x : cw/2, y: (player && typeof player.y === 'number') ? player.y - 20 : ch/2, text: 'Shield nearby!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch(e){}
           } catch(e){}
         }
       } catch(e){}
