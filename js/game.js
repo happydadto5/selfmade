@@ -1792,7 +1792,7 @@ if (overlay) {
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let lastPowerupColor = '';
-  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 6; let levelNumber = 1;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 6; let levelNumber = 1; let scheduledSpawnTimeout = null;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
@@ -2875,7 +2875,18 @@ let hitPopTimeout = null;
             const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
             if (present === 0) {
               const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
-              lastSpawn = Date.now(); spawnWave();
+              // Give player a brief recovery pause and a small reward for clearing the wave
+              try {
+                score += 10;
+                if (scoreEl) try { scoreEl.textContent = 'Score: ' + score; } catch(e){}
+                try { playSound('shield'); } catch(e) {}
+              } catch(e) {}
+              try { let ann = document.getElementById('wave-announcer'); if (ann) try { ann.textContent = 'Wave ' + waveNumber + ' cleared!'; } catch(e) {} } catch(e) {}
+              // Schedule the next wave after a short pause so players get a clear recovery window
+              try {
+                if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
+                scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 900);
+              } catch(e){}
             } else {
               // There are still enemies from this wave; update countdown element to indicate waiting.
               let nw = document.getElementById('next-wave-countdown');
