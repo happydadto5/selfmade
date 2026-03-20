@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: announce enemy hits via hit-announcer role=status live region for better screen-reader support (tiny) — 2026-03-20
+
 ## 6.48.0
 - Levels: count remaining enemies for the current wave in HUD so wave progress is accurate (tiny) — 2026-03-20
 

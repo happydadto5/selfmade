@@ -2255,6 +2255,7 @@ let hitPopTimeout = null;
                     hitAnn.style.height = '1px';
                     hitAnn.setAttribute('aria-live','polite');
                     hitAnn.setAttribute('aria-atomic','true');
+                    hitAnn.setAttribute('role','status');
                     document.body.appendChild(hitAnn);
                   }
                   try { hitAnn.textContent = 'Enemy hit'; } catch(e){}
