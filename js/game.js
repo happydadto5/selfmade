@@ -1095,6 +1095,14 @@
       if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
     }
+    // 'L' continues to next level when player has beaten the final configured wave
+    if ((e.key === 'l' || e.key === 'L') && gameOver) {
+      try {
+        if (typeof maxWaves !== 'undefined' && maxWaves > 0 && waveNumber >= maxWaves) {
+          try { continueToNextLevel(); } catch (err) {}
+        }
+      } catch (e) {}
+    }
     // 'R' or Enter restarts the game when it's over (keyboard accessibility)
     if ((e.key === 'r' || e.key === 'R' || e.key === 'Enter') && gameOver) {
       if (replayBtn) { try { replayBtn.click(); } catch (err) { /* ignore click errors */ } }
@@ -1243,7 +1251,12 @@ if (overlay) {
       } else if (typeof helpOpen !== 'undefined' && helpOpen) {
         overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; On touch, tap left/right edges to move and tap center to fire; P to pause; I or H to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode, G toggles garden grid, N advances to the next wave (developer/testing).';
       } else if (gameOver) {
-        overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — Press R or click to play again';
+        // If the player has completed the configured set of waves, offer to continue to a harder loop
+        if (typeof maxWaves !== 'undefined' && maxWaves > 0 && waveNumber >= maxWaves) {
+          overlayMessage.textContent = 'Victory! You beat the garden — Final Score: ' + score + ' — Press R to play again or L to continue to next level';
+        } else {
+          overlayMessage.textContent = 'Game Over — Final Score: ' + score + ' — Waves: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — Press R or click to play again';
+        }
       } else if (pausedByFocus) {
         overlayMessage.textContent = 'Paused (lost focus) — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press Space, click or tap, or return to this tab to resume. Auto-pause is enabled; press O to toggle.';
       } else if (paused) {
@@ -1310,6 +1323,28 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   // After restarting, restore keyboard focus to the canvas so users can continue with keys.
   try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
 });
+
+// Continue to next level without clearing score/lives — increase maxWaves and restart waves for a harder loop
+function continueToNextLevel() {
+  try {
+    levelNumber = (typeof levelNumber === 'number' ? levelNumber + 1 : 2);
+    maxWaves = (typeof maxWaves === 'number' ? maxWaves + 2 : 8);
+    // Clear current enemies and effects but preserve score and lives so progression feels meaningful
+    enemies.length = 0;
+    bullets.length = 0;
+    particles.length = 0;
+    currentWaveEnemyCount = 0;
+    lastClearedWave = 0;
+    waveNumber = 0;
+    lastSpawn = Date.now();
+    gameOver = false;
+    paused = false;
+    if (overlay) setOverlayVisible(false);
+    try { spawnWave(); } catch (e) {}
+    try { if (soundEnabled) { ensureAudio(); } } catch (e) {}
+    try { let ann = document.getElementById('wave-announcer'); if (ann) ann.textContent = 'Level ' + levelNumber + ' — New challenge!'; } catch (e){}
+  } catch (e) { /* ignore continue errors */ }
+}
 // Small UX: provide a visible Resume button inside the overlay for touch users and accessibility
 const resumeBtn = document.getElementById('resumeBtn');
 if (resumeBtn) {
@@ -1757,7 +1792,7 @@ if (overlay) {
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let lastPowerupColor = '';
-  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 6;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 6; let levelNumber = 1;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
