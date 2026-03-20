@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.113.0
 - Levels: add keyboard shortcut N to advance to next wave when cleared (tiny) — 2026-03-20
 
 ## 6.112.0
