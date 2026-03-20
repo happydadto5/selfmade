@@ -2694,6 +2694,11 @@ let hitPopTimeout = null;
     // draw subtle drifting background clouds (behind leaves)
     try {
       if (bgClouds && bgClouds.length) {
+        // subtle parallax based on player position for extra depth
+        const parallaxX = (player && typeof player.x === 'number') ? (player.x - (cw * 0.5)) * 0.04 : 0;
+        ctx.save();
+        // translate the whole cloud layer by a small amount opposite the player's movement
+        ctx.translate(parallaxX, 0);
         for (const c of bgClouds) {
           try {
             ctx.save();
