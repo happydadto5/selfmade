@@ -3,6 +3,7 @@
 ## Unreleased
 - Levels: reduce wave spawn watchdog delay so fallback enemies appear sooner and prevent stalled waves (small) — 2026-03-20
 - Levels: shorten inter-wave delay slightly for snappier pacing and better beatability (tiny) — 2026-03-20
+- Levels: add short wave-start grace (enemies slowed ~35% for 0.8s) to improve beatability and give players reaction time (tiny) — 2026-03-20
 - Levels: consider wave cleared when its remaining enemies are defeated (prevents stalled waves) — tiny
 - UI: show total waves in Wave HUD when maxWaves configured (small) — 2026-03-20
 

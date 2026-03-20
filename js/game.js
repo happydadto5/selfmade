@@ -1754,7 +1754,7 @@ if (overlay) {
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let lastPowerupColor = '';
-  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let maxWaves = 6;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 6;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
@@ -1775,6 +1775,8 @@ let hitPopTimeout = null;
     try { waveSpawnWatchdog = Date.now(); } catch (e) {}
     // briefly show a wave banner so players notice wave transitions
     wavePulseUntil = Date.now() + 800;
+    // Give players a short grace period at the start of each wave where enemies move slightly slower to improve beatability
+    try { waveStartGraceUntil = Date.now() + 800; } catch (e) {}
   // small, optional screen shake to emphasize wave start (skip for reduced-motion users)
   try {
     if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -2113,7 +2115,9 @@ let hitPopTimeout = null;
           } catch (pe) { /* ignore particle push errors */ }
         } catch (err) { /* ignore sprout update errors */ }
       }
-      e.y += e.vy * slowFactor;
+      const waveGraceFactor = (typeof waveStartGraceUntil === 'number' && Date.now() < (waveStartGraceUntil || 0)) ? 0.65 : 1;
+      const finalMoveFactor = slowFactor * waveGraceFactor;
+      e.y += e.vy * finalMoveFactor;
       // apply horizontal velocity if present (fallback for types that don't set vx)
       e.x += (e.vx || 0) * slowFactor;
       if (e.y > ch + 50) {
