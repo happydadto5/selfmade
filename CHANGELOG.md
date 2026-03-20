@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.20.0
+- Visual/UI: use --hud-backdrop-opacity for HUD backdrop and increase default to 0.94 for improved contrast (tiny)
+
 ## 6.19.0
 - Visual/UI: improve hit-pop overlay fallback so hits remain visible on very light backgrounds (tiny)
 
