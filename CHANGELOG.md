@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.38.0
+- Gameplay: improve Shield power-up visibility with a brighter halo and slightly larger icon so pickups are easier to spot (tiny) — 2026-03-20
+
 ## 6.37.0
 - Stability: only auto-resume when the document has focus to avoid accidental unpauses on some platforms (tiny) — 2026-03-20
 

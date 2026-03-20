@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.37.0';
+  const version = '6.38.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3203,17 +3203,31 @@ let hitPopTimeout = null;
         const alpha = Math.max(0, Math.min(1, pu.life / 12000));
         ctx.globalAlpha = alpha;
         // gentle circle with a type-specific color to make pickups readable at-a-glance
-        const baseColor = (pu.type === 'shield') ? '#29b6f6' : '#66bb6a';
+        const isShield = (pu.type === 'shield');
+        const baseColor = isShield ? '#29b6f6' : '#66bb6a';
         ctx.fillStyle = baseColor;
-        ctx.beginPath(); ctx.arc(pu.x, pu.y, 10, 0, Math.PI*2); ctx.fill();
+        // slightly larger base radius for shield to improve discoverability
+        const baseRadius = isShield ? 12 : 10;
+        ctx.beginPath(); ctx.arc(pu.x, pu.y, baseRadius, 0, Math.PI*2); ctx.fill();
         // subtle pulsing ring to make power-ups more discoverable (respects reduced-motion preference)
         try {
           if (!(typeof prefersReducedMotion !== 'undefined' && prefersReducedMotion)) {
             const t = Date.now();
-            const base = 14;
-            const pulse = 1 + 0.08 * Math.sin(t / 240 + ((pu.born||0) / 330));
-            ctx.lineWidth = 2;
-            const ringAlpha = Math.max(0, Math.min(0.8, 0.35 + 0.25 * Math.sin(t / 320 + ((pu.born||0) / 420))));
+            const base = isShield ? 18 : 14;
+            // make shield pulse a bit stronger so it's more noticeable
+            const pulse = 1 + (isShield ? 0.12 : 0.08) * Math.sin(t / (isShield ? 200 : 240) + ((pu.born||0) / 330));
+            ctx.lineWidth = isShield ? 3 : 2;
+            const ringAlpha = Math.max(0, Math.min(0.9, (isShield ? 0.45 : 0.35) + (isShield ? 0.32 : 0.25) * Math.sin(t / (isShield ? 300 : 320) + ((pu.born||0) / 420))));
+            // For shield, draw a tinted halo behind the ring for stronger clarity
+            if (isShield) {
+              try {
+                ctx.save();
+                ctx.globalAlpha = Math.min(alpha * 0.9, 0.7);
+                ctx.fillStyle = 'rgba(41,182,246,0.12)';
+                ctx.beginPath(); ctx.arc(pu.x, pu.y, base * pulse * 1.2, 0, Math.PI*2); ctx.fill();
+                ctx.restore();
+              } catch (e) { /* ignore halo draw errors */ }
+            }
             ctx.strokeStyle = 'rgba(255,255,255,' + ringAlpha.toFixed(3) + ')';
             ctx.beginPath(); ctx.arc(pu.x, pu.y, base * pulse, 0, Math.PI*2); ctx.stroke();
           }
