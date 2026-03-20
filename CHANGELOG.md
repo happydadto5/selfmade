@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: slightly reduce enemy speed cap and growth for better beatability (tiny) — 2026-03-20
 - Fix: detect wave cleared by current-wave enemy count, preventing stalled waves when stray enemies remain (tiny) — 2026-03-20
 - UI: ensure Wave HUD consistently shows total waves when configured (tiny) — 2026-03-20
 - Levels: prevent automatic inter-wave spawn from starting while previous wave enemies remain; show 'Waiting for X enemies' during countdown (small) — 2026-03-20
