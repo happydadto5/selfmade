@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: add keyboard shortcut N to advance to next wave when cleared (tiny) — 2026-03-20
+
 ## 6.112.0
 - UI: show shield power-up remaining charges in Lives HUD badge (tiny) — 2026-03-20
 

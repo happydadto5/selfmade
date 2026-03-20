@@ -1210,6 +1210,19 @@
       if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
     }
+    // 'N' advances to the next wave when cleared (keyboard shortcut)
+    if ((e.key === 'n' || e.key === 'N')) {
+      try {
+        if (!gameOver) {
+          const present = (typeof enemies !== 'undefined' ? enemies.filter(function(en){ try { return en && en.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+          if (present === 0) {
+            if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
+            try { lastSpawn = Date.now(); } catch(e){}
+            try { spawnWave(); } catch(e){}
+          }
+        }
+      } catch(e) {}
+    }
     // 'L' continues to next level when player has beaten the final configured wave
     if ((e.key === 'l' || e.key === 'L') && gameOver) {
       try {
