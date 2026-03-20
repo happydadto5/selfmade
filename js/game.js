@@ -2264,7 +2264,7 @@ let hitPopTimeout = null;
               }
               try { screenShake = Math.min(12, (screenShake||0) + 4); } catch(e){}
               // Stronger flash and extra bright particles for enemy death to improve clarity (respects reduced-motion)
-              try { if (!prefersReducedMotion) { canvasWhiteFlashUntil = Date.now() + 300; canvasHitFlashUntil = Date.now() + 500; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
+              try { if (!prefersReducedMotion) { canvasWhiteFlashUntil = Date.now() + 380; canvasHitFlashUntil = Date.now() + 620; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
                try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(22); } catch(e) {}
               try {
                 for (let q=0;q<16;q++) particles.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (Math.random()-0.5)*10, vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3, r: 0.8 + Math.random()*2.6, life: 220 + Math.random()*260, born: Date.now(), color: '#fff59d', blend: 'lighter' });
