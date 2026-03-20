@@ -2796,6 +2796,34 @@ let hitPopTimeout = null;
                   if (replayBtn) try { replayBtn.focus(); } catch(e){}
                 }
               } catch (e) {}
+
+              // Celebratory particles and audio (respect user's prefers-reduced-motion setting)
+              try {
+                const prefersReducedMotionLocal = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+                if (!prefersReducedMotionLocal) {
+                  try {
+                    const burstCount = 28;
+                    for (let i = 0; i < burstCount; i++) {
+                      const angle = Math.random() * Math.PI * 2;
+                      const speed = 1 + Math.random() * 3;
+                      particles.push({
+                        x: (typeof cw === 'number' ? cw/2 : (canvas ? (canvas.getBoundingClientRect().width/2) : 0)) + (Math.random() - 0.5) * 40,
+                        y: (typeof ch === 'number' ? ch/2 : (canvas ? (canvas.getBoundingClientRect().height/2) : 0)) - 20 + (Math.random() - 0.5) * 40,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed - 0.6,
+                        r: 2 + Math.random() * 4,
+                        life: 600 + Math.random() * 800,
+                        born: Date.now(),
+                        color: ['#ffd54f','#ff8a65','#66bb6a','#29b6f6','#ab47bc'][Math.floor(Math.random() * 5)],
+                        petal: Math.random() < 0.5
+                      });
+                    }
+                  } catch (e) { /* ignore particle spawn errors */ }
+                  try { screenShake = Math.min(30, (typeof screenShake === 'number' ? screenShake : 0) + 10); } catch (e) {}
+                }
+                // Play a victory chime even if reduced motion is preferred (audio is not motion), but respect soundEnabled
+                try { if (soundEnabled) { ensureAudio(); playSound('wave'); } } catch (e) {}
+              } catch (e) { /* ignore celebratory errors */ }
             }
           } catch(e) {}
 
