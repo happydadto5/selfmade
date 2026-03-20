@@ -19,8 +19,11 @@
     if (typeof Image !== 'undefined') {
       gardenBackground = new Image();
       gardenBackground.decoding = 'async';
-      gardenBackground.onload = () => { gardenBackgroundReady = true; };
-      gardenBackground.onerror = () => { gardenBackgroundReady = false; };
+      gardenBackground.onload = () => {
+        gardenBackgroundReady = true;
+        try { canvas.style.backgroundImage = 'url("assets/images/garden-background.jpg")'; canvas.style.backgroundPosition = 'center top'; canvas.style.backgroundSize = 'cover'; } catch (e) {}
+      };
+      gardenBackground.onerror = () => { gardenBackgroundReady = false; try { canvas.style.backgroundImage = ''; } catch (e) {} };
       gardenBackground.src = 'assets/images/garden-background.jpg';
     }
   } catch (e) { /* ignore background image loading errors */ }

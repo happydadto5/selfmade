@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: use local garden-background.jpg as canvas background when present for stronger theme (tiny) — 2026-03-20
 - UI: make wave progress bar responsive and slightly taller for improved readability on mobile (tiny) — 2026-03-20
 - Graphics: add and render a generated garden background image so the game finally gets a real visible art upgrade instead of only procedural shapes and hit-flash tweaks.
 - Visual/UI: extend enemy hit flash and enlarge hit glow for clearer hit feedback (tiny) — 2026-03-20
