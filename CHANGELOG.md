@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.10.0
+- Levels/UI: include wave enemy target in wave start toast and aria announcement for clearer progression feedback
+
 ## 6.9.0
 - Gameplay: Shield now absorbs two life leaks (small) — 2026-03-20
 

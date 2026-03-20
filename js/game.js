@@ -258,7 +258,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.9.0';
+  const version = '6.10.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1810,6 +1810,8 @@ let hitPopTimeout = null;
       }
     }
     try { currentWaveEnemyCount = enemies.length - beforeWaveEnemies; } catch (e) { currentWaveEnemyCount = count; }
+    try { let waveAnnEl = document.getElementById('wave-announcer'); if (waveAnnEl) { try { waveAnnEl.textContent = 'Wave ' + waveNumber + ' starting. Defeat ' + currentWaveEnemyCount + ' enemies.'; } catch(e){} } } catch(e) {}
+    // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
     // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
     if (waveEl) {
       try {
@@ -1845,7 +1847,7 @@ let hitPopTimeout = null;
         wt.style.transition = 'opacity 220ms ease, transform 220ms ease';
         document.body.appendChild(wt);
       }
-      wt.textContent = 'Wave ' + waveNumber + ' starting';
+      wt.textContent = 'Wave ' + waveNumber + ' — Defeat ' + currentWaveEnemyCount + ' enemies';
       // show briefly then hide
       try { wt.style.opacity = '1'; wt.style.transform = 'translateX(-50%) translateY(0)'; } catch(e){}
       setTimeout(() => { try { wt.style.opacity = '0'; wt.style.transform = 'translateX(-50%) translateY(-8px)'; } catch(e){} }, 900);
