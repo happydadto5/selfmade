@@ -373,13 +373,13 @@ html::before {
     pointer-events: none;
     z-index: 10001;
     /* radial gradient anchored at the hit location -- garden-tinted so hits feel thematic and remain visible */
-    /* slightly stronger mid-tone and using 'screen' blend for a brighter, more consistent pop across backgrounds */
-    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(229,255,218,1), rgba(196,255,170,0.78) 24%, rgba(196,255,170,0) 62%);
+    /* increased mid-tone opacity and slightly larger radius for clearer, more satisfying hit feedback */
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,230,1), rgba(196,255,170,0.9) 34%, rgba(196,255,170,0) 72%);
     opacity: 1;
     mix-blend-mode: screen; /* brighter blend to improve visibility */
     /* slightly longer fade for a more noticeable, satisfying hit feel */
-    /* increased to 520ms for a clearer, more noticeable hit flash */
-    animation: hitPopFade 520ms ease-out forwards;
+    /* increased to 620ms for a slightly more pronounced hit flash */
+    animation: hitPopFade 620ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {
@@ -395,7 +395,7 @@ html::before {
    Respects prefers-reduced-motion. This briefly nudges the canvas while the pop runs. */
 @media (prefers-reduced-motion: no-preference) {
   body.hit-pop #game {
-    animation: hitShake 360ms cubic-bezier(.2,.8,.2,1);
+    animation: hitShake 440ms cubic-bezier(.2,.8,.2,1);
     transform-origin: center center;
     will-change: transform;
   }
