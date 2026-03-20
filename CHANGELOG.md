@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: reduce initial wave sizes for better beatability (tiny) — 2026-03-20
 - Levels: award wave-clear bonus scaled by remaining lives to reward survival (tiny) — 2026-03-20
 - Levels: increase early-wave grace period to improve beatability (tiny) — 2026-03-20
 - Levels: adaptive inter-wave delay (longer early waves) to improve pacing and beatability (tiny) — 2026-03-20
