@@ -1845,7 +1845,7 @@ let hitPopTimeout = null;
       }
       try { waveAnn.textContent = 'Wave ' + waveNumber + ' starting.'; } catch (e) { }
     } catch (e) { /* ignore announcer creation errors */ }
-    const count = 3 + Math.min(8, Math.floor(waveNumber * 0.6));
+    const count = 4 + Math.min(8, Math.floor(waveNumber * 0.6));
     const beforeWaveEnemies = enemies.length;
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);
