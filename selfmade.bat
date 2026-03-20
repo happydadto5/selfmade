@@ -27,10 +27,27 @@ set "DEEP_SUGGESTION_LOG=%TEMP%\selfmade_deep_suggestion.txt"
 set "DEEP_SUGGESTION_ERR=%TEMP%\selfmade_deep_suggestion_error.txt"
 set "ITERATION_FOCUS_LOG=%TEMP%\selfmade_iteration_focus.txt"
 set "ITERATION_FOCUS_ERR=%TEMP%\selfmade_iteration_focus_error.txt"
+set "INSTANCE_LOCK_LOG=%TEMP%\selfmade_instance_lock.txt"
 set "RUN_MODE=%~1"
 
 if /I "%RUN_MODE%"=="--once" goto LOOP
 if /I "%RUN_MODE%"=="--reexec" goto LOOP
+
+node scripts\acquire_launcher_lock.js > "%INSTANCE_LOCK_LOG%" 2>&1
+set "INSTANCE_LOCK_EXIT=%ERRORLEVEL%"
+if "%INSTANCE_LOCK_EXIT%"=="1" (
+    if exist "%INSTANCE_LOCK_LOG%" type "%INSTANCE_LOCK_LOG%"
+    call :APPEND_FILE "%INSTANCE_LOCK_LOG%" "instance lock"
+    del "%INSTANCE_LOCK_LOG%" >nul 2>&1
+    exit /b 0
+)
+if not "%INSTANCE_LOCK_EXIT%"=="0" (
+    if exist "%INSTANCE_LOCK_LOG%" type "%INSTANCE_LOCK_LOG%"
+    call :APPEND_FILE "%INSTANCE_LOCK_LOG%" "instance lock"
+    echo [!] Instance lock check failed. Continuing without single-launch protection.
+    call :LOG Instance lock check failed; continuing without single-launch protection.
+)
+del "%INSTANCE_LOCK_LOG%" >nul 2>&1
 
 echo ============================================================
 echo   SELFMADE — Self-Evolving Game Engine

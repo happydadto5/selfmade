@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Automation: prevent a second `selfmade.bat` launcher from starting when one is already running, reducing noisy file-lock conflicts from duplicate launches.
 - Visual/UI: reduce bottom pot count and tone down plant graphics to reduce clutter (tiny) — 2026-03-20
 - Visual/UI: add subtle canvas shake synchronized with hit-pop overlay to strengthen hit feedback (tiny) — 2026-03-20
 - Visual/UI: increase HUD backdrop opacity and blur slightly for improved readability on bright or busy backgrounds (tiny) — 2026-03-20
