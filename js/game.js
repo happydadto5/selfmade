@@ -118,6 +118,44 @@
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
   const enemiesEl = document.getElementById('enemies');
+  // Create a small manual "Next Wave" button as a fallback when automatic spawns stall.
+  // This helps players proceed if a wave unexpectedly fails to progress.
+  let nextWaveBtn = null;
+  try {
+    nextWaveBtn = document.getElementById('nextWaveBtn');
+    if (!nextWaveBtn) {
+      nextWaveBtn = document.createElement('button');
+      nextWaveBtn.id = 'nextWaveBtn';
+      nextWaveBtn.type = 'button';
+      nextWaveBtn.textContent = 'Next Wave';
+      nextWaveBtn.title = 'Advance to next wave';
+      nextWaveBtn.style.position = 'fixed';
+      nextWaveBtn.style.right = '12px';
+      nextWaveBtn.style.bottom = '12px';
+      nextWaveBtn.style.zIndex = '10002';
+      nextWaveBtn.style.padding = '8px 12px';
+      nextWaveBtn.style.borderRadius = '10px';
+      nextWaveBtn.style.background = 'rgba(255,255,255,0.96)';
+      nextWaveBtn.style.color = '#063f0d';
+      nextWaveBtn.style.border = 'none';
+      nextWaveBtn.style.fontWeight = '700';
+      nextWaveBtn.style.cursor = 'pointer';
+      nextWaveBtn.style.boxShadow = '0 6px 14px rgba(0,0,0,0.12)';
+      nextWaveBtn.setAttribute('aria-hidden', 'true');
+      try { document.body.appendChild(nextWaveBtn); } catch(e) {}
+    }
+    // Click handler: only trigger a new wave if current wave is cleared to avoid accidental skipping
+    nextWaveBtn.addEventListener('click', function(){
+      try {
+        const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+        if (present === 0 && !gameOver) {
+          try { if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch(e){}
+          try { lastSpawn = Date.now(); } catch(e){}
+          try { spawnWave(); } catch(e){}
+        }
+      } catch(e) {}
+    }, { passive: true });
+  } catch (e) { /* ignore UI creation errors */ }
   const waveProgressEl = document.getElementById('wave-progress');
   // Active power-up HUD element (shows current power-up and remaining time)
   const activePowerEl = document.getElementById('active-powerup');
@@ -275,7 +313,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.87.0';
+  const version = '6.88.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
