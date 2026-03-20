@@ -2885,7 +2885,7 @@ let hitPopTimeout = null;
               // Schedule the next wave after a short pause so players get a clear recovery window
               try {
                 if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
-                scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 900);
+                scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(900, Math.min(interWaveDelay, 1200)));
               } catch(e){}
             } else {
               // There are still enemies from this wave; update countdown element to indicate waiting.

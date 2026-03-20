@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: increase inter-wave recovery pause when waves clear to improve pacing (tiny) — 2026-03-20
 - Levels: show brief 'Wave cleared' pause and award small score bonus to improve pacing (tiny) — 2026-03-20
 - Levels: slightly reduce enemy speed cap and growth for better beatability (tiny) — 2026-03-20
 - Fix: detect wave cleared by current-wave enemy count, preventing stalled waves when stray enemies remain (tiny) — 2026-03-20
