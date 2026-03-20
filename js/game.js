@@ -275,7 +275,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.73.0';
+  const version = '6.74.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1845,12 +1845,12 @@ let hitPopTimeout = null;
       }
       try { waveAnn.textContent = 'Wave ' + waveNumber + ' starting.'; } catch (e) { }
     } catch (e) { /* ignore announcer creation errors */ }
-    const count = 4 + Math.min(8, Math.floor(waveNumber * 0.6));
+    const count = 4 + Math.min(8, Math.floor(waveNumber * 0.5));
     const beforeWaveEnemies = enemies.length;
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);
       const ey = -20 - Math.random()*200;
-      const speed = Math.min(4, 0.6 + Math.random()*1.2 + waveNumber*0.05);
+      const speed = Math.min(4, 0.6 + Math.random()*1.2 + waveNumber*0.035);
       // Small chance to spawn a zigging "hopper" enemy that oscillates horizontally for visual and gameplay variety
       // Increase visibility of zigging "hopper" enemies so players notice new behavior more often
       const isZig = Math.random() < Math.min(0.35, 0.08 + waveNumber*0.025);
