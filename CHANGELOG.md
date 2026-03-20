@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.6.0
 - Visual/UI: increase HUD backdrop opacity to 0.92 to improve HUD readability on busy backgrounds (tiny) — 2026-03-20
 
 ## 6.5.0
