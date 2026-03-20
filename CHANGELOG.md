@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.33.0
 - Stability: increase auto-pause debounce from 500ms to 700ms to reduce accidental pauses when switching tabs (tiny)
 
 ## 6.31.0
