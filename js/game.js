@@ -2175,7 +2175,19 @@ let hitPopTimeout = null;
             } catch (pe) { /* ignore particle errors */ }
           // If the hit was non-lethal, show a small +1 popup and a few particles to reward the hit visually
           if (e.hp > 0) {
-            try { scorePopups.push({ x: e.x, y: e.y, text: '+1', vy: -0.04, life: 600, totalLife: 600, color: '#fff9c4' }); try { if (typeof document !== 'undefined' && document.body) { try { if (typeof prefersReducedMotion === 'undefined' || !prefersReducedMotion) { document.body.classList.add('wave-shake'); setTimeout(function(){ try{ document.body.classList.remove('wave-shake'); }catch(e){} }, 220); } } catch(e){} } } catch (ex) { /* ignore */ }
+            try {
+              scorePopups.push({ x: e.x, y: e.y, text: '+1', vy: -0.04, life: 600, totalLife: 600, color: '#fff9c4' });
+              if (typeof document !== 'undefined' && document.body) {
+                try {
+                  if (typeof prefersReducedMotion === 'undefined' || !prefersReducedMotion) {
+                    document.body.classList.add('wave-shake');
+                    setTimeout(function () {
+                      try { document.body.classList.remove('wave-shake'); } catch (e) {}
+                    }, 220);
+                  }
+                } catch (e) {}
+              }
+            } catch (ex) { /* ignore */ }
             try {
               for (let sp = 0; sp < 5; sp++) {
                 particles.push({

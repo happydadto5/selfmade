@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix: repair malformed non-lethal hit-feedback logic in `js/game.js` so automation validation can complete again after restart.
 - Automation: reduce the loop pause from 7 minutes back to 5 minutes.
 - Automation: detect when suggestion sync is blocked by unrelated local changes and continue the local loop with a clear warning instead of stalling forever on repeated pull-rebase failures.
 - Visual/UI: extend the garden hit-pop flash to 420ms so enemy-hit feedback reads a bit more clearly (tiny) — 2026-03-20
