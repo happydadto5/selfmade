@@ -1,7 +1,7 @@
 # Changelog
 
 ## Unreleased
-- Levels: award extra life every 4 waves (was 5) to improve beatability (tiny) — 2026-03-20
+- Levels: award extra life every 5 waves (was 4) to improve beatability (tiny) — 2026-03-20
 - Levels: add manual 'Next Wave' button to let players advance when a wave stalls (tiny) — 2026-03-20
 - Levels: extend inter-wave recovery when player is low on lives to improve beatability (tiny) — 2026-03-20
 - Levels: increase inter-wave recovery pause when waves clear to improve pacing (tiny) — 2026-03-20
