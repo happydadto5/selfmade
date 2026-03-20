@@ -3073,13 +3073,19 @@ let hitPopTimeout = null;
           try {
             // spawn shield slightly above the player so it's easy to collect but not instant
             const spawnY = (typeof player === 'object' && typeof player.y === 'number') ? Math.max(40, player.y - 120) : Math.max(40, ch * 0.2);
-            if (powerups.length < 6) {
-              powerups.push({ x: (player && typeof player.x === 'number') ? player.x : cw/2, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 16000 });
-            } else {
-              // if full, rotate oldest out to keep variety
-              powerups.shift();
-              powerups.push({ x: (player && typeof player.x === 'number') ? player.x : cw/2, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 16000 });
-            }
+            // Avoid spawning a second shield very close to an existing one (defensive: prevents accidental duplicate spawns)
+            (function(){
+              const spawnX = (player && typeof player.x === 'number') ? player.x : cw/2;
+              const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - spawnX) < 48 && Math.abs((p.y||0) - spawnY) < 48);
+              if (nearbyShield) return;
+              if (powerups.length < 6) {
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 16000 });
+              } else {
+                // if full, rotate oldest out to keep variety
+                powerups.shift();
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 16000 });
+              }
+            })();
             try { playSound('shield'); } catch(e){}
             try { scorePopups.push({ x: (player && typeof player.x === 'number') ? player.x : cw/2, y: (player && typeof player.y === 'number') ? player.y - 20 : ch/2, text: 'Shield nearby!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch(e){}
           } catch(e){}
