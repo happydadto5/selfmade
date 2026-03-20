@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.22.0
+- Levels: shorten inter-wave delay for waves 1-2 to improve pacing and beatability (tiny)
+
 ## 6.21.0
 - Gameplay: Draw shield charge indicators above player while Shield is active (tiny)
 

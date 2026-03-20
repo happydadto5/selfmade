@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.21.0';
+  const version = '6.22.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2645,7 +2645,10 @@ let hitPopTimeout = null;
         }
       } catch(e){}
 
-      const interWaveDelay = 2200 + Math.min(2000, Math.floor(waveNumber * 80));
+      // Base inter-wave delay (ms). Slightly shorter early waves for snappier progression and better beatability
+      let interWaveDelay = 2200 + Math.min(2000, Math.floor(waveNumber * 80));
+      // Reduce delay for the first two waves so new players see clearer progression quickly
+      try { if (waveNumber <= 2) interWaveDelay = Math.max(900, interWaveDelay - 900); } catch (e) {}
       // Show a small countdown HUD during the inter-wave delay so players know when the next wave starts.
       try {
         const elapsed = Date.now() - lastSpawn;
