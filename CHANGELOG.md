@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: add subtle vignette to canvas to focus play area and improve HUD readability (tiny) — 2026-03-20
+
 ## 6.10.0
 - Levels/UI: include wave enemy target in wave start toast and aria announcement for clearer progression feedback
 

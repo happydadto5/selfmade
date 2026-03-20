@@ -2759,6 +2759,22 @@ let hitPopTimeout = null;
         ctx.globalAlpha = 1;
       }
     } catch (e) { /* ignore bg leaf draw errors */ }
+    // subtle vignette to focus the play area and improve HUD readability on busy backgrounds
+    try {
+      ctx.save();
+      const vx = cw * 0.5;
+      const vy = ch * 0.35;
+      const inner = Math.min(cw, ch) * 0.12;
+      const outer = Math.max(cw, ch) * 0.9;
+      const vignette = ctx.createRadialGradient(vx, vy, inner, vx, vy, outer);
+      vignette.addColorStop(0, 'rgba(0,0,0,0)');
+      vignette.addColorStop(0.6, 'rgba(0,0,0,0.06)');
+      vignette.addColorStop(1, 'rgba(0,0,0,0.18)');
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.fillStyle = vignette;
+      ctx.fillRect(0,0,cw,ch);
+      ctx.restore();
+    } catch (e) { /* ignore vignette errors */ }
     const g = ctx.createLinearGradient(0,ch-180,0,ch); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(0,0,0,0.06)'); ctx.fillStyle = g; ctx.fillRect(0,ch-180,cw,180);
     // Compact in-canvas HUD when DOM HUD is hidden: show wave and remaining enemies in top-right
     try {
