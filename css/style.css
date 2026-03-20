@@ -398,9 +398,9 @@ html::before {
     background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,230,1), rgba(210,255,190,1) 48%, rgba(210,255,190,0) 88%);
     opacity: 1;
     mix-blend-mode: screen; /* brighter blend to improve visibility */
-    /* add stronger bloom and blur for clearer, garden-like hit feedback */
-    box-shadow: 0 0 160px rgba(144,238,144,0.42);
-    filter: blur(12px);
+    /* add stronger bloom and sharpened hit-pop for clearer, garden-like hit feedback */
+    box-shadow: 0 0 200px rgba(144,238,144,0.50);
+    filter: blur(8px);
     /* slightly longer fade for a more noticeable, satisfying hit feel */
     animation: hitPopFade 760ms ease-out forwards;
   }

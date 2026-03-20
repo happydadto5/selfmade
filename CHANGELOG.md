@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.27.0
+- Visual/UI: sharpen hit-pop overlay (reduced blur, stronger bloom) for clearer hit feedback (tiny)
+
 ## 6.26.0
 - Levels: set lastSpawn when a wave starts to ensure inter-wave countdowns behave reliably (tiny)
 
