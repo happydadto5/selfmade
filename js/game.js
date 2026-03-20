@@ -390,7 +390,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.111.0';
+  const version = '6.112.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3907,10 +3907,11 @@ let hitPopTimeout = null;
             livesEl.appendChild(existingBadge);
           }
           // Update badge text with remaining seconds for quick readability
-          existingBadge.textContent = ' 🛡 ' + secShield + 's';
+          const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
+          existingBadge.textContent = ' 🛡 ' + secShield + 's' + charges;
           existingBadge.style.color = '#42a5f5';
-          // include shield status in the accessible label
-          livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + (secShield ? (', shield ' + secShield + 's') : ', shield'));
+          // include shield status and charges in the accessible label
+          livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + (secShield ? (', shield ' + secShield + 's' + (charges ? (', ' + charges.trim()) : '')) : ', shield'));
         } else {
           // Remove existing badge when shield expires to avoid duplicates
           try {

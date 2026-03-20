@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.112.0
+- UI: show shield power-up remaining charges in Lives HUD badge (tiny) — 2026-03-20
+
 ## 6.111.0
 - Visual/UI: add subtle animated background overlay behind the canvas for improved atmosphere and readable HUD (tiny) — 2026-03-20
 
