@@ -1754,7 +1754,7 @@ if (overlay) {
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let lastPowerupColor = '';
-  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let maxWaves = 6;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
@@ -2677,6 +2677,22 @@ let hitPopTimeout = null;
       try {
         if ((typeof currentWaveEnemyCount === 'number' && currentWaveEnemyCount > 0) && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
           lastClearedWave = waveNumber;
+          try {
+            // If maxWaves is configured and this was the final wave, declare victory
+            if (typeof maxWaves !== 'undefined' && maxWaves > 0 && waveNumber >= maxWaves) {
+              gameOver = true;
+              paused = true;
+              try { if (score > highScore) { highScore = score; saveHighScoreDebounced(highScore); } } catch (e) {}
+              try {
+                if (typeof overlay !== 'undefined' && overlay && overlayMessage) {
+                  overlay.setAttribute('aria-hidden','false');
+                  overlayMessage.textContent = 'Victory! You beat the garden — Final Score: ' + score + ' — Press R to play again';
+                  if (replayBtn) try { replayBtn.focus(); } catch(e){}
+                }
+              } catch (e) {}
+            }
+          } catch(e) {}
+
           try {
             let wt = document.getElementById('wave-cleared-toast');
             if (!wt) {
