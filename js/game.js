@@ -2957,7 +2957,7 @@ let hitPopTimeout = null;
       // Add a short recovery window between waves so players get a brief respite.
       // Reward milestone: grant 1 extra life every 5 waves to give players a clear progression milestone.
       try {
-        if (typeof waveNumber === 'number' && waveNumber > 0 && waveNumber % 5 === 0) {
+        if (typeof waveNumber === 'number' && waveNumber > 0 && waveNumber % 3 === 0) {
           try {
             if (typeof lives === 'number') {
               // cap lives to avoid runaway growth
