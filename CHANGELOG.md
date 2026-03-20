@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: unify and debounce hit-pop overlay removal to reliably sync with CSS animation (tiny) — 2026-03-20
 - Visual/UI: use local garden-background.jpg as canvas background when present for stronger theme (tiny) — 2026-03-20
 - UI: make wave progress bar responsive and slightly taller for improved readability on mobile (tiny) — 2026-03-20
 - Graphics: add and render a generated garden background image so the game finally gets a real visible art upgrade instead of only procedural shapes and hit-flash tweaks.

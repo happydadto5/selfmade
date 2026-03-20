@@ -257,7 +257,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.98.0';
+  const version = '5.99.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2178,8 +2178,10 @@ let hitPopTimeout = null;
                 const hy = Math.max(0, Math.min(1, (e.y / ch)));
                 document.body.style.setProperty('--hit-x', (hx*100).toFixed(2) + '%');
                 document.body.style.setProperty('--hit-y', (hy*100).toFixed(2) + '%');
+                // Debounce and reuse a single removal timeout so rapid hits don't queue multiple removals
+                try { if (typeof hitPopTimeout !== 'undefined' && hitPopTimeout) { clearTimeout(hitPopTimeout); hitPopTimeout = null; } } catch(e){}
                 document.body.classList.add('hit-pop');
-                setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} }, 660);
+                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} try { hitPopTimeout = null; } catch(e){} }, 660);
               }
             }
           } catch (err) { /* ignore overlay errors */ }
