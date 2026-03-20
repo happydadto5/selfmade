@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.110.0
 - Levels: slightly reduce final wave enemy count and give an extra start-of-wave grace period to make the final wave feel achievable (tiny) — 2026-03-20
 - Levels: auto-advance to next wave 1.2s after clearing to improve pacing (tiny) — 2026-03-20
 - Levels: increase early-wave grace period from 1400ms to 1800ms for the first three waves to improve beatability (tiny) — 2026-03-20
