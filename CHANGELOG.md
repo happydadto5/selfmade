@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.28.0
+- Fix: prevent touch fire button title from growing on repeated HUD updates (small)
+
 ## 6.27.0
 - Visual/UI: sharpen hit-pop overlay (reduced blur, stronger bloom) for clearer hit feedback (tiny)
 
