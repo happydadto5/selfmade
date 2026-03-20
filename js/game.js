@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.23.0';
+  const version = '6.24.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -473,7 +473,7 @@
           setTimeout(() => { try { if (el && el.parentNode) el.parentNode.removeChild(el); } catch (e) {} }, 760);
         } catch (e) { /* ignore */ }
       };
-      const TOUCH_HOLD_DELAY = 150; // reduced from 180ms for snappier mobile hold-to-fire responsiveness
+      const TOUCH_HOLD_DELAY = 120; // reduced from 180ms for snappier mobile hold-to-fire responsiveness (slightly more responsive)
       let activeBottomTouchId = null;
       let touchHoldTimer = null;
       let touchHoldActive = false;

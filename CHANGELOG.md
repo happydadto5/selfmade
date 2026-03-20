@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.24.0
+- Mobile: reduce touch hold delay from 150ms to 120ms to make hold-to-fire more responsive (tiny)
+
 ## 6.23.0
 - Stability: remove duplicate pagehide handler to avoid redundant pause logic and potential race conditions (tiny)
 
