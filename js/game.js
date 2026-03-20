@@ -313,7 +313,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.92.0';
+  const version = '6.93.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1854,7 +1854,7 @@ let hitPopTimeout = null;
     // Give players a short grace period at the start of each wave where enemies move slightly slower to improve beatability
     try {
       // Slightly longer grace for very early waves so new players have more reaction time
-      const graceMs = (typeof waveNumber === 'number' && waveNumber <= 2) ? 1200 : 800;
+      const graceMs = (typeof waveNumber === 'number' && waveNumber <= 3) ? 1400 : 900;
       waveStartGraceUntil = Date.now() + graceMs;
     } catch (e) {}
   // small, optional screen shake to emphasize wave start (skip for reduced-motion users)
