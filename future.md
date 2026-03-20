@@ -2,7 +2,7 @@
 
 - 2026-03-16: Implemented discoverable full-screen touch zones and subtle vertical separators in-canvas (tiny UX improvement).
 
-Last updated: 2026-03-19
+Last updated: 2026-03-20
 
 Meta-review: 2026-03-19 — performed a light roadmap/process check (per automation). Next visible iteration: implement one simple gardening-themed power-up (Shield) and a small new enemy behavior to increase variety. Captured guidance to keep changes mobile-first and avoid external deps.
 
@@ -30,6 +30,22 @@ Current execution lanes
 2. Levels lane: build clearer wave structure, goals, pacing, and beatability so runs feel like progress instead of endless survival.
 3. Visual/UI lane: improve backgrounds, hit feedback, effects, readability, and stronger visual identity without relying on tiny HUD-only tweaks.
 4. Stability lane: keep tests, rollback safety, and maintainability healthy enough to support the visible lanes instead of dominating them.
+
+Improvement mix guidance
+- Treat the percentages below as a target mix across roughly the last 20 successful releases, not as a strict per-release rule.
+- If one lane has been neglected recently, bias the next few iterations toward it until the mix is back in balance.
+- Favor visible player-facing progress whenever stability is already healthy; favor stability only when releases are failing, rolling back often, or becoming hard to trust.
+- Avoid spending too many consecutive releases on tiny visual polish in the same sub-area. Rotate between gameplay feel, progression, presentation, controls, and reliability.
+- Target mix:
+  - 25% gameplay and new features: new enemy behaviors, power-ups, objectives, scoring hooks, combat feel, and mechanics that noticeably change a run.
+  - 20% levels and progression: wave design, pacing, recovery windows, difficulty curves, clear win conditions, unlocks, and sense of advancement.
+  - 20% visual UI and readability: HUD clarity, menus, onboarding, feedback, screen flow, mobile readability, and game-state communication.
+  - 15% graphics and atmosphere: generated art, backgrounds, character/enemy presentation, environmental effects, theme cohesion, and stronger visual identity.
+  - 10% controls and accessibility: touch improvements, keyboard feel, responsiveness, reduced-motion respect, tutorial cues, and input discoverability.
+  - 10% stability and process: validation coverage, rollback resilience, self-monitoring, release safety, and automation hardening.
+- If the game starts to feel repetitive, temporarily borrow effort from stability or micro-polish and push it into gameplay, levels, or controls first.
+- If visuals remain too placeholder-heavy, temporarily raise graphics and atmosphere work toward 20% until the game feels more distinct.
+- If two releases in a row fail or roll back, temporarily raise stability and process work toward 25% until the loop is trustworthy again.
 
 Near-term roadmap
 1. Gameplay: add at least one new enemy behavior and one simple power-up so runs stop feeling samey.
