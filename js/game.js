@@ -1931,7 +1931,9 @@ let hitPopTimeout = null;
     // Give players a short grace period at the start of each wave where enemies move slightly slower to improve beatability
     try {
       // Slightly longer grace for very early waves so new players have more reaction time
-      const graceMs = (typeof waveNumber === 'number' && waveNumber <= 3) ? 1800 : 900;
+      let graceMs = (typeof waveNumber === 'number' && waveNumber <= 3) ? 1800 : 900;
+      // If this is the configured final wave, give an extra grace moment so the finale feels achievable
+      try { if (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves) { graceMs += 1200; } } catch (e) {}
       waveStartGraceUntil = Date.now() + graceMs;
     } catch (e) {}
   // small, optional screen shake to emphasize wave start (skip for reduced-motion users)
@@ -1960,7 +1962,10 @@ let hitPopTimeout = null;
       }
       try { waveAnn.textContent = 'Wave ' + waveNumber + ' starting.'; } catch (e) { }
     } catch (e) { /* ignore announcer creation errors */ }
-    const count = (typeof waveNumber === 'number' && waveNumber <= 3) ? 4 + Math.min(5, Math.floor(waveNumber * 0.6)) : 5 + Math.min(10, Math.floor(waveNumber * 0.55));
+    // Base spawn count scales with wave; slightly reduce count on the final configured wave to keep it beatable
+    let baseCount = (typeof waveNumber === 'number' && waveNumber <= 3) ? 4 + Math.min(5, Math.floor(waveNumber * 0.6)) : 5 + Math.min(10, Math.floor(waveNumber * 0.55));
+    const isFinalWave = (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves);
+    const count = Math.max(1, Math.round(baseCount * (isFinalWave ? 0.75 : 1)));
     const beforeWaveEnemies = enemies.length;
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);
