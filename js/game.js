@@ -2181,7 +2181,7 @@ let hitPopTimeout = null;
                 // Debounce and reuse a single removal timeout so rapid hits don't queue multiple removals
                 try { if (typeof hitPopTimeout !== 'undefined' && hitPopTimeout) { clearTimeout(hitPopTimeout); hitPopTimeout = null; } } catch(e){}
                 document.body.classList.add('hit-pop');
-                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} try { hitPopTimeout = null; } catch(e){} }, 820);
+                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} try { hitPopTimeout = null; } catch(e){} }, 760);
               }
             }
           } catch (err) { /* ignore overlay errors */ }
@@ -3527,7 +3527,7 @@ let hitPopTimeout = null;
             } else {
               try {
                 try { if (typeof hitPopTimeout !== 'undefined' && hitPopTimeout) { clearTimeout(hitPopTimeout); hitPopTimeout = null; } } catch(e){}
-                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch(e){} try { hitPopTimeout = null; } catch(e){} }, 520);
+                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch(e){} try { hitPopTimeout = null; } catch(e){} }, 760);
               } catch(e){}
             }
           }
