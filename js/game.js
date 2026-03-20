@@ -257,7 +257,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.6.0';
+  const version = '6.7.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2613,7 +2613,7 @@ let hitPopTimeout = null;
         }
       } catch(e){}
 
-      const interWaveDelay = 1600 + Math.min(2000, Math.floor(waveNumber * 80));
+      const interWaveDelay = 2200 + Math.min(2000, Math.floor(waveNumber * 80));
       // Show a small countdown HUD during the inter-wave delay so players know when the next wave starts.
       try {
         const elapsed = Date.now() - lastSpawn;

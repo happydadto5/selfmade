@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.7.0
+- Increased inter-wave delay from 1600ms to 2200ms.
+
 ## 6.6.0
 - Visual/UI: increase HUD backdrop opacity to 0.92 to improve HUD readability on busy backgrounds (tiny) — 2026-03-20
 
