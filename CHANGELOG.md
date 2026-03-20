@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: increase early-wave grace period from 1400ms to 1800ms for the first three waves to improve beatability (tiny) — 2026-03-20
 - UI: show Next Wave button only when a wave is cleared to reduce HUD clutter and make progression clearer (tiny) — 2026-03-20
 - Levels: show victory overlay when final configured wave is cleared so runs feel beatable (tiny) — 2026-03-20
 - Levels/UI: implement finite waves with visible "Wave X/Y" HUD and auto-advance when cleared (small) — 2026-03-20
