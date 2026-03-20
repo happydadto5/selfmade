@@ -59,7 +59,7 @@
   function spawnBgLeaves(count) {
     try {
       bgLeaves.length = 0;
-      const n = typeof count === 'number' ? count : Math.max(8, Math.floor(cw / 90));
+      const n = typeof count === 'number' ? count : Math.max(10, Math.floor(cw / 70));
       for (let i = 0; i < n; i++) {
         bgLeaves.push({
           x: Math.random() * cw,
@@ -272,7 +272,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.54.0';
+  const version = '6.55.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

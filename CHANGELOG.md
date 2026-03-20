@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.55.0
+- Visual/UI: increase background leaf density for richer garden atmosphere (tiny) — 2026-03-20
+
 ## 6.54.0
 - Stability: ensure spawnWave always generates the intended enemy count to avoid incomplete waves (small) — 2026-03-20
 
