@@ -257,7 +257,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.4.0';
+  const version = '6.5.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2371,6 +2371,7 @@ let hitPopTimeout = null;
             }
             screenShake = Math.min(16, screenShake + 8);
             playSound('hit');
+            try { if (scoreEl) { scoreEl.classList.add('hud-hit'); setTimeout(() => { try { scoreEl.classList.remove('hud-hit'); } catch (e) {} }, 280); } } catch (e) {}
             // Small chance to spawn a temporary power-up when an enemy dies
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
