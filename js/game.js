@@ -2755,7 +2755,7 @@ let hitPopTimeout = null;
       } catch(e){}
 
       // Base inter-wave delay (ms). Slightly shorter early waves for snappier progression and better beatability
-      let interWaveDelay = 2200 + Math.min(2000, Math.floor(waveNumber * 80));
+      let interWaveDelay = Math.max(800, Math.round((2200 + Math.min(2000, Math.floor(waveNumber * 80))) * 0.8));
       // Reduce delay for the first two waves so new players see clearer progression quickly
       try { if (waveNumber <= 2) interWaveDelay = Math.max(900, interWaveDelay - 900); } catch (e) {}
       // Show a small countdown HUD during the inter-wave delay so players know when the next wave starts.

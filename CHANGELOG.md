@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: shorten inter-wave delay slightly for snappier pacing and better beatability (tiny) — 2026-03-20
 - Levels: consider wave cleared when its remaining enemies are defeated (prevents stalled waves) — tiny
 - UI: show total waves in Wave HUD when maxWaves configured (small) — 2026-03-20
 
