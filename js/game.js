@@ -2067,7 +2067,7 @@ let hitPopTimeout = null;
       } catch (e) { /* ignore shield check errors */ }
       lives--;
       livesPulseUntil = Date.now() + 700;
-      livesFlashUntil = Date.now() + 180;
+      livesFlashUntil = Date.now() + 260;
       // brief player hit flash for clearer visual feedback (respects reduced-motion preference)
       try { player.hitFlashUntil = Date.now() + 220; } catch (e) {}
       try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
@@ -2735,7 +2735,7 @@ let hitPopTimeout = null;
     try {
       if (Date.now() < livesFlashUntil && !prefersReducedMotion) {
         ctx.save();
-        ctx.fillStyle = 'rgba(255,56,56,0.12)';
+        ctx.fillStyle = 'rgba(255,56,56,0.18)';
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }
