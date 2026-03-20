@@ -4,6 +4,7 @@
 - Levels: bump initial wave enemy count so wave 1 has 4 enemies to avoid occasional stalled early waves (tiny) — 2026-03-20
 - Levels: ensure spawnWave always reaches intended enemy count (tiny) — 2026-03-20
 - Levels: shorten inter-wave delay for snappier pacing and slightly reduce growth per wave (tiny) — 2026-03-20
+- Levels: slightly shorten inter-wave delay further to improve beatability and pacing (tiny) — 2026-03-20
 - Levels: slightly shorten inter-wave delay and extend early-wave grace to first three waves for snappier pacing and better beatability — 2026-03-20
 - UI: improve Next Wave HUD button styling for better discoverability on mobile (tiny) — 2026-03-20
 - Levels: add 'continue to next level' option (press L) after final wave to proceed to a slightly harder loop (small) — 2026-03-20
