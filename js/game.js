@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.22.0';
+  const version = '6.23.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1694,23 +1694,7 @@ if (overlay) {
     }
   });
 
-  // handle pagehide/navigation away: pause immediately and clear input so background navigation doesn't leave running game
-  window.addEventListener('pagehide', () => {
-    // Clear any pending auto-pause timers and restore title so no stray timers or paused title remain after navigation
-    try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
-    try { restoreTitle(); } catch (e) {}
-    paused = true;
-    pausedByFocus = true;
-    try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
-    // Clear transient input state when auto-paused to avoid stuck controls
-    clearInputs();
-    // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
-    if (audioCtx && audioCtx.state === 'running') {
-      try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
-      suspendedAudioByFocus = true;
-    }
-    if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
-  });
+  // Duplicate pagehide handler removed — consolidated earlier pagehide/visibility handlers handle pausing and cleanup.
 
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, shieldCharges: 0, spreadUntil: 0 };

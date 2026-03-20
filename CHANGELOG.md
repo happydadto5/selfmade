@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.23.0
+- Stability: remove duplicate pagehide handler to avoid redundant pause logic and potential race conditions (tiny)
+
 ## 6.22.0
 - Levels: shorten inter-wave delay for waves 1-2 to improve pacing and beatability (tiny)
 
