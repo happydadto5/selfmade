@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: increase HUD backdrop opacity and blur slightly for improved readability on bright or busy backgrounds (tiny) — 2026-03-20
 - Visual/UI: increase garden hit-pop mid-tone opacity slightly for clearer hit feedback (tiny) — 2026-03-20
 - Fix: repair malformed non-lethal hit-feedback logic in `js/game.js` so automation validation can complete again after restart.
 - Automation: reduce the loop pause from 7 minutes back to 5 minutes.
