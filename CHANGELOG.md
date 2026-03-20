@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Visual/UI: reduce HUD backdrop darkness slightly to improve readability on a variety of backgrounds (tiny) — 2026-03-20
+- Visual/UI: increase HUD backdrop opacity slightly to improve readability on varied backgrounds (tiny) — 2026-03-20
 - Automation: when a new `selfmade.bat` launcher starts, it now terminates an older running launcher and takes over cleanly to reduce duplicate-launch file-lock conflicts.
 - Visual/UI: reduce bottom pot count and tone down plant graphics to reduce clutter (tiny) — 2026-03-20
 - Visual/UI: add subtle canvas shake synchronized with hit-pop overlay to strengthen hit feedback (tiny) — 2026-03-20

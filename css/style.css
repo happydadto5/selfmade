@@ -275,7 +275,7 @@ body.show-touch-guides {
   top: -8px;
   bottom: -8px;
   /* slightly reduced backdrop darkness to improve readability while keeping contrast on busy backgrounds (tiny) */
-  background: rgba(0,0,0,0.36);
+  background: rgba(0,0,0,0.46);
   border-radius: 10px;
   z-index: -1;
   pointer-events: none;
