@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.30.0';
+  const version = '6.31.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3647,14 +3647,31 @@ let hitPopTimeout = null;
           }
         } catch (e) { /* ignore body overlay sync errors */ }
       } catch (e) { /* ignore white flash errors */ }
-      // If the player lost a life recently, draw a stronger red flash on top for clearer player-hit feedback
+      // If the player lost a life recently, draw a stronger radial red flash centered on the player for clearer player-hit feedback
       if (Date.now() < (canvasPlayerHitFlashUntil || 0) && !prefersReducedMotion) {
         const remainingP = (canvasPlayerHitFlashUntil || 0) - Date.now();
         const alphaP = Math.max(0, Math.min(1, remainingP / 240));
+        // center the red radial on the player when possible; fall back to last-hit coords or center
+        const cx = (typeof player === 'object' && typeof player.x === 'number') ? player.x : ((typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5));
+        const cy = (typeof player === 'object' && typeof player.y === 'number') ? player.y : ((typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45));
+        const maxR = Math.max(80, Math.min(Math.max(cw, ch) * 0.36, 300));
         ctx.save();
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.fillStyle = 'rgba(255,80,80,' + (0.36 * alphaP).toFixed(3) + ')';
-        ctx.fillRect(0,0,cw,ch);
+        ctx.globalCompositeOperation = 'lighter';
+        try {
+          const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+          g.addColorStop(0, 'rgba(255,120,120,' + (0.98 * alphaP).toFixed(3) + ')');
+          g.addColorStop(0.5, 'rgba(255,60,60,' + (0.42 * alphaP).toFixed(3) + ')');
+          g.addColorStop(1, 'rgba(255,60,60,0)');
+          ctx.fillStyle = g;
+          // draw only the affected region to reduce overdraw
+          ctx.fillRect(Math.max(0, cx - maxR), Math.max(0, cy - maxR), Math.min(cw, maxR * 2), Math.min(ch, maxR * 2));
+        } catch (e) {
+          // Fallback: full-screen red fill if radial gradient isn't supported or errors occur
+          try {
+            ctx.fillStyle = 'rgba(255,80,80,' + (0.36 * alphaP).toFixed(3) + ')';
+            ctx.fillRect(0,0,cw,ch);
+          } catch (e2) { /* ignore fallback errors */ }
+        }
         ctx.restore();
       }
     } catch (e) { /* ignore hit flash overlay errors */ }

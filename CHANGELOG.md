@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.31.0
+- Visual/UI: stronger radial red player-hit flash centered on the player; respects prefers-reduced-motion and falls back to a full-screen red fill on error (tiny)
+
 ## 6.30.0
 - Levels: add a Next Wave button to the HUD to allow manual wave advancement when progression stalls (tiny)
 
