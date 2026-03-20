@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.50.0
 - Stability: flush pending high score to localStorage on unload to avoid losing recent scores on quick navigations (tiny) — 2026-03-20
 
 ## 6.49.0
