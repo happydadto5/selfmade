@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.9.0
 - Gameplay: Shield now absorbs two life leaks (small) — 2026-03-20
 
 ## 6.8.0
