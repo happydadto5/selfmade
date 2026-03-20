@@ -195,7 +195,8 @@
             text = '⚡ Rapid (' + s + 's)';
           } else if (player && now < (player.shieldUntil || 0)) {
             const s = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
-            text = '🛡 Shield (' + s + 's)';
+            const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
+            text = '🛡 Shield' + charges + ' (' + s + 's)';
           } else if (player && now < (player.slowUntil || 0)) {
             const s = Math.ceil(((player.slowUntil || 0) - now) / 1000);
             text = '🍃 Slow (' + s + 's)';
@@ -1708,7 +1709,7 @@ if (overlay) {
   });
 
 
-  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, spreadUntil: 0 };
+  player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, shieldCharges: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
   const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0;
   // transient visual pulse when a power-up is collected
@@ -2059,7 +2060,15 @@ let hitPopTimeout = null;
       // Shield absorbs bottom-leak life loss if active
       try {
         if (Date.now() < (player.shieldUntil || 0)) {
-          player.shieldUntil = 0;
+          // consume one shield charge (support multi-charge shields)
+          player.shieldCharges = (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1;
+          if (player.shieldCharges <= 0) {
+            player.shieldCharges = 0;
+            player.shieldUntil = 0;
+          } else {
+            // keep shield active; ensure remaining time is at least now
+            player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
+          }
           // small visual feedback and a minor score reward to make shield use feel satisfying
           try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
           try { score += 5; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+5', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
@@ -2446,8 +2455,9 @@ let hitPopTimeout = null;
               // Accessibility: announce Rapid power-up collection for screen readers (keeps HUD discoverable)
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
             } else if (pu.type === 'shield') {
-              // grant a temporary shield that absorbs one life loss
+              // grant a temporary shield that can absorb up to two life losses
               player.shieldUntil = Date.now() + 14000; // 14 seconds
+              try { player.shieldCharges = 2; } catch(e) { player.shieldCharges = 2; }
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('shield'); } catch (e) {}
@@ -2538,7 +2548,8 @@ let hitPopTimeout = null;
         let label = '';
         if (now < (player.shieldUntil || 0)) {
           const sec = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
-          label = 'Shield — ' + sec + 's';
+          const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
+          label = 'Shield' + charges + ' — ' + sec + 's';
         } else if (now < (player.fireRateUntil || 0)) {
           const sec = Math.ceil(((player.fireRateUntil || 0) - now) / 1000);
           label = 'Rapid — ' + sec + 's';
