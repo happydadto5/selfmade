@@ -7,7 +7,18 @@ const root = path.join(__dirname, '..');
 const secretsPath = path.join(root, 'secrets.txt');
 const dailyBudget = parseInt(process.env.IMAGE_DAILY_BUDGET || '100', 10);
 const profileArg = (process.argv[2] || process.env.IMAGE_PROFILE || 'small').trim().toLowerCase();
-const promptArg = process.argv.slice(3).join(' ').trim();
+const extraArgs = process.argv.slice(3);
+const promptParts = [];
+let outputArg = '';
+for (let i = 0; i < extraArgs.length; i++) {
+  if (extraArgs[i] === '--output') {
+    outputArg = extraArgs[i + 1] || '';
+    i++;
+  } else {
+    promptParts.push(extraArgs[i]);
+  }
+}
+const promptArg = promptParts.join(' ').trim();
 const profileCosts = {
   small: parseInt(process.env.IMAGE_SMALL_REQUEST_COST || '1', 10),
   large: parseInt(process.env.IMAGE_LARGE_REQUEST_COST || '10', 10),
@@ -79,6 +90,22 @@ function runQuota(action) {
   ).trim();
 }
 
+function resolveOutputPath(rawPath) {
+  if (!rawPath) return null;
+  const normalized = rawPath.trim();
+  if (!normalized) return null;
+  let resolved = path.resolve(root, normalized);
+  if (!path.extname(resolved)) {
+    resolved += `.${settings.format}`;
+  }
+  const relative = path.relative(root, resolved);
+  if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) {
+    console.error(`Output path must stay inside the repository: ${rawPath}`);
+    process.exit(2);
+  }
+  return resolved;
+}
+
 async function main() {
   try {
     const status = runQuota('check');
@@ -94,6 +121,7 @@ async function main() {
 
   const secrets = readSecrets();
   const prompt = promptArg || settings.defaultPrompt;
+  const explicitOutputPath = resolveOutputPath(outputArg);
   const endpoint = `https://api.cloudflare.com/client/v4/accounts/${secrets.CLOUDFLARE_ACCOUNT_ID}/ai/run/@cf/black-forest-labs/flux-1-schnell`;
 
   const response = await fetch(endpoint, {
@@ -129,8 +157,10 @@ async function main() {
 
   const timestamp = Date.now();
   const basename = `img-${imageProfile}-${timestamp}`;
-  const imagePath = path.join(outDir, `${basename}.${settings.format}`);
-  const metaPath = path.join(outDir, `${basename}.json`);
+  const imagePath = explicitOutputPath || path.join(outDir, `${basename}.${settings.format}`);
+  const metaPath = `${imagePath.replace(path.extname(imagePath), '')}.json`;
+
+  fs.mkdirSync(path.dirname(imagePath), { recursive: true });
 
   fs.writeFileSync(imagePath, Buffer.from(imageBase64, 'base64'));
   fs.writeFileSync(metaPath, `${JSON.stringify({

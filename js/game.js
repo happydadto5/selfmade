@@ -13,6 +13,17 @@
   } catch (e) { /* ignore attribute errors in older browsers */ }
   let cw, ch;
   let player;
+  let gardenBackground = null;
+  let gardenBackgroundReady = false;
+  try {
+    if (typeof Image !== 'undefined') {
+      gardenBackground = new Image();
+      gardenBackground.decoding = 'async';
+      gardenBackground.onload = () => { gardenBackgroundReady = true; };
+      gardenBackground.onerror = () => { gardenBackgroundReady = false; };
+      gardenBackground.src = 'assets/images/garden-background.jpg';
+    }
+  } catch (e) { /* ignore background image loading errors */ }
   function resize() {
     // Support high-DPI / Retina displays by scaling the canvas backing store using devicePixelRatio
     const dpr = Math.max(1, window.devicePixelRatio || 1);
@@ -243,7 +254,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.96.0';
+  const version = '5.97.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2639,6 +2650,27 @@ let hitPopTimeout = null;
       }
       ctx.fillRect(0,0,cw,ch);
     } catch (e) { ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch); }
+    try {
+      if (gardenBackgroundReady && gardenBackground.naturalWidth > 0 && gardenBackground.naturalHeight > 0) {
+        const scale = Math.max(cw / gardenBackground.naturalWidth, ch / gardenBackground.naturalHeight);
+        const drawW = gardenBackground.naturalWidth * scale;
+        const drawH = gardenBackground.naturalHeight * scale;
+        const drawX = (cw - drawW) / 2;
+        const drawY = (ch - drawH) / 2;
+        ctx.save();
+        ctx.globalAlpha = 0.52;
+        ctx.drawImage(gardenBackground, drawX, drawY, drawW, drawH);
+        ctx.restore();
+        ctx.save();
+        const artOverlay = ctx.createLinearGradient(0, 0, 0, ch);
+        artOverlay.addColorStop(0, 'rgba(255,255,255,0.06)');
+        artOverlay.addColorStop(0.55, 'rgba(255,255,255,0.02)');
+        artOverlay.addColorStop(1, 'rgba(18,40,18,0.16)');
+        ctx.fillStyle = artOverlay;
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.restore();
+      }
+    } catch (e) { /* ignore background art drawing errors */ }
     // draw subtle drifting background clouds (behind leaves)
     try {
       if (bgClouds && bgClouds.length) {
