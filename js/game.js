@@ -2866,9 +2866,27 @@ let hitPopTimeout = null;
           }
           try { nw.textContent = 'Next wave in ' + Math.ceil(remainingMs/1000) + 's'; nw.style.opacity = '1'; nw.style.transform = 'translateY(0)'; } catch(e){}
         } else {
-          // ready to spawn: remove countdown if present then spawn
-          const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
-          lastSpawn = Date.now(); spawnWave();
+          // ready to spawn: only proceed if current wave enemies have been cleared.
+          try {
+            const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+            if (present === 0) {
+              const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
+              lastSpawn = Date.now(); spawnWave();
+            } else {
+              // There are still enemies from this wave; update countdown element to indicate waiting.
+              let nw = document.getElementById('next-wave-countdown');
+              if (nw) {
+                try { nw.textContent = 'Waiting for ' + present + ' enemy' + (present===1 ? '' : 'ies') + '...'; } catch(e){}
+                try { nw.style.opacity = '1'; nw.style.transform = 'translateY(0)'; } catch(e){}
+              }
+              // Nudge lastSpawn so we re-check shortly but avoid immediate repeated spawns
+              try { lastSpawn = Date.now() - Math.max(0, interWaveDelay - 600); } catch(e){}
+            }
+          } catch(e) {
+            // Fallback: remove countdown and spawn if errors occur
+            const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
+            lastSpawn = Date.now(); spawnWave();
+          }
         }
       } catch(e) {
         // fallback to original behaviour on any error

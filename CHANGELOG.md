@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: prevent automatic inter-wave spawn from starting while previous wave enemies remain; show 'Waiting for X enemies' during countdown (small) — 2026-03-20
 - Levels: auto-advance to next wave when current wave enemies are cleared (small) — 2026-03-20
 - Levels: shorten inter-wave delay slightly for snappier pacing (tiny) — 2026-03-20
 - Levels: spawn a guaranteed Shield power-up every 2 waves to aid pacing and recovery (tiny) — 2026-03-20
