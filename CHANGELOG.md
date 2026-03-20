@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.52.0
 - Levels: add finite waves and victory state (small) — 2026-03-20
 
 ## 6.51.0
