@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 6.8.0
 - Accessibility: announce extra-life pickup to screen readers and pulse lives HUD (tiny) — 2026-03-20
 
 ## 6.7.0
