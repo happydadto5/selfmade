@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 6.54.0
 - Stability: ensure spawnWave always generates the intended enemy count to avoid incomplete waves (small) — 2026-03-20
 
 ## 6.53.0
