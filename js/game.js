@@ -2945,9 +2945,11 @@ let hitPopTimeout = null;
               const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
               // Give player a brief recovery pause and a small reward for clearing the wave
               try {
-                score += 10;
+                const bonus = 10 + (typeof lives === 'number' ? (lives * 5) : 0);
+                score += bonus;
                 if (scoreEl) try { scoreEl.textContent = 'Score: ' + score; } catch(e){}
-                try { playSound('shield'); } catch(e) {}
+                try { scorePopups.push({ x: player.x, y: player.y - 20, text: '+' + bonus, vy: -0.05, life: 900, totalLife: 900, color: '#ffff88' }); } catch(e){}
+                try { playSound('blip'); } catch(e) {}
               } catch(e) {}
               try { let ann = document.getElementById('wave-announcer'); if (ann) try { ann.textContent = 'Wave ' + waveNumber + ' cleared!'; } catch(e) {} } catch(e) {}
               // Schedule the next wave after a short pause so players get a clear recovery window
