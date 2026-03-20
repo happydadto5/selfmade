@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: show Next Wave button only when a wave is cleared to reduce HUD clutter and make progression clearer (tiny) — 2026-03-20
 - Levels: show victory overlay when final configured wave is cleared so runs feel beatable (tiny) — 2026-03-20
 - Levels/UI: implement finite waves with visible "Wave X/Y" HUD and auto-advance when cleared (small) — 2026-03-20
 - UI: mark final configured wave as 'Final Wave' with clearer banner so players know they're at the end (tiny) — 2026-03-20

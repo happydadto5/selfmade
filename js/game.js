@@ -247,6 +247,18 @@
           const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
           const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
           enemiesEl.textContent = (total > 0 ? (present + '/' + total + ' left') : ((typeof enemies !== 'undefined' ? enemies.length : 0) + ' ' + ((typeof enemies !== 'undefined' && enemies.length === 1) ? 'Enemy' : 'Enemies')));
+          // Show Next Wave button only when the current wave is cleared and the game is not over. This reduces UI clutter during active waves and makes progression clearer.
+          try {
+            if (nextWaveBtn) {
+              if (!gameOver && total > 0 && present === 0) {
+                nextWaveBtn.style.display = '';
+                nextWaveBtn.setAttribute('aria-hidden', 'false');
+              } else {
+                nextWaveBtn.style.display = 'none';
+                nextWaveBtn.setAttribute('aria-hidden', 'true');
+              }
+            }
+          } catch (e) { /* ignore nextWaveBtn DOM errors */ }
         } catch (e) { /* ignore DOM errors */ }
       }
       // Update active power-up HUD if present
