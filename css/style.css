@@ -286,6 +286,18 @@ body.show-touch-guides {
 /* Ensure the HUD keeps its stacking context and allows the pseudo-element to position correctly */
 #ui { position: fixed; overflow: visible; }
 
+/* High-contrast HUD override: increase text contrast and slightly darken HUD backdrop for improved readability on busy backgrounds */
+#ui {
+  background: rgba(6,38,20,0.62); /* dark garden-tinted backdrop */
+  color: #ffffff; /* high-contrast white text */
+  text-shadow: 0 1px 0 rgba(0,0,0,0.8), 0 2px 8px rgba(0,0,0,0.24);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Ensure key HUD counters remain clearly visible against the darker backdrop */
+#ui #wave { color: #e8f5e9; }
+#ui #score { color: #e8f5e9; }
+
 @media (prefers-reduced-motion: reduce) {
   #ui::before { transition: none; }
 }

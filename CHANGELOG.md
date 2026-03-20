@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: increase HUD text contrast (white text + darker HUD backdrop) for improved readability on busy backgrounds (tiny) — 2026-03-20
 - Visual/UI: tweak garden hit-pop overlay colors and bloom for clearer hit feedback (tiny) — 2026-03-20
 - Visual/UI: increased HUD backdrop opacity slightly to improve HUD readability on busy backgrounds (tiny) — 2026-03-20
 - Accessibility: announce enemy hits to screen readers via hidden live region (tiny) — 2026-03-20
