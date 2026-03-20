@@ -275,7 +275,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.70.0';
+  const version = '6.71.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2728,7 +2728,7 @@ let hitPopTimeout = null;
         const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
         const deficit = Math.max(0, currentWaveEnemyCount - present);
         // only act if some time has passed since the wave was initiated to avoid immediate interference
-        if (deficit > 0 && Date.now() - (waveSpawnWatchdog || 0) > 150) {
+        if (deficit > 0 && Date.now() - (waveSpawnWatchdog || 0) > 80) {
           for (let _i = 0; _i < Math.min(deficit, 3); _i++) {
             const ex = 40 + Math.random() * (cw - 80);
             const ey = -20 - Math.random() * 120;
