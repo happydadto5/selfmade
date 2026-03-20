@@ -287,6 +287,37 @@
           const remaining = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
           const defeated = Math.max(0, total - remaining);
           waveProgressEl.textContent = 'Progress: ' + defeated + '/' + total + (total > 0 ? ' (' + Math.round((defeated / total) * 100) + '%)' : '');
+          // If the current wave has just been cleared, show a brief toast so players notice the pause between waves and get a recovery moment.
+          try {
+            if (total > 0 && remaining === 0 && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
+              lastClearedWave = waveNumber;
+              try {
+                let wt = document.getElementById('wave-clear-toast');
+                if (!wt) {
+                  wt = document.createElement('div');
+                  wt.id = 'wave-clear-toast';
+                  wt.style.position = 'fixed';
+                  wt.style.left = '50%';
+                  wt.style.top = '10vh';
+                  wt.style.transform = 'translateX(-50%)';
+                  wt.style.background = 'rgba(0,0,0,0.8)';
+                  wt.style.color = '#fff';
+                  wt.style.padding = '8px 12px';
+                  wt.style.borderRadius = '8px';
+                  wt.style.zIndex = '10003';
+                  wt.style.pointerEvents = 'none';
+                  wt.style.opacity = '0';
+                  wt.style.transition = 'opacity 220ms ease, transform 220ms ease';
+                  document.body.appendChild(wt);
+                }
+                wt.textContent = 'Wave ' + waveNumber + ' cleared!';
+                wt.style.opacity = '1';
+                setTimeout(() => { try { wt.style.opacity = '0'; } catch(e){} }, 1400);
+                setTimeout(() => { try { if (wt && wt.parentNode) wt.parentNode.removeChild(wt); } catch(e){} }, 1800);
+              } catch(e) {}
+            }
+          } catch(e) {}
+
           // Create or update a small visual progress bar under the progress text so players get at-a-glance feedback
           try {
             let bar = waveProgressEl.querySelector('.wave-bar');

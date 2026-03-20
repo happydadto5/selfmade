@@ -469,6 +469,7 @@
 - Automation: fix `selfmade.bat` launcher persistence so the top-level batch process stays alive, reloads itself safely between iterations, and no longer dies on the old re-exec path.
 - Automation: replace fragile startup status reads in `selfmade.bat` so cleanup/sync status logging no longer throws batch parsing errors during startup.
 - Automation: normalize `CHANGELOG.md` to a single top `## Unreleased` section so changelog prep stops drifting into malformed duplicate sections.
+- Levels/UI: show brief "Wave cleared" toast and give a short recovery pause after clearing a wave so pacing is clearer (tiny) — 2026-03-20
 - Game: increase power-up pickup radius to 56 to make power-ups easier to collect.
 
 - Visual: add a brief enemy-hit flash when bullets strike enemies to improve feedback (tiny) — 2026-03-17
