@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.40.0';
+  const version = '6.41.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2499,7 +2499,7 @@ let hitPopTimeout = null;
             } else if (pu.type === 'shield') {
               // grant a temporary shield that can absorb up to two life losses
               player.shieldUntil = Date.now() + 16000; // 16 seconds (slightly stronger)
-              try { player.shieldCharges = 2; } catch(e) { player.shieldCharges = 2; }
+              try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('shield'); } catch (e) {}

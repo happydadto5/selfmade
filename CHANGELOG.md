@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.41.0
+- Gameplay: increase Shield charges to 3 so shields feel slightly more forgiving (tiny) — 2026-03-20
+
 ## 6.40.0
 - Visual/UI: increase background leaf density slightly for richer garden atmosphere (tiny)
 
