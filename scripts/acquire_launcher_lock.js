@@ -44,9 +44,30 @@ function isSelfmadeCmd(pid) {
   }
 }
 
+function stopSelfmadeCmd(pid) {
+  if (!Number.isInteger(pid) || pid <= 0) {
+    return false;
+  }
+
+  try {
+    execFileSync(
+      'powershell',
+      [
+        '-NoProfile',
+        '-Command',
+        `if (Get-Process -Id ${pid} -ErrorAction SilentlyContinue) { Stop-Process -Id ${pid} -Force }; $proc = Get-CimInstance Win32_Process -Filter "ProcessId=${pid}" -ErrorAction SilentlyContinue; if ($proc) { 'STILL_RUNNING' } else { 'STOPPED' }`
+      ],
+      { encoding: 'utf8' }
+    );
+
+    return !isSelfmadeCmd(pid);
+  } catch (error) {
+    return false;
+  }
+}
+
 try {
   writeOwner();
-  console.log(`INSTANCE_LOCK=ACQUIRED PID=${cmdPid}`);
   process.exit(0);
 } catch (error) {
   if (!error || error.code !== 'EEXIST') {
@@ -57,9 +78,20 @@ try {
 
 const ownerPid = readOwnerPid();
 if (isSelfmadeCmd(ownerPid)) {
-  console.log(`INSTANCE_LOCK=HELD PID=${ownerPid}`);
-  console.log('[!] Another selfmade.bat launcher is already running. Exiting this copy to avoid file-lock conflicts.');
-  process.exit(1);
+  if (!stopSelfmadeCmd(ownerPid)) {
+    console.log(`INSTANCE_LOCK=ERROR REASON=terminate-failed HELD_PID=${ownerPid}`);
+    process.exit(2);
+  }
+
+  try {
+    fs.rmSync(lockDir, { recursive: true, force: true });
+    writeOwner();
+    console.log(`INSTANCE_LOCK=REPLACED PID=${cmdPid} TERMINATED=${ownerPid}`);
+    process.exit(0);
+  } catch (error) {
+    console.log(`INSTANCE_LOCK=ERROR REASON=${error && error.code ? error.code : 'replace-failed'} HELD_PID=${ownerPid}`);
+    process.exit(2);
+  }
 }
 
 try {

@@ -35,15 +35,13 @@ if /I "%RUN_MODE%"=="--reexec" goto LOOP
 
 node scripts\acquire_launcher_lock.js > "%INSTANCE_LOCK_LOG%" 2>&1
 set "INSTANCE_LOCK_EXIT=%ERRORLEVEL%"
-if "%INSTANCE_LOCK_EXIT%"=="1" (
-    if exist "%INSTANCE_LOCK_LOG%" type "%INSTANCE_LOCK_LOG%"
+set "INSTANCE_LOCK_SIZE=0"
+if exist "%INSTANCE_LOCK_LOG%" for %%Z in ("%INSTANCE_LOCK_LOG%") do set "INSTANCE_LOCK_SIZE=%%~zZ"
+if not "%INSTANCE_LOCK_SIZE%"=="0" (
+    type "%INSTANCE_LOCK_LOG%"
     call :APPEND_FILE "%INSTANCE_LOCK_LOG%" "instance lock"
-    del "%INSTANCE_LOCK_LOG%" >nul 2>&1
-    exit /b 0
 )
 if not "%INSTANCE_LOCK_EXIT%"=="0" (
-    if exist "%INSTANCE_LOCK_LOG%" type "%INSTANCE_LOCK_LOG%"
-    call :APPEND_FILE "%INSTANCE_LOCK_LOG%" "instance lock"
     echo [!] Instance lock check failed. Continuing without single-launch protection.
     call :LOG Instance lock check failed; continuing without single-launch protection.
 )
