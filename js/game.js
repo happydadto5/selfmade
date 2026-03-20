@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.20.0';
+  const version = '6.21.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3089,6 +3089,29 @@ let hitPopTimeout = null;
         ctx.ellipse(0,0,player.w*1.8*_pulse,player.h*1.8*_pulse,0,0,Math.PI*2);
         ctx.stroke();
         ctx.restore();
+
+        // Draw small shield-charge indicators above the player so remaining charges are visible at a glance
+        try {
+          if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
+            ctx.save();
+            ctx.translate(player.x, player.y);
+            const charges = Math.min(5, player.shieldCharges);
+            const spacing = 14;
+            for (let si = 0; si < charges; si++) {
+              const ox = (si - (charges - 1) / 2) * spacing;
+              const oy = -player.h - 14;
+              // simple circular shield-dot with light stroke for readability
+              ctx.beginPath();
+              ctx.fillStyle = 'rgba(129,212,255,0.98)';
+              ctx.arc(ox, oy, 5, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.strokeStyle = 'rgba(255,255,255,0.92)';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+            ctx.restore();
+          }
+        } catch (e) { /* ignore shield-charge draw errors */ }
       }
     } catch (e) { /* ignore shield draw errors */ }
 

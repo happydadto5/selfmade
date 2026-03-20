@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.21.0
+- Gameplay: Draw shield charge indicators above player while Shield is active (tiny)
+
 ## 6.20.0
 - Visual/UI: use --hud-backdrop-opacity for HUD backdrop and increase default to 0.94 for improved contrast (tiny)
 
