@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.35.0';
+  const version = '6.36.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2115,7 +2115,7 @@ let hitPopTimeout = null;
       livesPulseUntil = Date.now() + 700;
       livesFlashUntil = Date.now() + 260;
       // brief player hit flash for clearer visual feedback (respects reduced-motion preference)
-      try { player.hitFlashUntil = Date.now() + 220; } catch (e) {}
+      try { player.hitFlashUntil = Date.now() + 320; } catch (e) {}
       try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
       lives = Math.max(0, lives);
       // Trigger a short HUD pulse to draw attention to the lost life (CSS handles animation)
@@ -2196,7 +2196,7 @@ let hitPopTimeout = null;
           }
           e.hp--;
           // Brief hit flash to improve visual feedback when an enemy is struck
-          try { e.hitFlashUntil = Date.now() + 220; } catch (err) { /* ignore */ }
+          try { e.hitFlashUntil = Date.now() + 320; } catch (err) { /* ignore */ }
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
           try { canvasHitFlashUntil = Date.now() + 360; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
@@ -3084,7 +3084,7 @@ let hitPopTimeout = null;
     // player body (with brief hit flash ring when recently hit)
     try {
       if (Date.now() < (player.hitFlashUntil || 0) && !prefersReducedMotion) {
-        const _alpha = Math.max(0, Math.min(1, ((player.hitFlashUntil || 0) - Date.now()) / 220));
+        const _alpha = Math.max(0, Math.min(1, ((player.hitFlashUntil || 0) - Date.now()) / 320));
         ctx.strokeStyle = 'rgba(255,255,255,' + (_alpha * 0.9).toFixed(3) + ')';
         ctx.lineWidth = 3;
         ctx.beginPath();

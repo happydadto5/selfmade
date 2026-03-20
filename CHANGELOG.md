@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.36.0
+- Visual/UI: lengthen player hit flash duration for clearer hit feedback (tiny) — 2026-03-20
+
 ## 6.35.0
 - Levels: ensure dynamically spawned mini-enemies are correctly counted toward the current wave so wave progress and beatability are accurate (tiny)
 
