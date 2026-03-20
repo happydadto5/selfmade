@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: improve Next Wave HUD button styling for better discoverability on mobile (tiny) — 2026-03-20
 - Levels: add 'continue to next level' option (press L) after final wave to proceed to a slightly harder loop (small) — 2026-03-20
 - Fix: reduce wave spawn watchdog threshold to 150ms so fallback enemies appear sooner and prevent stalled waves (tiny) — 2026-03-20
 - Levels: increase wave-start grace for early waves to improve beatability (tiny) — 2026-03-20

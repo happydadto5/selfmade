@@ -274,6 +274,25 @@ body.paused #game { filter: brightness(0.7) grayscale(0.25); transition: filter 
 }
 #next-wave-countdown .count { font-size: 1.05em; margin-left: 6px; }
 
+/* Next Wave button in HUD: clearer styling and mobile-friendly layout for discoverability */
+#nextWaveBtn {
+  margin-left: 8px;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: linear-gradient(180deg,#ffffff,#e8f5e9);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  color: #07320b;
+  font-weight: 800;
+  cursor: pointer;
+}
+#nextWaveBtn:active { transform: translateY(1px); }
+@media (max-width:420px) {
+  #nextWaveBtn { display: block; margin-top: 8px; margin-left: 0; width: 100%; }
+}
+
+
 /* Reveal the toast while touch guides are visible; keep it subtle and non-interactive */
 body.show-touch-guides #touch-toast { opacity: 1; transform: translateX(-50%) translateY(0); }
 
