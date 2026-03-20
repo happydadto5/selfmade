@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.29.0
+- Gameplay: increase Shield charges from 2 to 3 to make it slightly more forgiving (tiny)
+
 ## 6.28.0
 - Fix: prevent touch fire button title from growing on repeated HUD updates (small)
 
