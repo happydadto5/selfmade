@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.30.0
+- Levels: add a Next Wave button to the HUD to allow manual wave advancement when progression stalls (tiny)
+
 ## 6.29.0
 - Gameplay: increase Shield charges from 2 to 3 to make it slightly more forgiving (tiny)
 

@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.29.0';
+  const version = '6.30.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1455,6 +1455,31 @@ if (overlay) {
     }
     // Initialize the button UI
     try { updateAutoPauseUI(); } catch (e) { /* ignore */ }
+
+    // Add a small 'Next Wave' button to the HUD to allow manual wave advancement if progression stalls.
+    try {
+      let nextBtn = document.getElementById('nextWaveBtn');
+      if (!nextBtn) {
+        nextBtn = document.createElement('button');
+        nextBtn.type = 'button';
+        nextBtn.id = 'nextWaveBtn';
+        nextBtn.textContent = 'Next Wave';
+        nextBtn.title = 'Advance to the next wave (also shortcut: N)';
+        nextBtn.style.marginLeft = '6px';
+        nextBtn.setAttribute('aria-label','Advance to next wave');
+        const uiEl = document.getElementById('ui') || document.body;
+        try { uiEl.appendChild(nextBtn); } catch(e){}
+        nextBtn.addEventListener('click', () => {
+          try {
+            if (gameOver) return;
+            // Clear remaining enemies and spawn the next wave immediately
+            enemies.length = 0;
+            lastSpawn = 0;
+            spawnWave();
+          } catch (e) {}
+        });
+      }
+    } catch (e) { /* ignore next-wave UI errors */ }
   } catch (e) { /* ignore */ }
   // Keep pointer state updated across pointer/touch events so we can avoid accidental auto-pauses while interacting
   try {
