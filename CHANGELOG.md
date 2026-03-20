@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Levels: tag spawned enemies with wave id and fix wave progress display so remaining enemy counts are accurate (small)
+
 ## 6.13.0
 - Stability: clear inputs on visibilitychange to prevent stuck controls when the page is hidden (tiny)
 

@@ -230,7 +230,8 @@
       if (waveProgressEl) {
         try {
           const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
-          const defeated = Math.max(0, total - (typeof enemies !== 'undefined' ? enemies.length : 0));
+          const remaining = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+          const defeated = Math.max(0, total - remaining);
           waveProgressEl.textContent = 'Progress: ' + defeated + '/' + total + (total > 0 ? ' (' + Math.round((defeated / total) * 100) + '%)' : '');
           // Create or update a small visual progress bar under the progress text so players get at-a-glance feedback
           try {
@@ -1813,6 +1814,7 @@ let hitPopTimeout = null;
       }
     }
     try { currentWaveEnemyCount = enemies.length - beforeWaveEnemies; } catch (e) { currentWaveEnemyCount = count; }
+    try { for (let i = beforeWaveEnemies; i < enemies.length; i++) { try { enemies[i].wave = waveNumber; } catch(e){} } } catch(e){}
     try { let waveAnnEl = document.getElementById('wave-announcer'); if (waveAnnEl) { try { waveAnnEl.textContent = 'Wave ' + waveNumber + ' starting. Defeat ' + currentWaveEnemyCount + ' enemies.'; } catch(e){} } } catch(e) {}
     // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
     // Pulse the DOM wave HUD briefly to draw attention (CSS handles animation).
