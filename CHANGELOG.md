@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: only auto-resume when the document has focus to avoid accidental unpauses on some platforms (tiny) — 2026-03-20
+
 ## 6.36.0
 - Visual/UI: lengthen player hit flash duration for clearer hit feedback (tiny) — 2026-03-20
 

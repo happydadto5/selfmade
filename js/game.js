@@ -1699,6 +1699,14 @@ if (overlay) {
       }
     } else {
       if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
+      // Only auto-resume when the document actually has focus. Some platforms fire visibilitychange
+      // when the page becomes visible but the tab or window isn't focused; avoid accidental unpauses.
+      try {
+        if (typeof document.hasFocus === 'function' && !document.hasFocus()) {
+          // Keep pausedByFocus true so focus event or user interaction will resume the game.
+          return;
+        }
+      } catch (e) { /* ignore hasFocus check errors */ }
       if (pausedByFocus && !gameOver) {
         paused = false;
       }
