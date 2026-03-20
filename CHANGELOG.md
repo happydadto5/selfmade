@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.37.0
 - Stability: only auto-resume when the document has focus to avoid accidental unpauses on some platforms (tiny) — 2026-03-20
 
 ## 6.36.0
