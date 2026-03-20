@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.41.0';
+  const version = '6.42.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3751,8 +3751,20 @@ let hitPopTimeout = null;
     // brief hit-stop (freeze-frame) when hitStopUntil is set to improve hit feedback
     if (typeof hitStopUntil !== 'undefined' && t < hitStopUntil) { dt = 0; }
     last = t;
-    if (!paused && !gameOver) update(dt);
-    draw();
+    try {
+      if (!paused && !gameOver) update(dt);
+      draw();
+    } catch (err) {
+      try { console.error('Game loop error:', err); } catch (e) {}
+      // Pause safely and show overlay to avoid stopping the loop; user can resume manually
+      try {
+        if (!gameOver) {
+          paused = true;
+          pausedByFocus = false;
+          if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
+        }
+      } catch (e) {}
+    }
     // keep loop running; when paused, run at a lower refresh to save CPU but keep overlay responsive
     if (!paused) {
       requestAnimationFrame(loop);

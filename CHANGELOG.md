@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.42.0
+- Stability: guard main loop against uncaught exceptions so an update/draw error won't stop animation; auto-pause and overlay shown on error (tiny) — 2026-03-20
+
 ## 6.41.0
 - Gameplay: increase Shield charges to 3 so shields feel slightly more forgiving (tiny) — 2026-03-20
 
