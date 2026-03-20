@@ -376,14 +376,14 @@ html::before {
     /* radial gradient anchored at the hit location -- garden-tinted so hits feel thematic and remain visible */
     /* slightly increased mid-tone opacity and radius for clearer, more satisfying hit feedback */
     /* make the pop broader and a bit warmer so hits read better on busy backgrounds */
-    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,230,1), rgba(196,255,170,1) 44%, rgba(196,255,170,0) 84%);
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,230,1), rgba(210,255,190,1) 48%, rgba(210,255,190,0) 88%);
     opacity: 1;
     mix-blend-mode: screen; /* brighter blend to improve visibility */
     /* add stronger bloom and blur for clearer, garden-like hit feedback */
-    box-shadow: 0 0 120px rgba(144,238,144,0.36);
-    filter: blur(8px);
+    box-shadow: 0 0 160px rgba(144,238,144,0.42);
+    filter: blur(12px);
     /* slightly longer fade for a more noticeable, satisfying hit feel */
-    animation: hitPopFade 760ms ease-out forwards;
+    animation: hitPopFade 860ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {
