@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.49.0
 - Accessibility: announce enemy hits via hit-announcer role=status live region for better screen-reader support (tiny) — 2026-03-20
 
 ## 6.48.0
