@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: increase HUD backdrop opacity slightly to improve HUD readability on busy backgrounds (tiny) — 2026-03-20
 - Visual/UI: introduce CSS variable --hud-backdrop-opacity to make HUD contrast easy to tune (tiny) — 2026-03-20
 - Visual/UI: increase hit-pop bloom and blur for clearer hit feedback (tiny) — 2026-03-20
 - Visual/UI: unify and debounce hit-pop overlay removal to reliably sync with CSS animation (tiny) — 2026-03-20
