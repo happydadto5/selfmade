@@ -3000,6 +3000,15 @@ let hitPopTimeout = null;
       try { if (waveNumber <= 3) interWaveDelay = Math.max(900, interWaveDelay - 400); } catch (e) {}
       // If the player is low on lives, extend the inter-wave delay to provide extra recovery time.
       try { if (typeof lives === 'number' && lives <= 1) interWaveDelay += 800; } catch (e) {}
+       // Auto-schedule a short auto-advance to the next wave shortly after a clear to improve pacing (1.2s respite).
+       // This is small, respects the existing Next Wave button, and only runs when not on the final configured wave.
+       try {
+         if (!gameOver && (typeof maxWaves !== 'number' || waveNumber < maxWaves)) {
+           if (!scheduledSpawnTimeout) {
+             scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 1200);
+           }
+         }
+       } catch(e) {}
       // Show a small countdown HUD during the inter-wave delay so players know when the next wave starts.
       try {
         const elapsed = Date.now() - lastSpawn;
@@ -4323,6 +4332,7 @@ let hitPopTimeout = null;
 
 
 })();
+
 
 
 

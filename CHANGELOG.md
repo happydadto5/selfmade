@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Levels: auto-advance to next wave 1.2s after clearing to improve pacing (tiny) — 2026-03-20
 - Levels: increase early-wave grace period from 1400ms to 1800ms for the first three waves to improve beatability (tiny) — 2026-03-20
 - UI: show Next Wave button only when a wave is cleared to reduce HUD clutter and make progression clearer (tiny) — 2026-03-20
 - Levels: show victory overlay when final configured wave is cleared so runs feel beatable (tiny) — 2026-03-20
@@ -1299,3 +1300,4 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
+
