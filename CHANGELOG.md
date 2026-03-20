@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: ensure enemy death triggers white pop overlay for clearer hit feedback (tiny) — 2026-03-20
 - Visual/UI: stronger player-life lost flash for clearer feedback (tiny) — 2026-03-20
 - Visual/UI: slightly increase garden hit-pop radius and brightness for clearer hit feedback (tiny) — 2026-03-20
 - Visual/UI: reduce HUD backdrop darkness slightly to improve readability on a variety of backgrounds (tiny) — 2026-03-20
