@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 6.51.0
 - Visual/UI: tint active power-up HUD to match collected power-up for clearer pickup feedback (tiny) — 2026-03-20
 
 ## 6.50.0
