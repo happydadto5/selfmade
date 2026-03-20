@@ -2334,6 +2334,7 @@ let hitPopTimeout = null;
                     vx: (m === 0 ? -0.35 : 0.35),
                     hp: 1,
                     maxHp: 1,
+                    wave: waveNumber,
                     type: 'pest-mini'
                   });
                 }
