@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Levels: fix compact in-canvas HUD remaining count to filter by the current wave so the compact HUD shows accurate remaining/total (tiny) — 2026-03-20
+
 - Levels: shorten base inter-wave delay from 2200ms to 1600ms for snappier pacing (small) — 2026-03-20
 
 - UI: improve visibility for wave transitions by styling wave-start/cleared toasts and countdown (tiny) — 2026-03-20

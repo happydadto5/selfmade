@@ -2908,7 +2908,8 @@ let hitPopTimeout = null;
       if (typeof hudVisible !== 'undefined' && !hudVisible) {
         ctx.save();
         try {
-          const rem = Math.max(0, (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0) - (typeof enemies !== 'undefined' ? enemies.length : 0));
+          const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+          const rem = Math.max(0, (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0) - present);
           const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
           const txt = 'Wave ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — ' + rem + '/' + total + ' left';
           ctx.font = '13px sans-serif';
