@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 6.14.0
 - Levels: tag spawned enemies with wave id and fix wave progress display so remaining enemy counts are accurate (small)
 
 ## 6.13.0
