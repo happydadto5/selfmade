@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.24.0';
+  const version = '6.25.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2381,9 +2381,18 @@ let hitPopTimeout = null;
             // Small chance to spawn a temporary power-up when an enemy dies
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
-              if (Math.random() < 0.46) {
+              let puChance = 0.46;
+              if (typeof lives === 'number' && lives <= 1) {
+                // When player is low on lives, increase power-up frequency to aid recovery
+                puChance = Math.min(0.85, puChance + 0.28);
+              }
+              if (Math.random() < puChance) {
                 // slightly favor rapid/shield but occasionally spawn a new spread, slow, bomb, or rare pierce power-up
-                const _r = Math.random();
+                let _r = Math.random();
+                // If low on lives, bias toward shield slightly
+                if (typeof lives === 'number' && lives <= 1 && Math.random() < 0.45) {
+                  _r = 0.4; // falls into shield bucket in the selection logic below
+                }
                 // limit active power-ups to avoid overload
                 if (powerups.length < 6) {
                   powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.995 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 });

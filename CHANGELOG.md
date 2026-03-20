@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.25.0
+- Gameplay: increase power-up spawn chance and bias shield drops when player is low on lives to improve recovery (small)
+
 ## 6.24.0
 - Mobile: reduce touch hold delay from 150ms to 120ms to make hold-to-fire more responsive (tiny)
 
