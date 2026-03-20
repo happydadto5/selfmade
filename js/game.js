@@ -346,7 +346,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.99.0';
+  const version = '6.100.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1916,7 +1916,7 @@ let hitPopTimeout = null;
       }
       try { waveAnn.textContent = 'Wave ' + waveNumber + ' starting.'; } catch (e) { }
     } catch (e) { /* ignore announcer creation errors */ }
-    const count = (typeof waveNumber === 'number' && waveNumber <= 3) ? 3 + Math.min(4, Math.floor(waveNumber * 0.4)) : 4 + Math.min(8, Math.floor(waveNumber * 0.5));
+    const count = (typeof waveNumber === 'number' && waveNumber <= 3) ? 4 + Math.min(5, Math.floor(waveNumber * 0.6)) : 5 + Math.min(10, Math.floor(waveNumber * 0.55));
     const beforeWaveEnemies = enemies.length;
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);
