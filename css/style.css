@@ -391,3 +391,24 @@ html::before {
   body.hit-pop::after { transition: none; animation: none !important; }
 }
 
+/* Subtle hit shake synchronized with the hit-pop overlay to improve perceived impact.
+   Respects prefers-reduced-motion. This briefly nudges the canvas while the pop runs. */
+@media (prefers-reduced-motion: no-preference) {
+  body.hit-pop #game {
+    animation: hitShake 360ms cubic-bezier(.2,.8,.2,1);
+    transform-origin: center center;
+    will-change: transform;
+  }
+  @keyframes hitShake {
+    0% { transform: translate3d(0,0,0) rotate(0deg); }
+    20% { transform: translate3d(-6px,-2px,0) rotate(-0.8deg); }
+    40% { transform: translate3d(5px,2px,0) rotate(0.6deg); }
+    60% { transform: translate3d(-3px,1px,0) rotate(-0.4deg); }
+    80% { transform: translate3d(2px,-1px,0) rotate(0.2deg); }
+    100% { transform: translate3d(0,0,0) rotate(0deg); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.hit-pop #game { animation: none !important; transform: none !important; }
+}
+
