@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.15.0
+- Visual/UI: improve wave progress bar visibility — slightly taller bar and subtle glow for readability on busy backgrounds (tiny)
+
 ## 6.14.0
 - Levels: tag spawned enemies with wave id and fix wave progress display so remaining enemy counts are accurate (small)
 
