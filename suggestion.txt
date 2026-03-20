@@ -5,4 +5,3 @@
 +This is a garden-themed game. Focus on gardening activities (weeding, pests, mulching, planning) with clear goals and challenges (for example, drought). Controls should remain consistent and prioritize touch and mouse input; prefer mobile-first UX. Ensure significant changes include basic tests and avoid regressions. We shouldn't be just one type of game.  Bottom based shooter is fine for the first level but different types of games should be mixed in at different levels or even mid level if that fits into game play.  The game should feel intuitive and able to be played with no instructions.  Good graphics are important and you should take at least 5-10% of improvements to tweak/add graphics/animation/etc.  Aim for a fun, shareable experience for gardening communities.
 
 Somehow level 1 had two enemies never a 3rd and never finished.  Nothing more came.
-Get rid of the stupid plants across the bottom.

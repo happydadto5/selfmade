@@ -243,7 +243,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '5.87.0';
+  const version = '5.88.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2851,7 +2851,7 @@ let hitPopTimeout = null;
     }
 
     // small gardening-theme pots along the bottom (visual only)
-    const potCount = Math.floor(cw / 100);
+    const potCount = 0; // removed decorative pots to reduce bottom clutter (per suggestion)
     for (let i = 0; i < potCount; i++) {
       const px = 50 + i * 100;
       const py = ch - 60;
