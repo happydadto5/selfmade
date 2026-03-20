@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: add a small watchdog to auto-fill missing wave enemies to prevent stalled waves during spawning (tiny) — 2026-03-20
+
 ## 6.38.0
 - Gameplay: improve Shield power-up visibility with a brighter halo and slightly larger icon so pickups are easier to spot (tiny) — 2026-03-20
 

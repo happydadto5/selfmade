@@ -1736,7 +1736,7 @@ if (overlay) {
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let lastPowerupColor = '';
-  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0;
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;
@@ -1754,6 +1754,7 @@ let hitPopTimeout = null;
   function spawnWave() {
     waveNumber++;
     try { lastSpawn = Date.now(); } catch (e) {}
+    try { waveSpawnWatchdog = Date.now(); } catch (e) {}
     // briefly show a wave banner so players notice wave transitions
     wavePulseUntil = Date.now() + 800;
   // small, optional screen shake to emphasize wave start (skip for reduced-motion users)
@@ -2621,6 +2622,23 @@ let hitPopTimeout = null;
     } catch (e) { /* ignore active power HUD errors */ }
 
     screenShake = Math.max(0, screenShake - dt * 0.04);
+    // Watchdog: if the intended wave count was set but far fewer enemies appeared, spawn a few fallback enemies
+    try {
+      if (typeof currentWaveEnemyCount === 'number' && currentWaveEnemyCount > 0) {
+        const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+        const deficit = Math.max(0, currentWaveEnemyCount - present);
+        // only act if some time has passed since the wave was initiated to avoid immediate interference
+        if (deficit > 0 && Date.now() - (waveSpawnWatchdog || 0) > 1800) {
+          for (let _i = 0; _i < Math.min(deficit, 3); _i++) {
+            const ex = 40 + Math.random() * (cw - 80);
+            const ey = -20 - Math.random() * 120;
+            enemies.push({ x: ex, y: ey, w: 30, h: 28, vy: 0.8, hp: 1, maxHp: 1, wave: waveNumber });
+          }
+          try { waveSpawnWatchdog = Date.now(); } catch (e) {}
+        }
+      }
+    } catch (e) {}
+
     if (enemies.length === 0) {
       // Wave cleared: show a brief "Wave X cleared!" toast once per wave for clear progression feedback
       try {
