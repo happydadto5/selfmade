@@ -133,15 +133,16 @@
       nextWaveBtn.style.right = '12px';
       nextWaveBtn.style.bottom = '12px';
       nextWaveBtn.style.zIndex = '10002';
-      nextWaveBtn.style.padding = '8px 12px';
-      nextWaveBtn.style.borderRadius = '10px';
-      nextWaveBtn.style.background = 'rgba(255,255,255,0.96)';
+      nextWaveBtn.style.padding = '12px 16px';
+      nextWaveBtn.style.borderRadius = '12px';
+      nextWaveBtn.style.background = 'linear-gradient(135deg,#c8e6c9,#66bb6a)';
       nextWaveBtn.style.color = '#063f0d';
       nextWaveBtn.style.border = 'none';
-      nextWaveBtn.style.fontWeight = '700';
+      nextWaveBtn.style.fontWeight = '800';
+      nextWaveBtn.style.fontSize = '15px';
       nextWaveBtn.style.cursor = 'pointer';
-      nextWaveBtn.style.boxShadow = '0 6px 14px rgba(0,0,0,0.12)';
-      nextWaveBtn.setAttribute('aria-hidden', 'true');
+      nextWaveBtn.style.boxShadow = '0 8px 18px rgba(0,0,0,0.18)';
+      nextWaveBtn.setAttribute('aria-label', 'Advance to next wave');
       try { document.body.appendChild(nextWaveBtn); } catch(e) {}
     }
     // Click handler: only trigger a new wave if current wave is cleared to avoid accidental skipping
