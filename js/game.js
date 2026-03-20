@@ -2640,10 +2640,15 @@ let hitPopTimeout = null;
             activePowerEl.textContent = label;
             try { activePowerEl.style.opacity = '0.95'; } catch (e) {}
             try { activePowerEl.setAttribute('aria-hidden', 'false'); } catch (e) {}
+            try {
+              // color the active power-up HUD to match the collected power-up for quick recognition
+              if (lastPowerupColor) { activePowerEl.style.background = lastPowerupColor; activePowerEl.style.color = '#012b30'; }
+            } catch (e) {}
           } else {
             try { activePowerEl.textContent = ''; } catch (e) {}
             try { activePowerEl.style.opacity = '0.0'; } catch (e) {}
             try { activePowerEl.setAttribute('aria-hidden', 'true'); } catch (e) {}
+            try { activePowerEl.style.background = ''; activePowerEl.style.color = ''; } catch (e) {}
           }
         } catch (e) { /* ignore HUD update errors */ }
       }
