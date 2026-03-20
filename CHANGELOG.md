@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: flush pending high score to localStorage on unload to avoid losing recent scores on quick navigations (tiny) — 2026-03-20
+
 ## 6.49.0
 - Accessibility: announce enemy hits via hit-announcer role=status live region for better screen-reader support (tiny) — 2026-03-20
 

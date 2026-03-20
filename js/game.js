@@ -1547,6 +1547,11 @@ if (overlay) {
       // Also ensure title is restored and pending auto-pause timers are cleared when the page is unloading
       window.addEventListener('beforeunload', () => {
         try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
+        try {
+          // Flush debounced high score immediately to avoid losing it on quick navigations or tab close
+          try { if (_highScoreSaveTimeout) { clearTimeout(_highScoreSaveTimeout); _highScoreSaveTimeout = null; } } catch (e) {}
+          try { localStorage.setItem('selfmade_highscore', String(highScore || 0)); } catch (e) {}
+        } catch (e) {}
         try { restoreTitle(); } catch (e) {}
       }, { passive: true });
     } catch (e) { /* ignore initialization errors */ }
