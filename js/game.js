@@ -259,7 +259,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.43.0';
+  const version = '6.44.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3093,6 +3093,42 @@ let hitPopTimeout = null;
         } catch (e) { /* ignore text draw errors */ }
       }
     } catch (e) { /* ignore glow draw errors */ }
+
+    // Draw shield ring and charge indicators when Shield is active to improve visibility and feedback
+    try {
+      if (player && Date.now() < (player.shieldUntil || 0)) {
+        // soft blue ring with light bloom
+        try {
+          ctx.save();
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(33,150,243,0.72)';
+          ctx.lineWidth = 4;
+          // subtle shadow for a gentle glow (keeps effect low-cost)
+          ctx.shadowColor = 'rgba(129,212,250,0.55)';
+          ctx.shadowBlur = 8;
+          ctx.ellipse(0, 0, player.w * 1.9, player.h * 1.9, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        } catch (e) { /* ignore ring draw errors */ }
+        // Draw small charge dots above the player to indicate remaining shield charges
+        try {
+          const charges = Math.max(0, player.shieldCharges || 0);
+          if (charges > 0) {
+            ctx.save();
+            ctx.translate(0, -player.h - 14);
+            // stronger fill for readability on varied backgrounds
+            ctx.fillStyle = 'rgba(33,150,243,0.95)';
+            for (let i = 0; i < charges; i++) {
+              const cx = (i - (charges - 1) / 2) * 10;
+              ctx.beginPath();
+              ctx.arc(cx, 0, 3.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+            ctx.restore();
+          }
+        } catch (e) { /* ignore charge-dot errors */ }
+      }
+    } catch (e) { /* ignore shield draw errors */ }
 
     // Brief player pulse when a power-up was recently collected
     try {
