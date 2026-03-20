@@ -3581,8 +3581,19 @@ let hitPopTimeout = null;
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
     if (waveEl) {
       const n = waveNumber;
-      waveEl.textContent = 'Wave: ' + n + ' 🌱';
-      try { waveEl.setAttribute('aria-label', 'Wave: ' + n); } catch (e) { }
+      try {
+        // Keep the compact DOM wave HUD consistent with refreshVersionHUD: show X/Y when maxWaves configured
+        while (waveEl.firstChild) waveEl.removeChild(waveEl.firstChild);
+        let labelText = 'Wave: ' + n + ' ';
+        try { if (typeof maxWaves === 'number' && maxWaves > 0) { labelText = 'Wave: ' + n + '/' + maxWaves + ' '; } } catch (e) {}
+        waveEl.appendChild(document.createTextNode(labelText));
+        const emoji = document.createElement('span');
+        emoji.textContent = '🌱';
+        try { emoji.setAttribute('aria-hidden','true'); } catch (e) {}
+        emoji.style.marginLeft = '6px';
+        try { waveEl.appendChild(emoji); } catch(e) { /* ignore */ }
+        try { waveEl.setAttribute('aria-label', 'Wave: ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? ' of ' + maxWaves : '')); } catch (e) {}
+      } catch (e) { /* ignore DOM errors */ }
       try {
         if (Date.now() < wavePulseUntil) { waveEl.classList.add('wave-pulse'); } else { waveEl.classList.remove('wave-pulse'); }
       } catch (e) { }
