@@ -2758,10 +2758,10 @@ let hitPopTimeout = null;
         }
       } catch(e){}
 
-      // Base inter-wave delay (ms). Slightly shorter early waves for snappier progression and better beatability
-      let interWaveDelay = 2200 + Math.min(2000, Math.floor(waveNumber * 80));
+      // Base inter-wave delay (ms). Shortened slightly to make runs feel more complete and snappier
+      let interWaveDelay = 1600 + Math.min(1600, Math.floor(waveNumber * 60));
       // Reduce delay for the first two waves so new players see clearer progression quickly
-      try { if (waveNumber <= 2) interWaveDelay = Math.max(900, interWaveDelay - 900); } catch (e) {}
+      try { if (waveNumber <= 2) interWaveDelay = Math.max(700, interWaveDelay - 700); } catch (e) {}
       // Show a small countdown HUD during the inter-wave delay so players know when the next wave starts.
       try {
         const elapsed = Date.now() - lastSpawn;
