@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.16.0
+- Gameplay: align Shield power-up to absorb two hits (set charges to 2) (tiny)
+
 ## 6.15.0
 - Visual/UI: improve wave progress bar visibility — slightly taller bar and subtle glow for readability on busy backgrounds (tiny)
 
