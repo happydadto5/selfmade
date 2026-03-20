@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 6.42.0
 - Stability: guard main loop against uncaught exceptions so an update/draw error won't stop animation; auto-pause and overlay shown on error (tiny) — 2026-03-20
 

@@ -2628,7 +2628,7 @@ let hitPopTimeout = null;
         const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
         const deficit = Math.max(0, currentWaveEnemyCount - present);
         // only act if some time has passed since the wave was initiated to avoid immediate interference
-        if (deficit > 0 && Date.now() - (waveSpawnWatchdog || 0) > 1800) {
+        if (deficit > 0 && Date.now() - (waveSpawnWatchdog || 0) > 600) {
           for (let _i = 0; _i < Math.min(deficit, 3); _i++) {
             const ex = 40 + Math.random() * (cw - 80);
             const ey = -20 - Math.random() * 120;
