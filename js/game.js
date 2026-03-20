@@ -258,7 +258,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.12.0';
+  const version = '6.13.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1646,8 +1646,11 @@ if (overlay) {
   // also handle visibility change (tabs/mobile): pause when document becomes hidden, and resume only if pausedByFocus
   // Vendor-prefixed fallback for older WebKit browsers: mirror the visibilitychange event so our handler runs on legacy platforms.
   try { document.addEventListener('webkitvisibilitychange', () => { try { document.dispatchEvent(new Event('visibilitychange')); } catch (e) { /* ignore */ } }, { passive: true }); } catch (e) { /* ignore */ }
-  document.addEventListener('visibilitychange', () => { if (!autoPauseEnabled) return;
+  document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
+      // Always clear inputs to prevent stuck controls when the page becomes hidden, even if auto-pause is disabled
+      try { clearInputs(); } catch (e) { /* ignore */ }
+      if (!autoPauseEnabled) return;
       // If pointer/touch interaction is active, don't auto-pause to avoid interrupting active play on touch-hold
       if (pointerActive) return;
       // Debounce visibility auto-pause to match blur behavior and avoid accidental pauses on quick tab switches
@@ -1657,7 +1660,7 @@ if (overlay) {
           paused = true;
           pausedByFocus = true;
           try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
-          // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
+          // Clear transient input state when auto-pausing to avoid stuck controls (keyboard, mouse, or touch)
           clearInputs();
           // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
           if (audioCtx && audioCtx.state === 'running') {

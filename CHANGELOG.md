@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.13.0
+- Stability: clear inputs on visibilitychange to prevent stuck controls when the page is hidden (tiny)
+
 ## 6.12.0
 - Gameplay: strengthen Shield power-up — now grants 3 charges and lasts 16s; clearer collect feedback (small)
 
