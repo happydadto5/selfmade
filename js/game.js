@@ -1779,7 +1779,11 @@ let hitPopTimeout = null;
     // briefly show a wave banner so players notice wave transitions
     wavePulseUntil = Date.now() + 800;
     // Give players a short grace period at the start of each wave where enemies move slightly slower to improve beatability
-    try { waveStartGraceUntil = Date.now() + 800; } catch (e) {}
+    try {
+      // Slightly longer grace for very early waves so new players have more reaction time
+      const graceMs = (typeof waveNumber === 'number' && waveNumber <= 2) ? 1200 : 800;
+      waveStartGraceUntil = Date.now() + graceMs;
+    } catch (e) {}
   // small, optional screen shake to emphasize wave start (skip for reduced-motion users)
   try {
     if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
