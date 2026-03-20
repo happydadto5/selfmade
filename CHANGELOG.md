@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Accessibility: announce extra-life pickup to screen readers and pulse lives HUD (tiny) — 2026-03-20
+
 ## 6.7.0
 - Increased inter-wave delay from 1600ms to 2200ms.
 

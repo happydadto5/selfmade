@@ -2502,6 +2502,14 @@ let hitPopTimeout = null;
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Life +1', vy: -0.05, life: 900, totalLife: 900, color: '#ff8a65' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 500+Math.random()*300, born: Date.now(), color: '#ff8a65' }); } catch (e) {}
+              // small visual pulse on the lives HUD and announce to assistive tech
+              try { livesPulseUntil = Date.now() + 700; } catch(e){}
+              try {
+                if (!lifeAnnouncer) lifeAnnouncer = document.getElementById('life-announcer');
+                if (lifeAnnouncer) {
+                  try { lifeAnnouncer.textContent = 'Extra life. ' + lives + (lives === 1 ? ' life' : ' lives'); } catch (e) {}
+                }
+              } catch(e) {}
             }
             try { screenShake = Math.min(16, (typeof screenShake === 'number' ? screenShake : 0) + 6); } catch (e) {}
             try { 
