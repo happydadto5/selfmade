@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: tune --hud-backdrop-opacity to 0.86 for improved HUD contrast on busy backgrounds (tiny) — 2026-03-20
 - Visual/UI: increase HUD backdrop opacity slightly to improve HUD readability on busy backgrounds (tiny) — 2026-03-20
 - Visual/UI: sync hit-pop body overlay CSS animation duration with JS removal timeout (760ms) so canvas and body-level hit flashes align (tiny) — 2026-03-20
 - Visual/UI: add subtle parallax to background clouds for improved depth (tiny) — 2026-03-20
