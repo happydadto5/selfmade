@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.115.0
+- Visual/UI: increase background leaf density for richer garden atmosphere (tiny) — 2026-03-20
+
 ## 6.114.0
 - Gameplay: Shield now also absorbs direct enemy collisions (in addition to bottom-leak). Shielded collisions produce a satisfying visual/score feedback so players notice the effect immediately. — 2026-03-20
 
