@@ -336,6 +336,19 @@
                 setTimeout(() => { try { wt.style.opacity = '0'; } catch(e){} }, 1400);
                 setTimeout(() => { try { if (wt && wt.parentNode) wt.parentNode.removeChild(wt); } catch(e){} }, 1800);
               } catch(e) {}
+              // If this was the configured final wave, pause progression and show a clear victory overlay so the run feels beatable
+              try {
+                if (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves) {
+                  gameOver = true; // stop further automatic progression
+                  try {
+                    if (typeof overlay !== 'undefined' && overlay && overlayMessage) {
+                      overlayMessage.textContent = 'Victory! You beat the garden — Final Score: ' + score + ' — Press R to play again or L to continue to next level';
+                      try { setOverlayVisible(true); } catch(e){}
+                      try { if (replayBtn) replayBtn.focus(); } catch(e){}
+                    }
+                  } catch(e) {}
+                }
+              } catch(e) {}
             }
           } catch(e) {}
 
