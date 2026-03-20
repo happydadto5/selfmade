@@ -275,7 +275,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.76.0';
+  const version = '6.77.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3577,6 +3577,29 @@ let hitPopTimeout = null;
         enemiesEl.textContent = (total > 0 ? (present + '/' + total + ' left') : ((typeof enemies !== 'undefined' ? enemies.length : 0) + ' ' + ((typeof enemies !== 'undefined' && enemies.length === 1) ? 'Enemy' : 'Enemies')));
       } catch (e) { /* ignore DOM errors */ }
     }
+    // Wave completion check: when a wave had a target and no enemies from that wave remain, mark cleared and advance.
+    try {
+      const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+      if ((typeof currentWaveEnemyCount === 'number' && currentWaveEnemyCount > 0) && present === 0 && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
+        lastClearedWave = waveNumber;
+        try {
+          // Small toast to signal wave clear (visually brief and accessible)
+          let wt = document.createElement('div');
+          wt.id = 'wave-cleared-toast';
+          wt.setAttribute('role','status'); wt.setAttribute('aria-live','polite');
+          wt.style.position = 'fixed'; wt.style.left = '50%'; wt.style.top = '8%';
+          wt.style.transform = 'translateX(-50%)';
+          wt.style.background = 'rgba(255,255,255,0.96)'; wt.style.color = '#063f0d';
+          wt.style.padding = '8px 14px'; wt.style.borderRadius = '8px'; wt.style.zIndex='10004'; wt.style.pointerEvents='none';
+          wt.textContent = 'Wave ' + (waveNumber) + ' cleared!';
+          try { document.body.appendChild(wt); } catch(e) {}
+          setTimeout(()=>{ try{ if (wt && wt.parentNode) wt.parentNode.removeChild(wt); }catch(e){} }, 1100);
+        } catch (e) { /* ignore toast errors */ }
+        try { playSound('blip'); } catch (e) {}
+        // Advance to the next wave after a short moment to give the player a brief breather
+        setTimeout(function(){ try { if (!gameOver) spawnWave(); } catch(e) {} }, 900);
+      }
+    } catch (e) { /* ignore wave-complete detection errors */ }
     // Update document title to include current wave and score for better visibility when tabbed away
     try {
       if (!paused && !gameOver) {
