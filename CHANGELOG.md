@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: announce enemy hits to screen readers via hidden live region (tiny) — 2026-03-20
 - Visual/UI: slightly lengthen enemy hit flash and white pop on enemy death for clearer hit feedback (tiny) — 2026-03-20
 - Visual/UI: sync body-level hit-pop removal timeout with CSS animation (760ms) so the radial garden hit-pop runs fully and aligns with canvas flash (tiny) — 2026-03-20
 - Visual/UI: increase HUD backdrop opacity slightly to improve HUD readability on busy backgrounds (tiny) — 2026-03-20
