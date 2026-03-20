@@ -1850,6 +1850,17 @@ let hitPopTimeout = null;
         if (Math.random() < 0.08) { enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.9, vx:(Math.random()-0.5)*0.4, hp:1, maxHp:1, type:'weevil', t: Math.random()*1000, baseVy: speed*0.9}); } else { enemies.push({x:ex,y:ey,w:30,h:28,vy:speed, hp:hpVal, maxHp:hpVal}); }
       }
     }
+    // Immediate sanity check: ensure the intended number of new enemies were added.
+    // Occasionally branching or transient errors can cause fewer spawns than intended; fill the deficit immediately for stable wave behavior.
+    try {
+      const newAdded = enemies.length - beforeWaveEnemies;
+      const deficit = Math.max(0, count - newAdded);
+      for (let j = 0; j < deficit; j++) {
+        const ex2 = 40 + Math.random() * (cw - 80);
+        const ey2 = -20 - Math.random() * 160;
+        enemies.push({ x: ex2, y: ey2, w: 30, h: 28, vy: 0.9, hp: 1, maxHp: 1 });
+      }
+    } catch (e) {}
     try {
       currentWaveEnemyCount = enemies.length - beforeWaveEnemies;
       // Ensure the reported target is at least the intended spawn count so waves can't report a smaller total

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Stability: ensure spawnWave always generates the intended enemy count to avoid incomplete waves (small) — 2026-03-20
+
 ## 6.53.0
 - Visual/UI: increase wave progress bar contrast and animation speed for snappier, more readable feedback (tiny) — 2026-03-20
 
