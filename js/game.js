@@ -99,6 +99,20 @@
   // Improve accessibility: focus the canvas on pointer interaction so keyboard controls work after tap/click
   try { canvas.addEventListener('pointerdown', () => { try { canvas.focus(); } catch (e) {} }, { passive: true }); } catch (e) { /* ignore */ }
 
+  // Global helper: draw text with a dark outline for readability on busy backgrounds
+  function drawOutlinedText(ctxArg, text, x, y, fillStyle) {
+    try {
+      ctxArg.save();
+      if (fillStyle) ctxArg.fillStyle = fillStyle;
+      ctxArg.lineWidth = 3;
+      ctxArg.strokeStyle = 'rgba(0,0,0,0.85)';
+      ctxArg.miterLimit = 2;
+      try { ctxArg.strokeText(text, x, y); } catch(e){}
+      try { ctxArg.fillText(text, x, y); } catch(e){}
+      ctxArg.restore();
+    } catch(e) {}
+  }
+
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
@@ -259,7 +273,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.44.0';
+  const version = '6.45.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3565,14 +3579,14 @@ let hitPopTimeout = null;
         ctx.shadowColor = 'rgba(0,0,0,0.6)';
         ctx.shadowBlur = 6;
         ctx.fillStyle = 'rgba(255,255,255,0.95)';
-          ctx.fillText(waveText, rx + pad, ry + 16);
+          drawOutlinedText(ctx, waveText, rx + pad, ry + 16, 'rgba(255,255,255,0.95)');
           // Draw a 'Lives:' label then heart icons for lives for clearer, more visual feedback (garden-themed hearts)
           try {
             const heartSize = 18; // px (slightly larger for readability)
             // Draw the Lives text label on its own line for clarity
             ctx.font = '16px sans-serif';
             ctx.fillStyle = 'rgba(255,255,255,0.95)';
-            ctx.fillText(livesText, rx + pad, ry + 16 + lineHeight);
+            drawOutlinedText(ctx, livesText, rx + pad, ry + 16 + lineHeight, 'rgba(255,255,255,0.95)');
             // Now draw heart icons to the right of the Lives label
             ctx.font = heartSize + 'px sans-serif';
             for (let j = 0; j < Math.max(0, lives); j++) {
@@ -3605,7 +3619,7 @@ let hitPopTimeout = null;
       // Add a subtle shadow to the wave banner for improved contrast on busy backgrounds
       ctx.shadowColor = 'rgba(0,0,0,0.6)';
       ctx.shadowBlur = 10;
-      ctx.fillText('Wave ' + waveNumber + ' 🌱', cw/2, 80);
+      drawOutlinedText(ctx, 'Wave ' + waveNumber + ' 🌱', cw/2, 80, 'rgba(255,255,255,0.98)');
       // Clear shadow after drawing so subsequent drawings are unaffected
       ctx.shadowBlur = 0;
       ctx.shadowColor = 'transparent';
@@ -3661,7 +3675,7 @@ let hitPopTimeout = null;
       ctx.font = '14px sans-serif';
       ctx.textAlign = 'right';
       ctx.fillStyle = 'rgba(255,255,255,0.92)';
-      ctx.fillText('FPS: ' + Math.round(fpsSmoothed), cw - 12, 18);
+      drawOutlinedText(ctx, 'FPS: ' + Math.round(fpsSmoothed), cw - 12, 18, 'rgba(255,255,255,0.92)');
       ctx.restore();
     } catch (e) { /* ignore FPS draw errors */ }
     ctx.restore();
@@ -3758,7 +3772,7 @@ let hitPopTimeout = null;
       ctx.fillStyle = '#fff';
       ctx.font = '48px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(gameOver ? 'Game Over' : (pausedByFocus ? 'Paused (focus lost)' : 'Paused'), cw/2, ch/2);
+      drawOutlinedText(ctx, gameOver ? 'Game Over' : (pausedByFocus ? 'Paused (focus lost)' : 'Paused'), cw/2, ch/2, 'rgba(255,255,255,0.98)');
       if (!gameOver) {
         ctx.font = '18px sans-serif';
         ctx.fillText(pausedByFocus ? 'Paused due to focus loss — tap, Space, or press P to resume' : 'Press P, Esc, or Space to resume', cw/2, ch/2 + 48);

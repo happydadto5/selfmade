@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.45.0
+- Visual/UI: add subtle dark outline to HUD, wave banner, FPS, and pause/game-over text for improved readability on busy backgrounds (tiny) — 2026-03-20
+
 ## 6.44.0
 - Visual/UI: show shield ring and charge indicators around the player when Shield is active (tiny).
 - Reduced wave spawn watchdog delay so fallback enemies appear sooner when fewer enemies spawn (improves wave reliability).
