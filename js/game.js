@@ -3997,6 +3997,14 @@ let hitPopTimeout = null;
             existingBadge.style.marginLeft = '8px';
             livesEl.appendChild(existingBadge);
           }
+          // Update badge text and aria label each refresh to keep timer and charges accurate and avoid duplicates
+          try {
+            const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
+            existingBadge.textContent = '🛡' + (charges ? (' ' + charges) : '');
+            try { existingBadge.classList.toggle('pulse', ((player.shieldUntil || 0) - Date.now()) > 4000); } catch(e) {}
+            livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + (secShield ? (', shield ' + secShield + 's' + (charges ? (', ' + charges.trim()) : '')) : ', shield'));
+          } catch(e) { /* ignore badge update errors */ }
+          }
           // Update badge text with remaining seconds for quick readability
           const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
           existingBadge.textContent = ' 🛡 ' + secShield + 's' + charges;

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix: prevent duplicate shield HUD badges and keep shield timer updated in HUD (tiny) — 2026-03-20
+
 ## 6.115.0
 - Visual/UI: increase background leaf density for richer garden atmosphere (tiny) — 2026-03-20
 
