@@ -2131,6 +2131,15 @@ let hitPopTimeout = null;
           try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
           try { canvasWhiteFlashUntil = Date.now() + 260; canvasHitFlashUntil = Date.now() + 340; } catch(e){}
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
+          try {
+            if (activePowerEl) {
+              const _prev = activePowerEl.textContent || '';
+              try { activePowerEl.textContent = '🛡 Shield absorbed'; activePowerEl.setAttribute('aria-hidden','false'); } catch(e){}
+              setTimeout(function(){
+                try { activePowerEl.textContent = _prev; if (!_prev) activePowerEl.setAttribute('aria-hidden','true'); } catch(e){}
+              }, 900);
+            }
+          } catch(e){}
           continue;
         }
       } catch (e) { /* ignore shield check errors */ }
