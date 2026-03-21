@@ -402,7 +402,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.130.0';
+  const version = '6.131.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1469,6 +1469,8 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   player.x = cw/2;
   player.y = ch - 80;
   player.cooldown = 0;
+  // Clear temporary power-ups so restarting does not retain previous run's buffs
+  try { player.fireRate = 1; player.fireRateUntil = 0; player.spreadUntil = 0; player.shieldUntil = 0; player.shieldCharges = 0; player.pierceUntil = 0; player.slowUntil = 0; player._lastShieldActive = 0; } catch (e) {}
   // Start the first wave immediately after restart so players don't wait for the automatic spawn
   try { spawnWave(); } catch (e) { /* ignore spawn errors */ }
   // If sound is enabled, ensure the AudioContext is available/resumed after a restart so sounds play reliably.

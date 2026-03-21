@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Stability: clear temporary power-ups on restart so restarting a run doesn't retain previous power-ups — 2026-03-21
 - Visual/UI: pulse Shield ring based on remaining time for clearer feedback — 2026-03-21
 - UI: autopause toast now hints 'Tap to resume' for mobile clarity — 2026-03-21
 - Stability: persist last score and wave to localStorage on auto-pause/visibility to reduce data loss on quick tab switches — 2026-03-21
