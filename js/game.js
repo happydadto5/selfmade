@@ -3212,7 +3212,7 @@ let hitPopTimeout = null;
         try {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
-          if (Math.sqrt(dx*dx + dy*dy) < 90) { // slightly increased pickup radius to make power-ups easier to collect (now 90)
+          if (Math.sqrt(dx*dx + dy*dy) < 100) { // slightly increased pickup radius to make power-ups easier to collect (now 100)
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel
