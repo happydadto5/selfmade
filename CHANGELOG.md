@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: clear pointer/touch state on blur/visibility to avoid stuck controls when the page loses focus (tiny) — 2026-03-21
+
 ## 7.106.0
 - UI: improve HUD readability by slightly darkening the HUD backdrop and adding a subtle background gradient (tiny) — 2026-03-21
 
