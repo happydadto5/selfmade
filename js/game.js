@@ -295,6 +295,16 @@
             // Update active power HUD
             activePowerEl.textContent = text;
             activePowerEl.setAttribute('aria-hidden', text ? 'false' : 'true');
+            // Accessibility: expose active power-up as an aria-label so screen readers get a concise label, and set title for hover/tooltips
+            try {
+              if (text) {
+                try { activePowerEl.setAttribute('aria-label', text); } catch(e) {}
+                try { activePowerEl.title = text; } catch(e) {}
+              } else {
+                try { activePowerEl.removeAttribute('aria-label'); } catch(e) {}
+                try { activePowerEl.removeAttribute('title'); } catch(e) {}
+              }
+            } catch(e) {}
             // Also update on-screen touch fire button to show active power-up icon for mobile discoverability.
             try {
               const touchFireBtn = document.getElementById('touch-fire');
@@ -402,7 +412,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.1.0';
+  const version = '7.2.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
