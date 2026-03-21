@@ -188,6 +188,17 @@
     } catch(e) {}
   }
 
+  // Score helper: add score respecting temporary mulch multiplier and create popup
+  function addScoreAndPopup(n, x, y, color) {
+    try {
+      const now = Date.now();
+      const mult = (player && typeof player.scoreMultiplier === 'number' && (player.mulchUntil || 0) > now) ? player.scoreMultiplier : 1;
+      const add = Math.round(n * mult);
+      try { score += add; } catch(e) { score = (typeof score === 'number' ? score : 0) + add; }
+      try { scorePopups.push({ x: x, y: y, text: '+' + add, vy: -0.05, life: 800, totalLife: 800, color: color || '#ffff88' }); } catch(e){}
+    } catch(e) { try { score += n; } catch(e){} }
+  }
+
   // Small transient wave toast: briefly shows a message near the top when waves start or clear.
   function showWaveToast(msg) {
     try {
@@ -423,6 +434,9 @@
             const s = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
             const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
             text = '🛡 Shield' + charges + ' (' + s + 's)';
+          } else if (player && now < (player.mulchUntil || 0)) {
+            const s = Math.ceil(((player.mulchUntil || 0) - now) / 1000);
+            text = '🌾 Mulch x' + (player.scoreMultiplier ? player.scoreMultiplier.toFixed(2) : '1.5') + ' (' + s + 's)';
           } else if (player && now < (player.slowUntil || 0)) {
             const s = Math.ceil(((player.slowUntil || 0) - now) / 1000);
             text = '🍃 Slow (' + s + 's)';
@@ -2736,7 +2750,7 @@ let hitPopTimeout = null;
                   player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
                 }
                 try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
-                try { score += 6; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+6', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
+                try { addScoreAndPopup(6, player.x + 16, player.y - 10, '#ffff88'); } catch(e){}
                 try { playSound('shield'); } catch (e) {}
                 try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e) {}
                 try { livesPulseUntil = Date.now() + 700; } catch(e) {}
@@ -2819,7 +2833,7 @@ let hitPopTimeout = null;
             }
             // small visual feedback and a minor score reward to make shield use feel satisfying
             try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
-            try { score += 5; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+5', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
+            try { addScoreAndPopup(5, player.x + 16, player.y - 10, '#ffff88'); } catch(e){}
             try { playSound('shield'); } catch (e) {}
             try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e) {}
             try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(30); } catch(e) {}
@@ -3057,9 +3071,7 @@ let hitPopTimeout = null;
               } catch(e) {}
               try { playSound('hit'); } catch(e){}
             } catch (err) {}
-            score += 10;
-            // spawn a small floating score popup at the enemy position (visual polish)
-            try { scorePopups.push({ x: e.x, y: e.y, text: '+10', vy: -0.05, life: 800, totalLife: 800, color: '#ffff88' }); } catch (ex) { /* ignore */ }
+            try { addScoreAndPopup(10, e.x, e.y, '#ffff88'); } catch(e) {}
             // pest split: spawn two small mini-pests at the death location when a pest dies
             try {
               if (e.type === 'pest') {
@@ -3161,12 +3173,12 @@ let hitPopTimeout = null;
                 }
                 // limit active power-ups to avoid overload
                 if (powerups.length < 6) {
-                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.995 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 });
+                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.99 ? 'mulch' : (_r < 0.995 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
                   // Defensive: keep powerup count bounded to avoid pathological growth during long runs
                   if (powerups.length > 8) powerups.shift();
                 } else {
                   // occasionally replace the oldest power-up to keep variety without growing arrays
-                  if (Math.random() < 0.12) { powerups.shift(); powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.995 ? 'pierce' : 'life')))))), born: Date.now(), life: 14000 });
+                  if (Math.random() < 0.12) { powerups.shift(); powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.99 ? 'mulch' : (_r < 0.995 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
                     if (powerups.length > 8) powerups.shift(); }
                 }
               }
@@ -3271,9 +3283,8 @@ let hitPopTimeout = null;
                     try {
                       for (let m=0;m<10;m++) particles.push({ x: en.x + (Math.random()-0.5)*8, y: en.y + (Math.random()-0.5)*8, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2+Math.random()*3, life: 400+Math.random()*300, born: Date.now(), color: '#ffccbc' });
                     } catch(ex) {}
-                    try { scorePopups.push({ x: en.x, y: en.y, text: '+10', vy: -0.05, life: 800, totalLife: 800, color: '#ffff88' }); } catch(ex) {}
+                    try { addScoreAndPopup(10, en.x, en.y, '#ffff88'); } catch(e) {}
                     enemies.splice(k,1);
-                    score += 10;
                     killed++;
                   }
                 }
@@ -3294,6 +3305,19 @@ let hitPopTimeout = null;
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Vine! Slow enemies', vy: -0.05, life: 900, totalLife: 900, color: '#c8e6c9' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 500+Math.random()*300, born: Date.now(), color: '#c8e6c9' }); } catch (e) {}
+            } else if (pu.type === 'mulch') {
+              // Mulch: temporary score multiplier (gardening-themed power-up)
+              try {
+                const now = Date.now();
+                // If already have mulch active, stack slightly (up to 2.0), else start at 1.5
+                try { player.scoreMultiplier = (typeof player.scoreMultiplier === 'number' ? Math.min(2.0, player.scoreMultiplier + 0.25) : 1.5); } catch(e) { player.scoreMultiplier = 1.5; }
+                player.mulchUntil = now + 12000; // 12 seconds
+                try { player._mulchWarned = false; } catch(e){}
+              } catch(e){}
+              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Mulch collected: score bonus'; } catch (e) {}
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Mulch! x' + (player.scoreMultiplier ? player.scoreMultiplier.toFixed(2) : '1.5'), vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
+              try { playSound('blip'); } catch (e) {}
+              try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 420+Math.random()*320, born: Date.now(), color: '#a5d6a7' }); } catch (e) {}
             } else if (pu.type === 'life') {
               // grant one extra life (cap to avoid runaway)
               try { lives = Math.min(9, (typeof lives === 'number' ? lives : 0) + 1); } catch (e) { lives = (typeof lives === 'number' ? lives : 0) + 1; }
@@ -3622,9 +3646,8 @@ let hitPopTimeout = null;
                   // Give player a brief recovery pause and a small reward for clearing the wave
                   try {
                     const bonus = 10 + (typeof lives === 'number' ? (lives * 5) : 0);
-                    score += bonus;
+                    try { addScoreAndPopup(bonus, player.x, player.y - 20, '#ffff88'); } catch(e){}
                     if (scoreEl) try { scoreEl.textContent = 'Score: ' + score; } catch(e){}
-                    try { scorePopups.push({ x: player.x, y: player.y - 20, text: '+' + bonus, vy: -0.05, life: 900, totalLife: 900, color: '#ffff88' }); } catch(e){}
                     try { playSound('blip'); } catch(e) {}
                   } catch(e) {}
                   try { let ann = document.getElementById('wave-announcer'); if (ann) try { ann.textContent = 'Wave ' + waveNumber + ' cleared!'; } catch(e) {} } catch(e) {}
