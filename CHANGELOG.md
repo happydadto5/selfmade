@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: dim game canvas when overlay is visible to make paused/game-over state clearer (tiny) — 2026-03-21
 - Gameplay: spawn a guaranteed Shield power-up every 2 waves (tiny) — 2026-03-21
 - Accessibility: auto-pause now shows a prominent 'Paused' heading when the window loses focus and dims the game (tiny) — 2026-03-21
 - Stability: cap particle count to prevent runaway growth during very long runs (tiny) — 2026-03-21

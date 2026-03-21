@@ -570,7 +570,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.77.0';
+  const version = '7.78.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1570,6 +1570,8 @@ if (overlay) {
       // Small accessibility/UX hook: add a class to the document body when the overlay is visible
       // so CSS can style the paused state (e.g., dimming, cursor changes). Keep this defensive.
       try { document.body.classList.add('paused'); } catch (e) { /* ignore */ }
+      // Visual polish: apply a subtle dim/filter to the game canvas to make paused state more obvious.
+      try { if (canvas && typeof canvas.style !== 'undefined') { canvas.style.filter = 'brightness(0.72) saturate(0.92)'; } } catch (e) { /* ignore */ }
     } else {
       overlay.setAttribute('role', 'status');
       overlay.removeAttribute('aria-modal');
@@ -1578,6 +1580,8 @@ if (overlay) {
       try { document.body.classList.remove('paused'); } catch (e) { /* ignore */ }
       // Restore keyboard focus to the game canvas when the overlay hides so keyboard users can continue play immediately
       try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) { /* ignore focus errors */ }
+      // Remove any visual filter applied when paused so rendering returns to normal
+      try { if (canvas && typeof canvas.style !== 'undefined') { canvas.style.filter = ''; } } catch (e) { /* ignore */ }
     }
   }
   // Small UX/accessibility helper: show different overlay messages when pause was triggered by focus loss vs user toggle.
