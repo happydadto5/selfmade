@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.86.0
+- Visual/UI: increase HUD backdrop opacity slightly for improved readability on busy backgrounds (tiny) — 2026-03-21
+
 ## 7.85.0
 - UI: touch-fire button gains subtle shield glow when Shield is active (tiny) — 2026-03-21
 
