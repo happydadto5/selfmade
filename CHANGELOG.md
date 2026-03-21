@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: reduce Shield power-up duration from 16s to 12s (balance tweak) — 2026-03-21
 - Accessibility: Next Wave button supports keyboard activation (Enter/Space) — 2026-03-21
 - Accessibility: announce auto-pause to screen readers when auto-paused due to blur/visibility (tiny) — 2026-03-21
 - UI: active power-up badge gains a subtle blue glow when Shield is active (tiny) — 2026-03-21

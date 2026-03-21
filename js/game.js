@@ -3039,7 +3039,7 @@ let hitPopTimeout = null;
                   player.shieldUntil = (player.shieldUntil || now) + 8000;
                 } else {
                   // new shield
-                  player.shieldUntil = Date.now() + 16000; // 16 seconds (slightly stronger)
+                  player.shieldUntil = Date.now() + 12000; // 16 seconds (slightly stronger)
                   try { player.shieldCharges = 2; } catch(e) { player.shieldCharges = 2; }
                 }
               } catch(e) {}
@@ -3307,13 +3307,13 @@ let hitPopTimeout = null;
               const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - spawnX) < 48 && Math.abs((p.y||0) - spawnY) < 48);
               if (nearbyShield) return;
               if (powerups.length < 6) {
-                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 16000 });
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
                 // Defensive: keep powerup count bounded to avoid pathological growth during long runs
                 if (powerups.length > 8) powerups.shift();
               } else {
                 // if full, rotate oldest out to keep variety
                 powerups.shift();
-                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 16000 });
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
               }
             })();
             try { playSound('shield'); } catch(e){}
@@ -4694,6 +4694,7 @@ let hitPopTimeout = null;
 
 
 })();
+
 
 
 
