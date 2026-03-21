@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: slightly increase Wave HUD font-size for improved readability — 2026-03-21
 - Stability: initialize data-shield-active attribute to false on load to avoid CSS mismatch — 2026-03-21
 - UI: add smooth transition to Next Wave button hover for better discoverability — 2026-03-21
 - UI: show subtle global tint while Shield power-up is active for clearer feedback — 2026-03-21
