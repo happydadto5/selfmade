@@ -1924,6 +1924,17 @@ if (overlay) {
             try { localStorage.setItem('selfmade_last_wave', String(typeof waveNumber !== 'undefined' ? waveNumber : 0)); } catch (e) { /* ignore */ }
           } catch (e) { /* ignore storage errors */ }
           if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
+          try {
+            let ap = document.getElementById('autopause-announcer');
+            if (!ap) {
+              ap = document.createElement('div');
+              ap.id = 'autopause-announcer';
+              ap.style.position = 'absolute'; ap.style.left = '-9999px'; ap.style.width = '1px'; ap.style.height = '1px';
+              ap.setAttribute('aria-live', 'assertive'); ap.setAttribute('aria-atomic', 'true');
+              try { document.body.appendChild(ap); } catch(e){}
+            }
+            try { ap.textContent = 'Auto-paused (lost focus)'; } catch(e){}
+          } catch(e) {}
           blurTimeout = null;
         }, AUTO_PAUSE_DEBOUNCE);
       }
@@ -2000,6 +2011,18 @@ if (overlay) {
             // Auto-remove after a short delay so it doesn't linger
             setTimeout(()=>{ try { let nt = document.getElementById('autopause-toast'); if (nt && nt.parentNode) nt.parentNode.removeChild(nt); } catch(e){} }, 2800);
           } catch (e) { /* ignore toast injection errors */ }
+
+          try {
+            let ap = document.getElementById('autopause-announcer');
+            if (!ap) {
+              ap = document.createElement('div');
+              ap.id = 'autopause-announcer';
+              ap.style.position = 'absolute'; ap.style.left = '-9999px'; ap.style.width = '1px'; ap.style.height = '1px';
+              ap.setAttribute('aria-live', 'assertive'); ap.setAttribute('aria-atomic', 'true');
+              try { document.body.appendChild(ap); } catch(e){}
+            }
+            try { ap.textContent = 'Auto-paused (lost focus)'; } catch(e){}
+          } catch(e) {}
 
           blurTimeout = null;
         }, AUTO_PAUSE_DEBOUNCE);

@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: announce auto-pause to screen readers when auto-paused due to blur/visibility (tiny) — 2026-03-21
 - UI: active power-up badge gains a subtle blue glow when Shield is active (tiny) — 2026-03-21
 - UI: add visual shield badge to Lives HUD (tiny) — 2026-03-21
 - UI: show transient wave toast when a new wave starts — 2026-03-21
