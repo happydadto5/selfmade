@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.105.0
 - UI: add compact wave progress bar showing defeated/total and visual percent for current wave (small)
 
 ## 7.104.0
