@@ -44,6 +44,36 @@
     }catch(e){ return null; }
   }
   try { getAutopauseAnnouncer(); } catch(e) {}
+  // Show a one-time session tip toast on first session load. Guarded by sessionStorage
+  try {
+    if (typeof sessionStorage !== 'undefined' && !sessionStorage.getItem('selfmade_seen_session_toast')) {
+      // mark as seen immediately so we don't repeatedly attempt to show if DOM operations fail
+      try { sessionStorage.setItem('selfmade_seen_session_toast', '1'); } catch (e) {}
+      try {
+        var _sessionTip = document.createElement('div');
+        _sessionTip.id = 'session-tip-toast';
+        _sessionTip.setAttribute('role', 'status');
+        _sessionTip.setAttribute('aria-live', 'polite');
+        _sessionTip.style.position = 'fixed';
+        _sessionTip.style.left = '50%';
+        _sessionTip.style.top = '8px';
+        _sessionTip.style.transform = 'translateX(-50%)';
+        _sessionTip.style.background = 'rgba(0,0,0,0.75)';
+        _sessionTip.style.color = '#fff';
+        _sessionTip.style.padding = '8px 12px';
+        _sessionTip.style.borderRadius = '8px';
+        _sessionTip.style.zIndex = '10005';
+        _sessionTip.style.pointerEvents = 'none';
+        _sessionTip.style.opacity = '0';
+        _sessionTip.style.transition = 'opacity 220ms ease, transform 220ms ease';
+        _sessionTip.textContent = 'Tip: Press H for help, P to pause. Enjoy the game!';
+        try { document.body.appendChild(_sessionTip); } catch (e) {}
+        try { void _sessionTip.offsetWidth; _sessionTip.style.opacity = '1'; } catch (e) {}
+        setTimeout(function(){ try { _sessionTip.style.opacity = '0'; } catch(e){} }, 4200);
+        setTimeout(function(){ try { if (_sessionTip && _sessionTip.parentNode) _sessionTip.parentNode.removeChild(_sessionTip); } catch(e){} }, 4600);
+      } catch (e) {}
+    }
+  } catch (e) {}
   let cw, ch;
   let player;
   let gardenBackground = null;
