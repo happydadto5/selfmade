@@ -3218,9 +3218,9 @@ let hitPopTimeout = null;
         }
       } catch(e){}
 
-      // Pacing aid: spawn a guaranteed Shield power-up every 3 waves to aid recovery and pacing.
+      // Pacing aid: spawn a guaranteed Shield power-up every 2 waves to aid recovery and pacing.
       try {
-        if (typeof waveNumber === 'number' && waveNumber > 0 && waveNumber % 3 === 0) {
+        if (typeof waveNumber === 'number' && waveNumber > 0 && waveNumber % 2 === 0) {
           try {
             // spawn shield slightly above the player so it's easy to collect but not instant
             const spawnY = (typeof player === 'object' && typeof player.y === 'number') ? Math.max(40, player.y - 120) : Math.max(40, ch * 0.2);

@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: spawn guaranteed Shield power-up every 2 waves (tweak) — 2026-03-21
 - Stability: clamp shield charges to zero when consumed to avoid negative shield counts (fix) — 2026-03-21
 - Gameplay: add 'snatcher' enemy that occasionally dashes toward the player (tiny) — 2026-03-21
 - UX: toggle garden background with B key (persisted) — 2026-03-21
