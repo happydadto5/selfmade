@@ -430,7 +430,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.13.0';
+  const version = '7.14.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3920,17 +3920,17 @@ let hitPopTimeout = null;
           if (!(typeof prefersReducedMotion !== 'undefined' && prefersReducedMotion)) {
             const t = Date.now();
             const base = isShield ? 18 : 14;
-            // make shield pulse a bit stronger so it's more noticeable
-            const pulse = 1 + (isShield ? 0.12 : 0.08) * Math.sin(t / (isShield ? 200 : 240) + ((pu.born||0) / 330));
+            // increase shield pulse strength and halo for better discoverability
+            const pulse = 1 + (isShield ? 0.18 : 0.10) * Math.sin(t / (isShield ? 180 : 220) + ((pu.born||0) / 330));
             ctx.lineWidth = isShield ? 3 : 2;
-            const ringAlpha = Math.max(0, Math.min(0.9, (isShield ? 0.45 : 0.35) + (isShield ? 0.32 : 0.25) * Math.sin(t / (isShield ? 300 : 320) + ((pu.born||0) / 420))));
-            // For shield, draw a tinted halo behind the ring for stronger clarity
+            const ringAlpha = Math.max(0, Math.min(0.95, (isShield ? 0.55 : 0.40) + (isShield ? 0.42 : 0.30) * Math.sin(t / (isShield ? 260 : 300) + ((pu.born||0) / 420))));
+            // For shield, draw a slightly stronger tinted halo behind the ring for clearer pickup feedback
             if (isShield) {
               try {
                 ctx.save();
-                ctx.globalAlpha = Math.min(alpha * 0.9, 0.7);
-                ctx.fillStyle = 'rgba(41,182,246,0.12)';
-                ctx.beginPath(); ctx.arc(pu.x, pu.y, base * pulse * 1.2, 0, Math.PI*2); ctx.fill();
+                ctx.globalAlpha = Math.min(alpha * 0.95, 0.85);
+                ctx.fillStyle = 'rgba(41,182,246,0.18)';
+                ctx.beginPath(); ctx.arc(pu.x, pu.y, base * pulse * 1.3, 0, Math.PI*2); ctx.fill();
                 ctx.restore();
               } catch (e) { /* ignore halo draw errors */ }
             }
