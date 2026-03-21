@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: initialize body data-shield-active attribute on load to avoid a brief visual mismatch before game script runs — 2026-03-21
 - Stability: resume reliably after browser bfcache/pageshow restore — 2026-03-21
 - Fix: attach shield-badge class to Lives HUD shield element so CSS styles apply — 2026-03-21
 - UI: Next Wave button hover lifts and stronger shadow on hover (tiny) — 2026-03-21
