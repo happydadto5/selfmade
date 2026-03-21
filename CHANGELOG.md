@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: shorten auto-advance after clearing a wave from 1.2s to 0.9s for snappier pacing — 2026-03-21
 - UI: increase Wave HUD font-size on small screens for improved readability — 2026-03-21
 - Stability: clear pending auto-pause and spawn timeouts on restart to avoid delayed pauses and stray timers — 2026-03-21
 - Gameplay: collecting Shield while active now adds one charge (max 3) and extends duration by 8s — 2026-03-21
