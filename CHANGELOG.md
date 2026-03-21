@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: increase contrast and thickness of wave progress bar for readability (tiny) — 2026-03-21
+
 ## 7.97.0
 - Levels: reduce enemy speed when player is low on lives to improve beatability (tiny) — 2026-03-21
 
