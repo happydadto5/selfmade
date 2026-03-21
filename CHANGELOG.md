@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Security: add .gitignore entry to ignore secrets.txt to prevent accidental commits (tiny) — 2026-03-21
+
 ## 7.99.0
 - Visual: add subtle screen shake on enemy hits for clearer feedback (tiny) — 2026-03-21
 
