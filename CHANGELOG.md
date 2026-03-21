@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: set data-shield-active attribute each frame so CSS tint reliably reflects Shield status — 2026-03-21
 - UI: slightly increase Lives HUD heart size for readability (tiny) — 2026-03-21
 - Stability: pause when the pointer leaves the window (desktop) to avoid uncontrolled input when the user leaves the page; debounced to reduce accidental pauses — 2026-03-21
 - Stability: prevent double-restart by briefly disabling the Play Again button when clicked (tiny) — 2026-03-21

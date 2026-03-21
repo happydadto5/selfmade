@@ -570,7 +570,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.73.0';
+  const version = '7.74.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3333,6 +3333,8 @@ let hitPopTimeout = null;
             try { activePowerEl.setAttribute('aria-hidden', 'true'); } catch (e) {}
             try { activePowerEl.style.background = ''; activePowerEl.style.color = ''; } catch (e) {}
           }
+          // Also expose shield active status on the document body so CSS can apply a consistent global tint when Shield is active
+          try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', (now < (player.shieldUntil || 0)) ? 'true' : 'false'); } } catch(e) {}
         } catch (e) { /* ignore HUD update errors */ }
       }
     } catch (e) { /* ignore active power HUD errors */ }
