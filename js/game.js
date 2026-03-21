@@ -506,7 +506,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.52.0';
+  const version = '7.53.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3055,7 +3055,7 @@ let hitPopTimeout = null;
         try {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
-          if (Math.sqrt(dx*dx + dy*dy) < 80) { // slightly increased pickup radius to make power-ups easier to collect (now 80)
+          if (Math.sqrt(dx*dx + dy*dy) < 90) { // slightly increased pickup radius to make power-ups easier to collect (now 90)
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel

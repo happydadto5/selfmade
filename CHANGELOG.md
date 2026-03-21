@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase power-up pickup radius slightly to make collecting easier (tiny) — 2026-03-21
 - Accessibility: add aria attributes to wave-clear-toast so screen readers announce wave-clear messages (tiny) — 2026-03-21
 - UI: show remaining shield time in Lives HUD badge (tiny) — 2026-03-21
 - Accessibility: Next Wave button keydown handling robustly detects Space and Enter across browsers (tiny) — 2026-03-21
