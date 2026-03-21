@@ -3675,6 +3675,18 @@ let hitPopTimeout = null;
         const _remaining = Math.max(0, (player.shieldUntil || 0) - Date.now());
         const _frac = Math.max(0, Math.min(1, _remaining / 12000)); // fraction of 12s duration remaining
         const _pulse = 1 + 0.08 * Math.sin(Date.now() * 0.02);
+        // soft halo behind the shield for stronger visual clarity (additive blend)
+        try {
+          ctx.save();
+          try { ctx.globalCompositeOperation = 'lighter'; } catch (e) {}
+          const haloR = Math.max(player.w, player.h) * 2.6 * _pulse;
+          const hg = ctx.createRadialGradient(0,0,Math.max(player.w,player.h)*0.8, 0,0, haloR);
+          hg.addColorStop(0, 'rgba(129,212,255,' + (0.20 + 0.5 * _frac).toFixed(3) + ')');
+          hg.addColorStop(1, 'rgba(129,212,255,0)');
+          ctx.fillStyle = hg;
+          ctx.beginPath(); ctx.arc(0,0,haloR,0,Math.PI*2); ctx.fill();
+          ctx.restore();
+        } catch (e) {}
         ctx.strokeStyle = 'rgba(129,212,255,' + (0.5 + 0.45 * _frac).toFixed(3) + ')';
         ctx.lineWidth = 4 + 2 * (1 - _frac); // slightly thicken as it nears expiration
         ctx.beginPath();
