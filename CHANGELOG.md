@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase power-up pickup radius to 120 to make power-ups easier to collect (tiny) — 2026-03-21
 - Gameplay: increase power-up pickup radius to 100 to make collecting power-ups easier (tiny) — 2026-03-21
 - Stability: prevent context menu on right-click inside game to avoid accidental interruption (tiny) — 2026-03-21
 - UI: dim game canvas when overlay is visible to make paused/game-over state clearer (tiny) — 2026-03-21
@@ -605,7 +606,9 @@
 - Visual/UI: add subtle background gradient and improve HUD contrast for better readability (tiny) — 2026-03-18
 - Automation: fix `selfmade.bat` launcher persistence so the top-level batch process stays alive, reloads itself safely between iterations, and no longer dies on the old re-exec path.
 - Automation: replace fragile startup status reads in `selfmade.bat` so cleanup/sync status logging no longer throws batch parsing errors during startup.
-- Automation: normalize `CHANGELOG.md` to a single top `## Unreleased` section so changelog prep stops drifting into malformed duplicate sections.
+- Automation: normalize `CHANGELOG.md` to a single top `## Unreleased
+- Gameplay: increase power-up pickup radius to 120 to make power-ups easier to collect (tiny) — 2026-03-21
+` section so changelog prep stops drifting into malformed duplicate sections.
 - Levels/UI: show brief "Wave cleared" toast and give a short recovery pause after clearing a wave so pacing is clearer (tiny) — 2026-03-20
 - Game: increase power-up pickup radius to 56 to make power-ups easier to collect.
 
@@ -1426,3 +1429,4 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
+
