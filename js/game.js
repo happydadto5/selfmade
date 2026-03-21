@@ -1607,6 +1607,7 @@ if (overlay) {
   // whether we suspended the AudioContext in response to an auto-pause so we can resume on focus/visibility restore
   let suspendedAudioByFocus = false;
   let blurTimeout = null;
+  let autoPauseHandlersAttached = false;
   // Track whether a pointer/touch is currently active (prevents auto-pausing while user is holding touch or pointer)
   let pointerActive = false;
   // When a touch is first detected, show low-contrast dashed guides for a short time so touch zones are discoverable.
@@ -1983,7 +1984,7 @@ if (overlay) {
 
   // Also handle window blur/focus for cases where document.hidden isn't triggered but the window loses focus.
   // Debounced to match visibility behavior and avoid accidental pauses during quick alt-tab or window switching.
-  try {
+  try { if (typeof autoPauseHandlersAttached !== 'undefined' && autoPauseHandlersAttached) { /* auto-pause handlers already attached; skip duplicate registration */ } else { autoPauseHandlersAttached = true;
     window.addEventListener('blur', () => {
       if (!autoPauseEnabled) return;
       if (pointerActive) return; // don't pause while interacting
@@ -2043,6 +2044,7 @@ if (overlay) {
       try { let t = document.getElementById('autopause-toast'); if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) { /* ignore */ }
       try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) {}
     }, { passive: true });
+    }
   } catch (e) { /* ignore focus/blur availability */ }
 
   // Duplicate pagehide handler removed — consolidated earlier pagehide/visibility handlers handle pausing and cleanup.
