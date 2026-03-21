@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.89.0
 - Performance: throttle animation loop when auto-paused to reduce CPU/battery use (tiny) — 2026-03-21
 
 ## 7.88.0
