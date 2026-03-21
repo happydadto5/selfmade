@@ -4026,7 +4026,7 @@ let hitPopTimeout = null;
           if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
             ctx.save();
             ctx.translate(player.x, player.y);
-            const charges = Math.min(5, player.shieldCharges);
+            const charges = Math.min(3, player.shieldCharges);
             const spacing = 14;
             for (let si = 0; si < charges; si++) {
               const ox = (si - (charges - 1) / 2) * spacing;
