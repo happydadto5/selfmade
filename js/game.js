@@ -247,7 +247,11 @@
                 const shieldSpan = document.createElement('span');
                 shieldSpan.id = 'lives-shield-badge';
                 shieldSpan.setAttribute('aria-hidden','true');
-                shieldSpan.textContent = ' 🛡' + (charges > 0 ? (' x' + charges) : '');
+                const sec = Math.max(0, Math.ceil(((player.shieldUntil || 0) - Date.now()) / 1000));
+                shieldSpan.textContent = ' 🛡' + (charges > 0 ? (' x' + charges) : '') + (sec ? (' ' + sec + 's') : '');
+                // Provide a concise tooltip and accessible label describing remaining time and charges
+                try { shieldSpan.title = 'Shield: ' + (sec ? sec + 's' : '') + (charges ? (' • ' + charges + ' charges') : ''); } catch(e) {}
+                try { shieldSpan.setAttribute('aria-label', 'Shield: ' + (sec ? sec + ' seconds' : '') + (charges ? (', ' + charges + ' charges') : '')); } catch(e) {}
                 shieldSpan.style.marginLeft = '8px';
                 shieldSpan.style.padding = '2px 6px';
                 shieldSpan.style.borderRadius = '8px';
@@ -499,7 +503,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.50.0';
+  const version = '7.51.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
