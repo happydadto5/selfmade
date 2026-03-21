@@ -266,6 +266,8 @@
         if (activePowerEl) {
           const now = Date.now();
           let text = '';
+          // Capture previous shield state to detect expiry for accessibility announcements
+          const hadShield = (player && (player._lastShieldActive || 0) > now);
           if (player && now < (player.spreadUntil || 0)) {
             const s = Math.ceil(((player.spreadUntil || 0) - now) / 1000);
             text = '🌿 Spread (' + s + 's)';
@@ -283,6 +285,14 @@
             text = '';
           }
           try {
+            // If shield just expired, announce to assistive tech and clear internal marker
+            try {
+              const _pa = document.getElementById('powerup-announcer');
+              if (_pa && hadShield && !(player && now < (player.shieldUntil || 0))) {
+                _pa.textContent = 'Shield expired';
+              }
+            } catch (e) {}
+            // Update active power HUD
             activePowerEl.textContent = text;
             activePowerEl.setAttribute('aria-hidden', text ? 'false' : 'true');
             // Also update on-screen touch fire button to show active power-up icon for mobile discoverability.
@@ -302,6 +312,8 @@
                 }
               }
             } catch(e){}
+            // Track last shield active timestamp for next update tick
+            try { if (player) player._lastShieldActive = (player.shieldUntil || 0); } catch(e){}
           } catch (e) {}
         }
       } catch (e) { /* ignore HUD update errors */ }
