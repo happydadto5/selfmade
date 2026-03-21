@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.99.0
 - Visual: add subtle screen shake on enemy hits for clearer feedback (tiny) — 2026-03-21
 
 ## 7.98.0
