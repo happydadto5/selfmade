@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Stability: stop game loop when canvas is removed (prevent background errors during SPA navigation or automated tests) — 2026-03-21
 - Gameplay: spawn guaranteed Shield power-up every 2 waves (tweak) — 2026-03-21
 - Stability: clamp shield charges to zero when consumed to avoid negative shield counts (fix) — 2026-03-21
 - Gameplay: add 'snatcher' enemy that occasionally dashes toward the player (tiny) — 2026-03-21
