@@ -306,6 +306,8 @@
               try {
                 const shieldSpan = document.createElement('span');
                 shieldSpan.id = 'lives-shield-badge';
+                // Add class so CSS rules targeting .shield-badge apply consistently
+                try { shieldSpan.className = 'shield-badge'; } catch(e) {}
                 shieldSpan.setAttribute('aria-hidden','true');
                 const sec = Math.max(0, Math.ceil(((player.shieldUntil || 0) - Date.now()) / 1000));
                 shieldSpan.textContent = ' 🛡' + (charges > 0 ? (' x' + charges) : '') + (sec ? (' ' + sec + 's') : '');
