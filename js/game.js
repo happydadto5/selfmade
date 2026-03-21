@@ -2090,7 +2090,26 @@ if (overlay) {
 
   // Also handle window blur/focus for cases where document.hidden isn't triggered but the window loses focus.
   // Debounced to match visibility behavior and avoid accidental pauses during quick alt-tab or window switching.
-  try { if (typeof autoPauseHandlersAttached !== 'undefined' && autoPauseHandlersAttached) { /* auto-pause handlers already attached; skip duplicate registration */ } else { autoPauseHandlersAttached = true;
+  try { if (typeof autoPauseHandlersAttached !== 'undefined' && autoPauseHandlersAttached) { /* auto-pause handlers already attached; skip duplicate registration */ } else { autoPauseHandlersAttached = true; 
+    // Also pause when the pointer leaves the window (desktop/mouse). Some browsers fire mouseout with relatedTarget==null when leaving the page.
+    try { window.addEventListener('mouseout', (e) => {
+      try {
+        if (!autoPauseEnabled) return;
+        // relatedTarget is null when the pointer leaves the window; debounce to avoid accidental pauses
+        if (e && e.relatedTarget === null) {
+          if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
+          blurTimeout = setTimeout(() => {
+            blurTimeout = null;
+            if (!paused && !gameOver) {
+              paused = true;
+              pausedByFocus = true;
+              try { document.body.classList.add('auto-paused'); } catch (e) {}
+              if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+            }
+          }, AUTO_PAUSE_DEBOUNCE);
+        }
+      } catch (e) { /* ignore mouseout handler errors */ }
+    }, { passive: true }); } catch(e) { /* ignore addEventListener errors */ }
     window.addEventListener('blur', () => {
       if (!autoPauseEnabled) return;
       if (pointerActive) return; // don't pause while interacting
