@@ -2,6 +2,7 @@
   const canvas = document.getElementById('game');
   if (!canvas) { console.warn('Canvas #game not found — aborting game script'); return; }
   const ctx = canvas.getContext('2d');
+  if (!ctx) { console.warn('2D context not available — aborting game script'); return; }
   // Accessibility: make canvas focusable and provide an aria-label describing controls so
   // keyboard and screen-reader users can discover how to play without editing HTML.
   try {
