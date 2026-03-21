@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.104.0
 - Gameplay: increase Shield power-up duration to 20s so players feel its effect more clearly (small)
 
 ## 7.103.0
