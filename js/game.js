@@ -189,6 +189,19 @@
         }
       } catch(e) {}
     }, { passive: true });
+    // Keyboard activation: also allow Enter and Space keys to activate the Next Wave button for keyboard users.
+    try {
+      nextWaveBtn.addEventListener('keydown', function(e){
+        try {
+          const k = e.key || e.code || '';
+          if (k === 'Enter' || k === ' ' || k === 'Spacebar' || k === 'Space') {
+            e.preventDefault && e.preventDefault();
+            // Reuse click handler logic by invoking click to keep behavior consistent
+            try { this.click(); } catch(err) {}
+          }
+        } catch(err) {}
+      });
+    } catch(e) {}
   } catch (e) { /* ignore UI creation errors */ }
   const waveProgressEl = document.getElementById('wave-progress');
   // Active power-up HUD element (shows current power-up and remaining time)
@@ -477,7 +490,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.39.0';
+  const version = '7.40.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
