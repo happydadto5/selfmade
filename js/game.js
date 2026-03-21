@@ -14,6 +14,36 @@
     // Ensure shield CSS state is initialized so CSS selectors have a deterministic value on page load
     try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', 'false'); } } catch (e) {}
   } catch (e) { /* ignore attribute errors in older browsers */ }
+
+  // Ensure a single autopause live region exists. Multiple identical live regions can confuse assistive tech
+  // and cause repeated announcements. This helper deduplicates any existing nodes and returns the single node.
+  function getAutopauseAnnouncer(){
+    try{
+      const nodes = document.querySelectorAll('#autopause-announcer');
+      if(nodes && nodes.length){
+        // If duplicates exist, keep the first and remove others
+        if(nodes.length > 1){
+          for(let i = 1; i < nodes.length; i++){
+            try{ nodes[i].parentNode && nodes[i].parentNode.removeChild(nodes[i]); }catch(e){}
+          }
+        }
+        return nodes[0];
+      }
+      let el = document.getElementById('autopause-announcer');
+      if(el) return el;
+      el = document.createElement('div');
+      el.id = 'autopause-announcer';
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      el.style.width = '1px';
+      el.style.height = '1px';
+      el.setAttribute('aria-live', 'assertive');
+      el.setAttribute('aria-atomic', 'true');
+      try{ document.body.appendChild(el); }catch(e){}
+      return el;
+    }catch(e){ return null; }
+  }
+  try { getAutopauseAnnouncer(); } catch(e) {}
   let cw, ch;
   let player;
   let gardenBackground = null;
@@ -1196,7 +1226,7 @@
     if (e.key === 'o' || e.key === 'O') {
       autoPauseEnabled = !autoPauseEnabled;
       try { localStorage.setItem('selfmade_autopause', autoPauseEnabled ? '1' : '0'); } catch (err) { /* ignore storage errors */ }
-      let announcer = document.getElementById('autopause-announcer');
+      let announcer = window.getAutopauseAnnouncer();
       if (!announcer) {
         announcer = document.createElement('div');
         announcer.id = 'autopause-announcer';
@@ -1567,7 +1597,7 @@ if (overlay) {
 
       // Announce auto-pause to assistive tech when overlay shows a paused message
       try {
-        let ap = document.getElementById('autopause-announcer');
+        let ap = window.getAutopauseAnnouncer();
         if (!ap) {
           ap = document.createElement('div');
           ap.id = 'autopause-announcer';
@@ -1769,7 +1799,7 @@ if (overlay) {
           autoPauseEnabled = !autoPauseEnabled;
           try { localStorage.setItem('selfmade_autopause', autoPauseEnabled ? '1' : '0'); } catch (e) { /* ignore */ }
           // Announce the change to assistive tech
-          let announcer = document.getElementById('autopause-announcer');
+          let announcer = window.getAutopauseAnnouncer();
           if (!announcer) {
             announcer = document.createElement('div');
             announcer.id = 'autopause-announcer';
