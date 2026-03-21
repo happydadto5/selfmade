@@ -11,6 +11,8 @@
     canvas.setAttribute('tabindex', '0');
     // Prevent browser touch scrolling/gestures while interacting with the game canvas (improves mobile responsiveness)
     try { canvas.style.touchAction = 'none'; } catch (e) { /* ignore */ }
+    // Ensure shield CSS state is initialized so CSS selectors have a deterministic value on page load
+    try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', 'false'); } } catch (e) {}
   } catch (e) { /* ignore attribute errors in older browsers */ }
   let cw, ch;
   let player;
@@ -445,7 +447,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.29.0';
+  const version = '7.30.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
