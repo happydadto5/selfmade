@@ -2749,14 +2749,14 @@ let hitPopTimeout = null;
                 } else {
                   player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
                 }
-                try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
+                try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
                 try { addScoreAndPopup(6, player.x + 16, player.y - 10, '#ffff88'); } catch(e){}
                 try { playSound('shield'); } catch (e) {}
                 try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e) {}
                 try { livesPulseUntil = Date.now() + 700; } catch(e) {}
                 try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(40); } catch(e) {}
                 try {
-                  for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.8, vy: -Math.random()*2.2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#81d4fa' });
+                  for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.8, vy: -Math.random()*2.2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 });
                 } catch(e){}
                 try { screenShake = Math.min(20, (screenShake||0) + 8); } catch(e){}
                 try { canvasWhiteFlashUntil = Date.now() + 380; canvasHitFlashUntil = Date.now() + 520; } catch(e){}
@@ -2832,14 +2832,14 @@ let hitPopTimeout = null;
               player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
             }
             // small visual feedback and a minor score reward to make shield use feel satisfying
-            try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
+            try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
             try { addScoreAndPopup(5, player.x + 16, player.y - 10, '#ffff88'); } catch(e){}
             try { playSound('shield'); } catch (e) {}
             try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e) {}
             try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(30); } catch(e) {}
             try {
               // burst of sparkles and larger brighter petals for stronger visual feedback on shield absorb
-              for (let k=0;k<10;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#81d4fa' });
+              for (let k=0;k<10;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 });
               for (let p=0;p<8;p++) {
                 const ang = Math.random()*Math.PI*2;
                 const spd = 1 + Math.random()*2.2;
@@ -3258,11 +3258,11 @@ let hitPopTimeout = null;
                 }
               } catch(e) {}
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
-              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
               try { playSound('shield'); } catch (e) {}
               // Accessibility: keep keyboard focus on canvas so keyboard users can continue playing after pickup
               try { const c = document.getElementById('game'); if (c && typeof c.focus === 'function') c.focus(); } catch (e) {}
-              try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.6, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 420+Math.random()*320, born: Date.now(), color: '#81d4fa' }); } catch (e) {}
+              try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.6, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 420+Math.random()*320, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 }); } catch (e) {}
             } else if (pu.type === 'spread') {
               // grant a temporary spread shot that fires three angled pellets
               player.spreadUntil = Date.now() + 12000; // 12 seconds
@@ -3338,7 +3338,7 @@ let hitPopTimeout = null;
             try { 
               // small pulse effect on power-up collection for satisfying feedback
               powerupPulseUntil = Date.now() + 420;
-              lastPowerupColor = (pu.type === 'rapid' ? '#ffe082' : (pu.type === 'shield' ? '#81d4fa' : (pu.type === 'spread' ? '#ffd180' : (pu.type === 'bomb' ? '#ffccbc' : (pu.type === 'pierce' ? '#b39ddb' : (pu.type === 'slow' ? '#c8e6c9' : '#ff8a65'))))));
+              lastPowerupColor = (pu.type === 'rapid' ? '#ffe082' : (pu.type === 'shield' ? '#a5d6a7' : (pu.type === 'spread' ? '#ffd180' : (pu.type === 'bomb' ? '#ffccbc' : (pu.type === 'pierce' ? '#b39ddb' : (pu.type === 'slow' ? '#c8e6c9' : '#ff8a65'))))));
             } catch (e) {}
             powerups.splice(i,1);
           }
@@ -3573,7 +3573,7 @@ let hitPopTimeout = null;
               }
             })();
             try { playSound('shield'); } catch(e){}
-            try { scorePopups.push({ x: (player && typeof player.x === 'number') ? player.x : cw/2, y: (player && typeof player.y === 'number') ? player.y - 20 : ch/2, text: 'Shield nearby!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch(e){}
+            try { scorePopups.push({ x: (player && typeof player.x === 'number') ? player.x : cw/2, y: (player && typeof player.y === 'number') ? player.y - 20 : ch/2, text: 'Shield nearby!', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
           } catch(e){}
         }
       } catch(e){}
