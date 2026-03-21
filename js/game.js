@@ -430,7 +430,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.11.0';
+  const version = '7.12.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3375,7 +3375,7 @@ let hitPopTimeout = null;
   function draw() {
     ctx.clearRect(0,0,cw,ch);
     ctx.save();
-    if (screenShake > 0 && !prefersReducedMotion) { const sx = (Math.random()*2-1)*screenShake; const sy = (Math.random()*2-1)*screenShake; ctx.translate(sx, sy); }
+    if (screenShake > 0 && !prefersReducedMotion) { const effectiveShake = (typeof player !== 'undefined' && Date.now() < (player.shieldUntil || 0)) ? (screenShake * 0.55) : screenShake; const sx = (Math.random()*2-1) * effectiveShake; const sy = (Math.random()*2-1) * effectiveShake; ctx.translate(sx, sy); }
     // animated background gradient (subtle, respects reduced-motion)
     try {
       if (prefersReducedMotion) {

@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Visual/UI: colorblind-friendly hit flash (higher-contrast pop) when colorblind mode is enabled (tiny) — 2026-03-21
+- Visual/UI: reduce screen shake when Shield is active to improve feel (tiny) — 2026-03-21
 - Stability: avoid duplicate auto-pause handler registration to prevent double pauses/toasts (tiny) — 2026-03-21
 - Accessibility: increase pause/game-over overlay contrast for improved readability (tiny) — 2026-03-21
 - Visual/UI: small increase to hit screen-shake for clearer hit feedback (tiny) — 2026-03-21
