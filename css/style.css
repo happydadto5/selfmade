@@ -234,6 +234,14 @@ body.show-touch-guides::after {
   letter-spacing: 0.02em;
 }
 
+/* Mobile: make paused overlay and buttons larger for easier reading and tapping */
+@media (max-width: 480px) {
+  #overlay[data-paused="true"] .overlay-message::before { font-size: 60px; margin-bottom: 10px; }
+  .overlay-message { font-size: 26px; padding: 18px 22px; border-radius:14px; }
+  #replayBtn, #resumeBtn { font-size:22px; padding:16px 22px; min-width:140px; }
+  #overlay { padding:30px; }
+}
+
 /* Colorblind-friendly palette toggle: subtle, high-contrast UI colors for accessibility */
 body.colorblind-mode{ background:#f6f6e9; }
 body.colorblind-mode #ui{ color:#111; }

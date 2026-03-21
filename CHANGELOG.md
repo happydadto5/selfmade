@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.96.0
+- UI: improve paused overlay readability and larger buttons for mobile screens (tiny) — 2026-03-21
+
 ## 7.95.0
 - Visual: stronger shield world tint and gentle pulse while Shield is active (tiny) — 2026-03-21
 
