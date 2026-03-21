@@ -193,9 +193,12 @@
     try {
       nextWaveBtn.addEventListener('keydown', function(e){
         try {
-          const k = e.key || e.code || '';
-          if (k === 'Enter' || k === ' ' || k === 'Spacebar' || k === 'Space') {
-            e.preventDefault && e.preventDefault();
+          const key = (e.key || '').toString();
+          const code = (e.code || '').toString();
+          const activated = key === 'Enter' || key === ' ' || key === 'Spacebar' || key === 'Space' || code === 'Space';
+          if (activated) {
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopPropagation) e.stopPropagation();
             // Reuse click handler logic by invoking click to keep behavior consistent
             try { this.click(); } catch(err) {}
           }
@@ -496,7 +499,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.48.0';
+  const version = '7.49.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
