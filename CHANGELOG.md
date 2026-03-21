@@ -3,6 +3,8 @@
 ## Unreleased
 - Gameplay: rebalance Shield power-up — initial charges 2 and duration 12s; collecting while active adds at most +1 charge (max 2) and extends by 6s — 2026-03-21
 
+- UI: increase HUD background opacity for improved readability on busy backgrounds (tiny) — 2026-03-21
+
 - Fix: use local getAutopauseAnnouncer() for assistive announcements to avoid undefined window lookup — 2026-03-21
 - Accessibility: avoid duplicate autopause live-region elements (prevent repeated ARIA nodes) — 2026-03-21
 - Stability: only mark audio suspended after suspend resolves to avoid incorrect resume attempts (tiny) — 2026-03-21

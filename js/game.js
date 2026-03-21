@@ -4402,7 +4402,7 @@ let hitPopTimeout = null;
         const now = Date.now();
         const pulse = (now < wavePulseUntil || now < livesPulseUntil) ? 0.18 : 0.06;
         // Slightly increase the HUD background opacity for better readability on busy scenes (tiny)
-        ctx.fillStyle = 'rgba(0,0,0,' + (0.62 + pulse) + ')';
+        ctx.fillStyle = 'rgba(0,0,0,' + (0.72 + pulse) + ')';
         // rounded rect background
         const r = 6;
         ctx.beginPath();
