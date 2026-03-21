@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.88.0
+- UI: add Next Wave button to overlay to allow advancing between waves (tiny) — 2026-03-21
+
 ## 7.87.0
 - Accessibility/UI: announce shield expiration and emit a small expiry particle burst when Shield ends (tiny) — 2026-03-21
 
