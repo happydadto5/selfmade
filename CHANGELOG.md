@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: add aria attributes to wave-clear-toast so screen readers announce wave-clear messages (tiny) — 2026-03-21
 - UI: show remaining shield time in Lives HUD badge (tiny) — 2026-03-21
 - Accessibility: Next Wave button keydown handling robustly detects Space and Enter across browsers (tiny) — 2026-03-21
 - Help: mention Shield power-up in help overlay for discoverability (tiny) — 2026-03-21

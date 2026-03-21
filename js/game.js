@@ -435,6 +435,9 @@
                 if (!wt) {
                   wt = document.createElement('div');
                   wt.id = 'wave-clear-toast';
+                  wt.setAttribute('role', 'status');
+                  wt.setAttribute('aria-live', 'polite');
+                  wt.setAttribute('aria-atomic', 'true');
                   wt.style.position = 'fixed';
                   wt.style.left = '50%';
                   wt.style.top = '10vh';
