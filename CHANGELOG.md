@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: increase HUD backdrop contrast slightly for improved readability on busy backgrounds (tiny) — 2026-03-21
+
 ## 7.101.0
 - Performance: hint canvas for transform compositing to improve rendering stability (tiny) — 2026-03-21
 
