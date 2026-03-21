@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: slightly increase power-up drop frequency and bias selection toward Shield so players encounter shields more often (tiny) — 2026-03-21
 - Gameplay: Mulch pickup now briefly slows nearby enemies when collected (small) — 2026-03-21
 - Gameplay: shield absorb now spawns green leaf particles and shows a green shield HUD tint to better match the garden theme (tiny) — 2026-03-21
 - Gameplay: add a gardening-themed 'Mulch' power-up that grants a temporary score multiplier (12s); multiplier stacks slightly when re-collected. Small HUD and popup updates to show active Mulch. — 2026-03-21

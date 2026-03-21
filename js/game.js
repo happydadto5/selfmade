@@ -3160,7 +3160,7 @@ let hitPopTimeout = null;
             // Small chance to spawn a temporary power-up when an enemy dies
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
-              let puChance = 0.46;
+              let puChance = 0.52;
               if (typeof lives === 'number' && lives <= 1) {
                 // When player is low on lives, increase power-up frequency to aid recovery
                 puChance = Math.min(0.85, puChance + 0.28);
@@ -3174,12 +3174,12 @@ let hitPopTimeout = null;
                 }
                 // limit active power-ups to avoid overload
                 if (powerups.length < 6) {
-                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.99 ? 'mulch' : (_r < 0.995 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
+                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.68 ? 'shield' : (_r < 0.84 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.99 ? 'mulch' : (_r < 0.995 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
                   // Defensive: keep powerup count bounded to avoid pathological growth during long runs
                   if (powerups.length > 8) powerups.shift();
                 } else {
                   // occasionally replace the oldest power-up to keep variety without growing arrays
-                  if (Math.random() < 0.12) { powerups.shift(); powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.62 ? 'shield' : (_r < 0.80 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.99 ? 'mulch' : (_r < 0.995 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
+                  if (Math.random() < 0.12) { powerups.shift(); powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.68 ? 'shield' : (_r < 0.84 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.99 ? 'mulch' : (_r < 0.995 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
                     if (powerups.length > 8) powerups.shift(); }
                 }
               }
