@@ -2127,7 +2127,7 @@ if (overlay) {
               // Keyboard handler: allow Enter / Space to activate the toast when focused
               t.addEventListener('keydown', function(ev){ try { if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); try { t.click(); } catch(e){} } } catch(e){} });
             }
-            try { t.textContent = 'Auto-paused (tap to resume)'; try { t.focus(); } catch(e) {} } catch(e){}
+            try { t.textContent = 'Auto-paused — Tap or press Enter/Space to resume'; try { t.focus(); } catch(e) {} } catch(e){}
             // Auto-remove after a short delay so it doesn't linger
             setTimeout(()=>{ try { let nt = document.getElementById('autopause-toast'); if (nt && nt.parentNode) nt.parentNode.removeChild(nt); } catch(e){} }, 2800);
           } catch (e) { /* ignore toast injection errors */ }
