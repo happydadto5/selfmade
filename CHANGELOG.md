@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase Shield charges from 3 → 4 so shields absorb one more hit, improving recovery chances (tiny) — 2026-03-21
 - Accessibility: announce when Shield power-up expires so screen readers receive clear feedback. — 2026-03-21
 - Stability: cap active power-ups to 8 to prevent pathological growth during long runs (tiny) — 2026-03-20
 - Fix: prevent duplicate shield HUD badges and keep shield timer updated in HUD (tiny) — 2026-03-20
