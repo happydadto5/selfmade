@@ -442,7 +442,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.21.0';
+  const version = '7.22.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2091,6 +2091,8 @@ let hitPopTimeout = null;
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
       const isHopper = Math.random() < Math.min(0.10, 0.02 + waveNumber*0.012);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
+      // Small chance for a "snatcher" enemy: medium enemy that periodically dashes toward the player
+      const isSnatcher = Math.random() < Math.min(0.08, 0.02 + waveNumber*0.01);
       if (isZig) {
         const hpVal = 1 + Math.floor(waveNumber/3);
         enemies.push({x:ex,y:ey,w:34,h:30,vy:speed*0.9, hp:hpVal, maxHp:hpVal, type:'zig', t: Math.random()*1000});
@@ -2117,6 +2119,9 @@ let hitPopTimeout = null;
       } else if (isPest) {
         // pest: medium speed, low HP, splits into two mini pests on death
         enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.95, hp:1, maxHp:1, type:'pest'});
+      } else if (isSnatcher) {
+        // snatcher: medium speed, telegraphed dashes toward the player (garden-themed vine snatcher)
+        enemies.push({x:ex,y:ey,w:28,h:24,vy:speed*0.85, vx:0, hp:1, maxHp:1, type:'snatcher', huntTimer: 900 + Math.random()*800, t: Math.random()*1000});
       } else {
         const hpVal = 1 + Math.floor(waveNumber/4);
         if (Math.random() < Math.min(0.06, 0.02 + waveNumber*0.01)) { enemies.push({x:ex,y:ey,w:24,h:20,vy:speed*0.8, baseVy: speed*0.8, vx:0, hp:2, maxHp:2, type:'ladybug', hopTimer: 500 + Math.random()*700, t: Math.random()*1000}); }
@@ -2402,6 +2407,21 @@ let hitPopTimeout = null;
             e.hopTimer = 700 + Math.random() * 1000;
           }
         } catch (err) { /* ignore ladybug update errors */ }
+      }
+      // Snatcher behavior: medium enemies that periodically dash toward the player
+      if (e.type === 'snatcher') {
+        try {
+          if (typeof e.huntTimer === 'undefined') e.huntTimer = 900 + Math.random() * 800;
+          e.huntTimer -= dt;
+          if (e.huntTimer <= 0) {
+            // short downward dash to threaten the player
+            e.vy = (e.vy || 1) * (1.8 + Math.random() * 0.6);
+            e.huntTimer = 900 + Math.random() * 1200;
+          } else {
+            const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
+            e.vx = ((e.vx || 0) * 0.92) + Math.max(-2, Math.min(2, dx * 0.003 + (Math.random()-0.5) * 0.12));
+          }
+        } catch (err) { /* ignore snatcher update errors */ }
       }
       const slowFactor = Date.now() < (player.slowUntil || 0) ? 0.6 : 1;
       // Pest-mini behavior: nimble mini-pests have a small horizontal wobble for visual variety
