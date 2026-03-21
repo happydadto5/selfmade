@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: add compact wave progress bar showing defeated/total and visual percent for current wave (small)
+
 ## 7.104.0
 - Gameplay: increase Shield power-up duration to 20s so players feel its effect more clearly (small)
 
