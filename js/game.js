@@ -4821,7 +4821,7 @@ let hitPopTimeout = null;
       setTimeout(() => { try { canvas.focus(); } catch (e) {} }, 50);
     } else {
       // When auto-paused due to focus loss, throttle the loop more aggressively to reduce CPU while still remaining responsive.
-      const pauseInterval = (pausedByFocus ? 1000 : 200);
+      const pauseInterval = (pausedByFocus ? 2000 : 200);
       setTimeout(() => requestAnimationFrame(loop), pauseInterval);
     }
   }

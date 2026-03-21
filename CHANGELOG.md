@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Performance: throttle animation loop when auto-paused to reduce CPU/battery use (tiny) — 2026-03-21
+
 ## 7.88.0
 - UI: add Next Wave button to overlay to allow advancing between waves (tiny) — 2026-03-21
 
