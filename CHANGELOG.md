@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.84.0
 - Visual/UI: slightly increase hit flash duration and white-pop timing to make hits more noticeable (tiny) — 2026-03-21
 
 ## 7.83.0
