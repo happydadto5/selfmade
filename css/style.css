@@ -286,11 +286,13 @@ body.paused #game { filter: brightness(0.7) grayscale(0.25); transition: filter 
   top: 12vh;
   left: 50%;
   transform: translateX(-50%) translateY(-6px);
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(240,255,240,0.95));
-  color: #05320b;
+  /* Stronger, high-contrast garden-tinted background so transient toasts remain readable on busy scenes */
+  background: linear-gradient(180deg, rgba(22,57,29,0.96), rgba(17,50,21,0.92));
+  color: #ffffff;
   padding: 10px 14px;
   border-radius: 10px;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.28);
+  border: 1px solid rgba(0,0,0,0.12);
   font-weight: 800;
   z-index: 10001;
   pointer-events: none;
