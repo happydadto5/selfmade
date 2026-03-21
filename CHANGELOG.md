@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: collecting Shield while active now adds one charge (max 3) and extends duration by 8s — 2026-03-21
 - Stability: auto-pause on window blur/focus (debounced) to avoid running while unfocused — 2026-03-21
 - UI: show clickable autopause toast to prompt 'Tap to resume' when auto-paused by blur/visibility (tiny) — 2026-03-21
 - Maintenance: investigated auto-pause behavior; no code change required this iteration (tiny) — 2026-03-21

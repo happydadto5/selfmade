@@ -402,7 +402,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.142.0';
+  const version = '6.143.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2920,9 +2920,19 @@ let hitPopTimeout = null;
               // Accessibility: announce Rapid power-up collection for screen readers (keeps HUD discoverable)
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
             } else if (pu.type === 'shield') {
-              // grant a temporary shield that can absorb up to two life losses
-              player.shieldUntil = Date.now() + 16000; // 16 seconds (slightly stronger)
-              try { player.shieldCharges = 2; } catch(e) { player.shieldCharges = 2; }
+              // grant or refresh a temporary shield; collecting while active adds one charge (max 3) and extends duration
+              try {
+                const now = Date.now();
+                if (player && now < (player.shieldUntil || 0)) {
+                  // already has shield: add one charge up to 3 and extend by 8s
+                  try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
+                  player.shieldUntil = (player.shieldUntil || now) + 8000;
+                } else {
+                  // new shield
+                  player.shieldUntil = Date.now() + 16000; // 16 seconds (slightly stronger)
+                  try { player.shieldCharges = 2; } catch(e) { player.shieldCharges = 2; }
+                }
+              } catch(e) {}
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('shield'); } catch (e) {}
