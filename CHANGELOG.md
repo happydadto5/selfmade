@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.95.0
+- Visual: stronger shield world tint and gentle pulse while Shield is active (tiny) — 2026-03-21
+
 ## 7.94.0
 - Visual/UI: add subtle vignette during hit-pop to focus hit feedback (tiny) — 2026-03-21
 
