@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Stability: auto-pause on window blur/focus (debounced) to avoid running while unfocused — 2026-03-21
 - Maintenance: investigated auto-pause behavior; no code change required this iteration (tiny) — 2026-03-21
 - Visual/UI: stronger shield glow and halo when Shield is active for clearer feedback (tiny) — 2026-03-21
 - Controls: reduce touch hold delay from 100ms to 80ms for snappier mobile hold-to-fire (tiny) — 2026-03-21

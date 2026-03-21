@@ -1944,6 +1944,49 @@ if (overlay) {
     }
   });
 
+  // Also handle window blur/focus for cases where document.hidden isn't triggered but the window loses focus.
+  // Debounced to match visibility behavior and avoid accidental pauses during quick alt-tab or window switching.
+  try {
+    window.addEventListener('blur', () => {
+      if (!autoPauseEnabled) return;
+      if (pointerActive) return; // don't pause while interacting
+      if (!paused) {
+        if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
+        blurTimeout = setTimeout(() => {
+          paused = true;
+          pausedByFocus = true;
+          try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
+          clearInputs();
+          if (audioCtx && audioCtx.state === 'running') {
+            try { audioCtx.suspend(); } catch (e) { /* ignore */ }
+            suspendedAudioByFocus = true;
+          }
+          if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
+          blurTimeout = null;
+        }, AUTO_PAUSE_DEBOUNCE);
+      }
+    }, { passive: true });
+
+    window.addEventListener('focus', () => {
+      if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
+      try { if (typeof document.hasFocus === 'function' && !document.hasFocus()) return; } catch (e) {}
+      if (pausedByFocus && !gameOver) {
+        paused = false;
+      }
+      pausedByFocus = false;
+      if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+        if (soundEnabled) { try { audioCtx.resume(); } catch (e) { /* ignore */ } }
+        suspendedAudioByFocus = false;
+      }
+      if (typeof overlay !== 'undefined' && overlay) {
+        setOverlayVisible(paused || gameOver);
+        updateOverlayMessage();
+        if (!paused && !gameOver && typeof overlayMessage !== 'undefined' && overlayMessage) { try { overlayMessage.textContent = ''; } catch (e) {} }
+      }
+      try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) {}
+    }, { passive: true });
+  } catch (e) { /* ignore focus/blur availability */ }
+
   // Duplicate pagehide handler removed — consolidated earlier pagehide/visibility handlers handle pausing and cleanup.
 
 
