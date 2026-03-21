@@ -184,9 +184,27 @@
             span.setAttribute('aria-hidden', 'true');
             livesEl.appendChild(span);
           }
-          livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives'));
-          // Add a low-lives visual hint when player has only one life left
+          // Show shield charges next to lives when active for clearer player feedback
           try {
+            const now = Date.now();
+            if (typeof player !== 'undefined' && now < (player.shieldUntil || 0)) {
+              const charges = Math.max(0, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0));
+              const shieldContainer = document.createElement('span');
+              shieldContainer.style.marginLeft = '8px';
+              shieldContainer.setAttribute('aria-hidden', 'false');
+              for (let s = 0; s < charges; s++) {
+                const sspan = document.createElement('span');
+                sspan.textContent = '🛡';
+                sspan.style.marginRight = '4px';
+                sspan.style.color = '#81d4fa';
+                sspan.setAttribute('aria-hidden', 'true');
+                shieldContainer.appendChild(sspan);
+              }
+              livesEl.appendChild(shieldContainer);
+              try { livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + ' • Shield: ' + charges + (charges === 1 ? ' charge' : ' charges')); } catch(e) {}
+            } else {
+              try { livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives')); } catch(e) {}
+            }
             if (lives <= 1) livesEl.classList.add('low'); else livesEl.classList.remove('low');
           } catch (e) { /* ignore classList errors */ }
         } catch (e) { /* ignore DOM errors */ }
