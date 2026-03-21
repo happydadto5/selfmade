@@ -4699,6 +4699,22 @@ let hitPopTimeout = null;
   }, {passive:false});
   document.body.addEventListener('touchstart', function(e){ if (e.target === canvas) e.preventDefault(); }, {passive:false});
 
+  // Keyboard shortcut: 'N' advances to the next wave for accessibility
+  try {
+    window.addEventListener('keydown', function(e){
+      try {
+        const k = (e && (e.key || e.code)) || '';
+        if (k === 'n' || k === 'N') {
+          try {
+            const nb = document.getElementById('nextWaveBtn');
+            if (nb) nb.click();
+          } catch (err) {}
+        }
+      } catch (err) {}
+    }, { passive: true });
+  } catch (err) {};
+
+
 
 
 })();
