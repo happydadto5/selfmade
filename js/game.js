@@ -2204,6 +2204,9 @@ let hitPopTimeout = null;
       bullets[i].y += bullets[i].vy;
       if (bullets[i].y < -10 || bullets[i].x < -20 || bullets[i].x > cw + 20) bullets.splice(i,1);
     }
+    // Stability: cap bullets to avoid runaway growth during very long runs
+    try { if (bullets.length > 120) bullets.splice(0, bullets.length - 120); } catch (e) { }
+    
     for (let i=enemies.length-1;i>=0;i--) {
       const e = enemies[i];
       e.t = (e.t || 0) + dt;
