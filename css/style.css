@@ -525,6 +525,21 @@ body.hit-pop::after {
   background-position: center !important;
 }
 
+/* Colorblind override: use a higher-contrast warm pop when colorblind mode is enabled so hit feedback remains clear.
+   This keeps the garden theme while improving visibility for common color-vision needs. */
+body.colorblind-mode.hit-pop::after {
+  background:
+    linear-gradient(rgba(255,245,200,0.10), rgba(255,230,180,0.06)),
+    radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%),
+      rgba(255,250,205,1),
+      rgba(255,200,80,1) 48%,
+      rgba(255,200,80,0) 88%) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  box-shadow: 0 0 200px rgba(255,200,80,0.60);
+  filter: blur(6px);
+}
+
 /* Subtle hit shake synchronized with the hit-pop overlay to improve perceived impact.
    Respects prefers-reduced-motion. This briefly nudges the canvas while the pop runs. */
 @media (prefers-reduced-motion: no-preference) {
