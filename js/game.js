@@ -4608,7 +4608,9 @@ let hitPopTimeout = null;
       // Best-effort: focus the canvas shortly after start so keyboard users can play without an extra click
       setTimeout(() => { try { canvas.focus(); } catch (e) {} }, 50);
     } else {
-      setTimeout(() => requestAnimationFrame(loop), 200);
+      // When auto-paused due to focus loss, throttle the loop more aggressively to reduce CPU while still remaining responsive.
+      const pauseInterval = (pausedByFocus ? 1000 : 200);
+      setTimeout(() => requestAnimationFrame(loop), pauseInterval);
     }
   }
   requestAnimationFrame(loop);
