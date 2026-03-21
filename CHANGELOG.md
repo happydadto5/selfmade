@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Audio: slightly reduce hit sound volume for better balance (tiny) — 2026-03-21
 - Visual/UI: colorblind-friendly hit flash (higher-contrast pop) when colorblind mode is enabled (tiny) — 2026-03-21
 - Visual/UI: reduce screen shake when Shield is active to improve feel (tiny) — 2026-03-21
 - Stability: avoid duplicate auto-pause handler registration to prevent double pauses/toasts (tiny) — 2026-03-21
