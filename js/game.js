@@ -2937,6 +2937,7 @@ let hitPopTimeout = null;
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
           try { canvasHitFlashUntil = Date.now() + 360; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
           try { canvasWhiteFlashUntil = Date.now() + 220; } catch (err) { /* ignore */ }
+          try { screenShake = Math.min(20, (screenShake || 0) + 2); } catch (err) { /* ignore */ }
           // Trigger body-level hit-pop overlay (CSS) for stronger, thematic hit feedback.
           try {
             if (typeof document !== 'undefined' && document.body) {

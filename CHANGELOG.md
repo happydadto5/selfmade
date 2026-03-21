@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: add subtle screen shake on enemy hits for clearer feedback (tiny) — 2026-03-21
+
 ## 7.98.0
 - UI: increase contrast and thickness of wave progress bar for readability (tiny) — 2026-03-21
 
