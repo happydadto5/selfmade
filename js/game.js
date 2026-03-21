@@ -402,7 +402,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.143.0';
+  const version = '6.144.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1456,6 +1456,12 @@ if (overlay) {
 }
 
 if (replayBtn) replayBtn.addEventListener('click', () => {
+  // Clear any pending auto-pause or spawn timeouts to avoid delayed pauses or stray spawns after a restart
+  try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
+  try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
+  try { if (typeof _highScoreSaveTimeout !== 'undefined' && _highScoreSaveTimeout) { clearTimeout(_highScoreSaveTimeout); _highScoreSaveTimeout = null; } } catch (e) {}
+  try { const t = document.getElementById('autopause-toast'); if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {}
+
   gameOver = false;
   paused = false;
   pausedByFocus = false;
