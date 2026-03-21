@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: make active power-up badge keyboard-focusable (tabindex) and add focus outline for better screen-reader and keyboard discoverability — 2026-03-21
 - UI: show shield emoji in active power-up HUD for clearer Shield visibility — 2026-03-21
 - UI: slightly increase Wave HUD font-size for improved readability — 2026-03-21
 - Stability: initialize data-shield-active attribute to false on load to avoid CSS mismatch — 2026-03-21

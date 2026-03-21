@@ -29,7 +29,8 @@ body[data-shield-active="false"]::after{content:"";opacity:0;pointer-events:none
 /* Improve Wave HUD contrast and readability on busy scenes: subtle semi-transparent background, left accent and extra padding */
 #ui #wave { background: rgba(102,170,120,0.08); padding: 4px 10px 4px 10px; border-radius:6px; border-left: 4px solid rgba(27,94,32,0.12); }
 /* Active power-up HUD: small badge under the wave counter showing current power-up and remaining time */
-#ui #active-powerup { margin-top:6px; font-size:14px; color:#2e7d32; font-weight:700; background: rgba(230, 252, 238, 0.98); padding:6px 10px; border-radius:8px; border:1px solid rgba(46,125,50,0.12); display:inline-block; box-shadow: 0 6px 18px rgba(46,125,50,0.12); transition: transform 220ms ease, box-shadow 220ms ease, opacity 200ms ease; }
+#ui #active-powerup { margin-top:6px; font-size:14px; color:#063f0d; font-weight:800; background: linear-gradient(180deg, rgba(230,252,238,0.98), rgba(200,245,220,0.94)); padding:8px 12px; border-radius:10px; border:1px solid rgba(46,125,50,0.18); display:inline-block; box-shadow: 0 8px 22px rgba(46,125,50,0.14); transition: transform 180ms ease, box-shadow 180ms ease, opacity 200ms ease; }
+#ui #active-powerup:focus, #ui #active-powerup:focus-visible { outline: 3px solid rgba(30,136,229,0.65); outline-offset: 4px; border-radius:8px; }
 #ui #active-powerup[aria-hidden="true"] { display:none !important; opacity:0; transform:scale(0.98); }
 @media (prefers-reduced-motion: no-preference) {
   /* gentle pulse to make active power-up more discoverable while respecting reduced-motion preference */
