@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.87.0
+- Accessibility/UI: announce shield expiration and emit a small expiry particle burst when Shield ends (tiny) — 2026-03-21
+
 ## 7.86.0
 - Visual/UI: increase HUD backdrop opacity slightly for improved readability on busy backgrounds (tiny) — 2026-03-21
 

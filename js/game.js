@@ -76,6 +76,7 @@
   } catch (e) {}
   let cw, ch;
   let player;
+  let lastShieldActive = false;
   let gardenBackground = null;
   let gardenBackgroundReady = false;
   try {
@@ -573,7 +574,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.86.0';
+  const version = '7.87.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3317,12 +3318,30 @@ let hitPopTimeout = null;
       }
     } catch (e) { /* ignore powerup update errors */ }
 
-    // Shield sparkle: while shield active, spawn small spark particles for subtle continuous feedback
+    // Shield sparkle and expiry detection: while shield active, spawn sparkles; when it expires, announce and emit expiry particles
     try {
-      if (Date.now() < (player.shieldUntil || 0) && Math.random() < 0.06) {
+      const now = Date.now();
+      const shieldActive = now < (player.shieldUntil || 0);
+      if (shieldActive && Math.random() < 0.06) {
         // small, short-lived sparkles that orbit near the player
-        particles.push({ x: player.x + (Math.random()-0.5)*(player.w*1.2), y: player.y + (Math.random()-0.5)*(player.h*1.2), vx: (Math.random()-0.5)*0.6, vy: -Math.random()*0.6, r: 1 + Math.random()*1.4, life: 300 + Math.random()*200, born: Date.now(), color: '#bbdefb' });
+        particles.push({ x: player.x + (Math.random()-0.5)*(player.w*1.2), y: player.y + (Math.random()-0.5)*(player.h*1.2), vx: (Math.random()-0.5)*0.6, vy: -Math.random()*0.6, r: 1 + Math.random()*1.4, life: 300 + Math.random()*200, born: now, color: '#bbdefb' });
       }
+      // detect transition from active to inactive to announce expiry once
+      try {
+        if (lastShieldActive && !shieldActive) {
+          // shield just expired
+          try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield expired'; } catch(e){}
+          try { playSound('blip'); } catch(e){}
+          try {
+            for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*2.0, r: 2+Math.random()*4, life: 400+Math.random()*300, born: now, color: '#90caf9' });
+          } catch(e){}
+          try { document.body && document.body.setAttribute('data-shield-active','false'); } catch(e){}
+        }
+        if (shieldActive) {
+          try { document.body && document.body.setAttribute('data-shield-active','true'); } catch(e){}
+        }
+        lastShieldActive = !!shieldActive;
+      } catch(e){}
     } catch (e) { /* ignore shield sparkle errors */ }
 
     // Update active power-up HUD: show the most important active power-up and remaining seconds
