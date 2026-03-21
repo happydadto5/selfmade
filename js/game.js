@@ -470,7 +470,12 @@
             if (!bar) {
               bar = document.createElement('div');
               bar.className = 'wave-bar';
-              bar.setAttribute('aria-hidden', 'true');
+              // Accessible progressbar: expose wave progress to assistive tech
+              bar.setAttribute('role', 'progressbar');
+              bar.setAttribute('aria-valuemin', '0');
+              bar.setAttribute('aria-valuemax', String(typeof total === 'number' ? total : 0));
+              bar.setAttribute('aria-valuenow', String(typeof defeated === 'number' ? defeated : 0));
+              bar.setAttribute('aria-hidden', 'false');
               const inner = document.createElement('div');
               inner.className = 'wave-bar-fill';
               inner.style.width = '0%';
@@ -481,6 +486,7 @@
               const fill = bar.querySelector('.wave-bar-fill');
               const pct = total > 0 ? Math.round((defeated / total) * 100) : 0;
               if (fill) fill.style.width = pct + '%';
+              try { bar.setAttribute('aria-valuenow', String(typeof defeated === 'number' ? defeated : 0)); bar.setAttribute('aria-valuemax', String(typeof total === 'number' ? total : 0)); } catch (e) {}
             } catch (e) { /* ignore fill update errors */ }
           } catch (e) { /* ignore progress bar DOM errors */ }
         } catch (e) { /* ignore DOM errors */ }
