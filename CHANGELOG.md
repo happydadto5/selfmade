@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: increase Next Wave button touch target for better mobile usability (tiny) — 2026-03-21
 - Gameplay: slightly increase power-up pickup radius to make pickups easier to collect (56 → 68) — 2026-03-21
 - Visual/UI: active power-up badge gains a subtle pulse and stronger contrast so collected power-ups are more discoverable — 2026-03-21
 - Gameplay: spawn guaranteed Shield power-up every 3 waves (pacing) — 2026-03-21
