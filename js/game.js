@@ -217,13 +217,30 @@
             span.setAttribute('aria-hidden', 'true');
             livesEl.appendChild(span);
           }
-          // Show shield status via aria-label and body attribute; actual badge rendering is centralized elsewhere to avoid duplicates
+          // Show shield status via aria-label and body attribute; render a small visual badge in Lives HUD when active
           try {
             const now = Date.now();
             const charges = Math.max(0, (typeof player !== 'undefined' && typeof player.shieldCharges === 'number' ? player.shieldCharges : 0));
+            // Remove any previous shield badge to avoid duplicates
+            try { const old = livesEl.querySelector('#lives-shield-badge'); if (old && old.parentNode) old.parentNode.removeChild(old); } catch(e) {}
             if (typeof player !== 'undefined' && now < (player.shieldUntil || 0)) {
               try { livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + ' • Shield: ' + charges + (charges === 1 ? ' charge' : ' charges')); } catch(e) {}
               try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', 'true'); } } catch(e) {}
+              // Visual shield badge: lightweight inline element showing shield icon + charges
+              try {
+                const shieldSpan = document.createElement('span');
+                shieldSpan.id = 'lives-shield-badge';
+                shieldSpan.setAttribute('aria-hidden','true');
+                shieldSpan.textContent = ' 🛡' + (charges > 0 ? (' x' + charges) : '');
+                shieldSpan.style.marginLeft = '8px';
+                shieldSpan.style.padding = '2px 6px';
+                shieldSpan.style.borderRadius = '8px';
+                shieldSpan.style.background = '#bbdefb';
+                shieldSpan.style.color = '#012b30';
+                shieldSpan.style.fontWeight = '700';
+                shieldSpan.style.fontSize = '0.95em';
+                try { livesEl.appendChild(shieldSpan); } catch(e) {}
+              } catch(e) {}
             } else {
               try { livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives')); } catch(e) {}
               try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', 'false'); } } catch(e) {}
@@ -455,7 +472,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.36.0';
+  const version = '7.37.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
