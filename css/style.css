@@ -286,6 +286,27 @@ body.paused #game { filter: brightness(0.7) grayscale(0.25); transition: filter 
   transition: opacity 220ms ease, transform 220ms ease;
 }
 
+/* Auto-pause toast — transient resume hint shown when auto-paused due to blur/visibility */
+#autopause-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(3,169,244,0.96), rgba(129,212,250,0.95));
+  color: #012b30;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+  z-index: 10004;
+  cursor: pointer;
+  outline: none;
+}
+#autopause-toast:focus, #autopause-toast:focus-visible {
+  outline: 3px solid rgba(30,136,229,0.75);
+  outline-offset: 6px;
+  border-radius: 10px;
+}
+
 /* Wave toast - transient messages shown near the top to highlight wave transitions */
 #wave-toast, #wave-cleared-toast {
   position: fixed;
