@@ -2171,6 +2171,29 @@ if (overlay) {
       try { let t = document.getElementById('autopause-toast'); if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) { /* ignore */ }
       try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) {}
     }, { passive: true });
+
+    // Pageshow: when a page is restored from the bfcache (back-forward cache), some browsers do not fire focus/visibility events as expected.
+    // Ensure the game resumes cleanly when the page is restored by treating pageshow like a focus/resume event.
+    try {
+      window.addEventListener('pageshow', (ev) => {
+        try {
+          if (ev && ev.persisted) {
+            // If we auto-paused due to focus loss and the page was restored from bfcache, resume reliably
+            if (pausedByFocus && !gameOver) {
+              paused = false;
+            }
+            pausedByFocus = false;
+            if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+              if (soundEnabled) { try { audioCtx.resume(); } catch (e) { /* ignore */ } }
+              suspendedAudioByFocus = false;
+            }
+            if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+            try { let t = document.getElementById('autopause-toast'); if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) {}
+            try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) {}
+          }
+        } catch (e) { /* ignore pageshow handler errors */ }
+      }, { passive: true });
+    } catch (e) { /* ignore pageshow availability errors */ }
     }
   } catch (e) { /* ignore focus/blur availability */ }
 

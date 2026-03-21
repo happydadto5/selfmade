@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Stability: resume reliably after browser bfcache/pageshow restore — 2026-03-21
 - Fix: attach shield-badge class to Lives HUD shield element so CSS styles apply — 2026-03-21
 - UI: Next Wave button hover lifts and stronger shadow on hover (tiny) — 2026-03-21
 - UI: improve wave toast contrast for readability on busy backgrounds (tiny) — 2026-03-21
