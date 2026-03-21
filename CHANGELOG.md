@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: reduce enemy speed when player is low on lives to improve beatability (tiny) — 2026-03-21
+
 ## 7.96.0
 - UI: improve paused overlay readability and larger buttons for mobile screens (tiny) — 2026-03-21
 

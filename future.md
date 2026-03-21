@@ -2,7 +2,9 @@
 
 - 2026-03-16: Implemented discoverable full-screen touch zones and subtle vertical separators in-canvas (tiny UX improvement).
 
-Last updated: 2026-03-20
+Last updated: 2026-03-21
+
+Meta-review: 2026-03-21 — quick roadmap/process check completed. Implemented a small pacing/beatability tweak: enemy speed slightly reduced when player is low on lives. Next: consider a gardening-themed power-up or subtle background art.
 
 Meta-review: 2026-03-19 — performed a light roadmap/process check (per automation). Next visible iteration: implement one simple gardening-themed power-up (Shield) and a small new enemy behavior to increase variety. Captured guidance to keep changes mobile-first and avoid external deps.
 

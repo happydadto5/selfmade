@@ -2314,7 +2314,8 @@ let hitPopTimeout = null;
     for (let i=0;i<count;i++) {
       const ex = 40 + Math.random() * (cw-80);
       const ey = -20 - Math.random()*200;
-      const speed = Math.min(3.2, 0.6 + Math.random()*1.2 + waveNumber*0.03);
+      let speed = Math.min(3.2, 0.6 + Math.random()*1.2 + waveNumber*0.03);
+      try { if (typeof lives === 'number' && lives <= 1) { speed = Math.max(0.45, speed * 0.82); } } catch(e){}
       // Small chance to spawn a zigging "hopper" enemy that oscillates horizontally for visual and gameplay variety
       // Increase visibility of zigging "hopper" enemies so players notice new behavior more often
       const isZig = Math.random() < Math.min(0.35, 0.08 + waveNumber*0.025);
