@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 7.93.0
 - Gameplay: increase Shield duration to 16s and pickup extension to 8s (small tweak) — 2026-03-21
 
 ## 7.92.0
