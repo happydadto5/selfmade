@@ -496,7 +496,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.47.0';
+  const version = '7.48.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2579,6 +2579,14 @@ let hitPopTimeout = null;
                   if (activePowerEl) {
                     const _prev = activePowerEl.textContent || '';
                     try { activePowerEl.textContent = '🛡 Shield absorbed'; activePowerEl.setAttribute('aria-hidden','false'); } catch(e){}
+                    try {
+                      const livesElPulse = document.getElementById('lives');
+                      if (livesElPulse) {
+                        try { livesElPulse.classList.add('lives-pulse'); } catch(e){}
+                        setTimeout(function(){ try { livesElPulse.classList.remove('lives-pulse'); } catch(e){} }, 700);
+                        try { const b = livesElPulse.querySelector('.shield-badge') || livesElPulse.querySelector('#lives-shield-badge'); if (b) { b.classList.add('pulse'); setTimeout(function(){ try { b.classList.remove('pulse'); } catch(e){} }, 1600); } } catch(e){}
+                      }
+                    } catch(e){}
                     setTimeout(function(){
                       try { activePowerEl.textContent = _prev; if (!_prev) activePowerEl.setAttribute('aria-hidden','true'); } catch(e){}
                     }, 900);
