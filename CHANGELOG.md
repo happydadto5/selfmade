@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Gameplay: increase Shield duration to 16s and pickup extension to 8s (small tweak) — 2026-03-21
+
 ## 7.92.0
 - Gameplay: play a subtle warning when Shield is about to expire (tiny) — 2026-03-21
 

@@ -3234,11 +3234,11 @@ let hitPopTimeout = null;
                 if (player && now < (player.shieldUntil || 0)) {
                   // already has shield: add one charge up to 3 and extend by 8s
                   try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
-                  player.shieldUntil = (player.shieldUntil || now) + 6000;
+                  player.shieldUntil = (player.shieldUntil || now) + 8000;
                   try { player._shieldWarned = false; } catch(e){};
                 } else {
                   // new shield
-                  player.shieldUntil = Date.now() + 12000; // 12 seconds (slightly reduced)
+                  player.shieldUntil = Date.now() + 16000; // 16 seconds (slightly reduced)
                   try { player._shieldWarned = false; } catch(e){};
                   try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
                 }
@@ -4090,7 +4090,7 @@ let hitPopTimeout = null;
         ctx.translate(player.x, player.y);
         // Show a subtle pulse and alpha change based on remaining shield time so players can see when it will expire
         const _remaining = Math.max(0, (player.shieldUntil || 0) - Date.now());
-        const _frac = Math.max(0, Math.min(1, _remaining / 12000)); // fraction of 12s duration remaining
+        const _frac = Math.max(0, Math.min(1, _remaining / 16000)); // fraction of 16s duration remaining
         const _pulse = 1 + 0.08 * Math.sin(Date.now() * 0.02);
         // soft halo behind the shield for stronger visual clarity (additive blend)
         try {
