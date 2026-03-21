@@ -3235,9 +3235,11 @@ let hitPopTimeout = null;
                   // already has shield: add one charge up to 3 and extend by 8s
                   try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
                   player.shieldUntil = (player.shieldUntil || now) + 6000;
+                  try { player._shieldWarned = false; } catch(e){};
                 } else {
                   // new shield
                   player.shieldUntil = Date.now() + 12000; // 12 seconds (slightly reduced)
+                  try { player._shieldWarned = false; } catch(e){};
                   try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
                 }
               } catch(e) {}
@@ -3321,7 +3323,16 @@ let hitPopTimeout = null;
     // Shield sparkle and expiry detection: while shield active, spawn sparkles; when it expires, announce and emit expiry particles
     try {
       const now = Date.now();
-      const shieldActive = now < (player.shieldUntil || 0);
+      const remainingShieldMs = Math.max(0, (player.shieldUntil || 0) - now);
+      // warn once when shield is about to expire (<=3s)
+      try {
+        if (remainingShieldMs > 0 && remainingShieldMs <= 3000 && !player._shieldWarned) {
+          try { playSound('blip'); } catch(e){}
+          try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield low'; } catch(e){}
+          try { player._shieldWarned = true; } catch(e){}
+        }
+      } catch(e){}
+      const shieldActive = remainingShieldMs > 0;
       if (shieldActive && Math.random() < 0.06) {
         // small, short-lived sparkles that orbit near the player
         particles.push({ x: player.x + (Math.random()-0.5)*(player.w*1.2), y: player.y + (Math.random()-0.5)*(player.h*1.2), vx: (Math.random()-0.5)*0.6, vy: -Math.random()*0.6, r: 1 + Math.random()*1.4, life: 300 + Math.random()*200, born: now, color: '#bbdefb' });
@@ -3332,6 +3343,7 @@ let hitPopTimeout = null;
           // shield just expired
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield expired'; } catch(e){}
           try { playSound('blip'); } catch(e){}
+          try { player._shieldWarned = false; } catch(e){}
           try {
             for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*2.0, r: 2+Math.random()*4, life: 400+Math.random()*300, born: now, color: '#90caf9' });
           } catch(e){}
