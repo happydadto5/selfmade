@@ -2128,6 +2128,8 @@ let hitPopTimeout = null;
       const isMoth = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       // Small chance for a "sprout" enemy (small garden sprout, low HP, green-themed)
       const isSprout = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
+      // Small chance for a "hopper" enemy that performs lateral hops for visual variety
+      const isHopper = Math.random() < Math.min(0.10, 0.02 + waveNumber*0.012);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       if (isZig) {
         const hpVal = 1 + Math.floor(waveNumber/3);
@@ -2146,6 +2148,9 @@ let hitPopTimeout = null;
       } else if (isMoth) {
         // moth: medium descent, sinuous horizontal motion for visual variety
         enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:6 + Math.random()*4, swayFreq: 0.009 + Math.random()*0.008, t: Math.random()*1000});
+      } else if (isHopper) {
+        // hopper: medium descent, performs lateral hops for visual and gameplay variety
+        enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.9, vx:0, hp:1, maxHp:1, type:'hopper', hopTimer: 420 + Math.random()*480, hopStrength: 1.6 + Math.random()*1.6, t: Math.random()*1000});
       } else if (isSprout) {
         // sprout: small garden sprout, slightly slow, low HP, subtle horizontal drift
         enemies.push({x:ex,y:ey,w:22,h:20,vy:speed*0.65, vx:(Math.random()-0.5)*0.4, hp:1, maxHp:1, type:'sprout', t: Math.random()*1000});
@@ -2409,6 +2414,20 @@ let hitPopTimeout = null;
            }
          } catch (err) { /* ignore weevil update errors */ }
        }
+      }
+      // Hopper behavior: medium speed, periodic lateral hops (new)
+      if (e.type === 'hopper') {
+        try {
+          // gentle horizontal bob based on internal hopStrength
+          e.x += Math.sin(e.t * 0.02) * (e.hopStrength || 1.8);
+          if (typeof e.hopTimer === 'undefined') e.hopTimer = 420 + Math.random() * 480;
+          e.hopTimer -= dt;
+          if (e.hopTimer <= 0) {
+            // quick lateral hop
+            e.vx = (Math.random() < 0.5 ? -1 : 1) * (1.6 + Math.random() * (e.hopStrength || 1.6));
+            e.hopTimer = 520 + Math.random() * 700;
+          }
+        } catch (err) { /* ignore hopper update errors */ }
       }
       // Ladybug behavior: medium speed, small HP, occasional quick lateral hops for variety
       if (e.type === 'ladybug') {
@@ -2942,7 +2961,7 @@ let hitPopTimeout = null;
         try {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
-          if (Math.sqrt(dx*dx + dy*dy) < 68) { // slightly increased pickup radius to make power-ups easier to collect (now 68)
+          if (Math.sqrt(dx*dx + dy*dy) < 80) { // slightly increased pickup radius to make power-ups easier to collect (now 80)
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel
