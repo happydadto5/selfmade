@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Performance: hint canvas for transform compositing to improve rendering stability (tiny) — 2026-03-21
+
 ## 7.100.0
 - Security: add .gitignore entry to ignore secrets.txt to prevent accidental commits (tiny) — 2026-03-21
 
