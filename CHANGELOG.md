@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.107.0
 - Stability: clear pointer/touch state on blur/visibility to avoid stuck controls when the page loses focus (tiny) — 2026-03-21
 
 ## 7.106.0
