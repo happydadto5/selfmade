@@ -447,7 +447,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.32.0';
+  const version = '7.33.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3070,7 +3070,8 @@ let hitPopTimeout = null;
         if (now < (player.shieldUntil || 0)) {
           const sec = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
           const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
-          label = 'Shield' + charges + ' — ' + sec + 's';
+          // Show a shield emoji to make the active Shield power-up more immediately visible in the HUD
+          label = '🛡 Shield' + charges + ' — ' + sec + 's';
         } else if (now < (player.fireRateUntil || 0)) {
           const sec = Math.ceil(((player.fireRateUntil || 0) - now) / 1000);
           label = 'Rapid — ' + sec + 's';
