@@ -1379,6 +1379,8 @@ if (overlay) {
       overlay.style.pointerEvents = 'none';
       overlay.removeAttribute('tabindex');
       try { document.body.classList.remove('paused'); } catch (e) { /* ignore */ }
+      // Restore keyboard focus to the game canvas when the overlay hides so keyboard users can continue play immediately
+      try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) { /* ignore focus errors */ }
     }
   }
   // Small UX/accessibility helper: show different overlay messages when pause was triggered by focus loss vs user toggle.

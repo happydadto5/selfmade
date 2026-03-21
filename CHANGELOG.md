@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility/Stability: ensure keyboard focus returns to the game canvas when the pause overlay is hidden to improve keyboard and screen-reader workflows — 2026-03-21
 - UI: improve pause overlay contrast and add focus outlines for Resume/Replay buttons (accessibility) — 2026-03-21
 - Stability: cap bullets to 120 to prevent runaway memory during long runs (tiny) — 2026-03-21
 - Gameplay: increase Shield charges from 4 → 5 to improve recovery chances (tiny) — 2026-03-21
