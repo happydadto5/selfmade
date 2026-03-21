@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix: use local getAutopauseAnnouncer() for assistive announcements to avoid undefined window lookup — 2026-03-21
 - Accessibility: avoid duplicate autopause live-region elements (prevent repeated ARIA nodes) — 2026-03-21
 - Stability: only mark audio suspended after suspend resolves to avoid incorrect resume attempts (tiny) — 2026-03-21
 - Gameplay: increase power-up pickup radius slightly to make collecting easier (tiny) — 2026-03-21

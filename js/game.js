@@ -1226,7 +1226,7 @@
     if (e.key === 'o' || e.key === 'O') {
       autoPauseEnabled = !autoPauseEnabled;
       try { localStorage.setItem('selfmade_autopause', autoPauseEnabled ? '1' : '0'); } catch (err) { /* ignore storage errors */ }
-      let announcer = window.getAutopauseAnnouncer();
+      let announcer = getAutopauseAnnouncer();
       if (!announcer) {
         announcer = document.createElement('div');
         announcer.id = 'autopause-announcer';
@@ -1597,7 +1597,7 @@ if (overlay) {
 
       // Announce auto-pause to assistive tech when overlay shows a paused message
       try {
-        let ap = window.getAutopauseAnnouncer();
+        let ap = getAutopauseAnnouncer();
         if (!ap) {
           ap = document.createElement('div');
           ap.id = 'autopause-announcer';
@@ -1799,7 +1799,7 @@ if (overlay) {
           autoPauseEnabled = !autoPauseEnabled;
           try { localStorage.setItem('selfmade_autopause', autoPauseEnabled ? '1' : '0'); } catch (e) { /* ignore */ }
           // Announce the change to assistive tech
-          let announcer = window.getAutopauseAnnouncer();
+          let announcer = getAutopauseAnnouncer();
           if (!announcer) {
             announcer = document.createElement('div');
             announcer.id = 'autopause-announcer';
