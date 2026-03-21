@@ -1962,6 +1962,25 @@ if (overlay) {
             suspendedAudioByFocus = true;
           }
           if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
+          // Create a small transient autopause toast for mobile discoverability. Click/tap to resume when paused by focus/visibility.
+          try {
+            let t = document.getElementById('autopause-toast');
+            if (!t) {
+              t = document.createElement('div');
+              t.id = 'autopause-toast';
+              t.setAttribute('role','status'); t.setAttribute('aria-live','assertive');
+              t.style.position = 'fixed'; t.style.left = '50%'; t.style.bottom = '12px'; t.style.transform = 'translateX(-50%)';
+              t.style.background = 'rgba(0,0,0,0.88)'; t.style.color = '#fff'; t.style.padding = '10px 14px';
+              t.style.borderRadius = '10px'; t.style.zIndex = '10004'; t.style.fontSize = '14px';
+              t.style.cursor = 'pointer'; t.style.pointerEvents = 'auto';
+              try { document.body.appendChild(t); } catch (e) {}
+              t.addEventListener('click', function(){ try { if (paused && pausedByFocus && !gameOver) { paused = false; pausedByFocus = false; try { if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); } } catch(e){} try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e){} } } catch(e){} });
+            }
+            try { t.textContent = 'Auto-paused (tap to resume)'; } catch(e){}
+            // Auto-remove after a short delay so it doesn't linger
+            setTimeout(()=>{ try { let nt = document.getElementById('autopause-toast'); if (nt && nt.parentNode) nt.parentNode.removeChild(nt); } catch(e){} }, 2800);
+          } catch (e) { /* ignore toast injection errors */ }
+
           blurTimeout = null;
         }, AUTO_PAUSE_DEBOUNCE);
       }
@@ -1983,6 +2002,8 @@ if (overlay) {
         updateOverlayMessage();
         if (!paused && !gameOver && typeof overlayMessage !== 'undefined' && overlayMessage) { try { overlayMessage.textContent = ''; } catch (e) {} }
       }
+      // Remove any transient autopause toast that might have been added while the page was hidden
+      try { let t = document.getElementById('autopause-toast'); if (t && t.parentNode) t.parentNode.removeChild(t); } catch (e) { /* ignore */ }
       try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (e) {}
     }, { passive: true });
   } catch (e) { /* ignore focus/blur availability */ }
