@@ -22,9 +22,20 @@
       gardenBackground.decoding = 'async';
       gardenBackground.onload = () => {
         gardenBackgroundReady = true;
-        try { canvas.style.backgroundImage = 'url("assets/images/garden-background.jpg")'; canvas.style.backgroundPosition = 'center top'; canvas.style.backgroundSize = 'cover'; } catch (e) {}
+        try {
+          // Respect persisted preference: allow players to toggle the garden background using the 'B' key.
+          const pref = (function(){ try { return localStorage.getItem('selfmade_show_bg'); } catch(e){ return null; } })();
+          if (pref !== '0') {
+            canvas.style.backgroundImage = 'url("assets/images/garden-background.jpg")';
+            canvas.style.backgroundPosition = 'center top';
+            canvas.style.backgroundSize = 'cover';
+            try { canvas.dataset.bgVisible = 'true'; } catch(e) {}
+          } else {
+            try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
+          }
+        } catch (e) {}
       };
-      gardenBackground.onerror = () => { gardenBackgroundReady = false; try { canvas.style.backgroundImage = ''; } catch (e) {} };
+      gardenBackground.onerror = () => { gardenBackgroundReady = false; try { canvas.style.backgroundImage = ''; try { canvas.dataset.bgVisible = 'false'; } catch(e) {} } catch (e) {} };
       gardenBackground.src = 'assets/images/garden-background.jpg';
     }
   } catch (e) { /* ignore background image loading errors */ }
@@ -1207,6 +1218,23 @@
           document.body.appendChild(announcer);
         }
         try { announcer.textContent = enabled ? 'Grid overlay enabled' : 'Grid overlay disabled'; } catch (err) { }
+      } catch (e) { /* ignore */ }
+    }
+
+    // 'B' toggles the garden background on/off (persisted). Useful for accessibility or performance on low-end devices.
+    if (e.key === 'b' || e.key === 'B') {
+      try {
+        const currently = (canvas && canvas.dataset && canvas.dataset.bgVisible === 'true');
+        const show = !currently;
+        if (show && gardenBackgroundReady) {
+          try { canvas.style.backgroundImage = 'url("assets/images/garden-background.jpg")'; canvas.style.backgroundPosition = 'center top'; canvas.style.backgroundSize = 'cover'; } catch(e) {}
+          try { canvas.dataset.bgVisible = 'true'; } catch(e) {}
+          try { localStorage.setItem('selfmade_show_bg','1'); } catch(e) {}
+        } else {
+          try { canvas.style.backgroundImage = ''; } catch(e) {}
+          try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
+          try { localStorage.setItem('selfmade_show_bg','0'); } catch(e) {}
+        }
       } catch (e) { /* ignore */ }
     }
 
