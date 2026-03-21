@@ -355,6 +355,11 @@
             // Update active power HUD
             activePowerEl.textContent = text;
             activePowerEl.setAttribute('aria-hidden', text ? 'false' : 'true');
+            // Toggle a shield-active class when Shield is the current active power-up so CSS can add a subtle glow
+            try {
+              if (text && String(text).trim().indexOf('🛡') === 0) { activePowerEl.classList.add('shield-active'); }
+              else { activePowerEl.classList.remove('shield-active'); }
+            } catch(e) {}
             // Accessibility: expose active power-up as an aria-label so screen readers get a concise label, and set title for hover/tooltips
             try {
               if (text) {
@@ -472,7 +477,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.37.0';
+  const version = '7.38.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

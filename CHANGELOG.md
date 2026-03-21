@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: active power-up badge gains a subtle blue glow when Shield is active (tiny) — 2026-03-21
 - UI: add visual shield badge to Lives HUD (tiny) — 2026-03-21
 - UI: show transient wave toast when a new wave starts — 2026-03-21
 - Fix: consolidate shield HUD rendering to avoid duplicate shield badges — 2026-03-21
