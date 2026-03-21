@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: Next Wave button hover lifts and stronger shadow on hover (tiny) — 2026-03-21
 - UI: improve wave toast contrast for readability on busy backgrounds (tiny) — 2026-03-21
 - Accessibility: clarify autopause toast text to mention Enter/Space keyboard activation (tiny) — 2026-03-21
 - UX: show one-time session tip on first session load (sessionStorage-guarded) — 2026-03-21

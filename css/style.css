@@ -218,6 +218,12 @@ body.colorblind-mode{ background:#f6f6e9; }
 body.colorblind-mode #ui{ color:#111; }
 body.colorblind-mode #ui #lives{ color:#b71c1c; }
 body.colorblind-mode #version{ color:#111; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Smooth hover lift and stronger shadow for Next Wave button to improve discoverability (tiny UI polish) */
+  #nextWaveBtn:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(0,0,0,0.22); }
+  #nextWaveBtn:active { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,0.18); }
+}
 body.colorblind-mode #touch-controls button{ background:#fff; border-color:#999; }
 
 @media (prefers-reduced-motion: reduce) {
