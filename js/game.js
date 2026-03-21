@@ -1976,6 +1976,14 @@ if (overlay) {
   let powerupPulseUntil = 0;
   let lastPowerupColor = '';
   let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 6; let levelNumber = 1; let scheduledSpawnTimeout = null;
+  // Clean up pending timers on page unload to avoid timers firing after unload (stability)
+  try {
+    window.addEventListener('beforeunload', () => {
+      try { if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
+      try { if (typeof _highScoreSaveTimeout !== 'undefined' && _highScoreSaveTimeout) { clearTimeout(_highScoreSaveTimeout); _highScoreSaveTimeout = null; } } catch (e) {}
+      try { if (resizeTimeout) { clearTimeout(resizeTimeout); resizeTimeout = null; } } catch (e) {}
+    }, { passive: true });
+  } catch (e) { /* ignore unload handler errors */ }
 
   // Kick off the first wave immediately so HUD shows an active wave on load
   let wavePulseUntil = 0;

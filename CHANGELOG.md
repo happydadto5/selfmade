@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Stability: clear pending timers on unload to avoid delayed callbacks after page close (tiny) — 2026-03-21
 - UI: pulse Lives HUD when Shield is collected or absorbs a hit for clearer feedback (tiny) — 2026-03-21
 - Accessibility: autopause toast keyboard accessible (role+tabindex+keydown) — 2026-03-21
 - Stability: abort gracefully if 2D canvas context unavailable to avoid runtime errors (tiny) — 2026-03-21
