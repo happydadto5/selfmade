@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: increase Shield power-up duration to 20s so players feel its effect more clearly (small)
+
 ## 7.103.0
 - UI: improve paused overlay contrast and text-stroke for better readability on bright backgrounds (tiny) — 2026-03-21
 
