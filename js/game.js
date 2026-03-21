@@ -442,7 +442,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.22.0';
+  const version = '7.23.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2464,7 +2464,8 @@ let hitPopTimeout = null;
             // Shield absorbs collisions too
             try {
               if (Date.now() < (player.shieldUntil || 0)) {
-                player.shieldCharges = (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1;
+                // consume one shield charge (clamped to avoid negative values)
+                player.shieldCharges = Math.max(0, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1);
                 if (player.shieldCharges <= 0) {
                   player.shieldCharges = 0;
                   player.shieldUntil = 0;
@@ -2535,8 +2536,8 @@ let hitPopTimeout = null;
         // Shield absorbs bottom-leak life loss if active
         try {
           if (Date.now() < (player.shieldUntil || 0)) {
-            // consume one shield charge (support multi-charge shields)
-            player.shieldCharges = (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1;
+            // consume one shield charge (support multi-charge shields). Clamp to avoid negatives.
+            player.shieldCharges = Math.max(0, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1);
             if (player.shieldCharges <= 0) {
               player.shieldCharges = 0;
               player.shieldUntil = 0;
