@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: autopause toast keyboard accessible (role+tabindex+keydown) — 2026-03-21
 - Stability: abort gracefully if 2D canvas context unavailable to avoid runtime errors (tiny) — 2026-03-21
 - Visual/UI: stronger shield pickup pulsing and halo for better pickup discoverability (tiny) — 2026-03-21
 - Audio: slightly reduce hit sound volume for better balance (tiny) — 2026-03-21
