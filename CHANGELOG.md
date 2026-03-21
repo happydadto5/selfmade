@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: small increase to hit screen-shake for clearer hit feedback (tiny) — 2026-03-21
 - Stability: clear pending scheduled spawn when auto-pausing to prevent new waves while paused (tiny) — 2026-03-21
 - Gameplay: add a new 'hopper' enemy that performs lateral hops to increase enemy variety (tiny) — 2026-03-21
 - UI: show shield charges in Lives HUD when active (tiny) — 2026-03-21

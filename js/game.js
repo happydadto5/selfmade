@@ -2766,7 +2766,8 @@ let hitPopTimeout = null;
             } catch (ex) { /* ignore particle errors */ }
             // Add a small screen-shake and hit sound/vibration for non-lethal enemy hits to improve feedback
             try {
-              screenShake = Math.min(6, (screenShake || 0) + 2);
+              // Slightly stronger screen shake for clearer hit feedback (small, capped)
+              screenShake = Math.min(8, (screenShake || 0) + 3);
               // very brief hit-stop (freeze-frame) to improve perceived impact
               try { hitStopUntil = performance.now() + 60; } catch (err) { hitStopUntil = Date.now() + 60; }
               try { playSound('hit'); } catch (e) { /* ignore sound errors */ }
