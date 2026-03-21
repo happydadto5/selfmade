@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: active power-up badge gains a subtle pulse and stronger contrast so collected power-ups are more discoverable — 2026-03-21
 - Gameplay: spawn guaranteed Shield power-up every 3 waves (pacing) — 2026-03-21
 - Stability: clear temporary power-ups on restart so restarting a run doesn't retain previous power-ups — 2026-03-21
 - Visual/UI: pulse Shield ring based on remaining time for clearer feedback — 2026-03-21
