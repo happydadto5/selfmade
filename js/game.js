@@ -3230,7 +3230,7 @@ let hitPopTimeout = null;
        try {
          if (!gameOver && (typeof maxWaves !== 'number' || waveNumber < maxWaves)) {
            if (!scheduledSpawnTimeout) {
-             scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 1200);
+             scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 900);
            }
          }
        } catch(e) {}
