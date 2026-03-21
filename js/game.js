@@ -168,8 +168,8 @@
       }
     } catch (e) { /* ignore cloud init errors */ }
   }
-  // Prevent right-click context menu on game canvas to avoid accidental interruption
-  try { canvas.addEventListener('contextmenu', e => { e.preventDefault(); }); } catch (e) { /* ignore */ }
+  // Prevent right-click context menu on game canvas and page (within canvas area) to avoid accidental interruption
+  try { canvas.addEventListener('contextmenu', e => { e.preventDefault(); }); document.addEventListener('contextmenu', e => { try { if (e.target && (e.target === canvas || canvas.contains(e.target))) { e.preventDefault(); } } catch (err) { /* ignore */ } }, { passive: false }); } catch (e) { /* ignore */ }
   // Improve accessibility: focus the canvas on pointer interaction so keyboard controls work after tap/click
   try { canvas.addEventListener('pointerdown', () => { try { canvas.focus(); } catch (e) {} }, { passive: true }); } catch (e) { /* ignore */ }
 
@@ -570,7 +570,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.79.0';
+  const version = '7.80.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

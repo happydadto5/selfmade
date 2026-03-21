@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Stability: prevent context menu on right-click inside game to avoid accidental interruption (tiny) — 2026-03-21
 - UI: dim game canvas when overlay is visible to make paused/game-over state clearer (tiny) — 2026-03-21
 - Gameplay: spawn a guaranteed Shield power-up every 2 waves (tiny) — 2026-03-21
 - Gameplay: slightly increase frequency of guaranteed Shield spawns so shields appear on more waves (tiny) — 2026-03-21
