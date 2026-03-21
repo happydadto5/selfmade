@@ -1909,8 +1909,14 @@ if (overlay) {
         clearInputs();
         try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
         if (audioCtx && audioCtx.state === 'running') {
-          try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
-          suspendedAudioByFocus = true;
+          try {
+            const p = audioCtx.suspend();
+            if (p && typeof p.then === 'function') {
+              p.then(function(){ suspendedAudioByFocus = true; }).catch(function(){});
+            } else {
+              suspendedAudioByFocus = true;
+            }
+          } catch (e) { /* ignore suspend errors */ }
         }
         if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
       }
@@ -1957,8 +1963,14 @@ if (overlay) {
           try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
           // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
           if (audioCtx && audioCtx.state === 'running') {
-            try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
-            suspendedAudioByFocus = true;
+            try {
+              const p = audioCtx.suspend();
+              if (p && typeof p.then === 'function') {
+                p.then(function(){ suspendedAudioByFocus = true; }).catch(function(){});
+              } else {
+                suspendedAudioByFocus = true;
+              }
+            } catch (e) { /* ignore suspend errors */ }
           }
           // Persist a small snapshot of the current run so a quick tab switch doesn't lose progress
           try {
@@ -2024,8 +2036,14 @@ if (overlay) {
           try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
           clearInputs();
           if (audioCtx && audioCtx.state === 'running') {
-            try { audioCtx.suspend(); } catch (e) { /* ignore */ }
-            suspendedAudioByFocus = true;
+            try {
+              const p = audioCtx.suspend();
+              if (p && typeof p.then === 'function') {
+                p.then(function(){ suspendedAudioByFocus = true; }).catch(function(){});
+              } else {
+                suspendedAudioByFocus = true;
+              }
+            } catch (e) { /* ignore */ }
           }
           if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(true); updateOverlayMessage(); }
           // Create a small transient autopause toast for mobile discoverability. Click/tap to resume when paused by focus/visibility.
