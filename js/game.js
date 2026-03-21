@@ -464,10 +464,13 @@
                   touchFireBtn.textContent = '💧' + ' ' + emoji;
                   try { touchFireBtn.setAttribute('aria-label', 'Water / Fire — ' + text); } catch(e){}
                   try { touchFireBtn.title = 'Water plants' + ' · ' + text; } catch(e){}
+                  // Add or remove a visual "shield-active" class on the touch fire button when Shield is active
+                  try { if (String(text).trim().indexOf('🛡') === 0) touchFireBtn.classList.add('shield-active'); else touchFireBtn.classList.remove('shield-active'); } catch(e){}
                 } else {
                   touchFireBtn.textContent = '💧';
                   try { touchFireBtn.setAttribute('aria-label', 'Water / Fire'); } catch(e){}
                   try { touchFireBtn.title = 'Water plants'; } catch(e){}
+                  try { touchFireBtn.classList.remove('shield-active'); } catch(e){}
                 }
               }
             } catch(e){}
