@@ -496,7 +496,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.42.0';
+  const version = '7.43.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2020,13 +2020,13 @@ if (overlay) {
               t.style.background = 'rgba(0,0,0,0.88)'; t.style.color = '#fff'; t.style.padding = '10px 14px';
               t.style.borderRadius = '10px'; t.style.zIndex = '10004'; t.style.fontSize = '14px';
               t.style.cursor = 'pointer'; t.style.pointerEvents = 'auto';
-              try { document.body.appendChild(t); } catch (e) {}
+              try { document.body.appendChild(t); try { t.focus(); } catch(e) {} } catch (e) {}
               // Click handler: resume when tapped/clicked
               t.addEventListener('click', function(){ try { if (paused && pausedByFocus && !gameOver) { paused = false; pausedByFocus = false; try { if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); } } catch(e){} try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e){} } } catch(e){} });
               // Keyboard handler: allow Enter / Space to activate the toast when focused
               t.addEventListener('keydown', function(ev){ try { if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); try { t.click(); } catch(e){} } } catch(e){} });
             }
-            try { t.textContent = 'Auto-paused (tap to resume)'; } catch(e){}
+            try { t.textContent = 'Auto-paused (tap to resume)'; try { t.focus(); } catch(e) {} } catch(e){}
             // Auto-remove after a short delay so it doesn't linger
             setTimeout(()=>{ try { let nt = document.getElementById('autopause-toast'); if (nt && nt.parentNode) nt.parentNode.removeChild(nt); } catch(e){} }, 2800);
           } catch (e) { /* ignore toast injection errors */ }
