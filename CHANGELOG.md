@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.94.0
+- Visual/UI: add subtle vignette during hit-pop to focus hit feedback (tiny) — 2026-03-21
+
 ## 7.93.0
 - Gameplay: increase Shield duration to 16s and pickup extension to 8s (small tweak) — 2026-03-21
 

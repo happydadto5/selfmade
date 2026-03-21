@@ -573,6 +573,32 @@ html::before {
 
 /* Ensure hit-pop overlay remains visible on very light backgrounds by providing a subtle warm wash fallback.
    This layer is additive and kept small so it doesn't change the intended feel for most users. */
+
+/* Add a subtle dark vignette while hit-pop is active to focus the player's attention on the hit area
+   without obscuring gameplay. Respects prefers-reduced-motion. */
+@media (prefers-reduced-motion: no-preference) {
+  body.hit-pop::before {
+    content: "";
+    position: fixed;
+    left: 0; top: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 10000;
+    /* radial vignette anchored at the hit location so the area around the hit remains brighter */
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(0,0,0,0) 0%, rgba(0,0,0,0.12) 35%, rgba(0,0,0,0.36) 100%);
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+    animation: hitVignetteFade 760ms ease-out forwards;
+  }
+  @keyframes hitVignetteFade {
+    0% { opacity: 0.9; }
+    60% { opacity: 0.6; }
+    100% { opacity: 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.hit-pop::before { animation: none !important; opacity: 0 !important; }
+}
+
 body.hit-pop::after {
   background:
     linear-gradient(rgba(255,255,230,0.06), rgba(210,255,190,0.04)),
