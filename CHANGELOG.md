@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.102.0
 - UI: increase HUD backdrop contrast slightly for improved readability on busy backgrounds (tiny) — 2026-03-21
 
 ## 7.101.0
