@@ -198,25 +198,12 @@
             span.setAttribute('aria-hidden', 'true');
             livesEl.appendChild(span);
           }
-          // Show shield charges next to lives when active for clearer player feedback
+          // Show shield status via aria-label and body attribute; actual badge rendering is centralized elsewhere to avoid duplicates
           try {
             const now = Date.now();
+            const charges = Math.max(0, (typeof player !== 'undefined' && typeof player.shieldCharges === 'number' ? player.shieldCharges : 0));
             if (typeof player !== 'undefined' && now < (player.shieldUntil || 0)) {
-              const charges = Math.max(0, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0));
-              const shieldContainer = document.createElement('span');
-              shieldContainer.style.marginLeft = '8px';
-              shieldContainer.setAttribute('aria-hidden', 'false');
-              for (let s = 0; s < charges; s++) {
-                const sspan = document.createElement('span');
-                sspan.textContent = '🛡';
-                sspan.style.marginRight = '4px';
-                sspan.style.color = '#81d4fa';
-                sspan.setAttribute('aria-hidden', 'true');
-                shieldContainer.appendChild(sspan);
-              }
-              livesEl.appendChild(shieldContainer);
               try { livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + ' • Shield: ' + charges + (charges === 1 ? ' charge' : ' charges')); } catch(e) {}
-              // Indicate shield active on the document body for a subtle global visual cue (used by CSS)
               try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', 'true'); } } catch(e) {}
             } else {
               try { livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives')); } catch(e) {}
