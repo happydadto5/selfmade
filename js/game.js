@@ -289,7 +289,9 @@
             const span = document.createElement('span');
             span.textContent = '♥';
             span.style.color = '#e53935';
-            span.style.marginRight = '4px';
+            span.style.marginRight = '6px';
+            span.style.fontSize = '18px';
+            span.style.lineHeight = '1';
             span.setAttribute('aria-hidden', 'true');
             livesEl.appendChild(span);
           }
