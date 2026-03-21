@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Accessibility: Next Wave button keydown handling robustly detects Space and Enter across browsers (tiny) — 2026-03-21
+- Help: mention Shield power-up in help overlay for discoverability (tiny) — 2026-03-21
 - UI: pulse Lives HUD and shield badge when Shield absorbs a hit (tiny) — 2026-03-21
 - Performance: throttle game loop to 1s when auto-paused by focus/visibility to reduce CPU usage — 2026-03-21
 - UI: hide Next Wave button when game is over to avoid confusion (tiny) — 2026-03-21
