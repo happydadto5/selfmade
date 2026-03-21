@@ -2723,10 +2723,11 @@ let hitPopTimeout = null;
         } catch (err) { /* ignore sprout update errors */ }
       }
       const waveGraceFactor = (typeof waveStartGraceUntil === 'number' && Date.now() < (waveStartGraceUntil || 0)) ? 0.65 : 1;
-      const finalMoveFactor = slowFactor * waveGraceFactor;
+      const perEnemySlow = Date.now() < (e.slowUntil || 0) ? (typeof e.slowFactor === 'number' ? e.slowFactor : 0.6) : 1;
+      const finalMoveFactor = slowFactor * waveGraceFactor * perEnemySlow;
       e.y += e.vy * finalMoveFactor;
       // apply horizontal velocity if present (fallback for types that don't set vx)
-      e.x += (e.vx || 0) * slowFactor;
+      e.x += (e.vx || 0) * slowFactor * perEnemySlow;
 
       // New: check for direct collision with the player (visible and immediate feedback). If an enemy touches
       // the player, consume the enemy and either let the shield absorb it or cause a life loss. This makes
@@ -3317,6 +3318,23 @@ let hitPopTimeout = null;
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Mulch collected: score bonus'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Mulch! x' + (player.scoreMultiplier ? player.scoreMultiplier.toFixed(2) : '1.5'), vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
+              try {
+                // brief local mulch effect: slow nearby enemies for 2.5s to give players a feel-good recovery (small, garden-themed)
+                const now2 = Date.now();
+                const mulchRadius = 120;
+                for (let mi = enemies.length - 1; mi >= 0; mi--) {
+                  const en = enemies[mi];
+                  try {
+                    const dxm = en.x - player.x;
+                    const dym = en.y - player.y;
+                    if (Math.sqrt(dxm*dxm + dym*dym) <= mulchRadius) {
+                      en.slowUntil = now2 + 2500;
+                      en.slowFactor = 0.6;
+                      for (let mp=0; mp<6; mp++) particles.push({ x: en.x + (Math.random()-0.5)*8, y: en.y + (Math.random()-0.5)*8, vx: (Math.random()-0.5)*1.2, vy: -Math.random()*1.2, r: 1.2 + Math.random()*1.8, life: 300 + Math.random()*200, born: now2, color:'#8BC34A', leaf: true });
+                    }
+                  } catch(e){}
+                }
+              } catch(e){}
               try { for (let k=0;k<8;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 420+Math.random()*320, born: Date.now(), color: '#a5d6a7' }); } catch (e) {}
             } else if (pu.type === 'life') {
               // grant one extra life (cap to avoid runaway)
