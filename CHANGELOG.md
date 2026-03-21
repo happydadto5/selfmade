@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.106.0
 - UI: improve HUD readability by slightly darkening the HUD backdrop and adding a subtle background gradient (tiny) — 2026-03-21
 
 ## 7.105.0
