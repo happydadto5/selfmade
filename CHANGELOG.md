@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.83.0
 - Gameplay: increase power-up pickup radius to 140 to make power-ups easier to collect (tiny) — 2026-03-21
 - Gameplay: increase power-up pickup radius to 100 to make collecting power-ups easier (tiny) — 2026-03-21
 - Stability: prevent context menu on right-click inside game to avoid accidental interruption (tiny) — 2026-03-21
