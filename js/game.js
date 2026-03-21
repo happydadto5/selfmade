@@ -3120,12 +3120,12 @@ let hitPopTimeout = null;
                 const now = Date.now();
                 if (player && now < (player.shieldUntil || 0)) {
                   // already has shield: add one charge up to 3 and extend by 8s
-                  try { player.shieldCharges = Math.min(2, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
+                  try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
                   player.shieldUntil = (player.shieldUntil || now) + 6000;
                 } else {
                   // new shield
                   player.shieldUntil = Date.now() + 12000; // 12 seconds (slightly reduced)
-                  try { player.shieldCharges = 2; } catch(e) { player.shieldCharges = 2; }
+                  try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
                 }
               } catch(e) {}
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}

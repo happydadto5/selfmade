@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase Shield maximum charges to 3 (small buff) — 2026-03-21
 - Gameplay: rebalance Shield power-up — initial charges 2 and duration 12s; collecting while active adds at most +1 charge (max 2) and extends by 6s — 2026-03-21
 
 - UI: increase HUD background opacity for improved readability on busy backgrounds (tiny) — 2026-03-21
