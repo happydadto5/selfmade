@@ -3045,8 +3045,8 @@ let hitPopTimeout = null;
                   player.shieldUntil = (player.shieldUntil || now) + 8000;
                 } else {
                   // new shield
-                  player.shieldUntil = Date.now() + 12000; // 16 seconds (slightly stronger)
-                  try { player.shieldCharges = 2; } catch(e) { player.shieldCharges = 2; }
+                  player.shieldUntil = Date.now() + 16000; // 16 seconds (buffed)
+                  try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
                 }
               } catch(e) {}
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}

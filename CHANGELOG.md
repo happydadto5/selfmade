@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase Shield power-up duration to 16s and starting charges to 3 (small buff) — 2026-03-21
+
 - Accessibility: focus autopause toast when auto-paused so keyboard users can resume with Enter/Space — 2026-03-21
 - Accessibility: expose wave progress bar as progressbar with aria-valuenow/aria-valuemax attributes for assistive tech — 2026-03-21
 - Gameplay: reduce Shield power-up duration from 16s to 12s (balance tweak) — 2026-03-21
