@@ -211,13 +211,15 @@ body.show-touch-guides::after {
   font-size: 22px;
   text-align: center;
   font-weight: 700;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+  /* stronger shadow + subtle text-stroke for improved readability on bright backgrounds */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+  -webkit-text-stroke: 0.8px rgba(0,0,0,0.6);
   margin: 0 12px 8px 12px;
   /* Increased contrast for better readability against game backgrounds */
-  background: rgba(0,0,0,0.72);
+  background: rgba(0,0,0,0.78);
   padding: 12px 18px;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
   color: #fff;
 }
 #overlay[aria-hidden="false"] .overlay-message {

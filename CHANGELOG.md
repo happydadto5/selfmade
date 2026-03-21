@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.103.0
+- UI: improve paused overlay contrast and text-stroke for better readability on bright backgrounds (tiny) — 2026-03-21
+
 ## 7.102.0
 - UI: increase HUD backdrop contrast slightly for improved readability on busy backgrounds (tiny) — 2026-03-21
 
