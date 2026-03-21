@@ -316,6 +316,7 @@ body.paused #game { filter: brightness(0.7) grayscale(0.25); transition: filter 
   font-weight: 800;
   cursor: pointer;
 }
+#nextWaveBtn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(46,125,50,0.22); }
 #nextWaveBtn:active { transform: translateY(1px); }
 @media (max-width:420px) {
   #nextWaveBtn { display: block; margin-top: 8px; margin-left: 0; width: 100%; }
