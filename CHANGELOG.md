@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase Shield charges from 4 → 5 to improve recovery chances (tiny) — 2026-03-21
 - Stability: increase auto-pause debounce from 700ms → 900ms to reduce accidental pauses on quick tab switches (tiny) — 2026-03-21
 - Gameplay: increase Shield charges from 3 → 4 so shields absorb one more hit, improving recovery chances (tiny) — 2026-03-21
 - Accessibility: announce when Shield power-up expires so screen readers receive clear feedback. — 2026-03-21

@@ -2834,7 +2834,7 @@ let hitPopTimeout = null;
             } else if (pu.type === 'shield') {
               // grant a temporary shield that can absorb up to two life losses
               player.shieldUntil = Date.now() + 16000; // 16 seconds (slightly stronger)
-              try { player.shieldCharges = 4; } catch(e) { player.shieldCharges = 4; }
+              try { player.shieldCharges = 5; } catch(e) { player.shieldCharges = 5; }
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('shield'); } catch (e) {}
