@@ -1797,6 +1797,7 @@ if (overlay) {
         try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
         // Clear transient input state when auto-paused to avoid stuck controls (keyboard, mouse, or touch)
         clearInputs();
+        try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
         // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
         if (audioCtx && audioCtx.state === 'running') {
           try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
@@ -1888,6 +1889,7 @@ if (overlay) {
         try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
         // clear transient inputs and suspend audio similar to blur-based auto-pause
         clearInputs();
+        try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
         if (audioCtx && audioCtx.state === 'running') {
           try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
           suspendedAudioByFocus = true;
@@ -1934,6 +1936,7 @@ if (overlay) {
           try { document.body.classList.add('auto-paused'); } catch (e) { /* ignore */ }
           // Clear transient input state when auto-pausing to avoid stuck controls (keyboard, mouse, or touch)
           clearInputs();
+          try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
           // If audio is playing, suspend it when auto-pausing so sounds don't continue in background
           if (audioCtx && audioCtx.state === 'running') {
             try { audioCtx.suspend(); } catch (e) { /* ignore suspend errors */ }
