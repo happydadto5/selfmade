@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Stability: prevent double-restart by briefly disabling the Play Again button when clicked (tiny) — 2026-03-21
 - Gameplay: clamp Shield charges to a max of 3 consistently across code and HUD (tiny) — 2026-03-21
 - Accessibility: make pause/game-over overlay programmatically focusable (tabindex=-1) for better keyboard and screen-reader discoverability — 2026-03-21
 - UI: initialize body data-shield-active attribute on load to avoid a brief visual mismatch before game script runs — 2026-03-21

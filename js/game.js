@@ -1652,6 +1652,8 @@ if (overlay) {
 }
 
 if (replayBtn) replayBtn.addEventListener('click', () => {
+  // Prevent accidental double-clicks by temporarily disabling the button
+  try { replayBtn.disabled = true; replayBtn.setAttribute('aria-disabled','true'); } catch (e) {}
   // Clear any pending auto-pause or spawn timeouts to avoid delayed pauses or stray spawns after a restart
   try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
   try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
@@ -1680,6 +1682,8 @@ if (replayBtn) replayBtn.addEventListener('click', () => {
   if (overlay) setOverlayVisible(false);
   // After restarting, restore keyboard focus to the canvas so users can continue with keys.
   try { if (canvas && typeof canvas.focus === 'function') { canvas.focus(); } } catch (err) { /* ignore focus errors */ }
+  // Re-enable the button shortly after restart to avoid accidental double restarts
+  try { setTimeout(() => { try { replayBtn.disabled = false; replayBtn.setAttribute('aria-disabled','false'); } catch (e) {} }, 600); } catch (e) {}
 });
 
 // Continue to next level without clearing score/lives — increase maxWaves and restart waves for a harder loop
