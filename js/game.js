@@ -214,8 +214,11 @@
               }
               livesEl.appendChild(shieldContainer);
               try { livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + ' • Shield: ' + charges + (charges === 1 ? ' charge' : ' charges')); } catch(e) {}
+              // Indicate shield active on the document body for a subtle global visual cue (used by CSS)
+              try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', 'true'); } } catch(e) {}
             } else {
               try { livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives')); } catch(e) {}
+              try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', 'false'); } } catch(e) {}
             }
             if (lives <= 1) livesEl.classList.add('low'); else livesEl.classList.remove('low');
           } catch (e) { /* ignore classList errors */ }

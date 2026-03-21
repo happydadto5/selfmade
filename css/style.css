@@ -4,6 +4,9 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#a0d8ff 0%,#87C
 /* Subtle animated background overlay to give the game more atmosphere without external assets. It is low-opacity and non-interactive so it won't interfere with gameplay or HUD readability. */
 body::before{content:"";position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 20% 30%, rgba(255,255,230,0.06), transparent 18%), radial-gradient(circle at 80% 70%, rgba(200,245,220,0.04), transparent 22%);mix-blend-mode:overlay;opacity:1;animation:bgFloat 28s linear infinite}
 @keyframes bgFloat{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(5%,2%,0)}100%{transform:translate3d(0,0,0)}}
+/* Subtle shield-active tint to make Shield power-up more discoverable without adding UI chrome */
+body[data-shield-active="true"]::after{content:"";position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 50% 12%, rgba(129,212,250,0.06), transparent 18%);mix-blend-mode:screen;opacity:1;transition:opacity 220ms ease}
+body[data-shield-active="false"]::after{content:"";opacity:0;pointer-events:none}
 /* Accessibility: visible focus ring for keyboard users to improve canvas discoverability without changing gameplay */
 #game:focus, #game:focus-visible { outline: 3px solid rgba(30,136,229,0.55); outline-offset: 4px; }
 /* Keyboard focus styles for interactive controls (improves keyboard-only navigation and screen-reader discoverability) */
