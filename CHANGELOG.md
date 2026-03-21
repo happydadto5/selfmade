@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Controls: reduce touch hold delay from 100ms to 80ms for snappier mobile hold-to-fire (tiny) — 2026-03-21
 - UI: increase Next Wave button touch target for better mobile usability (tiny) — 2026-03-21
 - Gameplay: slightly increase power-up pickup radius to make pickups easier to collect (56 → 68) — 2026-03-21
 - Visual/UI: active power-up badge gains a subtle pulse and stronger contrast so collected power-ups are more discoverable — 2026-03-21

@@ -616,7 +616,7 @@
           setTimeout(() => { try { if (el && el.parentNode) el.parentNode.removeChild(el); } catch (e) {} }, 760);
         } catch (e) { /* ignore */ }
       };
-      const TOUCH_HOLD_DELAY = 100; // reduced slightly for snappier mobile hold-to-fire (from 120ms)
+      const TOUCH_HOLD_DELAY = 80; // reduced slightly for snappier mobile hold-to-fire (from 120ms)
       let activeBottomTouchId = null;
       let touchHoldTimer = null;
       let touchHoldActive = false;
