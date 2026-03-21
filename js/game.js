@@ -570,7 +570,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.74.0';
+  const version = '7.75.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2524,6 +2524,8 @@ let hitPopTimeout = null;
     }
     // Stability: cap bullets to avoid runaway growth during very long runs
     try { if (bullets.length > 120) bullets.splice(0, bullets.length - 120); } catch (e) { }
+    // Stability: cap particles to avoid runaway growth during very long runs (prevents memory/CPU spikes)
+    try { if (particles.length > 600) particles.splice(0, particles.length - 600); } catch (e) { }
     
     for (let i=enemies.length-1;i>=0;i--) {
       const e = enemies[i];
