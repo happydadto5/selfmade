@@ -2740,7 +2740,7 @@ let hitPopTimeout = null;
                   for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.8, vy: -Math.random()*2.2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#81d4fa' });
                 } catch(e){}
                 try { screenShake = Math.min(20, (screenShake||0) + 8); } catch(e){}
-                try { canvasWhiteFlashUntil = Date.now() + 300; canvasHitFlashUntil = Date.now() + 360; } catch(e){}
+                try { canvasWhiteFlashUntil = Date.now() + 380; canvasHitFlashUntil = Date.now() + 520; } catch(e){}
                 try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
                 try {
                   if (activePowerEl) {
@@ -2828,7 +2828,7 @@ let hitPopTimeout = null;
               }
             } catch(e){}
             try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
-            try { canvasWhiteFlashUntil = Date.now() + 260; canvasHitFlashUntil = Date.now() + 340; } catch(e){}
+            try { canvasWhiteFlashUntil = Date.now() + 340; canvasHitFlashUntil = Date.now() + 420; } catch(e){}
             try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
             try {
               if (activePowerEl) {
@@ -3044,7 +3044,7 @@ let hitPopTimeout = null;
               }
               try { screenShake = Math.min(12, (screenShake||0) + 4); } catch(e){}
               // Stronger flash and extra bright particles for enemy death to improve clarity (respects reduced-motion)
-              try { if (!prefersReducedMotion) { canvasWhiteFlashUntil = Date.now() + 380; canvasHitFlashUntil = Date.now() + 620; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
+              try { if (!prefersReducedMotion) { canvasWhiteFlashUntil = Date.now() + 460; canvasHitFlashUntil = Date.now() + 780; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
                try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(22); } catch(e) {}
               try {
                 for (let q=0;q<16;q++) particles.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (Math.random()-0.5)*10, vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3, r: 0.8 + Math.random()*2.6, life: 220 + Math.random()*260, born: Date.now(), color: '#fff59d', blend: 'lighter' });
