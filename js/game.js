@@ -402,7 +402,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '6.126.0';
+  const version = '6.127.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -822,6 +822,18 @@
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
       o.start(now);
       o.stop(now + 0.34);
+      return;
+    }
+    else if (type === 'powerup') {
+      // Bright ascending arpeggio for collecting power-ups
+      o.type = 'sine';
+      o.frequency.setValueAtTime(520, now);
+      o.frequency.linearRampToValueAtTime(740, now + 0.06);
+      o.frequency.linearRampToValueAtTime(960, now + 0.12);
+      g.gain.setValueAtTime(0.035, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+      o.start(now);
+      o.stop(now + 0.28);
       return;
     }
     else { o.type='sine'; o.frequency.setValueAtTime(440, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1); }
@@ -2715,7 +2727,7 @@ let hitPopTimeout = null;
                 // restart CSS animation
                 try { badge.classList.remove('show'); void badge.offsetWidth; badge.classList.add('show'); } catch (e) {}
                 setTimeout(() => { try { badge.classList.remove('show'); } catch (e) {} }, 1800);
-                try { playSound('blip'); } catch (e) {}
+                try { playSound('powerup'); } catch (e) {}
                 // spawn a few green 'leaf' particles to celebrate the garden-themed high score
                 try {
                   for (let lp = 0; lp < 8; lp++) {
