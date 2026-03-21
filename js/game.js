@@ -2974,6 +2974,8 @@ let hitPopTimeout = null;
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
               try { playSound('shield'); } catch (e) {}
+              // Accessibility: keep keyboard focus on canvas so keyboard users can continue playing after pickup
+              try { const c = document.getElementById('game'); if (c && typeof c.focus === 'function') c.focus(); } catch (e) {}
               try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.6, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 420+Math.random()*320, born: Date.now(), color: '#81d4fa' }); } catch (e) {}
             } else if (pu.type === 'spread') {
               // grant a temporary spread shot that fires three angled pellets
