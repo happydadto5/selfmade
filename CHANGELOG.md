@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.97.0
 - Levels: reduce enemy speed when player is low on lives to improve beatability (tiny) — 2026-03-21
 
 ## 7.96.0
