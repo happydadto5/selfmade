@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.90.0
+- UI: add in-HUD wave progress bar showing remaining enemy progress for current wave (tiny) — 2026-03-21
+
 ## 7.89.0
 - Performance: throttle animation loop when auto-paused to reduce CPU/battery use (tiny) — 2026-03-21
 

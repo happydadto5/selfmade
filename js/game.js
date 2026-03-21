@@ -574,7 +574,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.89.0';
+  const version = '7.90.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4586,6 +4586,31 @@ let hitPopTimeout = null;
             ctx.fillStyle = 'rgba(255,255,255,0.95)';
           } catch (e) { /* ignore heart draw errors */ }
           ctx.fillText(enemiesText, rx + pad, ry + 16 + lineHeight * 2);
+          // Draw a compact wave progress bar inside the HUD when the current wave has a target enemy count.
+          try {
+            const presentCount = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : (typeof enemies !== 'undefined' ? enemies.length : 0));
+            const totalCount = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
+            if (totalCount > 0) {
+              const progressPct = Math.max(0, Math.min(1, (totalCount - presentCount) / totalCount));
+              const barWfull = Math.max(80, boxW - pad * 2);
+              const barH = 8;
+              const barX = rx + pad;
+              const barY = ry + 16 + lineHeight * 2 + 10;
+              ctx.save();
+              // subtle background for the bar
+              ctx.globalAlpha = 0.95;
+              ctx.fillStyle = 'rgba(255,255,255,0.12)';
+              ctx.fillRect(barX, barY, barWfull, barH);
+              // filled portion
+              ctx.fillStyle = '#66bb6a';
+              ctx.fillRect(barX + 1, barY + 1, Math.max(2, (barWfull - 2) * progressPct), barH - 2);
+              // border
+              ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+              ctx.lineWidth = 1;
+              try { ctx.strokeRect(barX, barY, barWfull, barH); } catch(e){}
+              ctx.restore();
+            }
+          } catch (e) { /* ignore progress bar errors */ }
         ctx.shadowBlur = 0;
         ctx.shadowColor = 'transparent';
         ctx.restore();
