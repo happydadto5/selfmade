@@ -1598,10 +1598,13 @@ if (overlay) {
         }
       } else if (pausedByFocus) {
         overlayMessage.textContent = 'Paused (lost focus) — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press Space, click or tap, or return to this tab to resume. Auto-pause is enabled; press O to toggle.';
+        try { if (overlay) overlay.setAttribute('data-paused','true'); } catch (e) {}
       } else if (paused) {
         overlayMessage.textContent = 'Paused — Wave: ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' — press P, Esc, or Space to resume';
+        try { if (overlay) overlay.setAttribute('data-paused','true'); } catch (e) {}
       } else {
         overlayMessage.textContent = '';
+        try { if (overlay) overlay.removeAttribute('data-paused'); } catch (e) {}
       }
       // Show resume button when paused (but not when game over); hide otherwise
       if (resumeBtn) {

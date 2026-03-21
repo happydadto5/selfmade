@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: auto-pause now shows a prominent 'Paused' heading when the window loses focus and dims the game (tiny) — 2026-03-21
 - Stability: cap particle count to prevent runaway growth during very long runs (tiny) — 2026-03-21
 - UI: set data-shield-active attribute each frame so CSS tint reliably reflects Shield status — 2026-03-21
 - UI: slightly increase Lives HUD heart size for readability (tiny) — 2026-03-21

@@ -213,6 +213,16 @@ body.show-touch-guides::after {
   max-width: 90%;
 }
 
+/* Prominent paused heading when auto-paused or manually paused — improves visibility for touch and keyboard users */
+#overlay[data-paused="true"] .overlay-message::before {
+  content: "Paused";
+  display: block;
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
 /* Colorblind-friendly palette toggle: subtle, high-contrast UI colors for accessibility */
 body.colorblind-mode{ background:#f6f6e9; }
 body.colorblind-mode #ui{ color:#111; }
