@@ -2443,6 +2443,26 @@ let hitPopTimeout = null;
       try { wt.style.opacity = '1'; wt.style.transform = 'translateX(-50%) translateY(0)'; } catch(e){}
       setTimeout(() => { try { wt.style.opacity = '0'; wt.style.transform = 'translateX(-50%) translateY(-8px)'; } catch(e){} }, 900);
       setTimeout(() => { try { if (wt && wt.parentNode) wt.parentNode.removeChild(wt); } catch(e){} }, 1400);
+
+      // Gameplay tweak: spawn a guaranteed Shield power-up every 2 waves to improve recovery options.
+      try {
+        if (typeof waveNumber === 'number' && waveNumber % 2 === 0) {
+          const spawnX = Math.max(60, Math.min(cw - 60, Math.floor(cw / 2 + (Math.random() - 0.5) * 120)));
+          const spawnY = -20;
+          const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - spawnX) < 48 && Math.abs((p.y||0) - spawnY) < 48);
+          if (!nearbyShield) {
+            if (powerups.length < 6) {
+              powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+              if (powerups.length > 8) powerups.shift();
+            } else {
+              // Replace the oldest to avoid growing the array while ensuring a shield appears
+              try { powerups.shift(); } catch(e){}
+              powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+            }
+          }
+        }
+      } catch (e) { /* ignore spawn tweak errors */ }
+
     } catch (e) { /* ignore toast errors */ }
   }
 
