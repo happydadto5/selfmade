@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Performance: throttle game loop to 1s when auto-paused by focus/visibility to reduce CPU usage — 2026-03-21
+- UI: hide Next Wave button when game is over to avoid confusion (tiny) — 2026-03-21
 - Accessibility: add 'N' keyboard shortcut to advance to the next wave (small) — 2026-03-21
 - Gameplay: increase Shield power-up duration to 16s and starting charges to 3 (small buff) — 2026-03-21
 

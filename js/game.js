@@ -496,7 +496,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.46.0';
+  const version = '7.47.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1541,6 +1541,19 @@ if (overlay) {
           }
         } catch (e) { /* ignore */ }
       }
+      // UI polish: hide the Next Wave button while the game is over to avoid confusing players on touch/keyboard
+      try {
+        const nextBtn = document.getElementById('nextWaveBtn');
+        if (nextBtn) {
+          if (gameOver) {
+            nextBtn.style.display = 'none';
+            try { nextBtn.setAttribute('aria-hidden','true'); } catch(e) {}
+          } else {
+            nextBtn.style.display = '';
+            try { nextBtn.setAttribute('aria-hidden','false'); } catch(e) {}
+          }
+        }
+      } catch (e) { /* ignore next-wave UI errors */ }
 
       // Announce auto-pause to assistive tech when overlay shows a paused message
       try {
