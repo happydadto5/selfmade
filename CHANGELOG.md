@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: show transient wave toast when a new wave starts — 2026-03-21
 - Fix: consolidate shield HUD rendering to avoid duplicate shield badges — 2026-03-21
 - Accessibility: make active power-up badge keyboard-focusable (tabindex) and add focus outline for better screen-reader and keyboard discoverability — 2026-03-21
 - UI: show shield emoji in active power-up HUD for clearer Shield visibility — 2026-03-21

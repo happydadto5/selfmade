@@ -127,6 +127,25 @@
     } catch(e) {}
   }
 
+  // Small transient wave toast: briefly shows a message near the top when waves start or clear.
+  function showWaveToast(msg) {
+    try {
+      var el = document.getElementById('wave-toast');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'wave-toast';
+        el.setAttribute('role', 'status');
+        el.setAttribute('aria-live', 'polite');
+        el.style.pointerEvents = 'none';
+        document.body.appendChild(el);
+      }
+      try { el.textContent = String(msg); } catch(e) {}
+      try { el.classList.add('show'); } catch(e) {}
+      // Auto-hide after a short duration; keep accessible but non-intrusive
+      setTimeout(function(){ try { el.classList.remove('show'); } catch(e) {} }, 1400);
+    } catch(e) { /* ignore */ }
+  }
+
   const scoreEl = document.getElementById('score');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
@@ -257,6 +276,8 @@
                   // Fallback removal in case animationend doesn't fire
                   setTimeout(remover, 900);
                 }
+                // Show a brief transient toast to make wave transitions more visible (non-intrusive and accessible)
+                try { showWaveToast('Wave ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? '/' + maxWaves : '') + ' starting'); } catch(e) {}
               }
             } catch (e) { /* ignore pulse errors */ }
           } catch (e) { /* ignore DOM errors */ }
@@ -434,7 +455,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '7.35.0';
+  const version = '7.36.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
