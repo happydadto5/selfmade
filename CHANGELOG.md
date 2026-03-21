@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 7.85.0
 - UI: touch-fire button gains subtle shield glow when Shield is active (tiny) — 2026-03-21
 
 ## 7.84.0
