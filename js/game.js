@@ -2475,6 +2475,7 @@ let hitPopTimeout = null;
                 try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
                 try { score += 6; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+6', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
                 try { playSound('shield'); } catch (e) {}
+                try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e) {}
                 try { livesPulseUntil = Date.now() + 700; } catch(e) {}
                 try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(40); } catch(e) {}
                 try {
@@ -2549,6 +2550,7 @@ let hitPopTimeout = null;
             try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#81d4fa' }); } catch (e) {}
             try { score += 5; scorePopups.push({ x: player.x + 16, y: player.y - 10, text: '+5', vy: -0.03, life: 800, totalLife: 800, color: '#ffff88' }); } catch(e){}
             try { playSound('shield'); } catch (e) {}
+            try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e) {}
             try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(30); } catch(e) {}
             try {
               // burst of sparkles and larger brighter petals for stronger visual feedback on shield absorb

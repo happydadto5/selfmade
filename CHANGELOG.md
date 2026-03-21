@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Accessibility: focus game canvas when Shield is collected so keyboard users retain focus — 2026-03-21
 - Stability: stop game loop when canvas is removed (prevent background errors during SPA navigation or automated tests) — 2026-03-21
 - Gameplay: spawn guaranteed Shield power-up every 2 waves (tweak) — 2026-03-21
 - Stability: clamp shield charges to zero when consumed to avoid negative shield counts (fix) — 2026-03-21
