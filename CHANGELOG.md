@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.91.0
+- Stability: unify particle cap to 400 to avoid inconsistent limits and improve performance (tiny) — 2026-03-21
+
 ## 7.90.0
 - UI: add in-HUD wave progress bar showing remaining enemy progress for current wave (tiny) — 2026-03-21
 
