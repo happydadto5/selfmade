@@ -21,6 +21,7 @@
 - Gameplay: increase moth spawn rate and add subtle glowing petal trail so sinuous moths are more noticeable (small) — 2026-03-22
 - Gameplay: add soft glowing halo to moth enemies to make them more noticeable (tiny) — 2026-03-22
 - Gameplay: make 'hopper' enemies more noticeable with a pulsing lateral halo (tiny) — 2026-03-22
+- Gameplay: telegraph hopper hops with a small ground shadow when a hop is imminent (tiny) — 2026-03-22
 
 ## 7.107.0
 - Stability: clear pointer/touch state on blur/visibility to avoid stuck controls when the page loses focus (tiny) — 2026-03-21

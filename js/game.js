@@ -4610,6 +4610,17 @@ let hitPopTimeout = null;
           // finally draw the enemy body using the chosen color
           try { ctx.fillStyle = enemyColor; } catch (err) { ctx.fillStyle = '#ff6666'; }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
+      // Draw a subtle ground shadow for hoppers when a hop is imminent to telegraph movement
+      if (e.type === 'hopper' && typeof e.hopTimer !== 'undefined' && e.hopTimer <= 220) {
+        try {
+          const shadowAlpha = Math.max(0.12, 0.6 * (1 - (e.hopTimer / 220)));
+          ctx.save();
+          ctx.globalAlpha = shadowAlpha;
+          ctx.fillStyle = 'rgba(10,34,12,0.18)';
+          ctx.beginPath(); ctx.ellipse(0, e.h/2 + 6, e.w * 1.4, e.h * 0.42, 0, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        } catch (err) { /* ignore shadow draw errors */ }
+      }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
       // Moth visual: add a soft petal-tinted halo so sinuous moths are more noticeable (tiny visual polish)
       try {
