@@ -17,7 +17,8 @@
     }catch(e){}
   }
   // update regularly to reflect HUD updates made by game.js
-  const t = setInterval(updateWaveBar, 250);
+  // Throttle updates slightly to reduce CPU on low-power devices while keeping HUD responsive.
+  const t = setInterval(updateWaveBar, 400);
   // also run once shortly after load
   window.addEventListener('load', () => { setTimeout(updateWaveBar, 200); });
 })();
