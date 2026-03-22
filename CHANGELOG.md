@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: moth enemies now slightly home toward the player for livelier challenge (tiny) — 2026-03-22
 - Gameplay: increase probability of Shield power-up in enemy drops (tiny) — 2026-03-22
 - Gameplay: slightly increase hopper spawn chance so lateral-hopping enemies are more noticeable (tiny) — 2026-03-22
 - Gameplay: bias power-up selection more toward Shield when player is low on lives (tiny) — 2026-03-22

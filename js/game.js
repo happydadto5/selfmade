@@ -2598,6 +2598,11 @@ let hitPopTimeout = null;
           const freq = (typeof e.swayFreq !== 'undefined') ? e.swayFreq : 0.01;
           // scale sway slightly with wave number for subtle challenge increase
           e.x += Math.sin(e.t * freq) * amp * (0.9 + Math.min(0.5, waveNumber*0.01));
+          // Small homing component: when the player is present, moths gently steer toward the player's X
+          // This is kept subtle so moths remain visually swaying but feel slightly more purposeful
+          const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
+          const homing = 0.0016 + Math.min(0.006, waveNumber * 0.00035);
+          e.vx = ((e.vx || 0) * 0.88) + Math.max(-1.2, Math.min(1.2, dx * homing));
         } catch (err) { /* ignore moth update errors */ }
       }
       // Charger behavior: drift towards player and occasionally perform a short high-speed downward charge
