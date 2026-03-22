@@ -2,6 +2,7 @@
 
 ## Unreleased
 - UI: display remaining power-up duration as a countdown on HUD power-up icons (tiny) — 2026-03-22
+- Visual/Gameplay: add brief firing recoil and muzzle flash to improve fire feedback (tiny) — 2026-03-22
 - Gameplay: stronger shield low-charge highlight and pulsing ring to make imminent depletion more visible (tiny) — 2026-03-22
 - Gameplay: increase mulch drop chance from weevils to ~45% so Mulch feels more available (tiny) — 2026-03-22
 - Gameplay: slightly increase power-up drop rate so power-ups feel more frequent and recovery is friendlier (small) — 2026-03-22

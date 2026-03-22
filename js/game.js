@@ -2561,6 +2561,9 @@ let hitPopTimeout = null;
       }
       player.cooldown = Math.max(30, Math.round(180 / (player.fireRate || 1))); // ms (respect player's fireRate, min cap)
       lastFireFlashUntil = Date.now() + 120; // brief muzzle flash for firing feedback
+      try {
+        if (!prefersReducedMotion) { player.recoilUntil = Date.now() + 90; player.recoilX = (Math.random() - 0.5) * 6; player.recoilY = - (1 + Math.random() * 2); } else { player.recoilUntil = 0; player.recoilX = 0; player.recoilY = 0; }
+      } catch (e) {}
       // Small garden-themed leaf particles on fire for visual feedback (tiny, low-cost)
       try {
         for (let lp = 0; lp < 2; lp++) {
@@ -4130,7 +4133,11 @@ let hitPopTimeout = null;
     }
 
     ctx.save();
-    ctx.translate(player.x, player.y);
+    try {
+      const _recoilX = (player && Date.now() < (player.recoilUntil || 0) && !prefersReducedMotion) ? (player.recoilX || 0) : 0;
+      const _recoilY = (player && Date.now() < (player.recoilUntil || 0) && !prefersReducedMotion) ? (player.recoilY || 0) : 0;
+      ctx.translate((player && typeof player.x === 'number' ? player.x : 0) + _recoilX, (player && typeof player.y === 'number' ? player.y : 0) + _recoilY);
+    } catch (e) { try { ctx.translate(player.x, player.y); } catch (e2) {} }
     // Brief muzzle flash when firing to improve feedback on touch and keyboard/mouse
     try {
       if (Date.now() < lastFireFlashUntil) {
@@ -4287,7 +4294,11 @@ let hitPopTimeout = null;
     try {
       if (Date.now() < (player.shieldUntil || 0)) {
         ctx.save();
-        ctx.translate(player.x, player.y);
+        try {
+          const _recoilX = (player && Date.now() < (player.recoilUntil || 0) && !prefersReducedMotion) ? (player.recoilX || 0) : 0;
+          const _recoilY = (player && Date.now() < (player.recoilUntil || 0) && !prefersReducedMotion) ? (player.recoilY || 0) : 0;
+          ctx.translate((player && typeof player.x === 'number' ? player.x : 0) + _recoilX, (player && typeof player.y === 'number' ? player.y : 0) + _recoilY);
+        } catch (e) { try { ctx.translate(player.x, player.y); } catch (e2) {} }
         // Show a subtle pulse and alpha change based on remaining shield time so players can see when it will expire
         const _remaining = Math.max(0, (player.shieldUntil || 0) - Date.now());
         const _frac = Math.max(0, Math.min(1, _remaining / 20000)); // fraction of 20s duration remaining
@@ -4333,7 +4344,11 @@ let hitPopTimeout = null;
         try {
           if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
             ctx.save();
-            ctx.translate(player.x, player.y);
+            try {
+              const _recoilX = (player && Date.now() < (player.recoilUntil || 0) && !prefersReducedMotion) ? (player.recoilX || 0) : 0;
+              const _recoilY = (player && Date.now() < (player.recoilUntil || 0) && !prefersReducedMotion) ? (player.recoilY || 0) : 0;
+              ctx.translate((player && typeof player.x === 'number' ? player.x : 0) + _recoilX, (player && typeof player.y === 'number' ? player.y : 0) + _recoilY);
+            } catch (e) { try { ctx.translate(player.x, player.y); } catch (e2) {} }
             const charges = Math.min(3, player.shieldCharges);
             const spacing = 14;
             for (let si = 0; si < charges; si++) {
