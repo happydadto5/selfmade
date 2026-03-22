@@ -2781,6 +2781,11 @@ let hitPopTimeout = null;
                 }
                 try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
                 try { addScoreAndPopup(6, player.x + 16, player.y - 10, '#ffff88'); } catch(e){}
+                // Small tactile/gamefeel improvement: give shield absorb a brief screen shake and player flash so it's more noticeable
+                try { screenShake = Math.max(typeof screenShake === 'number' ? screenShake : 0, 8); } catch(e){}
+                try { canvasPlayerHitFlashUntil = Date.now() + 420; } catch(e){}
+                try { if (typeof playSound === 'function') playSound('shield'); } catch(e){}
+                try { for (let k=0;k<6;k++) particles.push({ x: player.x + (Math.random()-0.5)*18, y: player.y + (Math.random()-0.5)*8, vx: (Math.random()-0.5)*1.6, vy: -0.8 - Math.random()*1.2, r: 6+Math.random()*6, life: 420+Math.random()*240, born: Date.now(), color: (Math.random() < 0.5 ? '#ffd54f' : '#ffcc80'), petal: true, spin: (Math.random()-0.5)*0.18 }); } catch(e){}
                 try { playSound('shield'); } catch (e) {}
                 try { if (canvas && typeof canvas.focus === 'function') canvas.focus(); } catch(e) {}
                 try { livesPulseUntil = Date.now() + 700; } catch(e) {}
