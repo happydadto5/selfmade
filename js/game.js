@@ -2351,7 +2351,7 @@ let hitPopTimeout = null;
       // Small chance for a "pest" enemy that splits into two mini pests on death
       const isBee = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.02);
       // Small chance for a "moth" enemy that sways horizontally in a sinuous pattern
-      const isMoth = Math.random() < Math.min(0.25, 0.06 + waveNumber*0.02);
+      const isMoth = Math.random() < Math.min(0.35, 0.10 + waveNumber*0.025);
       // Small chance for a "sprout" enemy (small garden sprout, low HP, green-themed)
       const isSprout = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
