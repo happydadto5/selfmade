@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.31.0
 - Stability: clear scheduled spawn timers when player manually pauses to prevent enemies from spawning while paused (tiny) — 2026-03-22
 
 ## 8.30.0
