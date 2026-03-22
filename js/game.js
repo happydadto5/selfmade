@@ -2354,7 +2354,7 @@ let hitPopTimeout = null;
       const isBee = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.02);
       // Small chance for a "moth" enemy that sways horizontally in a sinuous pattern
       // Increased base chance and cap so moths are more noticeable without changing difficulty much
-      const isMoth = Math.random() < Math.min(0.45, 0.14 + waveNumber*0.03);
+      const isMoth = Math.random() < Math.min(0.55, 0.18 + waveNumber*0.035);
       // Small chance for a "sprout" enemy (small garden sprout, low HP, green-themed)
       const isSprout = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
@@ -5190,6 +5190,7 @@ let hitPopTimeout = null;
 
 
 })();
+
 
 
 
