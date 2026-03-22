@@ -2553,11 +2553,27 @@ let hitPopTimeout = null;
         bullets.push({x:player.x, y:player.y-28, vy:_bv_center, r:6});
         bullets.push({x:player.x - 8, y:player.y-28, vx:-1.6, vy:_bv_angled, r:5});
         bullets.push({x:player.x + 8, y:player.y-28, vx:1.6, vy:_bv_angled, r:5});
+        // Rapid fire muzzle/trail particles for stronger feedback
+        if (_rapid) {
+          try {
+            for (let p = 0; p < 3; p++) {
+              particles.push({ x: player.x + (Math.random()-0.5)*8, y: player.y - 24 + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*0.8, vy: -1.2 - Math.random()*0.6, r: 1 + Math.random()*2, life: 220 + Math.random()*160, born: Date.now(), color: '#ffe082' });
+            }
+          } catch(e){}
+        }
       } else {
         // adjust bullet speed when Rapid power-up is active
         const _rapid = Date.now() < (player.fireRateUntil || 0);
         const _bv = _rapid ? -11 : -10;
         bullets.push({x:player.x, y:player.y-28, vy:_bv, r:6});
+        // Rapid fire muzzle/trail particles for stronger feedback
+        if (_rapid) {
+          try {
+            for (let p = 0; p < 3; p++) {
+              particles.push({ x: player.x + (Math.random()-0.5)*8, y: player.y - 24 + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*0.8, vy: -1.2 - Math.random()*0.6, r: 1 + Math.random()*2, life: 220 + Math.random()*160, born: Date.now(), color: '#ffe082' });
+            }
+          } catch(e){}
+        }
       }
       player.cooldown = Math.max(30, Math.round(180 / (player.fireRate || 1))); // ms (respect player's fireRate, min cap)
       lastFireFlashUntil = Date.now() + 120; // brief muzzle flash for firing feedback
