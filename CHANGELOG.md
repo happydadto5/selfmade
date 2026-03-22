@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: announce Next Wave availability via assistive live region when Next Wave button appears (tiny) — 2026-03-22
+
 ## 8.38.0
 - Visual: stronger enemy hit flash overlay for clearer damage feedback (tiny) — 2026-03-22
 

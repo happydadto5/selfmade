@@ -485,13 +485,24 @@
           // Show Next Wave button only when the current wave is cleared and the game is not over. This reduces UI clutter during active waves and makes progression clearer.
           try {
             if (nextWaveBtn) {
-              if (!gameOver && total > 0 && present === 0) {
-                nextWaveBtn.style.display = '';
-                nextWaveBtn.setAttribute('aria-hidden', 'false');
-              } else {
-                nextWaveBtn.style.display = 'none';
-                nextWaveBtn.setAttribute('aria-hidden', 'true');
-              }
+              try {
+                const becomingVisible = (!nextWaveBtn._wasVisible && !gameOver && total > 0 && present === 0);
+                if (!gameOver && total > 0 && present === 0) {
+                  nextWaveBtn.style.display = '';
+                  nextWaveBtn.setAttribute('aria-hidden', 'false');
+                } else {
+                  nextWaveBtn.style.display = 'none';
+                  nextWaveBtn.setAttribute('aria-hidden', 'true');
+                }
+                // Announce when Next Wave becomes available for assistive tech (avoid repeating)
+                try {
+                  if (becomingVisible) {
+                    const ann = getAutopauseAnnouncer();
+                    if (ann) ann.textContent = 'Next wave available';
+                  }
+                } catch(e){}
+                nextWaveBtn._wasVisible = (!gameOver && total > 0 && present === 0);
+              } catch(e) {}
             }
           } catch (e) { /* ignore nextWaveBtn DOM errors */ }
         } catch (e) { /* ignore DOM errors */ }
