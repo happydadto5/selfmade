@@ -2375,7 +2375,7 @@ if (overlay) {
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, shieldCharges: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
-  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0; let shieldPulseUntil = 0, shieldPulseX = 0, shieldPulseY = 0;
+  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0; let shieldPulseUntil = 0, shieldPulseX = 0, shieldPulseY = 0; let lastKillAt = 0; let killCombo = 0;
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let shieldNearbyHintUntil = 0;
@@ -3394,6 +3394,7 @@ let hitPopTimeout = null;
               addScoreAndPopup(base + comboBonus, e.x, e.y, '#ffff88');
               if (killCombo > 1) {
                 try { scorePopups.push({ x: e.x, y: e.y - 18, text: 'Combo x' + killCombo + ' +' + comboBonus, vy: -0.08, life: 900, totalLife: 900, color: '#ffd54f' }); } catch (e) {}
+                try { if (scoreEl) { scoreEl.classList.add('hud-combo'); setTimeout(function(){ try { scoreEl.classList.remove('hud-combo'); } catch(e){} }, 520); } } catch(e) {}
               }
             } catch(e) {}
             // pest split: spawn two small mini-pests at the death location when a pest dies
