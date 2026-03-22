@@ -4253,10 +4253,10 @@ let hitPopTimeout = null;
         try {
           ctx.save();
           ctx.beginPath();
-          ctx.strokeStyle = 'rgba(33,150,243,0.72)';
+          ctx.strokeStyle = 'rgba(102,187,106,0.78)';
           ctx.lineWidth = 4;
           // subtle shadow for a gentle glow (keeps effect low-cost)
-          ctx.shadowColor = 'rgba(129,212,250,0.55)';
+          ctx.shadowColor = 'rgba(165,214,167,0.55)';
           ctx.shadowBlur = 8;
           ctx.ellipse(0, 0, player.w * 1.9, player.h * 1.9, 0, 0, Math.PI * 2);
           ctx.stroke();
@@ -4289,7 +4289,7 @@ let hitPopTimeout = null;
             ctx.save();
             ctx.translate(0, -player.h - 14);
             // stronger fill for readability on varied backgrounds
-            ctx.fillStyle = 'rgba(33,150,243,0.95)';
+            ctx.fillStyle = 'rgba(102,187,106,0.95)';
             for (let i = 0; i < charges; i++) {
               const cx = (i - (charges - 1) / 2) * 10;
               ctx.beginPath();
@@ -4314,7 +4314,7 @@ let hitPopTimeout = null;
             // outline for readability on busy backgrounds
             ctx.lineWidth = 3;
             ctx.strokeStyle = 'rgba(0,0,0,0.6)';
-            ctx.fillStyle = 'rgba(129,212,255,0.98)';
+            ctx.fillStyle = 'rgba(165,214,167,0.98)';
             const txt = remSec + 's';
             try { ctx.strokeText(txt, 0, 0); } catch (e) {}
             try { ctx.fillText(txt, 0, 0); } catch (e) {}

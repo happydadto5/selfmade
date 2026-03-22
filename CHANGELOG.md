@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual: make Shield visuals more garden-themed — green shield ring, charge dots, and timer color (tiny) — 2026-03-22
 - Audio: add distinct enemy-death oscillator for stronger feedback (tiny) — 2026-03-22
 - Gameplay: add small 'caterpillar' enemy: slow, sinuous mover that sheds leaf particles to increase variety (tiny) — 2026-03-22
 - Gameplay: make Mulch power-up more noticeable — HUD shows 🌿 label, announcer and popup include 🌿, and HUD power color set to green (tiny) — 2026-03-22
