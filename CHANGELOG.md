@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.33.0
 - UX: mention N keyboard shortcut in session tip so players discover wave advance (tiny) — 2026-03-22
 
 ## 8.32.0
