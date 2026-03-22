@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/Gameplay: Spawn extra petal particles when Shield absorbs an enemy to make shield feedback more noticeable (tiny) — 2026-03-22
 - Gameplay: emphasize wave starts with slightly longer banner and stronger shake so wave transitions are more noticeable (tiny) — 2026-03-22
 - Gameplay: make Mulch pickups more noticeable with subtle ground tint and HUD attribute (🌱) — 2026-03-22
 - Visual: make Shield visuals more garden-themed — green shield ring, charge dots, and timer color (tiny) — 2026-03-22

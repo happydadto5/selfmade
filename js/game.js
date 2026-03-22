@@ -2881,7 +2881,25 @@ let hitPopTimeout = null;
                   player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
                 }
                 try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
-                try { shieldPulseUntil = Date.now() + 420; shieldPulseX = player.x; shieldPulseY = player.y; } catch(e) {}
+                try { shieldPulseUntil = Date.now() + 420; shieldPulseX = player.x; shieldPulseY = player.y; 
+      // Spawn small garden-petal particles to make shield-absorb feedback more visible and satisfying
+      try {
+        const petalColors = ['#ffd7e6','#ffe082','#f8bbd0','#a5d6a7'];
+        for (let _i = 0; _i < 8; _i++) {
+          const ang = Math.random() * Math.PI * 2;
+          const spd = 0.8 + Math.random() * 1.6;
+          particles.push({
+            x: (player && typeof player.x === 'number') ? (player.x + (Math.random()*10-5)) : (cw/2 + (Math.random()*10-5)),
+            y: (player && typeof player.y === 'number') ? (player.y + (Math.random()*8-4)) : (ch/2 + (Math.random()*8-4)),
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd - 0.5,
+            life: 600 + Math.random() * 400,
+            color: petalColors[Math.floor(Math.random() * petalColors.length)],
+            size: 6 + Math.random() * 6
+          });
+        }
+      } catch (e) {}
+    } catch(e) {}
                 try { addScoreAndPopup(6, player.x + 16, player.y - 10, '#ffff88'); } catch(e){}
                 // Small tactile/gamefeel improvement: give shield absorb a brief screen shake and player flash so it's more noticeable
                 try { screenShake = Math.max(typeof screenShake === 'number' ? screenShake : 0, 8); } catch(e){}
