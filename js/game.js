@@ -3329,11 +3329,11 @@ let hitPopTimeout = null;
             // Add a small screen-shake and hit sound/vibration for non-lethal enemy hits to improve feedback
             try {
               // Slightly stronger screen shake for clearer hit feedback (small, capped)
-              screenShake = Math.min(8, (screenShake || 0) + 3);
+              screenShake = Math.min(12, (screenShake || 0) + 4);
               // very brief hit-stop (freeze-frame) to improve perceived impact
-              try { hitStopUntil = performance.now() + 60; } catch (err) { hitStopUntil = Date.now() + 60; }
+              try { hitStopUntil = performance.now() + 80; } catch (err) { hitStopUntil = Date.now() + 80; }
               try { playSound('hit'); } catch (e) { /* ignore sound errors */ }
-              try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(12); } catch (e) { /* ignore vibration errors */ }
+              try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(18); } catch (e) { /* ignore vibration errors */ }
             } catch (e) { /* ignore feedback errors */ }
           }
           if (e.hp <= 0) {
