@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.41.0
+- UI: Increase wave-cleared toast duration and emphasize final-wave toast (tiny) — 2026-03-22
+
 ## 8.40.0
 - Gameplay: show 'Shield +1' popup when collecting an extra shield charge for clearer feedback (tiny) — 2026-03-22
 
