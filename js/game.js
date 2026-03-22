@@ -2418,7 +2418,21 @@ if (overlay) {
       try { if (typeof _highScoreSaveTimeout !== 'undefined' && _highScoreSaveTimeout) { clearTimeout(_highScoreSaveTimeout); _highScoreSaveTimeout = null; } } catch (e) {}
       try { if (resizeTimeout) { clearTimeout(resizeTimeout); resizeTimeout = null; } } catch (e) {}
       try { if (typeof hitPopTimeout !== 'undefined' && hitPopTimeout) { clearTimeout(hitPopTimeout); hitPopTimeout = null; } } catch (e) {}
+      try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
+      try { if (audioCtx && audioCtx.state === 'running') { try { audioCtx.suspend(); suspendedAudioByFocus = true; } catch(e){} } } catch (e) {}
     }, { passive: true });
+
+    // Also handle pagehide (bfcache/unload alternative) to ensure timers are cleared and audio suspended reliably on mobile/embedded browsers.
+    try {
+      window.addEventListener('pagehide', () => {
+        try { if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
+        try { if (typeof _highScoreSaveTimeout !== 'undefined' && _highScoreSaveTimeout) { clearTimeout(_highScoreSaveTimeout); _highScoreSaveTimeout = null; } } catch (e) {}
+        try { if (resizeTimeout) { clearTimeout(resizeTimeout); resizeTimeout = null; } } catch (e) {}
+        try { if (typeof hitPopTimeout !== 'undefined' && hitPopTimeout) { clearTimeout(hitPopTimeout); hitPopTimeout = null; } } catch (e) {}
+        try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
+        try { if (audioCtx && audioCtx.state === 'running') { try { audioCtx.suspend(); suspendedAudioByFocus = true; } catch(e){} } } catch (e) {}
+      }, { passive: true });
+    } catch(e) {}
   } catch (e) { /* ignore unload handler errors */ }
 
   // Kick off the first wave immediately so HUD shows an active wave on load

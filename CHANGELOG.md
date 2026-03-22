@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: clear blur timeout and suspend audio on pagehide/unload to avoid timers and audio after unload (tiny) — 2026-03-22
+
 ## 8.29.0
 - Audio: add master gain for immediate mute/unmute so muting silences ongoing sounds (tiny) — 2026-03-22
 
