@@ -15,7 +15,7 @@
 - Gameplay: tune Shield power-up: base duration reduced to 15s and per-pickup extension reduced to 6s for better balance (tiny) — 2026-03-22
 - Shield pickup: increase brief post-pickup invulnerability to 1.3s to improve pickup feel.
 - Gameplay: reduce power-up pickup radius on non-touch devices to reward active collection (tiny) — 2026-03-22
-- Fix: Active power-up HUD updates label & timer without removing inner elements (tiny) — 2026-03-22
+- Fix: Active power-up HUD preserves inner elements and shows power-up timer fill for active powers (tiny) — 2026-03-22
 
 - UI: display remaining power-up duration as a countdown on HUD power-up icons (tiny) — 2026-03-22
 - Visual/Gameplay: add brief firing recoil and muzzle flash to improve fire feedback (tiny) — 2026-03-22

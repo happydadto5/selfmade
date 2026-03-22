@@ -451,9 +451,44 @@
                 _pa.textContent = 'Shield expired';
               }
             } catch (e) {}
-            // Update active power HUD
-            activePowerEl.textContent = text;
-            activePowerEl.setAttribute('aria-hidden', text ? 'false' : 'true');
+            // Update active power HUD without removing inner elements (preserve .power-label and .power-timer)
+            try {
+              let label = activePowerEl.querySelector('.power-label');
+              if (!label) {
+                label = document.createElement('span');
+                label.className = 'power-label';
+                activePowerEl.insertBefore(label, activePowerEl.firstChild);
+              }
+              label.textContent = text;
+              activePowerEl.setAttribute('aria-hidden', text ? 'false' : 'true');
+              // Update timer fill if present and we can compute remaining duration
+              try {
+                const timerFill = activePowerEl.querySelector('.power-timer .power-timer-fill');
+                if (timerFill) {
+                  let remaining = 0, total = 1000;
+                  if (player && now < (player.shieldUntil || 0)) {
+                    remaining = Math.max(0, (player.shieldUntil || 0) - now);
+                    total = (player._shieldDuration && player._shieldDuration > 0) ? player._shieldDuration : 18000;
+                  } else if (player && now < (player.fireRateUntil || 0)) {
+                    remaining = Math.max(0, (player.fireRateUntil || 0) - now);
+                    total = Math.max(remaining, 6000);
+                  } else if (player && now < (player.spreadUntil || 0)) {
+                    remaining = Math.max(0, (player.spreadUntil || 0) - now);
+                    total = Math.max(remaining, 6000);
+                  } else if (player && now < (player.mulchUntil || 0)) {
+                    remaining = Math.max(0, (player.mulchUntil || 0) - now);
+                    total = Math.max(remaining, 6000);
+                  } else if (player && now < (player.slowUntil || 0)) {
+                    remaining = Math.max(0, (player.slowUntil || 0) - now);
+                    total = Math.max(remaining, 6000);
+                  } else {
+                    remaining = 0; total = 1000;
+                  }
+                  const pct = total > 0 ? Math.round((remaining / total) * 100) : 0;
+                  timerFill.style.width = pct + '%';
+                }
+              } catch (e) {}
+            } catch (e) {}
             // Toggle a shield-active class when Shield is the current active power-up so CSS can add a subtle glow
             try {
               if (text && String(text).trim().indexOf('🛡') === 0) { activePowerEl.classList.add('shield-active'); }
