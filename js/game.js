@@ -987,7 +987,7 @@
     const g = audioCtx.createGain();
     o.connect(g); g.connect(audioCtx.destination);
     if (type === 'fire') { o.type = 'square'; o.frequency.setValueAtTime(880, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.12); }
-    else if (type === 'hit') { o.type = 'sawtooth'; o.frequency.setValueAtTime(220, now); g.gain.setValueAtTime(0.03, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18); }
+    else if (type === 'hit') { o.type = 'sawtooth'; o.frequency.setValueAtTime(260, now); o.frequency.linearRampToValueAtTime(420, now + 0.06); g.gain.setValueAtTime(0.035, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.22); }
     else if (type === 'wave') { 
       // Distinct two-tone chime for wave starts: triangle wave that glides up slightly
       o.type = 'triangle';
@@ -1033,6 +1033,17 @@
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
       o.start(now);
       o.stop(now + 0.28);
+      return;
+    }
+    else if (type === 'explode') {
+      // Short sharp oscillator for enemy death (satisfying, lightweight)
+      o.type = 'square';
+      o.frequency.setValueAtTime(360, now);
+      o.frequency.linearRampToValueAtTime(600, now + 0.06);
+      g.gain.setValueAtTime(0.04, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+      o.start(now);
+      o.stop(now + 0.18);
       return;
     }
     else { o.type='sine'; o.frequency.setValueAtTime(440, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1); }
