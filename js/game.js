@@ -2615,6 +2615,7 @@ let hitPopTimeout = null;
         }
       } catch (e) { /* ignore particle errors */ }
       playSound('fire');
+      try { if (!prefersReducedMotion) screenShake = Math.min(6, (screenShake || 0) + 1); } catch(e) {}
     }
 
     for (let i=bullets.length-1;i>=0;i--) {
