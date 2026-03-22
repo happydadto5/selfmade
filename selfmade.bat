@@ -243,11 +243,6 @@ if "%FAILURE_HINT_EXIT%"=="0" (
 del "%FAILURE_HINT_LOG%" >nul 2>&1
 del "%FAILURE_HINT_ERR%" >nul 2>&1
 call :LOG Recent failure hint: %RECENT_FAILURE_HINT%
-if /I not "%RECENT_FAILURE_HINT%"=="none" (
-    set "ITERATION_FOCUS=reliability"
-    set "ITERATION_FOCUS_HINT=fix-the-recent-repeated-failure-first-or-make-only-a-small-safe-change-away-from-the-failing-area"
-    call :LOG Overriding iteration focus to reliability due to repeated failure hint.
-)
 del "%DEEP_SUGGESTION_LOG%" >nul 2>&1
 del "%DEEP_SUGGESTION_ERR%" >nul 2>&1
 node scripts\deep_suggestion_status.js > "%DEEP_SUGGESTION_LOG%" 2> "%DEEP_SUGGESTION_ERR%"
@@ -278,6 +273,11 @@ if "%ITERATION_FOCUS_EXIT%"=="0" (
 )
 del "%ITERATION_FOCUS_LOG%" >nul 2>&1
 del "%ITERATION_FOCUS_ERR%" >nul 2>&1
+if /I not "%RECENT_FAILURE_HINT%"=="none" (
+    set "ITERATION_FOCUS=reliability"
+    set "ITERATION_FOCUS_HINT=fix-the-recent-repeated-failure-first-or-make-only-a-small-safe-change-away-from-the-failing-area"
+    call :LOG Overriding iteration focus to reliability due to repeated failure hint.
+)
 call :LOG Iteration focus: %ITERATION_FOCUS% -- %ITERATION_FOCUS_HINT%
 set "PROMPT_EXTRA=ImageStatusSmall:%IMAGE_STATUS_SMALL% ImageStatusLarge:%IMAGE_STATUS_LARGE% ProcessReview:%PROCESS_REVIEW% MetaReviewDue:%META_REVIEW_DUE% UiReviewDue:%UI_REVIEW_DUE% UiReviewScreenshot:%UI_REVIEW_SCREENSHOT% RecentFailureHint:%RECENT_FAILURE_HINT% DeepSuggestionHint:%DEEP_SUGGESTION_HINT% IterationFocus:%ITERATION_FOCUS% IterationFocusHint:%ITERATION_FOCUS_HINT%"
 set "COPILOT_OUT=%TEMP%\selfmade_copilot.txt"
