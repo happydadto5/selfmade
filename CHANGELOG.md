@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.26.0
 - Visual: add subtle vertical parallax to garden background for livelier atmosphere (tiny) — 2026-03-22
 
 ## 8.25.0
