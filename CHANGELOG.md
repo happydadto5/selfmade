@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.29.0
+- Audio: add master gain for immediate mute/unmute so muting silences ongoing sounds (tiny) — 2026-03-22
+
 ## 8.28.0
 - Gameplay: grant short invulnerability after losing a life to avoid immediate follow-up deaths (tiny) — 2026-03-22
 

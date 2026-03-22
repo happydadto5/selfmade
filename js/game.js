@@ -702,7 +702,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.28.0';
+  const version = '8.29.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1069,6 +1069,8 @@
 
   // Simple WebAudio effects (oscillators only). Created on first user gesture to satisfy autoplay policies.
   let audioCtx = null;
+  // Master gain node to allow immediate global mute/unmute (silences ongoing AudioNode outputs)
+  let masterGain = null;
   // sound toggle persisted in localStorage ('1' = on, '0' = off)
   let soundEnabled;
   try {
@@ -1083,6 +1085,14 @@
     if (!audioCtx) {
       try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { audioCtx = null; }
     }
+    // Ensure a master gain node exists so muting can silence ongoing sounds immediately
+    try {
+      if (audioCtx && !masterGain) {
+        masterGain = audioCtx.createGain();
+        try { masterGain.connect(audioCtx.destination); } catch(e) { /* ignore connect errors */ }
+        try { masterGain.gain.setValueAtTime(soundEnabled ? 1 : 0, audioCtx.currentTime); } catch(e) { /* ignore timing errors */ }
+      }
+    } catch (e) { /* ignore masterGain creation errors */ }
     // If the context is suspended (autoplay policy), try to resume it on first user gesture.
     if (audioCtx && audioCtx.state === 'suspended') {
       audioCtx.resume().catch(() => { /* ignore resume failures */ });
@@ -1101,7 +1111,8 @@
     const now = audioCtx.currentTime;
     const o = audioCtx.createOscillator();
     const g = audioCtx.createGain();
-    o.connect(g); g.connect(audioCtx.destination);
+    o.connect(g);
+    try { if (masterGain) g.connect(masterGain); else g.connect(audioCtx.destination); } catch (e) { try { g.connect(audioCtx.destination); } catch(e){} }
     if (type === 'fire') { o.type = 'square'; o.frequency.setValueAtTime(880, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.12); }
     else if (type === 'hit') { o.type = 'sawtooth'; o.frequency.setValueAtTime(260, now); o.frequency.linearRampToValueAtTime(420, now + 0.06); g.gain.setValueAtTime(0.035, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.22); }
     else if (type === 'wave') { 
@@ -1181,6 +1192,7 @@
       soundEnabled = !soundEnabled;
       try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();
+      try { if (masterGain && audioCtx) { masterGain.gain.setValueAtTime(soundEnabled ? 1 : 0, audioCtx.currentTime); } } catch(e) {}
       updateMuteUI();
     });
     // Allow keyboard activation (Enter / Space) when the mute button is focused
@@ -1405,6 +1417,7 @@
       soundEnabled = !soundEnabled;
       try { localStorage.setItem('selfmade_sound', soundEnabled ? '1' : '0'); } catch (e) { /* ignore storage errors */ }
       if (soundEnabled) ensureAudio();
+      try { if (masterGain && audioCtx) { masterGain.gain.setValueAtTime(soundEnabled ? 1 : 0, audioCtx.currentTime); } } catch(e) {}
       updateMuteUI();
     }
     // 'F' toggles fullscreen mode for a more immersive experience (shortcut: F)
