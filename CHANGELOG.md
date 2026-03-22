@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: make Next Wave button larger and more prominent for better discoverability (tiny) — 2026-03-22
 - Visual: stronger enemy-death petal burst and small kill popup for clearer feedback (tiny) — 2026-03-22
 - Gameplay: spawn a guaranteed Shield power-up every wave (improves recovery/pacing) — 2026-03-22
 - Visual/Gameplay: make Shield absorb feedback more noticeable (larger petal burst, longer pulse) (tiny) — 2026-03-22
