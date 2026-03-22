@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: slightly increase moth spawn chance to make moths more noticeable (tiny) — 2026-03-22
 - Gameplay: slightly increase power-up drop frequency to make pickups more common (tiny) — 2026-03-22
 - Gameplay: add new 'beetle' enemy type (spawn and scuttling behavior) — 2026-03-22
 - Gameplay: slightly increase moth spawn chance to make them more noticeable (tiny) — 2026-03-22
