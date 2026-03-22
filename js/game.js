@@ -2431,7 +2431,7 @@ let hitPopTimeout = null;
         enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:10 + Math.random()*6, swayFreq: 0.01 + Math.random()*0.01, t: Math.random()*1000});
       } else if (isHopper) {
         // hopper: medium descent, performs lateral hops for visual and gameplay variety
-        enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.9, vx:0, hp:1, maxHp:1, type:'hopper', hopTimer: 420 + Math.random()*480, hopStrength: 1.6 + Math.random()*1.6, t: Math.random()*1000});
+        enemies.push({x:ex,y:ey,w:28,h:24,vy:speed*0.9, vx:0, hp:1, maxHp:1, type:'hopper', hopTimer: 360 + Math.random()*420, hopStrength: 2.4 + Math.random()*1.8, t: Math.random()*1000});
       } else if (isSprout) {
         // sprout: small garden sprout, slightly slow, low HP, subtle horizontal drift
         enemies.push({x:ex,y:ey,w:22,h:20,vy:speed*0.65, vx:(Math.random()-0.5)*0.4, hp:1, maxHp:1, type:'sprout', t: Math.random()*1000});
