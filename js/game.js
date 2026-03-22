@@ -4686,8 +4686,22 @@ let hitPopTimeout = null;
         const baseColor = isShield ? '#29b6f6' : '#66bb6a';
         ctx.fillStyle = baseColor;
         // slightly larger base radius for shield to improve discoverability
-        const baseRadius = isShield ? 12 : 10;
-        ctx.beginPath(); ctx.arc(pu.x, pu.y, baseRadius, 0, Math.PI*2); ctx.fill();
+        const baseRadius = isShield ? 14 : 10;
+        // Draw with a soft glow for shields to make them more noticeable (keeps effect low-cost and reversible)
+        if (isShield) {
+          try {
+            ctx.save();
+            ctx.shadowColor = 'rgba(129,212,255,0.65)';
+            ctx.shadowBlur = 16;
+            ctx.beginPath(); ctx.arc(pu.x, pu.y, baseRadius, 0, Math.PI*2); ctx.fill();
+            ctx.restore();
+          } catch (e) {
+            // fallback if shadow APIs fail
+            ctx.beginPath(); ctx.arc(pu.x, pu.y, baseRadius, 0, Math.PI*2); ctx.fill();
+          }
+        } else {
+          ctx.beginPath(); ctx.arc(pu.x, pu.y, baseRadius, 0, Math.PI*2); ctx.fill();
+        }
         // subtle pulsing ring to make power-ups more discoverable (respects reduced-motion preference)
         try {
           if (!(typeof prefersReducedMotion !== 'undefined' && prefersReducedMotion)) {
