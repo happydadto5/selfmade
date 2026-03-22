@@ -23,6 +23,7 @@ set "UI_REVIEW_LOG=%TEMP%\selfmade_ui_review.txt"
 set "UI_REVIEW_ERR=%TEMP%\selfmade_ui_review_error.txt"
 set "FAILURE_HINT_LOG=%TEMP%\selfmade_failure_hint.txt"
 set "FAILURE_HINT_ERR=%TEMP%\selfmade_failure_hint_error.txt"
+set "FAILURE_RECORD_LOG=%TEMP%\selfmade_failure_record.txt"
 set "DEEP_SUGGESTION_LOG=%TEMP%\selfmade_deep_suggestion.txt"
 set "DEEP_SUGGESTION_ERR=%TEMP%\selfmade_deep_suggestion_error.txt"
 set "ITERATION_FOCUS_LOG=%TEMP%\selfmade_iteration_focus.txt"
@@ -228,6 +229,7 @@ if /I "%UI_REVIEW_DUE%"=="YES" (
 call :LOG Android UI review screenshot: %UI_REVIEW_SCREENSHOT%
 del "%FAILURE_HINT_LOG%" >nul 2>&1
 del "%FAILURE_HINT_ERR%" >nul 2>&1
+del "%FAILURE_RECORD_LOG%" >nul 2>&1
 node scripts\recent_failure_hint.js > "%FAILURE_HINT_LOG%" 2> "%FAILURE_HINT_ERR%"
 set "FAILURE_HINT_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%FAILURE_HINT_ERR%" "recent failure hint"
@@ -241,6 +243,11 @@ if "%FAILURE_HINT_EXIT%"=="0" (
 del "%FAILURE_HINT_LOG%" >nul 2>&1
 del "%FAILURE_HINT_ERR%" >nul 2>&1
 call :LOG Recent failure hint: %RECENT_FAILURE_HINT%
+if /I not "%RECENT_FAILURE_HINT%"=="none" (
+    set "ITERATION_FOCUS=reliability"
+    set "ITERATION_FOCUS_HINT=fix-the-recent-repeated-failure-first-or-make-only-a-small-safe-change-away-from-the-failing-area"
+    call :LOG Overriding iteration focus to reliability due to repeated failure hint.
+)
 del "%DEEP_SUGGESTION_LOG%" >nul 2>&1
 del "%DEEP_SUGGESTION_ERR%" >nul 2>&1
 node scripts\deep_suggestion_status.js > "%DEEP_SUGGESTION_LOG%" 2> "%DEEP_SUGGESTION_ERR%"
@@ -377,6 +384,9 @@ node scripts\validate.js > "%VALIDATE_LOG%" 2>&1
 set "VALIDATE_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%VALIDATE_LOG%" "validation"
 if not "%VALIDATE_EXIT%"=="0" (
+    del "%FAILURE_RECORD_LOG%" >nul 2>&1
+    node scripts\track_failure_memory.js failure validation "%VALIDATE_LOG%" > "%FAILURE_RECORD_LOG%" 2>&1
+    call :APPEND_FILE "%FAILURE_RECORD_LOG%" "failure memory"
     if exist "%VALIDATE_LOG%" type "%VALIDATE_LOG%"
     echo [!] Validation failed. Rolling back this iteration.
     call :LOG Validation failed after bump to %NEWVER%.
@@ -392,6 +402,9 @@ node scripts\test.js > "%TEST_LOG%" 2>&1
 set "TEST_EXIT=%ERRORLEVEL%"
 call :APPEND_FILE "%TEST_LOG%" "smoke tests"
 if not "%TEST_EXIT%"=="0" (
+    del "%FAILURE_RECORD_LOG%" >nul 2>&1
+    node scripts\track_failure_memory.js failure test "%TEST_LOG%" > "%FAILURE_RECORD_LOG%" 2>&1
+    call :APPEND_FILE "%FAILURE_RECORD_LOG%" "failure memory"
     if exist "%TEST_LOG%" type "%TEST_LOG%"
     echo [!] Smoke tests failed. Rolling back this iteration.
     call :LOG Smoke tests failed after bump to %NEWVER%.
@@ -403,6 +416,9 @@ if not "%TEST_EXIT%"=="0" (
 )
 echo Tested: validation and smoke tests passed.
 call :LOG Tested: validation and smoke tests passed.
+del "%FAILURE_RECORD_LOG%" >nul 2>&1
+node scripts\track_failure_memory.js success ok > "%FAILURE_RECORD_LOG%" 2>&1
+call :APPEND_FILE "%FAILURE_RECORD_LOG%" "failure memory"
 
 REM ── Commit and push ────────────────────────────────────────────
 git add -A

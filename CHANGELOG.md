@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Automation: persist validation/test failure memory in `PROCESS_STATE.json` and override future iterations toward safe recovery when the same rollback pattern repeats.
 - Visual: add stable generated sprite slots for the player and baseline enemies so core game art can evolve beyond the original oval and square placeholders.
 - Fix: stop the wave watchdog from refilling defeated current-wave enemies, which could make waves feel endless instead of properly clearing.
 - Gameplay: increase hopper hop strength and size so hops are more noticeable (tiny) — 2026-03-22

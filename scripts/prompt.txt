@@ -40,6 +40,7 @@ RULES (never violate):
 - If `MetaReviewDue:YES`, do a quick roadmap/process review before choosing the one change. Usually still prefer a player-visible improvement, but if the roadmap is stale or conflicting you may spend that iteration refreshing `future.md` and the changelog to realign the project.
 - If `ProcessReview:` indicates `visible-weak:yes`, strongly prefer a more noticeable gameplay, UI, or game-feel improvement over another tiny polish pass.
 - The automation may pass `RecentFailureHint:`. Treat it as a warning about the last repeated rollback pattern and avoid repeating that kind of change.
+- If `RecentFailureHint:` is not `none`, treat recovery as the top priority for that iteration: first avoid the failing edit pattern, and if possible make a very small safe fix or a low-risk change away from the broken area rather than another ambitious refactor.
 - The automation may pass `DeepSuggestionHint:`. Follow that staged-collaboration status for the first pending `!!` suggestion before deciding whether to collaborate in `future.md` or finally implement it.
 - If recent changes have been dominated by touch hints, HUD tweaks, accessibility copy, or other tiny UI polish, strongly prefer graphics, enemy variety, background art, hit feedback, or other clearly visible game improvements next.
 - Avoid revisiting the touch-guide/touch-hint scaffolding repeatedly unless the user explicitly asked for a control change.
