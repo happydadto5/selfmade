@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: show brief '🛡 Shield nearby' popup when a Shield drifts into pickup range to improve discoverability (tiny) — 2026-03-22
 - Visual/Gameplay: Spawn extra petal particles when Shield absorbs an enemy to make shield feedback more noticeable (tiny) — 2026-03-22
 - Gameplay: emphasize wave starts with slightly longer banner and stronger shake so wave transitions are more noticeable (tiny) — 2026-03-22
 - Gameplay: make Mulch pickups more noticeable with subtle ground tint and HUD attribute (🌱) — 2026-03-22

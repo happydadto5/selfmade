@@ -2279,6 +2279,7 @@ if (overlay) {
   const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0; let shieldPulseUntil = 0, shieldPulseX = 0, shieldPulseY = 0;
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
+  let shieldNearbyHintUntil = 0;
   let lastPowerupColor = '';
   let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 6; let levelNumber = 1; let scheduledSpawnTimeout = null;
   // Clean up pending timers on page unload to avoid timers firing after unload (stability)
@@ -3400,6 +3401,16 @@ let hitPopTimeout = null;
           const pickupRadius = (typeof isTouch !== 'undefined' && isTouch) ? 220 : 140; // larger radius on touch devices to aid collection
 
           if (Math.sqrt(dx*dx + dy*dy) < pickupRadius) {
+            try {
+              // hint when a shield drifts within pickup range to aid discoverability (small, non-spammy)
+              if (pu.type === 'shield' && Date.now() > (shieldNearbyHintUntil || 0)) {
+                try { scorePopups.push({ x: player.x, y: player.y - 30, text: '🛡 Shield nearby!', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
+                try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield nearby'; } catch(e){}
+                shieldNearbyHintUntil = Date.now() + 2600;
+                powerupPulseUntil = Date.now() + 420;
+              }
+            } catch(e){}
+
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel
