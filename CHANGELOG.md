@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase Shield base duration from 18s to 22s to make it more useful (tiny) — 2026-03-22
 - UI: pulse lives HUD and shield badge on Shield pickup (tiny) — 2026-03-22
 - UI: pulse lives HUD and shield badge on Shield pickup (tiny) — 2026-03-22
 - Gameplay: increase beetle spawn probability cap from 0.14 to 0.20 for more visible enemy variety (tiny) — 2026-03-22
