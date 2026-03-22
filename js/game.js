@@ -2309,7 +2309,7 @@ let hitPopTimeout = null;
     try { lastSpawn = Date.now(); } catch (e) {}
     try { waveSpawnWatchdog = Date.now(); } catch (e) {}
     // briefly show a wave banner so players notice wave transitions
-    wavePulseUntil = Date.now() + 800;
+    wavePulseUntil = Date.now() + 1200;
     // Give players a short grace period at the start of each wave where enemies move slightly slower to improve beatability
     try {
       // Slightly longer grace for very early waves so new players have more reaction time
@@ -2322,7 +2322,7 @@ let hitPopTimeout = null;
   try {
     if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.body.classList.add('wave-shake');
-      setTimeout(function(){ try { document.body.classList.remove('wave-shake'); } catch(e){} }, 340);
+      setTimeout(function(){ try { document.body.classList.remove('wave-shake'); } catch(e){} }, 560);
     }
   } catch (e) { /* ignore DOM errors */ }
 
