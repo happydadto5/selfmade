@@ -2611,9 +2611,15 @@ let hitPopTimeout = null;
           const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
           const homing = 0.0016 + Math.min(0.006, waveNumber * 0.00035);
           e.vx = ((e.vx || 0) * 0.88) + Math.max(-1.2, Math.min(1.2, dx * homing));
-          // small glowing petal trail to make moths more noticeable (low frequency for performance)
-          if (Math.random() < 0.06) {
-            particles.push({ x: e.x, y: e.y, vx: (Math.random()-0.5)*0.4, vy: -0.2 - Math.random()*0.3, r: 0.8 + Math.random()*1.4, life: 220 + Math.random()*180, born: Date.now(), color: '#fff59d', petal: true });
+          // small glowing petal trail to make moths more noticeable (increased frequency and occasional larger petal)
+          if (Math.random() < 0.12) {
+            // occasional larger petal for emphasis
+            if (Math.random() < 0.18) {
+              particles.push({ x: e.x, y: e.y, vx: (Math.random()-0.5)*0.6, vy: -0.3 - Math.random()*0.4, r: 2.4 + Math.random()*1.6, life: 380 + Math.random()*240, born: Date.now(), color: '#fff59d', petal: true, big: true });
+            } else {
+              particles.push({ x: e.x, y: e.y, vx: (Math.random()-0.5)*0.45, vy: -0.2 - Math.random()*0.3, r: 0.8 + Math.random()*1.4, life: 220 + Math.random()*180, born: Date.now(), color: '#fff59d', petal: true });
+              if (Math.random() < 0.25) particles.push({ x: e.x + (Math.random()-0.5)*4, y: e.y + (Math.random()-0.5)*4, vx: (Math.random()-0.5)*0.25, vy: -0.15 - Math.random()*0.25, r: 0.6 + Math.random()*1.0, life: 120 + Math.random()*120, born: Date.now(), color: '#fff59d', petal: true });
+            }
           }
         } catch (err) { /* ignore moth update errors */ }
       }

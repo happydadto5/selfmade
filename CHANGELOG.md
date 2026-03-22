@@ -1,6 +1,7 @@
 # Changelog
 
-## Unreleased
+## Unreleased
+- Gameplay: increase moth petal frequency and add occasional larger glowing petal to improve moth visibility (tiny) — 2026-03-22
 - Gameplay: brief shield-absorb pulse ring when shield consumes a hit — makes shield use more visible (tiny) — 2026-03-22
 - Gameplay: Shield pickup grants brief invulnerability (0.9s) to prevent immediate follow-up hits after collection (tiny) — 2026-03-22
 - Visual/UI: show icons for Mulch and Pierce power-ups and display Mulch in active HUD (tiny) — 2026-03-22
