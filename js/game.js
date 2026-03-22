@@ -68,7 +68,7 @@
         _sessionTip.style.pointerEvents = 'none';
         _sessionTip.style.opacity = '0';
         _sessionTip.style.transition = 'opacity 220ms ease, transform 220ms ease';
-        _sessionTip.textContent = 'Tip: Press H for help, P to pause. Enjoy the game!';
+        _sessionTip.textContent = 'Tip: Press H for help, P to pause, O to toggle auto-pause. Enjoy the game!';
         try { document.body.appendChild(_sessionTip); } catch (e) {}
         try { void _sessionTip.offsetWidth; _sessionTip.style.opacity = '1'; } catch (e) {}
         setTimeout(function(){ try { _sessionTip.style.opacity = '0'; } catch(e){} }, 4200);
@@ -702,7 +702,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.26.0';
+  const version = '8.27.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
