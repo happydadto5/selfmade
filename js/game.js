@@ -2758,6 +2758,10 @@ let hitPopTimeout = null;
                 try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(40); } catch(e) {}
                 try {
                   for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.8, vy: -Math.random()*2.2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 });
+                  // Extra petals and a brief flash to make Shield absorb more noticeable and garden-themed
+                  for (let k=0;k<6;k++) particles.push({ x: player.x + (Math.random()-0.5)*18, y: player.y + (Math.random()-0.5)*8, vx: (Math.random()-0.5)*1.6, vy: -0.8 - Math.random()*1.2, r: 6+Math.random()*6, life: 420+Math.random()*240, born: Date.now(), color: (Math.random() < 0.5 ? '#ffd54f' : '#ffcc80'), petal: true, spin: (Math.random()-0.5)*0.18 });
+                  // Small bright ring flash
+                  particles.push({ x: player.x, y: player.y, vx: 0, vy: 0, r: 8, life: 160, born: Date.now(), color: '#fff9c4', flash: true });
                 } catch(e){}
                 try { screenShake = Math.min(20, (screenShake||0) + 4); } catch(e){}
                 try { canvasWhiteFlashUntil = Date.now() + 380; canvasHitFlashUntil = Date.now() + 520; } catch(e){}

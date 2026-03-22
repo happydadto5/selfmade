@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Gameplay: reduce screen shake when Shield absorbs enemy collisions to feel less jarring (tiny) — 2026-03-22
+- Gameplay: stronger shield-absorb visual: brighter petal + flash particle burst for clearer feedback (tiny) — 2026-03-22
 - Gameplay: increase power-up pickup radius slightly to make collecting power-ups easier (small) — 2026-03-21
 - Gameplay: slightly increase power-up drop frequency and bias selection toward Shield so players encounter shields more often (tiny) — 2026-03-21
 - Gameplay: Mulch pickup now briefly slows nearby enemies when collected (small) — 2026-03-21
