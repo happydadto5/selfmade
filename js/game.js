@@ -3221,7 +3221,7 @@ let hitPopTimeout = null;
             // Small chance to spawn a temporary power-up when an enemy dies
             try {
               // Slightly increased spawn chance so players see power-ups more often (small gameplay tweak)
-              let puChance = 0.52;
+              let puChance = 0.62;
               if (typeof lives === 'number' && lives <= 1) {
                 // When player is low on lives, increase power-up frequency to aid recovery
                 puChance = Math.min(0.85, puChance + 0.28);
