@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.42.0
 - UI: add semi-transparent background to HUD and overlays to improve readability (tiny) — 2026-03-22
 
 ## 8.41.0
