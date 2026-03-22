@@ -3269,7 +3269,7 @@ let hitPopTimeout = null;
                     if (powerups.length > 8) powerups.shift(); }
                 }
               }
-            try { if (e && e.type === 'weevil' && Math.random() < 0.28) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } } catch(e) {}
+            try { if (e && e.type === 'weevil' && Math.random() < 0.45) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } } catch(e) {}
             } catch (err) { /* ignore powerup spawn errors */ }
           }
           break;
