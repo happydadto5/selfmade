@@ -2428,7 +2428,7 @@ let hitPopTimeout = null;
         enemies.push({x:ex,y:ey,w:20,h:18,vy:speed*1.35, hp:1, maxHp:1, type:'bee', t: Math.random()*1000});
       } else if (isMoth) {
         // moth: medium descent, sinuous horizontal motion for visual variety
-        enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:6 + Math.random()*4, swayFreq: 0.009 + Math.random()*0.008, t: Math.random()*1000});
+        enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:10 + Math.random()*6, swayFreq: 0.01 + Math.random()*0.01, t: Math.random()*1000});
       } else if (isHopper) {
         // hopper: medium descent, performs lateral hops for visual and gameplay variety
         enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.9, vx:0, hp:1, maxHp:1, type:'hopper', hopTimer: 420 + Math.random()*480, hopStrength: 1.6 + Math.random()*1.6, t: Math.random()*1000});

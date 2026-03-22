@@ -23,6 +23,7 @@
 - Gameplay: increase mulch drop chance from weevils to ~45% so Mulch feels more available (tiny) — 2026-03-22
 - Gameplay: slightly increase power-up drop rate so power-ups feel more frequent and recovery is friendlier (small) — 2026-03-22
 - Gameplay: increase moth spawn rate and add subtle glowing petal trail so sinuous moths are more noticeable (small) — 2026-03-22
+- Gameplay: increase moth sway amplitude and slightly raise sway frequency so moths appear more sinuous and noticeable (tiny) — 2026-03-22
 - Gameplay: add soft glowing halo to moth enemies to make them more noticeable (tiny) — 2026-03-22
 - Gameplay: make 'hopper' enemies more noticeable with a pulsing lateral halo (tiny) — 2026-03-22
 - Gameplay: telegraph hopper hops with a small ground shadow when a hop is imminent (tiny) — 2026-03-22
