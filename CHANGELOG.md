@@ -2,7 +2,7 @@
 
 ## Unreleased
 - Gameplay: increase probability of Shield power-up in enemy drops (tiny) — 2026-03-22
-- Gameplay: increase 'hopper' enemy spawn frequency slightly so players notice lateral-hopping enemies more often (tiny) — 2026-03-22
+- Gameplay: slightly increase hopper spawn chance so lateral-hopping enemies are more noticeable (tiny) — 2026-03-22
 - Gameplay: bias power-up selection more toward Shield when player is low on lives (tiny) — 2026-03-22
 - Audio: Distinct sound for Shield pickup to make collection clearer (tiny) — 2026-03-22
 - Gameplay: reduce screen shake when Shield absorbs enemy collisions to feel less jarring (tiny) — 2026-03-22

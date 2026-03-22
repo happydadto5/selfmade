@@ -2355,7 +2355,7 @@ let hitPopTimeout = null;
       // Small chance for a "sprout" enemy (small garden sprout, low HP, green-themed)
       const isSprout = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
-      const isHopper = Math.random() < Math.min(0.18, 0.04 + waveNumber*0.015);
+      const isHopper = Math.random() < Math.min(0.22, 0.06 + waveNumber*0.015);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       // Small chance for a "snatcher" enemy: medium enemy that periodically dashes toward the player
       const isSnatcher = Math.random() < Math.min(0.08, 0.02 + waveNumber*0.01);
@@ -5040,6 +5040,7 @@ let hitPopTimeout = null;
 
 
 })();
+
 
 
 
