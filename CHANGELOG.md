@@ -14,7 +14,7 @@
 - Gameplay: emphasize wave starts with slightly longer banner and stronger shake so wave transitions are more noticeable (tiny) — 2026-03-22
 - Gameplay: make Mulch pickups more noticeable with subtle ground tint and HUD attribute (🌱) — 2026-03-22
 - Visual: make Shield visuals more garden-themed — green shield ring, charge dots, and timer color (tiny) — 2026-03-22
-- Audio: add distinct enemy-death oscillator for stronger feedback (tiny) — 2026-03-22
+- Gameplay: stronger screen shake and distinct enemy-death oscillator ('explode') on enemy death to improve feedback (tiny) — 2026-03-22
 - Gameplay: add small 'caterpillar' enemy: slow, sinuous mover that sheds leaf particles to increase variety (tiny) — 2026-03-22
 - Gameplay: make Mulch power-up more noticeable — HUD shows 🌿 label, announcer and popup include 🌿, and HUD power color set to green (tiny) — 2026-03-22
 - Gameplay: add muzzle/trail particles when Rapid power-up is active so firing feels snappier (tiny) — 2026-03-22
