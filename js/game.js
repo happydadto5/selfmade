@@ -4158,6 +4158,28 @@ let hitPopTimeout = null;
             ctx.restore();
           }
         } catch (e) { /* ignore charge-dot errors */ }
+
+        // Draw remaining shield time in seconds above the player for quick feedback
+        try {
+          const now = Date.now();
+          const remMs = Math.max(0, (player.shieldUntil || 0) - now);
+          const remSec = Math.ceil(remMs / 1000);
+          if (remMs > 0) {
+            ctx.save();
+            ctx.translate(0, -player.h - 30);
+            ctx.font = '14px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            // outline for readability on busy backgrounds
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+            ctx.fillStyle = 'rgba(129,212,255,0.98)';
+            const txt = remSec + 's';
+            try { ctx.strokeText(txt, 0, 0); } catch (e) {}
+            try { ctx.fillText(txt, 0, 0); } catch (e) {}
+            ctx.restore();
+          }
+        } catch (e) { /* ignore shield-timer draw errors */ }
       }
     } catch (e) { /* ignore shield draw errors */ }
 
