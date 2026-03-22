@@ -2796,6 +2796,14 @@ let hitPopTimeout = null;
             enemies.splice(i,1);
             // Shield absorbs collisions too
             try {
+              if (Date.now() < (player.invulnerableUntil || 0)) {
+                // Recently picked up a shield: temporary invulnerability window. Provide gentle feedback but do not consume a shield charge.
+                try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Invulnerable!', vy: -0.05, life: 700, totalLife: 700, color: '#fff59d' }); } catch (e) {}
+                try { for (let k=0;k<8;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*1.8, vy: -Math.random()*1.2, r: 2+Math.random()*3, life: 300+Math.random()*200, born: Date.now(), color: '#fff59d' }); } catch(e){}
+                try { playSound('blip'); } catch(e){}
+                // skip life loss and shield consumption during this brief window
+                continue;
+              }
               if (Date.now() < (player.shieldUntil || 0)) {
                 // consume one shield charge (clamped to avoid negative values)
                 player.shieldCharges = Math.max(0, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1);
@@ -2886,7 +2894,14 @@ let hitPopTimeout = null;
         enemies.splice(i,1);
         // Shield absorbs bottom-leak life loss if active
         try {
-          if (Date.now() < (player.shieldUntil || 0)) {
+          if (Date.now() < (player.invulnerableUntil || 0)) {
+            // temporary invulnerability after pickup: gentle feedback, no shield consumption
+            try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Invulnerable!', vy: -0.05, life: 700, totalLife: 700, color: '#fff59d' }); } catch (e) {}
+            try { for (let k=0;k<8;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*1.8, vy: -Math.random()*1.2, r: 2+Math.random()*3, life: 300+Math.random()*200, born: Date.now(), color: '#fff59d' }); } catch(e){}
+            try { playSound('blip'); } catch(e){}
+            // skip life loss and shield consumption during this brief window
+            continue;
+          } else if (Date.now() < (player.shieldUntil || 0)) {
             // consume one shield charge (support multi-charge shields). Clamp to avoid negatives.
             player.shieldCharges = Math.max(0, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) - 1);
             if (player.shieldCharges <= 0) {
@@ -3317,10 +3332,14 @@ let hitPopTimeout = null;
                   // already has shield: add one charge up to 3 and extend by 8s
                   try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
                   player.shieldUntil = (player.shieldUntil || now) + 8000;
+                  // grant a very short invulnerability to avoid immediate follow-up hits after pickup
+                  try { player.invulnerableUntil = Date.now() + 900; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
                 } else {
                   // new shield
                   player.shieldUntil = Date.now() + 20000; // 20 seconds (slightly increased)
+                  // grant a very short invulnerability to avoid immediate follow-up hits after pickup
+                  try { player.invulnerableUntil = Date.now() + 900; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
                   try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
                 }

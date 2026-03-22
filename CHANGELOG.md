@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: Shield pickup grants brief invulnerability (0.9s) to prevent immediate follow-up hits after collection (tiny) — 2026-03-22
 - Visual/UI: show icons for Mulch and Pierce power-ups and display Mulch in active HUD (tiny) — 2026-03-22
 - UX: add brief vibration on Shield pickup for tactile feedback (tiny) — 2026-03-22
 - Gameplay: show remaining shield time in seconds above player when Shield is active (tiny) — 2026-03-22
