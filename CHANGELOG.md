@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: stronger garden-tinted hit-pop overlay and slightly longer hit feedback to improve hit readability (tiny) — 2026-03-22
+
 ## 8.33.0
 - UX: mention N keyboard shortcut in session tip so players discover wave advance (tiny) — 2026-03-22
 

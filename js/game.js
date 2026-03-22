@@ -3339,7 +3339,7 @@ let hitPopTimeout = null;
                   }
                   try { hitAnn.textContent = 'Enemy hit'; } catch(e){}
                 } catch(e){}
-                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} try { hitPopTimeout = null; } catch(e){} }, 760);
+                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} try { hitPopTimeout = null; } catch(e){} }, 900);
               }
             }
           } catch (err) { /* ignore overlay errors */ }
@@ -5476,7 +5476,7 @@ let hitPopTimeout = null;
             } else {
               try {
                 try { if (typeof hitPopTimeout !== 'undefined' && hitPopTimeout) { clearTimeout(hitPopTimeout); hitPopTimeout = null; } } catch(e){}
-                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch(e){} try { hitPopTimeout = null; } catch(e){} }, 760);
+                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch(e){} try { hitPopTimeout = null; } catch(e){} }, 900);
               } catch(e){}
             }
           }
