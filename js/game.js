@@ -3265,7 +3265,8 @@ let hitPopTimeout = null;
         try {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
-          if (Math.sqrt(dx*dx + dy*dy) < 180) { // slightly increased pickup radius to make power-ups easier to collect (now 180)
+          const pickupRadius = (typeof isTouch !== 'undefined' && isTouch) ? 220 : 180; // larger radius on touch devices to aid collection
+          if (Math.sqrt(dx*dx + dy*dy) < pickupRadius) {
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel
