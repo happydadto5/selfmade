@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 8.37.0
 - Polished wave-clear notification to reuse toast helper and prevent duplicate toasts (small UX & reliability fix) — 2026-03-22
 
 ## 8.36.0
