@@ -2351,7 +2351,7 @@ let hitPopTimeout = null;
       // Small chance for a "pest" enemy that splits into two mini pests on death
       const isBee = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.02);
       // Small chance for a "moth" enemy that sways horizontally in a sinuous pattern
-      const isMoth = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
+      const isMoth = Math.random() < Math.min(0.25, 0.06 + waveNumber*0.02);
       // Small chance for a "sprout" enemy (small garden sprout, low HP, green-themed)
       const isSprout = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
@@ -2603,6 +2603,10 @@ let hitPopTimeout = null;
           const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
           const homing = 0.0016 + Math.min(0.006, waveNumber * 0.00035);
           e.vx = ((e.vx || 0) * 0.88) + Math.max(-1.2, Math.min(1.2, dx * homing));
+          // small glowing petal trail to make moths more noticeable (low frequency for performance)
+          if (Math.random() < 0.06) {
+            particles.push({ x: e.x, y: e.y, vx: (Math.random()-0.5)*0.4, vy: -0.2 - Math.random()*0.3, r: 0.8 + Math.random()*1.4, life: 220 + Math.random()*180, born: Date.now(), color: '#fff59d', petal: true });
+          }
         } catch (err) { /* ignore moth update errors */ }
       }
       // Charger behavior: drift towards player and occasionally perform a short high-speed downward charge
