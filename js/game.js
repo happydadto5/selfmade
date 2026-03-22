@@ -627,32 +627,8 @@
             if (total > 0 && remaining === 0 && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
               lastClearedWave = waveNumber;
               try {
-                let wt = document.getElementById('wave-clear-toast');
-                if (!wt) {
-                  wt = document.createElement('div');
-                  wt.id = 'wave-clear-toast';
-                  wt.setAttribute('role', 'status');
-                  wt.setAttribute('aria-live', 'polite');
-                  wt.setAttribute('aria-atomic', 'true');
-                  wt.style.position = 'fixed';
-                  wt.style.left = '50%';
-                  wt.style.top = '10vh';
-                  wt.style.transform = 'translateX(-50%)';
-                  wt.style.background = 'rgba(0,0,0,0.8)';
-                  wt.style.color = '#fff';
-                  wt.style.padding = '8px 12px';
-                  wt.style.borderRadius = '8px';
-                  wt.style.zIndex = '10003';
-                  wt.style.pointerEvents = 'none';
-                  wt.style.opacity = '0';
-                  wt.style.transition = 'opacity 220ms ease, transform 220ms ease';
-                  document.body.appendChild(wt);
-                }
                 const bonusToast = 10 + (typeof lives === 'number' ? (lives * 5) : 0);
-                wt.textContent = 'Wave ' + waveNumber + ' cleared! +' + bonusToast + ' pts';
-                wt.style.opacity = '1';
-                setTimeout(() => { try { wt.style.opacity = '0'; } catch(e){} }, 1400);
-                setTimeout(() => { try { if (wt && wt.parentNode) wt.parentNode.removeChild(wt); } catch(e){} }, 1800);
+                try { showWaveToast('Wave ' + waveNumber + ' cleared! +' + bonusToast + ' pts'); } catch(e) {}
               } catch(e) {}
               // If this was the configured final wave, pause progression and show a clear victory overlay so the run feels beatable
               try {

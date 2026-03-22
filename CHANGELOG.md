@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Polished wave-clear notification to reuse toast helper and prevent duplicate toasts (small UX & reliability fix) — 2026-03-22
+
 ## 8.36.0
 - Gameplay: beetles emit petal/dust particles during scuttle bursts so their lateral bursts are more noticeable (tiny) — 2026-03-22
 
