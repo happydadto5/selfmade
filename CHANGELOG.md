@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.36.0
+- Gameplay: beetles emit petal/dust particles during scuttle bursts so their lateral bursts are more noticeable (tiny) — 2026-03-22
+
 ## 8.35.0
 - UI: stronger hit feedback when low on lives (larger hit shake & pop) — 2026-03-22
 

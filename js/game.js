@@ -702,7 +702,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.35.0';
+  const version = '8.36.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2934,6 +2934,9 @@ let hitPopTimeout = null;
             e.vx = e.scuttleBurst * (1.6 + Math.random() * 1.6);
             e.scuttleEnd = e.t + 160 + Math.random() * 200;
             e.scuttleTimer = 900 + Math.random() * 1200;
+            // spawn a few brown/dust petals to make scuttle bursts more noticeable (small, cheap particles)
+            try { for (let p=0;p<6;p++) particles.push({ x: e.x, y: e.y, vx: (Math.random()-0.5)*1.6 + (e.vx||0)*0.2, vy: -0.4 - Math.random()*0.6, r: 1 + Math.random()*3, life: 240 + Math.random()*160, born: Date.now(), color: '#8d6e63' }); } catch(pe) {}
+            try { playSound('scuttle'); } catch(e) {}
           } else if (e.scuttleEnd && e.t > e.scuttleEnd) {
             e.vx = (Math.random() - 0.5) * 0.4;
             e.scuttleEnd = 0;
