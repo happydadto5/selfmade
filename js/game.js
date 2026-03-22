@@ -4762,7 +4762,28 @@ let hitPopTimeout = null;
       }
     } catch (e) { /* ignore hit marker draw errors */ }
     // bullets
-    ctx.fillStyle = '#fff'; for (const b of bullets) { ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
+    ctx.fillStyle = '#fff';
+    try {
+      for (const b of bullets) {
+        // short motion streak based on velocity for clearer bullet travel (no new particles)
+        try {
+          const pvx = (b.vx || 0) * -2;
+          const pvy = (b.vy || 0) * -2;
+          ctx.save();
+          ctx.globalAlpha = 0.45;
+          ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+          ctx.lineWidth = Math.max(1, Math.min(3, b.r));
+          ctx.beginPath();
+          ctx.moveTo(b.x + pvx, b.y + pvy);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+          ctx.restore();
+        } catch (e) {}
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
+        ctx.fill();
+      }
+    } catch (e) {}
 
     for (const e of enemies) {
       const sc = 1 + (e.y / ch) * 0.25;
