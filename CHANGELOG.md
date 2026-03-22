@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: increase inter-wave respite and make Next Wave more discoverable so waves feel like clear progression (small) — 2026-03-22
+
 ## 8.20.0
 - Visual: draw subtle pulsing shield ring around player while Shield active (tiny) — 2026-03-22
 - Fix: prevent crash caused by duplicate declarations of lastKillAt/killCombo in js/game.js (reliability).
