@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.23.0
 - Performance: throttle HUD wave-progress updates to reduce CPU on low-power devices (tiny) — 2026-03-22
 
 ## 8.22.0
