@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.32.0
+- Gameplay: slightly increase non-touch power-up pickup radius to make collecting power-ups less frustrating (tiny) — 2026-03-22
+
 ## 8.31.0
 - Stability: clear scheduled spawn timers when player manually pauses to prevent enemies from spawning while paused (tiny) — 2026-03-22
 
