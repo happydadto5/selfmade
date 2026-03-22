@@ -141,14 +141,31 @@
           canvas.style.backgroundSize = 'cover';
           try { canvas.dataset.bgVisible = 'true'; } catch(e) {}
         } else {
+          // user opted out of background images
           try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
         }
       } catch (e) {}
     },
     onerror: () => {
       try {
-        canvas.style.backgroundImage = '';
-        try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
+        // If the garden background image fails to load, show a subtle garden-themed gradient as a low-cost visual fallback
+        // Respect user's explicit "show background" preference: only show the gradient when they haven't disabled backgrounds.
+        try {
+          const pref = (function(){ try { return localStorage.getItem('selfmade_show_bg'); } catch(e){ return null; } })();
+          if (pref !== '0') {
+            canvas.style.backgroundImage = 'linear-gradient(180deg, #e8f7ff 0%, #eafbe8 100%)';
+            canvas.style.backgroundPosition = 'center top';
+            canvas.style.backgroundSize = 'cover';
+            try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
+          } else {
+            // user disabled backgrounds — keep canvas clear
+            canvas.style.backgroundImage = '';
+            try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
+          }
+        } catch (inner) {
+          canvas.style.backgroundImage = '';
+          try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
+        }
       } catch (e) {}
     }
   });
@@ -685,7 +702,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.21.0';
+  const version = '8.22.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
