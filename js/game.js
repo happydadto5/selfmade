@@ -2600,7 +2600,7 @@ let hitPopTimeout = null;
 
       // Gameplay tweak: spawn a guaranteed Shield power-up every 2 waves to improve recovery options.
       try {
-        if (typeof waveNumber === 'number' && (waveNumber % 2 === 0 || Math.random() < 0.28)) {
+        if (typeof waveNumber === 'number' && (waveNumber > 0)) {
           const spawnX = Math.max(60, Math.min(cw - 60, Math.floor(cw / 2 + (Math.random() - 0.5) * 120)));
           const spawnY = -20;
           const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - spawnX) < 48 && Math.abs((p.y||0) - spawnY) < 48);
