@@ -685,7 +685,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.19.0';
+  const version = '8.20.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4409,6 +4409,24 @@ let hitPopTimeout = null;
       }
     } catch (e) { /* ignore flash drawing errors */ }
     // If Rapid power-up is active, draw a subtle glow halo and show remaining seconds above the player
+    // Also: while Shield is active, draw a subtle pulsing ring around the player so the active Shield state is more immediately visible.
+    try {
+      if (player && Date.now() < (player.shieldUntil || 0)) {
+        const _now = Date.now();
+        const _pulse = 1 + 0.08 * Math.sin(_now / 120);
+        try {
+          ctx.save();
+          ctx.beginPath();
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.lineWidth = 6;
+          ctx.strokeStyle = 'rgba(187,222,251,0.22)';
+          // draw an ellipse centered on the player to match player's shape
+          ctx.ellipse(player.x, player.y, Math.max(18, player.w * 1.9 * _pulse), player.h * 1.9 * _pulse, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        } catch (e) { /* ignore shield draw errors */ }
+      }
+    } catch (e) { /* ignore shield ring errors */ }
     try {
       if (player && (player.fireRate > 1) && Date.now() < (player.fireRateUntil || 0)) {
         // calculate remaining time

@@ -1,7 +1,7 @@
 # Changelog
 
-## Unreleased
-
+## 8.20.0
+- Visual: draw subtle pulsing shield ring around player while Shield active (tiny) — 2026-03-22
 - Fix: prevent crash caused by duplicate declarations of lastKillAt/killCombo in js/game.js (reliability).
 - Gameplay: quick-kill combo bonus and visible combo popup to reward successive kills (tiny) — 2026-03-22
 - Gameplay: award small combo bonus for quick consecutive kills (≤700ms) and show combo popup (tiny) — 2026-03-22
