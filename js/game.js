@@ -3531,7 +3531,12 @@ let hitPopTimeout = null;
         }
         try {
           if (label) {
-            activePowerEl.textContent = label;
+            // write the label into the existing .power-label element if present to avoid removing the timer node
+            try {
+              const labelEl = activePowerEl.querySelector('.power-label');
+              const timerEl = activePowerEl.querySelector('.power-timer .power-timer-fill');
+              if (labelEl) labelEl.textContent = label; else activePowerEl.textContent = label;
+            } catch (e) { try { activePowerEl.textContent = label; } catch (ee) {} }
             try { activePowerEl.style.opacity = '0.95'; } catch (e) {}
             try { activePowerEl.setAttribute('aria-hidden', 'false'); } catch (e) {}
             try {
@@ -3553,7 +3558,7 @@ let hitPopTimeout = null;
               } catch(e) {}
             } catch (e) {}
           } else {
-            try { activePowerEl.textContent = ''; } catch (e) {}
+            try { const labelEl = activePowerEl.querySelector('.power-label'); if (labelEl) labelEl.textContent = ''; } catch (e) {}
             try { activePowerEl.style.opacity = '0.0'; } catch (e) {}
             try { activePowerEl.setAttribute('aria-hidden', 'true'); } catch (e) {}
             try { activePowerEl.style.background = ''; activePowerEl.style.color = ''; } catch (e) {}

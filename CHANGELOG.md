@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Shield pickup: increase brief post-pickup invulnerability to 1.3s to improve pickup feel.
+- Fix: Active power-up HUD updates label & timer without removing inner elements (tiny) — 2026-03-22
 
 - UI: display remaining power-up duration as a countdown on HUD power-up icons (tiny) — 2026-03-22
 - Visual/Gameplay: add brief firing recoil and muzzle flash to improve fire feedback (tiny) — 2026-03-22
