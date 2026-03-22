@@ -2357,6 +2357,8 @@ let hitPopTimeout = null;
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
       const isHopper = Math.random() < Math.min(0.22, 0.06 + waveNumber*0.015);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
+      // Small chance for a slow, short-burst "beetle" enemy: slightly tougher scuttling bug
+      const isBeetle = Math.random() < Math.min(0.14, 0.02 + waveNumber*0.012);
       // Small chance for a "snatcher" enemy: medium enemy that periodically dashes toward the player
       const isSnatcher = Math.random() < Math.min(0.08, 0.02 + waveNumber*0.01);
       if (isZig) {
@@ -2385,6 +2387,9 @@ let hitPopTimeout = null;
       } else if (isPest) {
         // pest: medium speed, low HP, splits into two mini pests on death
         enemies.push({x:ex,y:ey,w:26,h:22,vy:speed*0.95, hp:1, maxHp:1, type:'pest'});
+      } else if (isBeetle) {
+        // beetle: scuttling armored bug, slightly tougher with periodic lateral bursts
+        enemies.push({x:ex,y:ey,w:30,h:26,vy:speed*0.85, vx:(Math.random()-0.5)*0.4, hp:2, maxHp:2, type:'beetle', scuttleTimer: 600 + Math.random()*800, t: Math.random()*1000});
       } else if (isSnatcher) {
         // snatcher: medium speed, telegraphed dashes toward the player (garden-themed vine snatcher)
         enemies.push({x:ex,y:ey,w:28,h:24,vy:speed*0.85, vx:0, hp:1, maxHp:1, type:'snatcher', huntTimer: 900 + Math.random()*800, t: Math.random()*1000});
@@ -2676,6 +2681,24 @@ let hitPopTimeout = null;
            }
          } catch (err) { /* ignore weevil update errors */ }
        }
+      }
+      // Beetle behavior: scuttling armored bug
+      if (e.type === 'beetle') {
+        try {
+          // gentle scuttle wobble and periodic short lateral bursts
+          e.x += Math.sin(e.t * 0.03) * 1.2;
+          if (typeof e.scuttleTimer === 'undefined') e.scuttleTimer = 600 + Math.random() * 800;
+          e.scuttleTimer -= dt;
+          if (e.scuttleTimer <= 0) {
+            e.scuttleBurst = (Math.random() < 0.5) ? -1 : 1;
+            e.vx = e.scuttleBurst * (1.6 + Math.random() * 1.6);
+            e.scuttleEnd = e.t + 160 + Math.random() * 200;
+            e.scuttleTimer = 900 + Math.random() * 1200;
+          } else if (e.scuttleEnd && e.t > e.scuttleEnd) {
+            e.vx = (Math.random() - 0.5) * 0.4;
+            e.scuttleEnd = 0;
+          }
+        } catch (err) { /* ignore beetle update errors */ }
       }
       // Hopper behavior: medium speed, periodic lateral hops (new)
       if (e.type === 'hopper') {

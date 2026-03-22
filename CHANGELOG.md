@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: add new 'beetle' enemy type (spawn and scuttling behavior) — 2026-03-22
 - Gameplay: slightly increase moth spawn chance to make them more noticeable (tiny) — 2026-03-22
 - Gameplay: shield-screen-shake — reduce intensity and duration of screen shake when Shield absorbs enemy collisions so the effect is less jarring (tiny) — 2026-03-22
 - Gameplay: increase moth spawn chance and add small glowing petal trail to improve discoverability of moth enemies (tiny) — 2026-03-22

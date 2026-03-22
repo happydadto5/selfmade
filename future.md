@@ -4,7 +4,7 @@
 
 - 2026-03-16: Implemented discoverable full-screen touch zones and subtle vertical separators in-canvas (tiny UX improvement).
 
-Last updated: 2026-03-22
+Last updated: 2026-03-22 — beetle enemy added
 
 Meta-review: 2026-03-21 — quick roadmap/process check completed. Implemented a small pacing/beatability tweak: enemy speed slightly reduced when player is low on lives. Next: consider a gardening-themed power-up or subtle background art.
 
