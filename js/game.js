@@ -3339,12 +3339,16 @@ let hitPopTimeout = null;
                   // already has shield: add one charge up to 3 and extend by 8s
                   try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
                   player.shieldUntil = (player.shieldUntil || now) + 8000;
+                  // record the total duration for HUD progress (remaining from now)
+                  try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 8000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 900; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
                 } else {
                   // new shield
                   player.shieldUntil = Date.now() + 20000; // 20 seconds (slightly increased)
+                  // record the total duration for HUD progress
+                  try { player._shieldDuration = 20000; } catch(e) { player._shieldDuration = 20000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 900; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
@@ -3530,6 +3534,20 @@ let hitPopTimeout = null;
             try {
               // color the active power-up HUD to match the collected power-up for quick recognition
               if (lastPowerupColor) { activePowerEl.style.background = lastPowerupColor; activePowerEl.style.color = '#012b30'; }
+              try {
+                const timer = activePowerEl.querySelector('.power-timer .power-timer-fill');
+                if (timer) {
+                  let remaining = 0, total = 1;
+                  if (now < (player.shieldUntil || 0) && player._shieldDuration) { remaining = Math.max(0, (player.shieldUntil || 0) - now); total = player._shieldDuration || 20000; }
+                  else if (now < (player.fireRateUntil || 0)) { remaining = Math.max(0, (player.fireRateUntil || 0) - now); total = 15000; }
+                  else if (now < (player.spreadUntil || 0)) { remaining = Math.max(0, (player.spreadUntil || 0) - now); total = 12000; }
+                  else if (now < (player.pierceUntil || 0)) { remaining = Math.max(0, (player.pierceUntil || 0) - now); total = 12000; }
+                  else if (now < (player.mulchUntil || 0)) { remaining = Math.max(0, (player.mulchUntil || 0) - now); total = player._mulchDuration || 12000; }
+                  else if (now < (player.slowUntil || 0)) { remaining = Math.max(0, (player.slowUntil || 0) - now); total = 8000; }
+                  const pct = Math.max(0, Math.min(100, Math.round((remaining / Math.max(1,total)) * 100)));
+                  try { timer.style.width = pct + '%'; } catch(e) {}
+                }
+              } catch(e) {}
             } catch (e) {}
           } else {
             try { activePowerEl.textContent = ''; } catch (e) {}

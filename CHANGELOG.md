@@ -1,36 +1,8 @@
 # Changelog
 
 ## Unreleased
-- Gameplay: increase moth petal frequency and add occasional larger glowing petal to improve moth visibility (tiny) — 2026-03-22
-- Gameplay: brief shield-absorb pulse ring when shield consumes a hit — makes shield use more visible (tiny) — 2026-03-22
-- Gameplay: Shield pickup grants brief invulnerability (0.9s) to prevent immediate follow-up hits after collection (tiny) — 2026-03-22
-- Visual/UI: show icons for Mulch and Pierce power-ups and display Mulch in active HUD (tiny) — 2026-03-22
-- UX: add brief vibration on Shield pickup for tactile feedback (tiny) — 2026-03-22
-- Gameplay: show remaining shield time in seconds above player when Shield is active (tiny) — 2026-03-22
-- Gameplay: slightly increase moth spawn chance to make moths more noticeable (tiny) — 2026-03-22
-- Gameplay: slightly increase power-up drop frequency to make pickups more common (tiny) — 2026-03-22
-- Gameplay: add new 'beetle' enemy type (spawn and scuttling behavior) — 2026-03-22
-- Gameplay: slightly increase moth spawn chance to make them more noticeable (tiny) — 2026-03-22
-- Gameplay: shield-screen-shake — reduce intensity and duration of screen shake when Shield absorbs enemy collisions so the effect is less jarring (tiny) — 2026-03-22
-- Gameplay: increase moth spawn chance and add small glowing petal trail to improve discoverability of moth enemies (tiny) — 2026-03-22
-- Gameplay: increase power-up pickup radius to 180 to make collecting power-ups easier (tiny) — 2026-03-22
-- Gameplay: increase non-touch power-up pickup radius to 200 to make collecting power-ups easier for mouse/keyboard players (tiny) — 2026-03-22
+- UI: display remaining power-up duration as a countdown on HUD power-up icons (tiny) — 2026-03-22
 
-- Gameplay: increase power-up pickup radius on touch devices to make collecting power-ups easier (tiny) — 2026-03-22
-- Gameplay: moth enemies now slightly home toward the player for livelier challenge (tiny) — 2026-03-22
-- Gameplay: increase probability of Shield power-up in enemy drops (tiny) — 2026-03-22
-- Gameplay: slightly increase hopper spawn chance so lateral-hopping enemies are more noticeable (tiny) — 2026-03-22
-- Gameplay: bias power-up selection more toward Shield when player is low on lives (tiny) — 2026-03-22
-- Audio: Distinct sound for Shield pickup to make collection clearer (tiny) — 2026-03-22
-- Gameplay: reduce screen shake when Shield absorbs enemy collisions to feel less jarring (tiny) — 2026-03-22
-- Gameplay: telegraph snatcher dash with a visible vine curl and orange tint so players can react (small) — 2026-03-22
-- Gameplay: stronger shield-absorb visual: brighter petal + flash particle burst for clearer feedback (tiny) — 2026-03-22
-- Gameplay: increase power-up pickup radius slightly to make collecting power-ups easier (small) — 2026-03-21
-- Gameplay: slightly increase power-up drop frequency and bias selection toward Shield so players encounter shields more often (tiny) — 2026-03-21
-- Gameplay: Mulch pickup now briefly slows nearby enemies when collected (small) — 2026-03-21
-- Gameplay: shield absorb now spawns green leaf particles and shows a green shield HUD tint to better match the garden theme (tiny) — 2026-03-21
-- Gameplay: add a gardening-themed 'Mulch' power-up that grants a temporary score multiplier (12s); multiplier stacks slightly when re-collected. Small HUD and popup updates to show active Mulch. — 2026-03-21
-- Gameplay: weevil enemies now have a small chance to drop a Mulch power-up when defeated, rewarding targeted play (tiny) — 2026-03-21
 
 ## 7.107.0
 - Stability: clear pointer/touch state on blur/visibility to avoid stuck controls when the page loses focus (tiny) — 2026-03-21
