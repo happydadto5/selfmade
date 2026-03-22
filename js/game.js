@@ -683,7 +683,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.6.0';
+  const version = '8.7.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3569,7 +3569,7 @@ let hitPopTimeout = null;
                   // record the total duration for HUD progress (remaining from now)
                   try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 8000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
-                  try { player.invulnerableUntil = Date.now() + 1300; } catch(e) {}
+                  try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
                 } else {
                   // new shield
@@ -3577,7 +3577,7 @@ let hitPopTimeout = null;
                   // record the total duration for HUD progress
                   try { player._shieldDuration = 18000; } catch(e) { player._shieldDuration = 18000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
-                  try { player.invulnerableUntil = Date.now() + 1300; } catch(e) {}
+                  try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
                   try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
                 }

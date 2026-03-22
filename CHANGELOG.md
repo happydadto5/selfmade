@@ -22,7 +22,7 @@
 - Gameplay: make Mulch power-up more noticeable — HUD shows 🌿 label, announcer and popup include 🌿, and HUD power color set to green (tiny) — 2026-03-22
 - Gameplay: add muzzle/trail particles when Rapid power-up is active so firing feels snappier (tiny) — 2026-03-22
 - Gameplay: tune Shield power-up: base duration reduced to 15s and per-pickup extension reduced to 6s for better balance (tiny) — 2026-03-22
-- Shield pickup: increase brief post-pickup invulnerability to 1.3s to improve pickup feel.
+- Shield pickup: increase brief post-pickup invulnerability to 2.0s to improve pickup feel. — 2026-03-22
 - Gameplay: reduce power-up pickup radius on non-touch devices to reward active collection (tiny) — 2026-03-22
 - Fix: Active power-up HUD preserves inner elements and shows power-up timer fill for active powers (tiny) — 2026-03-22
 
