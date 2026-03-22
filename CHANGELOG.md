@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.25.0
 - UI: slightly emphasize Wave HUD with brief scale pulse on wave change (tiny) — 2026-03-22
 
 ## 8.24.0
