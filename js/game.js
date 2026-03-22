@@ -4533,6 +4533,21 @@ let hitPopTimeout = null;
           try { ctx.fillStyle = enemyColor; } catch (err) { ctx.fillStyle = '#ff6666'; }
       } catch (err) { ctx.fillStyle = '#ff6666'; }
       ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
+      // Moth visual: add a soft petal-tinted halo so sinuous moths are more noticeable (tiny visual polish)
+      try {
+        if (e.type === 'moth') {
+          ctx.save();
+          try { ctx.globalCompositeOperation = 'lighter'; } catch(e) {}
+          const glowR = Math.max(e.w, e.h) * 1.6;
+          const mg = ctx.createRadialGradient(0, 0, 0, 0, 0, glowR);
+          mg.addColorStop(0, 'rgba(255,230,245,0.55)');
+          mg.addColorStop(0.4, 'rgba(255,200,230,0.22)');
+          mg.addColorStop(1, 'rgba(255,200,230,0)');
+          ctx.fillStyle = mg;
+          ctx.beginPath(); ctx.arc(0, 0, glowR, 0, Math.PI*2); ctx.fill();
+          ctx.restore();
+        }
+      } catch (e) { /* ignore moth glow errors */ }
       // Charger visual: show a warning triangle above the charger while it is preparing or actively charging
       try {
         if (e.type === 'charger' && (e.charging || (typeof e.chargeTimer !== 'undefined' && e.chargeTimer <= 360))) {
