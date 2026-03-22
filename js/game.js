@@ -1347,10 +1347,10 @@
     // prevent arrow keys and space from scrolling the page while playing
     if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { e.preventDefault(); keys.left = true; }
     if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { e.preventDefault(); keys.right = true; }
-    if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space') {
+    if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space' || e.key === 'k' || e.key === 'K' || e.key === 'z' || e.key === 'Z') {
       e.preventDefault();
-      // Convenience: allow Space to resume the game when paused (but not when game over).
-      // Otherwise, when playing, Space fires as before.
+      // Convenience: allow Space/K/Z to resume the game when paused (but not when game over).
+      // Otherwise, when playing, Space/K/Z fires as before.
       if (paused && !gameOver) {
         paused = false;
         pausedByFocus = false;
@@ -1587,7 +1587,7 @@
   window.addEventListener('keyup', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { e.preventDefault(); keys.left = false; }
     if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { e.preventDefault(); keys.right = false; }
-    if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space') { e.preventDefault(); keys.fire = false; }
+    if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space' || e.key === 'k' || e.key === 'K' || e.key === 'z' || e.key === 'Z') { e.preventDefault(); keys.fire = false; }
   });
 
   // On-screen touch buttons have been removed in favor of full-screen touch zones for better mobile responsiveness.
@@ -1731,7 +1731,7 @@ if (overlay) {
       if (typeof changesOpen !== 'undefined' && changesOpen) {
         overlayMessage.textContent = 'Recent changes — click or press Esc to close';
       } else if (typeof helpOpen !== 'undefined' && helpOpen) {
-        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space to fire; On touch, tap left/right edges to move and tap center to fire; P to pause; I or H to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode, G toggles garden grid, N advances to the next wave (developer/testing). Collect 🛡 shield power-ups to absorb enemy collisions for a short time.';
+        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space, K, or Z to fire; On touch, tap left/right edges to move and tap center to fire; P to pause; I or H to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode, G toggles garden grid, N advances to the next wave (developer/testing). Collect 🛡 shield power-ups to absorb enemy collisions for a short time.';
       } else if (gameOver) {
         // If the player has completed the configured set of waves, offer to continue to a harder loop
         if (typeof maxWaves !== 'undefined' && maxWaves > 0 && waveNumber >= maxWaves) {
