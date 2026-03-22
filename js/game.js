@@ -2513,10 +2513,14 @@ let hitPopTimeout = null;
             if (powerups.length < 6) {
               powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
               if (powerups.length > 8) powerups.shift();
+              try { playSound('shield'); } catch(e){}
+              try { scorePopups.push({ x: spawnX, y: spawnY - 12, text: '🛡 Shield', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
             } else {
               // Replace the oldest to avoid growing the array while ensuring a shield appears
               try { powerups.shift(); } catch(e){}
               powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+              try { playSound('shield'); } catch(e){}
+              try { scorePopups.push({ x: spawnX, y: spawnY - 12, text: '🛡 Shield', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
             }
           }
         }
