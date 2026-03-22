@@ -7,6 +7,7 @@
 - Fix: stop the wave watchdog from refilling defeated current-wave enemies, which could make waves feel endless instead of properly clearing.
 - Gameplay: increase hopper hop strength and size so hops are more noticeable (tiny) — 2026-03-22
 - Visual: spawn extra petal/leaf particles when Shield power-ups appear to increase discoverability (tiny) — 2026-03-22
+- Visual: shield power-ups emit a gentle trailing sparkle to improve discoverability (tiny) — 2026-03-22
 - Gameplay: increase Shield base duration from 15s to 18s to make it more useful (tiny) — 2026-03-22
 - Gameplay: show brief '🛡 Shield nearby' popup when a Shield drifts into pickup range to improve discoverability (tiny) — 2026-03-22
 - Visual/Gameplay: Spawn extra petal particles when Shield absorbs an enemy to make shield feedback more noticeable (tiny) — 2026-03-22

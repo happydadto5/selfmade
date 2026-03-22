@@ -4677,6 +4677,16 @@ let hitPopTimeout = null;
             ctx.beginPath(); ctx.arc(pu.x, pu.y, base * pulse, 0, Math.PI*2); ctx.stroke();
           }
         } catch (e) { /* ignore pulsing ring errors */ }
+
+        // gentle periodic sparkle for shield pickups to improve discoverability (tiny, low-cost)
+        try {
+          if (isShield) {
+            if (!pu._lastSpark || (Date.now() - pu._lastSpark) > 220) {
+              pu._lastSpark = Date.now();
+              particles.push({ x: pu.x + (Math.random()-0.5)*6, y: pu.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*0.6, vy: -Math.random()*0.6, r: 1 + Math.random()*2, life: 320 + Math.random()*200, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 });
+            }
+          }
+        } catch (e) { /* ignore sparkle errors */ }
         ctx.fillStyle = '#fff';
         ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         const icon = (pu.type === 'shield') ? '🛡' : (pu.type === 'rapid' ? '⚡' : (pu.type === 'spread' ? '🌿' : (pu.type === 'slow' ? '🍃' : (pu.type === 'bomb' ? '💣' : (pu.type === 'mulch' ? '🌱' : (pu.type === 'pierce' ? '🎯' : (pu.type === 'life' ? '+' : '')))))));
