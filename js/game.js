@@ -2564,6 +2564,17 @@ let hitPopTimeout = null;
     } catch (e) { /* ignore toast errors */ }
   }
 
+  function pickEnemyDropType(rand, shieldThreshold) {
+    if (rand < 0.28) return 'rapid';
+    if (rand < shieldThreshold) return 'shield';
+    if (rand < shieldThreshold + 0.04) return 'spread';
+    if (rand < shieldThreshold + 0.10) return 'slow';
+    if (rand < shieldThreshold + 0.15) return 'bomb';
+    if (rand < shieldThreshold + 0.165) return 'mulch';
+    if (rand < shieldThreshold + 0.168) return 'pierce';
+    return 'life';
+  }
+
   function update(dt) {
     if (keys.left) player.x -= player.speed;
     if (keys.right) player.x += player.speed;
@@ -3379,14 +3390,14 @@ let hitPopTimeout = null;
                 }
                 // limit active power-ups to avoid overload
                 if (powerups.length < 6) {
-                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.84 ? 'shield' : (_r < 0.88 ? 'spread' : (_r < 0.94 ? 'slow' : (_r < 0.98 ? 'bomb' : (_r < 0.995 ? 'mulch' : (_r < 0.998 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
+                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: pickEnemyDropType(_r, 0.84), born: Date.now(), life: 14000 });
                   // Visual hint: when a Shield spawns, emit small petal/leaf sparkles so players notice the pickup
                   try { for (let k=0;k<8;k++) particles.push({ x: e.x + (Math.random()-0.5)*8, y: e.y + (Math.random()-0.5)*8, vx: (Math.random()-0.5)*1.6, vy: -Math.random()*1.4, r: 2 + Math.random()*3, life: 420 + Math.random()*300, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 }); } catch(e) {}
                   // Defensive: keep powerup count bounded to avoid pathological growth during long runs
                   if (powerups.length > 8) powerups.shift();
                 } else {
                   // occasionally replace the oldest power-up to keep variety without growing arrays
-                  if (Math.random() < 0.12) { powerups.shift(); powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.78 ? 'shield' : (_r < 0.84 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.99 ? 'mulch' : (_r < 0.995 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
+                  if (Math.random() < 0.12) { powerups.shift(); powerups.push({ x: e.x, y: e.y, vy: -0.4, type: pickEnemyDropType(_r, 0.78), born: Date.now(), life: 14000 });
                     // Visual hint: when a Shield is inserted via replacement, emit a small sparkle burst for discoverability
                     try { for (let k=0;k<6;k++) particles.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (Math.random()-0.5)*10, vx: (Math.random()-0.5)*1.8, vy: -Math.random()*1.6, r: 2 + Math.random()*2.6, life: 380 + Math.random()*260, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.14 }); } catch(e) {} }
                     if (powerups.length > 8) powerups.shift(); }
@@ -3700,22 +3711,9 @@ let hitPopTimeout = null;
     } catch (e) { /* ignore active power HUD errors */ }
 
     screenShake = Math.max(0, screenShake - dt * 0.04);
-    // Watchdog: if the intended wave count was set but far fewer enemies appeared, spawn a few fallback enemies
-    try {
-      if (typeof currentWaveEnemyCount === 'number' && currentWaveEnemyCount > 0) {
-        const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
-        const deficit = Math.max(0, currentWaveEnemyCount - present);
-        // only act if some time has passed since the wave was initiated to avoid immediate interference
-        if (deficit > 0 && Date.now() - (waveSpawnWatchdog || 0) > 80) {
-          for (let _i = 0; _i < Math.min(deficit, 3); _i++) {
-            const ex = 40 + Math.random() * (cw - 80);
-            const ey = -20 - Math.random() * 120;
-            enemies.push({ x: ex, y: ey, w: 30, h: 28, vy: 0.8, hp: 1, maxHp: 1, wave: waveNumber });
-          }
-          try { waveSpawnWatchdog = Date.now(); } catch (e) {}
-        }
-      }
-    } catch (e) {}
+    // Do not replenish missing current-wave enemies here.
+    // The initial spawn path already fills any deficit, and refilling during gameplay
+    // makes waves feel endless because defeated enemies get silently replaced.
 
     const presentForWave = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
     if (presentForWave === 0) {
