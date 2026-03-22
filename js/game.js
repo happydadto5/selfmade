@@ -3184,7 +3184,7 @@ let hitPopTimeout = null;
                 // slightly favor rapid/shield but occasionally spawn a new spread, slow, bomb, or rare pierce power-up
                 let _r = Math.random();
                 // If low on lives, bias toward shield slightly
-                if (typeof lives === 'number' && lives <= 1 && Math.random() < 0.45) {
+                if (typeof lives === 'number' && lives <= 1 && Math.random() < 0.6) {
                   _r = 0.4; // falls into shield bucket in the selection logic below
                 }
                 // limit active power-ups to avoid overload

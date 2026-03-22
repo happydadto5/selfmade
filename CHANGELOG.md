@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: bias power-up selection more toward Shield when player is low on lives (tiny) — 2026-03-22
 - Audio: Distinct sound for Shield pickup to make collection clearer (tiny) — 2026-03-22
 - Gameplay: reduce screen shake when Shield absorbs enemy collisions to feel less jarring (tiny) — 2026-03-22
 - Gameplay: stronger shield-absorb visual: brighter petal + flash particle burst for clearer feedback (tiny) — 2026-03-22
