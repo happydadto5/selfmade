@@ -683,7 +683,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.5.0';
+  const version = '8.6.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4902,7 +4902,7 @@ let hitPopTimeout = null;
       } catch (err) { /* ignore charger draw errors */ }
       // draw a small health bar above multi-HP enemies (garden-theme, lightweight)
       try {
-        if (e.hp > 1) {
+        if ((typeof e.maxHp === "number" ? e.maxHp : e.hp) > 1) {
           const barW = e.w * 0.8;
           const barH = 5;
           const barX = -barW/2;

@@ -4,6 +4,7 @@
 - Gameplay: spawn a guaranteed Shield power-up every wave (improves recovery/pacing) — 2026-03-22
 - Visual/Gameplay: make Shield absorb feedback more noticeable (larger petal burst, longer pulse) (tiny) — 2026-03-22
 - Stability: polyfill requestAnimationFrame fallback for environments without rAF (tiny) — 2026-03-22
+- Visual: draw enemy HP bar above enemies with maxHp > 1 (shows health for multi-HP foes) — 2026-03-22
 - Automation: persist validation/test failure memory in `PROCESS_STATE.json` and override future iterations toward safe recovery when the same rollback pattern repeats.
 - Visual: add stable generated sprite slots for the player and baseline enemies so core game art can evolve beyond the original oval and square placeholders.
 - Fix: stop the wave watchdog from refilling defeated current-wave enemies, which could make waves feel endless instead of properly clearing.
