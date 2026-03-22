@@ -3398,7 +3398,7 @@ let hitPopTimeout = null;
                 if (player && now < (player.shieldUntil || 0)) {
                   // already has shield: add one charge up to 3 and extend by 8s
                   try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
-                  player.shieldUntil = (player.shieldUntil || now) + 8000;
+                  player.shieldUntil = (player.shieldUntil || now) + 6000;
                   // record the total duration for HUD progress (remaining from now)
                   try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 8000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
@@ -3406,7 +3406,7 @@ let hitPopTimeout = null;
                   try { player._shieldWarned = false; } catch(e){};
                 } else {
                   // new shield
-                  player.shieldUntil = Date.now() + 20000; // 20 seconds (slightly increased)
+                  player.shieldUntil = Date.now() + 15000; // 15 seconds (tuned for balance)
                   // record the total duration for HUD progress
                   try { player._shieldDuration = 20000; } catch(e) { player._shieldDuration = 20000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
