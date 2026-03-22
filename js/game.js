@@ -2360,6 +2360,7 @@ let hitPopTimeout = null;
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
       const isHopper = Math.random() < Math.min(0.22, 0.06 + waveNumber*0.015);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
+       const isCaterpillar = Math.random() < Math.min(0.1, 0.02 + waveNumber*0.01);
       // Small chance for a slow, short-burst "beetle" enemy: slightly tougher scuttling bug
       const isBeetle = Math.random() < Math.min(0.14, 0.02 + waveNumber*0.012);
       // Small chance for a "snatcher" enemy: medium enemy that periodically dashes toward the player
@@ -2396,6 +2397,10 @@ let hitPopTimeout = null;
       } else if (isSnatcher) {
         // snatcher: medium speed, telegraphed dashes toward the player (garden-themed vine snatcher)
         enemies.push({x:ex,y:ey,w:28,h:24,vy:speed*0.85, vx:0, hp:1, maxHp:1, type:'snatcher', huntTimer: 900 + Math.random()*800, t: Math.random()*1000});
+      } else if (isCaterpillar) {
+        // caterpillar: slow, sinuous mover that sheds leaf particles occasionally
+        const hpVal = 1;
+        enemies.push({x:ex,y:ey,w:34,h:20,vy:speed*0.65, baseVy: speed*0.65, vx:0, hp:hpVal, maxHp:hpVal, type:'caterpillar', t: Math.random()*1000});
       } else {
         const hpVal = 1 + Math.floor(waveNumber/4);
         if (Math.random() < Math.min(0.06, 0.02 + waveNumber*0.01)) { enemies.push({x:ex,y:ey,w:24,h:20,vy:speed*0.8, baseVy: speed*0.8, vx:0, hp:2, maxHp:2, type:'ladybug', hopTimer: 500 + Math.random()*700, t: Math.random()*1000}); }
@@ -2675,6 +2680,31 @@ let hitPopTimeout = null;
           e.vx = Math.sin(e.t * 0.006) * 0.6;
           e.vy = (typeof e.baseVy !== 'undefined') ? e.baseVy : (e.vy || 0.45);
         } catch (err) { /* ignore snail update errors */ }
+      }
+      // Caterpillar behavior: slow, sinuous mover that occasionally pauses to wiggle and sheds leaf particles
+      if (e.type === 'caterpillar') {
+        try {
+          e.baseVy = (typeof e.baseVy !== 'undefined') ? e.baseVy : (e.vy || 0.65);
+          e.vy = (typeof e.vy === 'number') ? e.vy : e.baseVy;
+          // wide horizontal sway for caterpillars
+          e.x += Math.sin(e.t * 0.018) * 2.2;
+          if (typeof e._wiggleTimer === 'undefined') e._wiggleTimer = 800 + Math.random()*1200;
+          e._wiggleTimer -= dt;
+          if (e._wiggleTimer <= 0 && !e._wiggling) {
+            e._wiggling = true;
+            e._wiggleEnd = e.t + 220 + Math.random()*260;
+            e._wiggleTimer = 900 + Math.random()*1600;
+          }
+          if (e._wiggling) {
+            e.x += Math.sin(e.t * 0.075) * 3.2;
+            e.vy = e.baseVy * 0.35;
+            if (e.t > (e._wiggleEnd || 0)) { e._wiggling = false; e.vy = e.baseVy; }
+          }
+          // shed occasional leaf particles for visual variety
+          if (Math.random() < 0.06) {
+            particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + e.h/2, vx: (Math.random()-0.5)*0.2, vy: 0.4 + Math.random()*0.4, r: 1 + Math.random()*1.6, life: 420 + Math.random()*220, color: '#c8e6c9' });
+          }
+        } catch (err) { /* ignore caterpillar update errors */ }
       }
       // Bee behavior: small fast enemies that slightly home toward player's X for lively challenge
       if (e.type === 'bee') {
@@ -4545,13 +4575,13 @@ let hitPopTimeout = null;
           const snatcherImminent = (e.type === 'snatcher' && typeof e.huntTimer === 'number' && e.huntTimer <= 360);
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
             // brighter tint while hit flash is active (type-specific for snails and pests)
-            enemyColor = (e.type === 'snail') ? '#a1887f' : ((e.type === 'ladybug') ? '#ff8a80' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#c5e1a5' : '#ffb3b3'))));
+            enemyColor = (e.type === 'snail') ? '#a1887f' : ((e.type === 'ladybug') ? '#ff8a80' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#c5e1a5' : (e.type === 'caterpillar' ? '#9ccc65' : '#ffb3b3')))));
           } else if (snatcherImminent) {
             // highlight imminent snatcher dashes with an orange tint for telegraphing
             enemyColor = '#ff7043';
           } else {
             // default enemy color, but snails and pests get distinct tones for readability
-            enemyColor = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'ladybug') ? '#d32f2f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#8BC34A' : '#ff6666'))));
+            enemyColor = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'ladybug') ? '#d32f2f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#8BC34A' : (e.type === 'caterpillar' ? '#9ccc65' : '#ff6666')))));
           }
           // If hit flash is active, draw a brief radial glow under the enemy for stronger hit feedback
           try {
