@@ -3840,7 +3840,7 @@ let hitPopTimeout = null;
             try { activePowerEl.style.background = ''; activePowerEl.style.color = ''; } catch (e) {}
           }
           // Also expose shield active status on the document body so CSS can apply a consistent global tint when Shield is active
-          try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', (now < (player.shieldUntil || 0)) ? 'true' : 'false'); document.body.setAttribute('data-mulch-active', (now < (player.mulchUntil || 0)) ? 'true' : 'false'); } } catch(e) {}
+          try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', (now < (player.shieldUntil || 0)) ? 'true' : 'false'); document.body.setAttribute('data-mulch-active', (now < (player.mulchUntil || 0)) ? 'true' : 'false'); try { var _rem = (player && player.shieldUntil) ? ((player.shieldUntil || 0) - now) : 0; if (now < (player.shieldUntil || 0) && _rem <= 4000) { document.body.setAttribute('data-shield-warning','true'); } else { document.body.setAttribute('data-shield-warning','false'); } } catch(e) {} } } catch(e) {}
         } catch (e) { /* ignore HUD update errors */ }
       }
     } catch (e) { /* ignore active power HUD errors */ }
