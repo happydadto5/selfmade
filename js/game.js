@@ -14,6 +14,8 @@
     // Ensure shield CSS state is initialized so CSS selectors have a deterministic value on page load
     try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', 'false'); } } catch (e) {}
   } catch (e) { /* ignore attribute errors in older browsers */ }
+  // Polyfill small safe requestAnimationFrame fallback for very old browsers/environments
+  try { if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'undefined') { window.requestAnimationFrame = function(cb){ return setTimeout(cb, 16); }; if (typeof window.cancelAnimationFrame === 'undefined') window.cancelAnimationFrame = function(id){ clearTimeout(id); }; } } catch(e) {}
 
   // Ensure a single autopause live region exists. Multiple identical live regions can confuse assistive tech
   // and cause repeated announcements. This helper deduplicates any existing nodes and returns the single node.
