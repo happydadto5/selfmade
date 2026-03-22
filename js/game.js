@@ -702,7 +702,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.27.0';
+  const version = '8.28.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3189,6 +3189,13 @@ let hitPopTimeout = null;
         try { player.hitFlashUntil = Date.now() + 320; } catch (e) {}
         try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
         lives = Math.max(0, lives);
+        // brief invulnerability after losing a life to avoid immediate follow-up hits
+        try {
+          if (lives > 0) {
+            try { player.invulnerableUntil = Date.now() + 1400; } catch(e) { player.invulnerableUntil = Date.now() + 1400; }
+            try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Invulnerable!', vy: -0.05, life: 700, totalLife: 700, color: '#fff59d' }); } catch (e) {}
+          }
+        } catch (e) {}
       // Trigger a short HUD pulse to draw attention to the lost life (CSS handles animation)
       try {
         if (livesEl) {

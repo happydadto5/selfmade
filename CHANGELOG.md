@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.28.0
+- Gameplay: grant short invulnerability after losing a life to avoid immediate follow-up deaths (tiny) — 2026-03-22
+
 ## 8.27.0
 - UX: mention Auto-pause (O) in session tip so players discover it (tiny) — 2026-03-22
 
