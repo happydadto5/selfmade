@@ -10,6 +10,7 @@
 - Gameplay: slightly increase power-up drop rate so power-ups feel more frequent and recovery is friendlier (small) — 2026-03-22
 - Gameplay: increase moth spawn rate and add subtle glowing petal trail so sinuous moths are more noticeable (small) — 2026-03-22
 - Gameplay: add soft glowing halo to moth enemies to make them more noticeable (tiny) — 2026-03-22
+- Gameplay: make 'hopper' enemies more noticeable with a pulsing lateral halo (tiny) — 2026-03-22
 
 ## 7.107.0
 - Stability: clear pointer/touch state on blur/visibility to avoid stuck controls when the page loses focus (tiny) — 2026-03-21
@@ -1514,4 +1515,3 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
-

@@ -4563,6 +4563,34 @@ let hitPopTimeout = null;
           ctx.restore();
         }
       } catch (e) { /* ignore moth glow errors */ }
+        // Hopper visual: draw a small pulsing lateral stripe and halo to make hoppers more noticeable
+        try {
+          if (e.type === 'hopper') {
+            ctx.save();
+            try { ctx.globalCompositeOperation = 'lighter'; } catch(e) {}
+            const hr = Math.max(e.w, e.h) * 1.6;
+            const hg = ctx.createLinearGradient(-hr, 0, hr, 0);
+            hg.addColorStop(0, 'rgba(255,200,150,0)');
+            hg.addColorStop(0.5, 'rgba(255,235,180,0.65)');
+            hg.addColorStop(1, 'rgba(255,200,150,0)');
+            ctx.fillStyle = hg;
+            const pulse = 1 + 0.16 * Math.sin(Date.now() / 140);
+            ctx.beginPath();
+            ctx.ellipse(0, 0, hr * pulse, (e.h * 0.5) * pulse, 0, 0, Math.PI * 2);
+            ctx.fill();
+            // subtle white streak to emphasize lateral motion
+            try {
+              ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+              ctx.lineWidth = 2 * (0.8 + 0.2 * Math.sin(Date.now() / 110));
+              ctx.beginPath();
+              ctx.moveTo(-e.w*0.8, 0);
+              ctx.lineTo(e.w*0.8, 0);
+              ctx.stroke();
+            } catch(e){}
+            ctx.restore();
+          }
+        } catch (e) { /* ignore hopper glow errors */ }
+
       // Charger visual: show a warning triangle above the charger while it is preparing or actively charging
       try {
         if (e.type === 'charger' && (e.charging || (typeof e.chargeTimer !== 'undefined' && e.chargeTimer <= 360))) {
