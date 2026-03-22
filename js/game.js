@@ -3367,7 +3367,7 @@ let hitPopTimeout = null;
         try {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
-          const pickupRadius = (typeof isTouch !== 'undefined' && isTouch) ? 220 : 200; // larger radius on touch devices to aid collection
+          const pickupRadius = (typeof isTouch !== 'undefined' && isTouch) ? 220 : 140; // larger radius on touch devices to aid collection
 
           if (Math.sqrt(dx*dx + dy*dy) < pickupRadius) {
             // handle different power-up types
