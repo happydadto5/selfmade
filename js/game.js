@@ -689,6 +689,8 @@
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
+  let lastKillAt = 0;
+  let killCombo = 0;
   let gameOver = false;
 
   // Debounced high score saver to reduce frequent localStorage writes when score updates rapidly
@@ -3375,7 +3377,25 @@ let hitPopTimeout = null;
               } catch(e) {}
               try { playSound('explode'); } catch(e){}
             } catch (err) {}
-            try { addScoreAndPopup(10, e.x, e.y, '#ffff88'); } catch(e) {}
+            try {
+              const now = Date.now();
+              try {
+                if (now - lastKillAt <= 700) {
+                  killCombo = Math.min(killCombo + 1, 5);
+                } else {
+                  killCombo = 1;
+                }
+              } catch (e) { killCombo = 1; }
+              lastKillAt = now;
+              const base = 10;
+              const bonusPer = 3;
+              const maxBonus = 10;
+              const comboBonus = Math.min(maxBonus, (killCombo - 1) * bonusPer);
+              addScoreAndPopup(base + comboBonus, e.x, e.y, '#ffff88');
+              if (killCombo > 1) {
+                try { scorePopups.push({ x: e.x, y: e.y - 18, text: 'Combo x' + killCombo + ' +' + comboBonus, vy: -0.08, life: 900, totalLife: 900, color: '#ffd54f' }); } catch (e) {}
+              }
+            } catch(e) {}
             // pest split: spawn two small mini-pests at the death location when a pest dies
             try {
               if (e.type === 'pest') {

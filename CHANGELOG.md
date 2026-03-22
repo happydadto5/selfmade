@@ -1,7 +1,7 @@
 # Changelog
 
 ## Unreleased
-- Changelog: add placeholder Unreleased bullet to confirm header replacement (chore) — 2026-03-22
+- Gameplay: award small combo bonus for quick consecutive kills (≤700ms) and show combo popup (tiny) — 2026-03-22
 - Gameplay: increase Shield base duration from 18s to 22s to make it more useful (tiny) — 2026-03-22
 - UI: pulse lives HUD and shield badge on Shield pickup (tiny) — 2026-03-22
 - UI: pulse lives HUD and shield badge on Shield pickup (tiny) — 2026-03-22
