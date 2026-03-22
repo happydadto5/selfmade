@@ -685,7 +685,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.15.0';
+  const version = '8.16.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2471,7 +2471,7 @@ let hitPopTimeout = null;
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
        const isCaterpillar = Math.random() < Math.min(0.1, 0.02 + waveNumber*0.01);
       // Small chance for a slow, short-burst "beetle" enemy: slightly tougher scuttling bug
-      const isBeetle = Math.random() < Math.min(0.14, 0.02 + waveNumber*0.012);
+      const isBeetle = Math.random() < Math.min(0.20, 0.02 + waveNumber*0.012);
       // Small chance for a "snatcher" enemy: medium enemy that periodically dashes toward the player
       const isSnatcher = Math.random() < Math.min(0.08, 0.02 + waveNumber*0.01);
       if (isZig) {

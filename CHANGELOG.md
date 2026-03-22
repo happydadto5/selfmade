@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase beetle spawn probability cap from 0.14 to 0.20 for more visible enemy variety (tiny) — 2026-03-22
 - Visual: increase shield pickup glow and size to improve discoverability (tiny) — 2026-03-22
 - UX: show one-time shield tip when a Shield first appears to aid discoverability (tiny) — 2026-03-22
 - Gameplay: slightly stronger screen shake on enemy hit for clearer feedback (tiny) — 2026-03-22
