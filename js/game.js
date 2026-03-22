@@ -2375,7 +2375,7 @@ if (overlay) {
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, shieldCharges: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
-  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0; let shieldPulseUntil = 0, shieldPulseX = 0, shieldPulseY = 0; let lastKillAt = 0; let killCombo = 0;
+  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0; let shieldPulseUntil = 0, shieldPulseX = 0, shieldPulseY = 0; lastKillAt = 0; killCombo = 0;
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let shieldNearbyHintUntil = 0;
