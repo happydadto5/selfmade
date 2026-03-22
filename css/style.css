@@ -229,6 +229,7 @@ body.show-touch-guides::after {
 }
 
 /* Overlay message styling: improve readability and contrast for paused/game-over messages */
+.hud { background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 6px 10px; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
 .overlay-message {
   font-size: 22px;
   text-align: center;

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: add semi-transparent background to HUD and overlays to improve readability (tiny) — 2026-03-22
+
 ## 8.41.0
 - UI: Increase wave-cleared toast duration and emphasize final-wave toast (tiny) — 2026-03-22
 
