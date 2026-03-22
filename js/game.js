@@ -4118,9 +4118,11 @@ let hitPopTimeout = null;
         const drawH = gardenBackground.naturalHeight * scale;
         const drawX = (cw - drawW) / 2;
         const drawY = (ch - drawH) / 2;
+        // subtle vertical parallax oscillation to bring the background to life (very low amplitude)
+        const yShift = Math.sin(Date.now() * 0.00028) * Math.min(40, ch * 0.03);
         ctx.save();
         ctx.globalAlpha = 0.52;
-        ctx.drawImage(gardenBackground, drawX, drawY, drawW, drawH);
+        ctx.drawImage(gardenBackground, drawX, drawY + yShift, drawW, drawH);
         ctx.restore();
         ctx.save();
         const artOverlay = ctx.createLinearGradient(0, 0, 0, ch);
