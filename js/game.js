@@ -2759,7 +2759,7 @@ let hitPopTimeout = null;
                 try {
                   for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.8, vy: -Math.random()*2.2, r: 2+Math.random()*4, life: 360+Math.random()*360, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 });
                 } catch(e){}
-                try { screenShake = Math.min(20, (screenShake||0) + 8); } catch(e){}
+                try { screenShake = Math.min(20, (screenShake||0) + 4); } catch(e){}
                 try { canvasWhiteFlashUntil = Date.now() + 380; canvasHitFlashUntil = Date.now() + 520; } catch(e){}
                 try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
                 try {
