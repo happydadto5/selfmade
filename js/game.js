@@ -4962,6 +4962,20 @@ let hitPopTimeout = null;
             pathRoundedRect(-e.w / 2, -e.h / 2, e.w, e.h, Math.max(6, Math.min(e.w, e.h) * 0.28));
             ctx.stroke();
             ctx.restore();
+            // brief white overlay on hit to make damage more visible (respects reduced-motion preference)
+            try {
+              if (e.hitFlashUntil && Date.now() < e.hitFlashUntil && !prefersReducedMotion) {
+                ctx.save();
+                try { ctx.globalCompositeOperation = 'lighter'; } catch(e) {}
+                const rem = Math.max(0, e.hitFlashUntil - Date.now());
+                const alpha = Math.max(0.12, Math.min(0.65, 0.65 * (rem / 320)));
+                try { ctx.globalAlpha = alpha; } catch(e) {}
+                pathRoundedRect(-e.w / 2, -e.h / 2, e.w, e.h, Math.max(6, Math.min(e.w, e.h) * 0.28));
+                ctx.fillStyle = 'rgba(255,255,255,1)';
+                ctx.fill();
+                ctx.restore();
+              }
+            } catch (err) { /* ignore overlay errors */ }
           }
         }
       } catch (e) { drewEnemySprite = false; }
