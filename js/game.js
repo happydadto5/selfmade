@@ -2265,7 +2265,7 @@ if (overlay) {
 
   player = { x: cw/2, y: ch - 80, w: 40, h: 22, speed: 6, cooldown: 0, fireRate: 1, fireRateUntil: 0, shieldUntil: 0, shieldCharges: 0, spreadUntil: 0 };
   let lastFireFlashUntil = 0;
-  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0;
+  const bullets = [], enemies = [], particles = [], scorePopups = [], powerups = [], hitMarkers = []; let screenShake = 0; let hitStopUntil = 0; let canvasHitFlashX = 0, canvasHitFlashY = 0; let shieldPulseUntil = 0, shieldPulseX = 0, shieldPulseY = 0;
   // transient visual pulse when a power-up is collected
   let powerupPulseUntil = 0;
   let lastPowerupColor = '';
@@ -2814,6 +2814,7 @@ let hitPopTimeout = null;
                   player.shieldUntil = Math.max(Date.now(), player.shieldUntil);
                 }
                 try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield absorbed!', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
+                try { shieldPulseUntil = Date.now() + 420; shieldPulseX = player.x; shieldPulseY = player.y; } catch(e) {}
                 try { addScoreAndPopup(6, player.x + 16, player.y - 10, '#ffff88'); } catch(e){}
                 // Small tactile/gamefeel improvement: give shield absorb a brief screen shake and player flash so it's more noticeable
                 try { screenShake = Math.max(typeof screenShake === 'number' ? screenShake : 0, 8); } catch(e){}
@@ -4265,6 +4266,24 @@ let hitPopTimeout = null;
         ctx.ellipse(0,0,player.w*1.8*_pulse,player.h*1.8*_pulse,0,0,Math.PI*2);
         ctx.stroke();
         ctx.restore();
+
+        // brief shield-absorb pulse ring for clearer feedback
+        try {
+          if (Date.now() < (shieldPulseUntil || 0)) {
+            const t = (shieldPulseUntil - Date.now()) / 420; // 1 -> 0
+            const frac = Math.max(0, Math.min(1, t));
+            const radius = Math.max(18, player.w * (1.8 + (1 - frac) * 2.4));
+            ctx.save();
+            ctx.translate(shieldPulseX, shieldPulseY);
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255,255,255,${(0.9 * frac).toFixed(3)})`;
+            ctx.lineWidth = 6 * frac;
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+          }
+        } catch(e) {}
 
         // Draw small shield-charge indicators above the player so remaining charges are visible at a glance
         try {
