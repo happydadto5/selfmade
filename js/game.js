@@ -4192,6 +4192,26 @@ let hitPopTimeout = null;
           ctx.stroke();
           ctx.restore();
         } catch (e) { /* ignore ring draw errors */ }
+
+        // When shield charges are low, add a stronger warm pulsing highlight to draw attention to imminent depletion
+        try {
+          const chargesPreview = Math.max(0, player.shieldCharges || 0);
+          if (chargesPreview <= 1) {
+            try {
+              ctx.save();
+              const pulse = 1 + 0.18 * Math.sin(Date.now() / 120);
+              ctx.beginPath();
+              ctx.strokeStyle = 'rgba(255,204,79,0.88)';
+              ctx.lineWidth = 6;
+              ctx.shadowColor = 'rgba(255,204,79,0.36)';
+              ctx.shadowBlur = 14;
+              ctx.ellipse(0, 0, player.w * 2.1 * pulse, player.h * 2.1 * pulse, 0, 0, Math.PI * 2);
+              ctx.stroke();
+              ctx.restore();
+            } catch (e) { /* ignore low-charge highlight errors */ }
+          }
+        } catch (e) { /* ignore preview errors */ }
+
         // Draw small charge dots above the player to indicate remaining shield charges
         try {
           const charges = Math.max(0, player.shieldCharges || 0);
