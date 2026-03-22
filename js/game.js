@@ -3024,9 +3024,11 @@ let hitPopTimeout = null;
                   } catch (e) {}
                 } catch(e) {}
                 try { addScoreAndPopup(6, player.x + 16, player.y - 10, '#ffff88'); } catch(e){}
-                // Small tactile/gamefeel improvement: give shield absorb a brief screen shake and player flash so it's more noticeable
+                // Small tactile/gamefeel improvement: give shield absorb a brief screen shake, hit-stop, and player flash so it's more noticeable
                 try { screenShake = Math.max(typeof screenShake === 'number' ? screenShake : 0, 8); } catch(e){}
+                try { hitStopUntil = performance.now() + 60; } catch (err) { hitStopUntil = Date.now() + 60; }
                 try { canvasPlayerHitFlashUntil = Date.now() + 420; } catch(e){}
+                try { shieldPulseUntil = Date.now() + 800; shieldPulseX = player.x; shieldPulseY = player.y; } catch(e){}
                 try { if (typeof playSound === 'function') playSound('shield'); } catch(e){}
                 try { for (let k=0;k<6;k++) particles.push({ x: player.x + (Math.random()-0.5)*18, y: player.y + (Math.random()-0.5)*8, vx: (Math.random()-0.5)*1.6, vy: -0.8 - Math.random()*1.2, r: 6+Math.random()*6, life: 420+Math.random()*240, born: Date.now(), color: (Math.random() < 0.5 ? '#ffd54f' : '#ffcc80'), petal: true, spin: (Math.random()-0.5)*0.18 }); } catch(e){}
                 try { playSound('shield'); } catch (e) {}
@@ -3135,6 +3137,8 @@ let hitPopTimeout = null;
                 particles.push({ x: player.x + (Math.random()-0.5)*6, y: player.y + (Math.random()-0.5)*6, vx: Math.cos(ang)*spd, vy: Math.sin(ang)*spd, r: 2 + Math.random()*3, life: 420 + Math.random()*280, born: Date.now(), color: '#fff59d', petal: true, blend: 'lighter' });
               }
             } catch(e){}
+            try { hitStopUntil = performance.now() + 60; } catch (err) { hitStopUntil = Date.now() + 60; }
+            try { shieldPulseUntil = Date.now() + 800; shieldPulseX = player.x; shieldPulseY = player.y; } catch(e){}
             try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
             try { canvasWhiteFlashUntil = Date.now() + 340; canvasHitFlashUntil = Date.now() + 420; } catch(e){}
             try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
