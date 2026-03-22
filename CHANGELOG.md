@@ -6,6 +6,7 @@
 - Gameplay: Mulch pickup now briefly slows nearby enemies when collected (small) — 2026-03-21
 - Gameplay: shield absorb now spawns green leaf particles and shows a green shield HUD tint to better match the garden theme (tiny) — 2026-03-21
 - Gameplay: add a gardening-themed 'Mulch' power-up that grants a temporary score multiplier (12s); multiplier stacks slightly when re-collected. Small HUD and popup updates to show active Mulch. — 2026-03-21
+- Gameplay: weevil enemies now have a small chance to drop a Mulch power-up when defeated, rewarding targeted play (tiny) — 2026-03-21
 
 ## 7.107.0
 - Stability: clear pointer/touch state on blur/visibility to avoid stuck controls when the page loses focus (tiny) — 2026-03-21
