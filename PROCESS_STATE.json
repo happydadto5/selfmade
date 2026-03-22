@@ -1,33 +1,19 @@
 {
   "metaReviewEvery": 10,
-  "lastMetaReviewReleaseCount": 338,
-  "lastMetaReviewVersion": "7.97.0",
-  "lastMetaReviewAt": "2026-03-21T20:28:08.316Z",
+  "lastMetaReviewReleaseCount": 348,
+  "lastMetaReviewVersion": "8.0.0",
+  "lastMetaReviewAt": "2026-03-22T16:34:21.760Z",
   "uiReviewEvery": 20,
   "lastUiReviewReleaseCount": null,
   "lastUiReviewVersion": "",
   "lastUiReviewAt": "",
   "failureMemory": {
-    "streak": 2,
-    "lastType": "validation",
-    "lastMessage": "js/game.js has syntax error: unexpected token ')'",
-    "lastHint": "fix-the-repeated-js-game-syntax-regression-first-avoid-large-try-catch-or-branch-rewrites-and-prefer-small-safe-edits-until-validation-is-green",
-    "lastSource": "selfmade_validate.txt",
-    "updatedAt": "2026-03-22T16:29:14.132Z",
-    "recent": [
-      {
-        "type": "validation",
-        "message": "js/game.js has syntax error: unexpected token ')'",
-        "streak": 2,
-        "recordedAt": "2026-03-22T16:29:14.132Z"
-      },
-      {
-        "type": "validation",
-        "message": "js/game.js has syntax error: unexpected token ')'",
-        "streak": 1,
-        "recordedAt": "2026-03-22T16:29:14.084Z"
-      }
-    ]
+    "streak": 0,
+    "lastType": "",
+    "lastMessage": "",
+    "lastHint": "none",
+    "lastSource": "",
+    "updatedAt": "2026-03-22T16:34:23.346Z",
+    "recent": []
   }
 }
-
