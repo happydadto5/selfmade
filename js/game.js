@@ -1406,7 +1406,11 @@
         // user toggled pause; clear pausedByFocus so auto-resume doesn't override user's intent
         pausedByFocus = false;
         // Clear transient input state when user manually pauses to avoid stuck controls
-        if (paused) clearInputs();
+        if (paused) {
+          try { clearInputs(); } catch (e) {}
+          // Also clear any scheduled spawn timer so enemies don't unexpectedly spawn while paused
+          try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
+        }
         // If an auto-pause timeout was pending (blur/visibility debounce), clear it so manual toggle takes precedence
         if (typeof blurTimeout !== 'undefined' && blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }
         if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
