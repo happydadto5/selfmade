@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: slightly emphasize Wave HUD with brief scale pulse on wave change (tiny) — 2026-03-22
+
 ## 8.24.0
 - Gameplay: add subtle near-expiry shield warning glow to make shield depletion more noticeable (tiny) — 2026-03-22
 
