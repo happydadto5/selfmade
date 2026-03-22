@@ -3650,6 +3650,9 @@ let hitPopTimeout = null;
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
+                  // small feedback: indicate an extra shield charge was gained
+                  try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield +1', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e) {}
+                  try { playSound('blip'); } catch(e) {}
                 } else {
                   // new shield
                   player.shieldUntil = Date.now() + 22000; // 22 seconds (tuned for balance)
