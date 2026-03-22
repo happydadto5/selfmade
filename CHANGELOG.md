@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: mention N keyboard shortcut in session tip so players discover wave advance (tiny) — 2026-03-22
+
 ## 8.32.0
 - Gameplay: slightly increase non-touch power-up pickup radius to make collecting power-ups less frustrating (tiny) — 2026-03-22
 

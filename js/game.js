@@ -68,7 +68,7 @@
         _sessionTip.style.pointerEvents = 'none';
         _sessionTip.style.opacity = '0';
         _sessionTip.style.transition = 'opacity 220ms ease, transform 220ms ease';
-        _sessionTip.textContent = 'Tip: Press H for help, P to pause, O to toggle auto-pause. Enjoy the game!';
+        _sessionTip.textContent = 'Tip: Press H for help, P to pause, O to toggle auto-pause, N to advance waves. Enjoy the game!';
         try { document.body.appendChild(_sessionTip); } catch (e) {}
         try { void _sessionTip.offsetWidth; _sessionTip.style.opacity = '1'; } catch (e) {}
         setTimeout(function(){ try { _sessionTip.style.opacity = '0'; } catch(e){} }, 4200);
