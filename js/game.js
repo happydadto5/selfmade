@@ -3431,8 +3431,8 @@ let hitPopTimeout = null;
                 player.mulchUntil = now + 12000; // 12 seconds
                 try { player._mulchWarned = false; } catch(e){}
               } catch(e){}
-              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Mulch collected: score bonus'; } catch (e) {}
-              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Mulch! x' + (player.scoreMultiplier ? player.scoreMultiplier.toFixed(2) : '1.5'), vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
+              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = '🌿 Mulch collected: score bonus'; } catch (e) {}
+              try { scorePopups.push({ x: player.x, y: player.y - 20, text: '🌿 Mulch! x' + (player.scoreMultiplier ? player.scoreMultiplier.toFixed(2) : '1.5'), vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
               try {
                 // brief local mulch effect: slow nearby enemies for 2.5s to give players a feel-good recovery (small, garden-themed)
@@ -3472,7 +3472,7 @@ let hitPopTimeout = null;
             try { 
               // small pulse effect on power-up collection for satisfying feedback
               powerupPulseUntil = Date.now() + 420;
-              lastPowerupColor = (pu.type === 'rapid' ? '#ffe082' : (pu.type === 'shield' ? '#a5d6a7' : (pu.type === 'spread' ? '#ffd180' : (pu.type === 'bomb' ? '#ffccbc' : (pu.type === 'pierce' ? '#b39ddb' : (pu.type === 'slow' ? '#c8e6c9' : '#ff8a65'))))));
+              lastPowerupColor = (pu.type === 'rapid' ? '#ffe082' : (pu.type === 'shield' ? '#a5d6a7' : (pu.type === 'mulch' ? '#8BC34A' : (pu.type === 'spread' ? '#ffd180' : (pu.type === 'bomb' ? '#ffccbc' : (pu.type === 'pierce' ? '#b39ddb' : (pu.type === 'slow' ? '#c8e6c9' : '#ff8a65')))))));
             } catch (e) {}
             powerups.splice(i,1);
           }
@@ -3538,7 +3538,7 @@ let hitPopTimeout = null;
         } else if (now < (player.mulchUntil || 0)) {
           // Mulch is a gardening-themed score multiplier; show remaining time in the HUD when active
           const sec = Math.ceil(((player.mulchUntil || 0) - now) / 1000);
-          label = 'Mulch — ' + sec + 's';
+          label = '🌿 Mulch — ' + sec + 's';
         } else if (now < (player.slowUntil || 0)) {
           const sec = Math.ceil(((player.slowUntil || 0) - now) / 1000);
           label = 'Vine — ' + sec + 's';
