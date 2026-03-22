@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual: stronger enemy-death petal burst and small kill popup for clearer feedback (tiny) — 2026-03-22
 - Gameplay: spawn a guaranteed Shield power-up every wave (improves recovery/pacing) — 2026-03-22
 - Visual/Gameplay: make Shield absorb feedback more noticeable (larger petal burst, longer pulse) (tiny) — 2026-03-22
 - Stability: polyfill requestAnimationFrame fallback for environments without rAF (tiny) — 2026-03-22
