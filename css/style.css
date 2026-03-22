@@ -664,8 +664,16 @@ body.colorblind-mode.hit-pop::after {
 /* Subtle hit shake synchronized with the hit-pop overlay to improve perceived impact.
    Respects prefers-reduced-motion. This briefly nudges the canvas while the pop runs. */
 @media (prefers-reduced-motion: no-preference) {
+  /* Default hit shake (used for normal hits) */
   body.hit-pop #game {
     animation: hitShake 440ms cubic-bezier(.2,.8,.2,1);
+    transform-origin: center center;
+    will-change: transform;
+  }
+  /* Stronger hit shake when the player is low on lives to increase perceived urgency and focus.
+     This remains disabled when users prefer reduced motion. */
+  body[data-low-lives="true"].hit-pop #game {
+    animation: hitShakeStrong 640ms cubic-bezier(.18,.9,.24,1);
     transform-origin: center center;
     will-change: transform;
   }
@@ -675,6 +683,15 @@ body.colorblind-mode.hit-pop::after {
     40% { transform: translate3d(5px,2px,0) rotate(0.6deg); }
     60% { transform: translate3d(-3px,1px,0) rotate(-0.4deg); }
     80% { transform: translate3d(2px,-1px,0) rotate(0.2deg); }
+    100% { transform: translate3d(0,0,0) rotate(0deg); }
+  }
+  /* Stronger, slightly longer shake for 'low lives' state */
+  @keyframes hitShakeStrong {
+    0% { transform: translate3d(0,0,0) rotate(0deg); }
+    15% { transform: translate3d(-10px,-4px,0) rotate(-1.2deg); }
+    35% { transform: translate3d(9px,5px,0) rotate(1deg); }
+    55% { transform: translate3d(-6px,3px,0) rotate(-0.6deg); }
+    75% { transform: translate3d(4px,-2px,0) rotate(0.3deg); }
     100% { transform: translate3d(0,0,0) rotate(0deg); }
   }
 }

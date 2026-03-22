@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: stronger hit feedback when low on lives (larger hit shake & pop) — 2026-03-22
+
 ## 8.34.0
 - Visual/UI: stronger garden-tinted hit-pop overlay and slightly longer hit feedback to improve hit readability (tiny) — 2026-03-22
 

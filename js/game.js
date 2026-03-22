@@ -3220,6 +3220,8 @@ let hitPopTimeout = null;
         try { player.hitFlashUntil = Date.now() + 320; } catch (e) {}
         try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
         lives = Math.max(0, lives);
+        // Expose a body dataset flag when the player is low on lives so CSS can emphasize feedback (e.g., stronger hit shake)
+        try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-low-lives', (lives <= 1) ? 'true' : 'false'); } } catch (e) {}
         // brief invulnerability after losing a life to avoid immediate follow-up hits
         try {
           if (lives > 0) {
