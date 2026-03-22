@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.30.0
 - Stability: clear blur timeout and suspend audio on pagehide/unload to avoid timers and audio after unload (tiny) — 2026-03-22
 
 ## 8.29.0
