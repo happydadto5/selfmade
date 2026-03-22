@@ -2612,6 +2612,13 @@ let hitPopTimeout = null;
               if (powerups.length > 8) powerups.shift();
               try { playSound('shield'); } catch(e){}
               try { scorePopups.push({ x: spawnX, y: spawnY - 12, text: '🛡 Shield', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
+              try {
+                // One-time helpful tip: show a brief overlay message the first time a Shield appears to aid discoverability
+                if (typeof localStorage !== 'undefined' && !localStorage.getItem('seenShieldTipV1')) {
+                  try { if (overlayMessage) { overlayMessage.textContent = 'Tip: Collect 🛡 to absorb an enemy hit. Tap or press Esc to dismiss.'; setTimeout(function(){ try { overlayMessage.textContent = ''; } catch(e){} }, 3800); } } catch(e){}
+                  try { localStorage.setItem('seenShieldTipV1', '1'); } catch(e){}
+                }
+              } catch(e) {}
             } else {
               // Replace the oldest to avoid growing the array while ensuring a shield appears
               try { powerups.shift(); } catch(e){}
@@ -3922,6 +3929,13 @@ let hitPopTimeout = null;
                 powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
                 // Defensive: keep powerup count bounded to avoid pathological growth during long runs
                 if (powerups.length > 8) powerups.shift();
+                try {
+                  // One-time helpful tip: show a brief overlay message the first time a Shield appears to aid discoverability
+                  if (typeof localStorage !== 'undefined' && !localStorage.getItem('seenShieldTipV1')) {
+                    try { if (overlayMessage) { overlayMessage.textContent = 'Tip: Collect 🛡 to absorb an enemy hit. Tap or press Esc to dismiss.'; setTimeout(function(){ try { overlayMessage.textContent = ''; } catch(e){} }, 3800); } } catch(e){}
+                    try { localStorage.setItem('seenShieldTipV1', '1'); } catch(e){}
+                  }
+                } catch(e) {}
               } else {
                 // if full, rotate oldest out to keep variety
                 powerups.shift();

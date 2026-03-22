@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UX: show one-time shield tip when a Shield first appears to aid discoverability (tiny) — 2026-03-22
 - Gameplay: slightly stronger screen shake on enemy hit for clearer feedback (tiny) — 2026-03-22
 - Gameplay: allow K and Z as alternate fire keys (small) — 2026-03-22
 - Visual: draw short motion streak on bullets for clearer firing feedback (tiny) — 2026-03-22
