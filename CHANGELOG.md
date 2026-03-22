@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.39.0
 - UI: announce Next Wave availability via assistive live region when Next Wave button appears (tiny) — 2026-03-22
 
 ## 8.38.0
