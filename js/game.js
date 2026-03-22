@@ -3198,7 +3198,7 @@ let hitPopTimeout = null;
                 }
                 // limit active power-ups to avoid overload
                 if (powerups.length < 6) {
-                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.68 ? 'shield' : (_r < 0.84 ? 'spread' : (_r < 0.92 ? 'slow' : (_r < 0.97 ? 'bomb' : (_r < 0.99 ? 'mulch' : (_r < 0.995 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
+                  powerups.push({ x: e.x, y: e.y, vy: -0.4, type: (_r < 0.28 ? 'rapid' : (_r < 0.76 ? 'shield' : (_r < 0.88 ? 'spread' : (_r < 0.94 ? 'slow' : (_r < 0.98 ? 'bomb' : (_r < 0.995 ? 'mulch' : (_r < 0.998 ? 'pierce' : 'life')))))))), born: Date.now(), life: 14000 });
                   // Defensive: keep powerup count bounded to avoid pathological growth during long runs
                   if (powerups.length > 8) powerups.shift();
                 } else {
