@@ -77,30 +77,88 @@
   let cw, ch;
   let player;
   let lastShieldActive = false;
-  let gardenBackground = null;
-  let gardenBackgroundReady = false;
-  try {
-    if (typeof Image !== 'undefined') {
-      gardenBackground = new Image();
-      gardenBackground.decoding = 'async';
-      gardenBackground.onload = () => {
-        gardenBackgroundReady = true;
-        try {
-          // Respect persisted preference: allow players to toggle the garden background using the 'B' key.
-          const pref = (function(){ try { return localStorage.getItem('selfmade_show_bg'); } catch(e){ return null; } })();
-          if (pref !== '0') {
-            canvas.style.backgroundImage = 'url("assets/images/garden-background.jpg")';
-            canvas.style.backgroundPosition = 'center top';
-            canvas.style.backgroundSize = 'cover';
-            try { canvas.dataset.bgVisible = 'true'; } catch(e) {}
-          } else {
-            try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
-          }
-        } catch (e) {}
-      };
-      gardenBackground.onerror = () => { gardenBackgroundReady = false; try { canvas.style.backgroundImage = ''; try { canvas.dataset.bgVisible = 'false'; } catch(e) {} } catch (e) {} };
-      gardenBackground.src = 'assets/images/garden-background.jpg';
+  function createImageAsset(src, handlers) {
+    const asset = { image: null, ready: false, src };
+    try {
+      if (typeof Image !== 'undefined') {
+        const img = new Image();
+        img.decoding = 'async';
+        img.onload = () => {
+          asset.ready = true;
+          try { if (handlers && typeof handlers.onload === 'function') handlers.onload(img); } catch (e) {}
+        };
+        img.onerror = () => {
+          asset.ready = false;
+          try { if (handlers && typeof handlers.onerror === 'function') handlers.onerror(); } catch (e) {}
+        };
+        img.src = src;
+        asset.image = img;
+      }
+    } catch (e) {}
+    return asset;
+  }
+  function drawImageCover(img, dx, dy, dw, dh) {
+    if (!img || !img.naturalWidth || !img.naturalHeight) return false;
+    const srcRatio = img.naturalWidth / img.naturalHeight;
+    const destRatio = dw / dh;
+    let sx = 0;
+    let sy = 0;
+    let sw = img.naturalWidth;
+    let sh = img.naturalHeight;
+    if (srcRatio > destRatio) {
+      sw = img.naturalHeight * destRatio;
+      sx = (img.naturalWidth - sw) * 0.5;
+    } else {
+      sh = img.naturalWidth / destRatio;
+      sy = (img.naturalHeight - sh) * 0.5;
     }
+    ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+    return true;
+  }
+  function pathRoundedRect(x, y, w, h, r) {
+    const radius = Math.max(0, Math.min(r, Math.abs(w) * 0.5, Math.abs(h) * 0.5));
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  }
+  const gardenBackgroundAsset = createImageAsset('assets/images/garden-background.jpg', {
+    onload: () => {
+      try {
+        const pref = (function(){ try { return localStorage.getItem('selfmade_show_bg'); } catch(e){ return null; } })();
+        if (pref !== '0') {
+          canvas.style.backgroundImage = 'url("assets/images/garden-background.jpg")';
+          canvas.style.backgroundPosition = 'center top';
+          canvas.style.backgroundSize = 'cover';
+          try { canvas.dataset.bgVisible = 'true'; } catch(e) {}
+        } else {
+          try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
+        }
+      } catch (e) {}
+    },
+    onerror: () => {
+      try {
+        canvas.style.backgroundImage = '';
+        try { canvas.dataset.bgVisible = 'false'; } catch(e) {}
+      } catch (e) {}
+    }
+  });
+  const playerSpriteAsset = createImageAsset('assets/images/player-sprite.jpg');
+  const enemySpriteAsset = createImageAsset('assets/images/enemy-sprite.jpg');
+  let gardenBackground = gardenBackgroundAsset.image;
+  let playerSprite = playerSpriteAsset.image;
+  let enemySprite = enemySpriteAsset.image;
+  try {
+    gardenBackground = gardenBackgroundAsset.image;
+    playerSprite = playerSpriteAsset.image;
+    enemySprite = enemySpriteAsset.image;
   } catch (e) { /* ignore background image loading errors */ }
   function resize() {
     // Support high-DPI / Retina displays by scaling the canvas backing store using devicePixelRatio
@@ -1431,7 +1489,7 @@
       try {
         const currently = (canvas && canvas.dataset && canvas.dataset.bgVisible === 'true');
         const show = !currently;
-        if (show && gardenBackgroundReady) {
+        if (show && gardenBackgroundAsset && gardenBackgroundAsset.ready) {
           try { canvas.style.backgroundImage = 'url("assets/images/garden-background.jpg")'; canvas.style.backgroundPosition = 'center top'; canvas.style.backgroundSize = 'cover'; } catch(e) {}
           try { canvas.dataset.bgVisible = 'true'; } catch(e) {}
           try { localStorage.setItem('selfmade_show_bg','1'); } catch(e) {}
@@ -3397,13 +3455,20 @@ let hitPopTimeout = null;
                   if (powerups.length > 8) powerups.shift();
                 } else {
                   // occasionally replace the oldest power-up to keep variety without growing arrays
-                  if (Math.random() < 0.12) { powerups.shift(); powerups.push({ x: e.x, y: e.y, vy: -0.4, type: pickEnemyDropType(_r, 0.78), born: Date.now(), life: 14000 });
+                  if (Math.random() < 0.12) {
+                    powerups.shift();
+                    powerups.push({ x: e.x, y: e.y, vy: -0.4, type: pickEnemyDropType(_r, 0.78), born: Date.now(), life: 14000 });
                     // Visual hint: when a Shield is inserted via replacement, emit a small sparkle burst for discoverability
-                    try { for (let k=0;k<6;k++) particles.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (Math.random()-0.5)*10, vx: (Math.random()-0.5)*1.8, vy: -Math.random()*1.6, r: 2 + Math.random()*2.6, life: 380 + Math.random()*260, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.14 }); } catch(e) {} }
-                    if (powerups.length > 8) powerups.shift(); }
+                    try {
+                      for (let k = 0; k < 6; k++) {
+                        particles.push({ x: e.x + (Math.random() - 0.5) * 10, y: e.y + (Math.random() - 0.5) * 10, vx: (Math.random() - 0.5) * 1.8, vy: -Math.random() * 1.6, r: 2 + Math.random() * 2.6, life: 380 + Math.random() * 260, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random() - 0.5) * 0.14 });
+                      }
+                    } catch (e) {}
+                    if (powerups.length > 8) powerups.shift();
+                  }
                 }
               }
-            try { if (e && e.type === 'weevil' && Math.random() < 0.45) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } } catch(e) {}
+              try { if (e && e.type === 'weevil' && Math.random() < 0.45) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } } catch(e) {}
             } catch (err) { /* ignore powerup spawn errors */ }
           }
           break;
@@ -3970,7 +4035,7 @@ let hitPopTimeout = null;
       ctx.fillRect(0,0,cw,ch);
     } catch (e) { ctx.fillStyle = '#b3e5fc'; ctx.fillRect(0,0,cw,ch); }
     try {
-      if (gardenBackgroundReady && gardenBackground.naturalWidth > 0 && gardenBackground.naturalHeight > 0) {
+      if (gardenBackgroundAsset && gardenBackgroundAsset.ready && gardenBackground.naturalWidth > 0 && gardenBackground.naturalHeight > 0) {
         const scale = Math.max(cw / gardenBackground.naturalWidth, ch / gardenBackground.naturalHeight);
         const drawW = gardenBackground.naturalWidth * scale;
         const drawH = gardenBackground.naturalHeight * scale;
@@ -4418,9 +4483,31 @@ let hitPopTimeout = null;
         ctx.stroke();
       }
     } catch (e) {}
-    ctx.fillStyle = '#2e8b57';
-    ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8);
+    let drewPlayerSprite = false;
+    try {
+      if (playerSpriteAsset && playerSpriteAsset.ready && playerSprite) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.ellipse(0, 0, player.w, player.h, 0, 0, Math.PI * 2);
+        ctx.clip();
+        drewPlayerSprite = drawImageCover(playerSprite, -player.w, -player.h, player.w * 2, player.h * 2);
+        ctx.restore();
+        if (drewPlayerSprite) {
+          ctx.save();
+          ctx.strokeStyle = 'rgba(255,255,255,0.68)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, player.w, player.h, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    } catch (e) { drewPlayerSprite = false; }
+    if (!drewPlayerSprite) {
+      ctx.fillStyle = '#2e8b57';
+      ctx.beginPath(); ctx.ellipse(0,0,player.w,player.h,0,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle='#000'; ctx.fillRect(-8,-4,16,8);
+    }
     ctx.restore();
 
     // draw shield ring if active (pulses to indicate remaining time)
@@ -4691,7 +4778,35 @@ let hitPopTimeout = null;
           ctx.restore();
         } catch (err) { /* ignore shadow draw errors */ }
       }
-      ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
+      let drewEnemySprite = false;
+      try {
+        if (enemySpriteAsset && enemySpriteAsset.ready && enemySprite) {
+          ctx.save();
+          pathRoundedRect(-e.w / 2, -e.h / 2, e.w, e.h, Math.max(6, Math.min(e.w, e.h) * 0.28));
+          ctx.clip();
+          drewEnemySprite = drawImageCover(enemySprite, -e.w / 2, -e.h / 2, e.w, e.h);
+          if (drewEnemySprite) {
+            try {
+              ctx.globalCompositeOperation = 'multiply';
+              ctx.globalAlpha = 0.32;
+              pathRoundedRect(-e.w / 2, -e.h / 2, e.w, e.h, Math.max(6, Math.min(e.w, e.h) * 0.28));
+              ctx.fill();
+            } catch (e2) {}
+          }
+          ctx.restore();
+          if (drewEnemySprite) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+            ctx.lineWidth = 1.6;
+            pathRoundedRect(-e.w / 2, -e.h / 2, e.w, e.h, Math.max(6, Math.min(e.w, e.h) * 0.28));
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+      } catch (e) { drewEnemySprite = false; }
+      if (!drewEnemySprite) {
+        ctx.fillRect(-e.w/2,-e.h/2,e.w,e.h);
+      }
       // Moth visual: add a soft petal-tinted halo so sinuous moths are more noticeable (tiny visual polish)
       try {
         if (e.type === 'moth') {
@@ -4772,7 +4887,9 @@ let hitPopTimeout = null;
           ctx.fillRect(barX + 1, barY + 1, Math.max(2, (barW - 2) * pct), barH - 2);
         }
       } catch (err) { /* ignore health bar errors */ }
-      ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4);
+      if (!drewEnemySprite) {
+        ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4);
+      }
       ctx.restore();
     }
 

@@ -1,0 +1,9 @@
+{
+  "profile": "small",
+  "cost": 1,
+  "width": 512,
+  "height": 512,
+  "prompt": "top-down whimsical garden defender sprite for a browser shooter, seed-powered leaf glider, readable central silhouette, vivid green and teal, painterly game asset, no text, no watermark",
+  "createdAt": "2026-03-22T16:26:21.061Z",
+  "engine": "@cf/black-forest-labs/flux-1-schnell"
+}

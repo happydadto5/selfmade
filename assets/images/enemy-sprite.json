@@ -1,0 +1,9 @@
+{
+  "profile": "small",
+  "cost": 1,
+  "width": 512,
+  "height": 512,
+  "prompt": "top-down mischievous garden pest sprite for a browser shooter, readable enemy silhouette, warm red and amber tones, organic bug-like menace, painterly game asset, no text, no watermark",
+  "createdAt": "2026-03-22T16:26:20.672Z",
+  "engine": "@cf/black-forest-labs/flux-1-schnell"
+}
