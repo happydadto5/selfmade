@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual/UI: show icons for Mulch and Pierce power-ups and display Mulch in active HUD (tiny) — 2026-03-22
 - UX: add brief vibration on Shield pickup for tactile feedback (tiny) — 2026-03-22
 - Gameplay: show remaining shield time in seconds above player when Shield is active (tiny) — 2026-03-22
 - Gameplay: slightly increase moth spawn chance to make moths more noticeable (tiny) — 2026-03-22

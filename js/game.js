@@ -3485,6 +3485,10 @@ let hitPopTimeout = null;
         } else if (now < (player.pierceUntil || 0)) {
           const sec = Math.ceil(((player.pierceUntil || 0) - now) / 1000);
           label = 'Pierce — ' + sec + 's';
+        } else if (now < (player.mulchUntil || 0)) {
+          // Mulch is a gardening-themed score multiplier; show remaining time in the HUD when active
+          const sec = Math.ceil(((player.mulchUntil || 0) - now) / 1000);
+          label = 'Mulch — ' + sec + 's';
         } else if (now < (player.slowUntil || 0)) {
           const sec = Math.ceil(((player.slowUntil || 0) - now) / 1000);
           label = 'Vine — ' + sec + 's';
@@ -4355,7 +4359,7 @@ let hitPopTimeout = null;
         } catch (e) { /* ignore pulsing ring errors */ }
         ctx.fillStyle = '#fff';
         ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        const icon = (pu.type === 'shield') ? '🛡' : (pu.type === 'rapid' ? '⚡' : (pu.type === 'spread' ? '🌿' : (pu.type === 'slow' ? '🍃' : (pu.type === 'bomb' ? '💣' : (pu.type === 'life' ? '+' : '')))));
+        const icon = (pu.type === 'shield') ? '🛡' : (pu.type === 'rapid' ? '⚡' : (pu.type === 'spread' ? '🌿' : (pu.type === 'slow' ? '🍃' : (pu.type === 'bomb' ? '💣' : (pu.type === 'mulch' ? '🌱' : (pu.type === 'pierce' ? '🎯' : (pu.type === 'life' ? '+' : '')))))));
         ctx.fillText(icon, pu.x, pu.y + 1);
         ctx.restore();
       }
