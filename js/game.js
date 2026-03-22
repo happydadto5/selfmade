@@ -999,8 +999,19 @@
       o.stop(now + 0.32);
       return;
     }
+    else if (type === 'shield-collect') {
+      // Slightly brighter arpeggio for Shield pickup (distinct from absorb)
+      o.type = 'sine';
+      o.frequency.setValueAtTime(620, now);
+      o.frequency.linearRampToValueAtTime(820, now + 0.10);
+      g.gain.setValueAtTime(0.04, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.26);
+      o.start(now);
+      o.stop(now + 0.28);
+      return;
+    }
     else if (type === 'shield') {
-      // Soft rising triangle chime for shield events
+      // Soft rising triangle chime for shield absorb events (keeps existing sound)
       o.type = 'triangle';
       o.frequency.setValueAtTime(520, now);
       o.frequency.linearRampToValueAtTime(780, now + 0.12);
@@ -3265,7 +3276,7 @@ let hitPopTimeout = null;
               } catch(e) {}
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Shield!', vy: -0.05, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch (e) {}
-              try { playSound('shield'); } catch (e) {}
+              try { playSound('shield-collect'); } catch (e) {}
               // Accessibility: keep keyboard focus on canvas so keyboard users can continue playing after pickup
               try { const c = document.getElementById('game'); if (c && typeof c.focus === 'function') c.focus(); } catch (e) {}
               try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.6, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 420+Math.random()*320, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 }); } catch (e) {}

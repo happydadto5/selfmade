@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Audio: Distinct sound for Shield pickup to make collection clearer (tiny) — 2026-03-22
 - Gameplay: reduce screen shake when Shield absorbs enemy collisions to feel less jarring (tiny) — 2026-03-22
 - Gameplay: stronger shield-absorb visual: brighter petal + flash particle burst for clearer feedback (tiny) — 2026-03-22
 - Gameplay: increase power-up pickup radius slightly to make collecting power-ups easier (small) — 2026-03-21
