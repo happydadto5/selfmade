@@ -3440,9 +3440,9 @@ let hitPopTimeout = null;
                   try { player._shieldWarned = false; } catch(e){};
                 } else {
                   // new shield
-                  player.shieldUntil = Date.now() + 15000; // 15 seconds (tuned for balance)
+                  player.shieldUntil = Date.now() + 18000; // 18 seconds (tuned for balance)
                   // record the total duration for HUD progress
-                  try { player._shieldDuration = 20000; } catch(e) { player._shieldDuration = 20000; }
+                  try { player._shieldDuration = 18000; } catch(e) { player._shieldDuration = 18000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 1300; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
@@ -3637,7 +3637,7 @@ let hitPopTimeout = null;
                 const timer = activePowerEl.querySelector('.power-timer .power-timer-fill');
                 if (timer) {
                   let remaining = 0, total = 1;
-                  if (now < (player.shieldUntil || 0) && player._shieldDuration) { remaining = Math.max(0, (player.shieldUntil || 0) - now); total = player._shieldDuration || 20000; }
+                  if (now < (player.shieldUntil || 0) && player._shieldDuration) { remaining = Math.max(0, (player.shieldUntil || 0) - now); total = player._shieldDuration || 18000; }
                   else if (now < (player.fireRateUntil || 0)) { remaining = Math.max(0, (player.fireRateUntil || 0) - now); total = 15000; }
                   else if (now < (player.spreadUntil || 0)) { remaining = Math.max(0, (player.spreadUntil || 0) - now); total = 12000; }
                   else if (now < (player.pierceUntil || 0)) { remaining = Math.max(0, (player.pierceUntil || 0) - now); total = 12000; }
