@@ -2701,10 +2701,19 @@ let hitPopTimeout = null;
         try {
           if (typeof e.huntTimer === 'undefined') e.huntTimer = 900 + Math.random() * 800;
           e.huntTimer -= dt;
+          // Telegraphed dash: spawn a small visual cue shortly before the dash so players can react
+          try {
+            if (e.huntTimer > 0 && e.huntTimer <= 360 && !e._snatchWarned) {
+              e._snatchWarned = Date.now() + 420; // suppress repeated warning spawns for a short window
+              try { particles.push({ x: e.x, y: e.y - 8, vx: 0, vy: -0.18, r: 3, life: 320, born: Date.now(), color: '#ffb74d' }); } catch(pe){}
+            }
+          } catch(pe){}
           if (e.huntTimer <= 0) {
             // short downward dash to threaten the player
             e.vy = (e.vy || 1) * (1.8 + Math.random() * 0.6);
             e.huntTimer = 900 + Math.random() * 1200;
+            // reset warning flag after dash
+            e._snatchWarned = 0;
           } else {
             const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
             e.vx = ((e.vx || 0) * 0.92) + Math.max(-2, Math.min(2, dx * 0.003 + (Math.random()-0.5) * 0.12));
@@ -4346,9 +4355,14 @@ let hitPopTimeout = null;
       try {
           const nowHit = Date.now();
           let enemyColor;
+          // Telegraphed dash: if a snatcher is about to dash, tint it brighter so players notice
+          const snatcherImminent = (e.type === 'snatcher' && typeof e.huntTimer === 'number' && e.huntTimer <= 360);
           if (e.hitFlashUntil && nowHit < e.hitFlashUntil) {
             // brighter tint while hit flash is active (type-specific for snails and pests)
             enemyColor = (e.type === 'snail') ? '#a1887f' : ((e.type === 'ladybug') ? '#ff8a80' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ffd1a4' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#c5e1a5' : '#ffb3b3'))));
+          } else if (snatcherImminent) {
+            // highlight imminent snatcher dashes with an orange tint for telegraphing
+            enemyColor = '#ff7043';
           } else {
             // default enemy color, but snails and pests get distinct tones for readability
             enemyColor = (e.type === 'snail') ? '#6d4c41' : ((e.type === 'ladybug') ? '#d32f2f' : ((e.type === 'pest' || e.type === 'pest-mini') ? '#ff8a50' : (e.type === 'bee' ? '#ffd54f' : (e.type === 'sprout' ? '#8BC34A' : '#ff6666'))));

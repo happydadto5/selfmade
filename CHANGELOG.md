@@ -4,6 +4,7 @@
 - Gameplay: bias power-up selection more toward Shield when player is low on lives (tiny) — 2026-03-22
 - Audio: Distinct sound for Shield pickup to make collection clearer (tiny) — 2026-03-22
 - Gameplay: reduce screen shake when Shield absorbs enemy collisions to feel less jarring (tiny) — 2026-03-22
+- Gameplay: telegraph snatcher dash with a visible vine curl and orange tint so players can react (small) — 2026-03-22
 - Gameplay: stronger shield-absorb visual: brighter petal + flash particle burst for clearer feedback (tiny) — 2026-03-22
 - Gameplay: increase power-up pickup radius slightly to make collecting power-ups easier (small) — 2026-03-21
 - Gameplay: slightly increase power-up drop frequency and bias selection toward Shield so players encounter shields more often (tiny) — 2026-03-21
