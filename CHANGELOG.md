@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UX: add brief vibration on Shield pickup for tactile feedback (tiny) — 2026-03-22
 - Gameplay: show remaining shield time in seconds above player when Shield is active (tiny) — 2026-03-22
 - Gameplay: slightly increase moth spawn chance to make moths more noticeable (tiny) — 2026-03-22
 - Gameplay: slightly increase power-up drop frequency to make pickups more common (tiny) — 2026-03-22

@@ -1008,6 +1008,8 @@
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.26);
       o.start(now);
       o.stop(now + 0.28);
+      // brief vibration to provide tactile feedback on shield pickup (respect prefers-reduced-motion)
+      try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(22); } catch (e) {}
       return;
     }
     else if (type === 'shield') {
