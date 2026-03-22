@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.35.0
 - UI: stronger hit feedback when low on lives (larger hit shake & pop) — 2026-03-22
 
 ## 8.34.0
