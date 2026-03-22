@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- UI: pulse lives HUD and shield badge on Shield pickup (tiny) — 2026-03-22
+- UI: pulse lives HUD and shield badge on Shield pickup (tiny) — 2026-03-22
 - Gameplay: increase beetle spawn probability cap from 0.14 to 0.20 for more visible enemy variety (tiny) — 2026-03-22
 - Visual: increase shield pickup glow and size to improve discoverability (tiny) — 2026-03-22
 - UX: show one-time shield tip when a Shield first appears to aid discoverability (tiny) — 2026-03-22
