@@ -3345,7 +3345,7 @@ let hitPopTimeout = null;
                   // record the total duration for HUD progress (remaining from now)
                   try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 8000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
-                  try { player.invulnerableUntil = Date.now() + 900; } catch(e) {}
+                  try { player.invulnerableUntil = Date.now() + 1300; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
                 } else {
                   // new shield
@@ -3353,7 +3353,7 @@ let hitPopTimeout = null;
                   // record the total duration for HUD progress
                   try { player._shieldDuration = 20000; } catch(e) { player._shieldDuration = 20000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
-                  try { player.invulnerableUntil = Date.now() + 900; } catch(e) {}
+                  try { player.invulnerableUntil = Date.now() + 1300; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
                   try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
                 }
@@ -5220,6 +5220,8 @@ let hitPopTimeout = null;
 
 
 })();
+
+
 
 
 

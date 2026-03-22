@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Shield pickup: increase brief post-pickup invulnerability to 1.3s to improve pickup feel.
+
 - UI: display remaining power-up duration as a countdown on HUD power-up icons (tiny) — 2026-03-22
 - Visual/Gameplay: add brief firing recoil and muzzle flash to improve fire feedback (tiny) — 2026-03-22
 - Gameplay: stronger shield low-charge highlight and pulsing ring to make imminent depletion more visible (tiny) — 2026-03-22
@@ -688,6 +690,8 @@
 - Automation: fix `selfmade.bat` launcher persistence so the top-level batch process stays alive, reloads itself safely between iterations, and no longer dies on the old re-exec path.
 - Automation: replace fragile startup status reads in `selfmade.bat` so cleanup/sync status logging no longer throws batch parsing errors during startup.
 - Automation: normalize `CHANGELOG.md` to a single top `## Unreleased
+- Shield pickup: increase brief post-pickup invulnerability to 1.3s to improve pickup feel.
+
 - Gameplay: increase power-up pickup radius to 120 to make power-ups easier to collect (tiny) — 2026-03-21
 ` section so changelog prep stops drifting into malformed duplicate sections.
 - Levels/UI: show brief "Wave cleared" toast and give a short recovery pause after clearing a wave so pacing is clearer (tiny) — 2026-03-20
@@ -1510,3 +1514,4 @@
 - selfmade.bat for automated publish loop (bump version, commit, push, publish to GitHub Pages).
 
 - TEMP cleanup test
+
