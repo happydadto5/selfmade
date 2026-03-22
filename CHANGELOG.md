@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.21.0
 - Gameplay: increase inter-wave respite and make Next Wave more discoverable so waves feel like clear progression (small) — 2026-03-22
 
 ## 8.20.0
