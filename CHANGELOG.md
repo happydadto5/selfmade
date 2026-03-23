@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.103.0
+- Visual/UI: livelier background leaves — increased count, warmer palette and subtle motion to improve atmosphere (tiny) — 2026-03-23
+
 ## 9.102.0
 - Levels: spawn a recovery Shield after clearing a wave when the player is low on lives to improve beatability (tiny)
 
