@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.56.0
+- Visual/UI: draw centered, pulsing Shield ring around the player when Shield is active to improve clarity (tiny) — 2026-03-23
+
 ## 8.55.0
 - Visual/UI: stronger garden hit flash (longer and punchier) for clearer hit feedback (tiny) — 2026-03-23
 

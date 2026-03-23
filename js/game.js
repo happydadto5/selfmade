@@ -731,7 +731,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.55.0';
+  const version = '8.56.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4566,12 +4566,24 @@ let hitPopTimeout = null;
         const _pulse = 1 + 0.08 * Math.sin(_now / 120);
         try {
           ctx.save();
-          ctx.beginPath();
           ctx.globalCompositeOperation = 'lighter';
-          ctx.lineWidth = 6;
-          ctx.strokeStyle = 'rgba(187,222,251,0.22)';
-          // draw an ellipse centered on the player to match player's shape
-          ctx.ellipse(player.x, player.y, Math.max(18, player.w * 1.9 * _pulse), player.h * 1.9 * _pulse, 0, 0, Math.PI * 2);
+          // subtle outer ring (centered on player local coordinates since ctx is translated)
+          ctx.lineWidth = 4;
+          ctx.strokeStyle = 'rgba(165,214,167,0.9)';
+          ctx.shadowBlur = 14;
+          ctx.shadowColor = 'rgba(165,214,167,0.6)';
+          const rx = Math.max(18, (player.w || 20) * 1.6 * _pulse);
+          const ry = Math.max(12, (player.h || 16) * 1.6 * _pulse);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          // inner subtle ring for depth
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = 'rgba(255,255,255,0.32)';
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = 'rgba(255,255,255,0.12)';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, Math.max(10, rx - 8), Math.max(8, ry - 6), 0, 0, Math.PI * 2);
           ctx.stroke();
           ctx.restore();
         } catch (e) { /* ignore shield draw errors */ }
