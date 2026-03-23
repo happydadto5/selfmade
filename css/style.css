@@ -662,7 +662,7 @@ html::before {
     opacity: 1;
     mix-blend-mode: screen; /* keep additive brightness for clarity */
     /* stronger, but still soft bloom for clearer, thematic hit feedback */
-    box-shadow: 0 0 280px rgba(56,200,22,0.95);
+    box-shadow: 0 0 320px rgba(56,210,36,1);
     filter: blur(1px);
     /* slightly longer fade so the brighter pop has enough time to register while remaining subtle */
     animation: hitPopFade 640ms ease-out forwards;
