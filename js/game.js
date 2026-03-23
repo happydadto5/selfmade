@@ -790,7 +790,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.17.0';
+  const version = '9.18.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1726,6 +1726,24 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
       if (replayBtn) { try { replayBtn.click(); } catch (err) { /* ignore click errors */ } }
     }
   });
+  // Manual shield activation: press U to consume a stored shield charge and activate shield immediately
+  window.addEventListener('keydown', e => {
+    if ((e.key === 'u' || e.key === 'U') && !gameOver) {
+      try {
+        if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
+          const now = Date.now();
+          // grant ~8s of shield and decrement charges
+          player.shieldUntil = Math.max(now, player.shieldUntil || 0) + 8000;
+          try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 8000; }
+          player.shieldCharges = Math.max(0, player.shieldCharges - 1);
+          try { scorePopups.push({ x: player.x, y: player.y - 20, text: '🛡 Shield activated', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
+          try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield activated'; } catch(e){}
+          try { playSound('shield-collect'); } catch(e){}
+        }
+      } catch (e) {}
+    }
+  });
+
   window.addEventListener('keyup', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { e.preventDefault(); keys.left = false; }
     if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { e.preventDefault(); keys.right = false; }

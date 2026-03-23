@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.18.0
+- Gameplay: Add 'U' key to manually activate a stored Shield charge (consumes one charge, grants ~8s shield) — tiny
+
 ## 9.17.0
 - Visual/UI: enrich background leaf colors and slightly increase leaf visibility to improve garden atmosphere (tiny) — 2026-03-23
 
