@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.114.0
+- Visual: increase shield pickup visibility (larger icon and stronger halo) — small polish
+
 ## 9.113.0
 - UI: Fix nested media queries so mobile HUD styles apply correctly; improves HUD readability on small screens.
 

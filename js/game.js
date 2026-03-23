@@ -910,7 +910,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.113.0';
+  const version = '9.114.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -5449,13 +5449,13 @@ let hitPopTimeout = null;
         const baseColor = isShield ? '#29b6f6' : '#66bb6a';
         ctx.fillStyle = baseColor;
         // slightly larger base radius for shield to improve discoverability
-        const baseRadius = isShield ? 14 : 10;
+        const baseRadius = isShield ? 16 : 10;
         // Draw with a soft glow for shields to make them more noticeable (keeps effect low-cost and reversible)
         if (isShield) {
           try {
             ctx.save();
-            ctx.shadowColor = 'rgba(129,212,255,0.65)';
-            ctx.shadowBlur = 16;
+            ctx.shadowColor = 'rgba(129,212,255,0.72)';
+            ctx.shadowBlur = 20;
             ctx.beginPath(); ctx.arc(pu.x, pu.y, baseRadius, 0, Math.PI*2); ctx.fill();
             ctx.restore();
           } catch (e) {
