@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.19.0
 - Chore: Read guidance files (scripts/prompt.txt, suggestion.txt, future.md); captured roadmap guidance for next iterations. — 2026-03-23
 
 ## 9.18.0
