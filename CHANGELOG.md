@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.111.0
 - UI: Adjust HUD layout on small screens: center HUD at bottom and increase font/padding for better mobile readability.
 
 ## 9.110.0
