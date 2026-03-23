@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.83.0
+- 2026-03-23: UX: touch guides now stay visible longer on touch devices (12s) — small
+
 ## 9.82.0
 - 2026-03-23: Small accessibility/UI polish: clarified auto-pause handling and ensured pause-on-blur behaviors (tiny)
 

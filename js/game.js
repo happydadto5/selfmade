@@ -883,7 +883,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.82.0';
+  const version = '9.83.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -909,7 +909,7 @@
   // Show a simple horizontal guide briefly after the first touch so mobile users discover control zones
   // touchGuideExpires stores the timestamp (ms) until which the guide should be visible
   let touchGuideExpires = 0;
-  const TOUCH_GUIDE_DURATION = 8000;
+  const TOUCH_GUIDE_DURATION = 12000;
   if (typeof window !== 'undefined') {
     try {
       const showTouchGuide = (durationMs = TOUCH_GUIDE_DURATION) => {
