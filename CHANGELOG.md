@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: ensure scheduled spawn timers are cleared and audio is suspended when auto-pausing on blur/visibility fallback (tiny)
+
 ## 9.77.0
 - Visual/UI: stronger garden hit flash (greener, slightly brighter) — tiny — 2026-03-23
 

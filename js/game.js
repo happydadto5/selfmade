@@ -1216,6 +1216,8 @@
             try { togglePause(true, 'blur'); } catch(e) {
               // Fallback: in rare cases where togglePause is unavailable, set paused flags conservatively
               try { paused = true; pausedByFocus = true; document.body.classList.add('auto-paused'); } catch(e2) {}
+              try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch(e2) {}
+              try { if (audioCtx && audioCtx.state === 'running') { const p = audioCtx.suspend(); if (p && typeof p.then === 'function') { p.then(function(){ suspendedAudioByFocus = true; }).catch(function(){}); } else { suspendedAudioByFocus = true; } } } catch(e2) {}
               try { if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); } } catch(e2) {}
             }
           }
@@ -1236,6 +1238,8 @@
               if (typeof autoPauseEnabled !== 'undefined' && autoPauseEnabled && typeof paused !== 'undefined' && !paused && typeof gameOver !== 'undefined' && !gameOver) {
                 try { togglePause(true, 'visibility'); } catch(e) {
                   try { paused = true; pausedByFocus = true; document.body.classList.add('auto-paused'); } catch(e2){}
+                  try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch(e2) {}
+                  try { if (audioCtx && audioCtx.state === 'running') { const p = audioCtx.suspend(); if (p && typeof p.then === 'function') { p.then(function(){ suspendedAudioByFocus = true; }).catch(function(){}); } else { suspendedAudioByFocus = true; } } } catch(e2) {}
                   try { if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); } } catch(e2){}
                 }
               }
