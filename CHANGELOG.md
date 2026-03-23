@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: increase HUD backdrop opacity for improved HUD contrast on busy backgrounds (tiny) — 2026-03-23
+
 ## 9.7.0
 - Audio/UI: play a short chime when a new wave starts to make progression clearer (tiny) — 2026-03-23
 
