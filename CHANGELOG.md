@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.65.0
 - Accessibility/Stability: auto-pause when the page is hidden (visibilitychange) to avoid losing progress when switching tabs or apps — tiny
 
 ## 8.64.0
