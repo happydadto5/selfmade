@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.43.0
+- Gameplay: slightly increase bee speed so fast enemies feel more threatening (tiny) — 2026-03-23
+
 ## 9.42.0
 - Stability: ensure only a single Next Wave button exists to avoid duplicate DOM nodes and handlers (tiny) — 2026-03-23
 

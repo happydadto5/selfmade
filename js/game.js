@@ -809,7 +809,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.42.0';
+  const version = '9.43.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2805,7 +2805,7 @@ let hitPopTimeout = null;
         enemies.push({x:ex,y:ey,w:40,h:36,vy:speed*0.45, baseVy: speed*0.45, vx: (Math.random()-0.5)*0.6, hp:hpVal, maxHp:hpVal, type:'snail', t: Math.random()*1000});
       } else if (isBee) {
         // bee: small, fast, slight homing towards player
-        enemies.push({x:ex,y:ey,w:20,h:18,vy:speed*1.35, hp:1, maxHp:1, type:'bee', t: Math.random()*1000});
+        enemies.push({x:ex,y:ey,w:20,h:18,vy:speed*1.5, hp:1, maxHp:1, type:'bee', t: Math.random()*1000});
       } else if (isMoth) {
         // moth: medium descent, sinuous horizontal motion for visual variety
         enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:10 + Math.random()*6, swayFreq: 0.01 + Math.random()*0.01, t: Math.random()*1000});
