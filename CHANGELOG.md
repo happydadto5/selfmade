@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.92.0
 - Gameplay: slightly increase power-up pickup radius on non-touch devices so shields and pickups are easier to collect (tiny)
 
 ## 9.91.0
