@@ -9,6 +9,12 @@
     canvas.setAttribute('role', 'application');
     canvas.setAttribute('aria-label', 'Garden shooter game canvas — use arrow keys or A/D to move; Space to fire. On touch devices, tap the bottom half to move there and hold to fire. Press I or H for help.');
     canvas.setAttribute('tabindex', '0');
+    // Ensure the canvas receives keyboard focus on first user interaction so keyboard controls work without an extra click.
+    try {
+      const _focusOnce = function(){ try{ canvas.focus(); }catch(e){}; try{ canvas.removeEventListener('pointerdown', _focusOnce); }catch(e){}; try{ canvas.removeEventListener('touchstart', _focusOnce); }catch(e){}; };
+      canvas.addEventListener('pointerdown', _focusOnce, { passive: true });
+      canvas.addEventListener('touchstart', _focusOnce, { passive: true });
+    } catch (e) {}
     // Prevent browser touch scrolling/gestures while interacting with the game canvas (improves mobile responsiveness)
     try { canvas.style.touchAction = 'none'; } catch (e) { /* ignore */ }
     // Ensure shield CSS state is initialized so CSS selectors have a deterministic value on page load
