@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.42.0
 - Stability: ensure only a single Next Wave button exists to avoid duplicate DOM nodes and handlers (tiny) — 2026-03-23
 
 ## 9.41.0
