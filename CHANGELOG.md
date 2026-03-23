@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.54.0
+- Gameplay: spawn guaranteed Shield every 2 waves to improve pacing (tiny) — 2026-03-23
+
 ## 8.53.0
 - UI: show shield charge icons next to Lives HUD for clearer shield status (tiny) — 2026-03-23
 

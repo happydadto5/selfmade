@@ -731,7 +731,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.53.0';
+  const version = '8.54.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2697,7 +2697,7 @@ let hitPopTimeout = null;
 
       // Gameplay tweak: spawn a guaranteed Shield power-up every 2 waves to improve recovery options.
       try {
-        if (typeof waveNumber === 'number' && (waveNumber > 0)) {
+        if (typeof waveNumber === 'number' && (waveNumber > 0) && ((waveNumber % 2) === 0)) {
           const spawnX = Math.max(60, Math.min(cw - 60, Math.floor(cw / 2 + (Math.random() - 0.5) * 120)));
           const spawnY = -20;
           const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - spawnX) < 48 && Math.abs((p.y||0) - spawnY) < 48);
