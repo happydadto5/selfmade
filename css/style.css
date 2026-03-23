@@ -1,4 +1,4 @@
-html,body{height:100%;margin:0;background:linear-gradient(180deg,#a0d8ff 0%,#87CEEB 40%,#eafbe8 100%);font-family:Segoe UI, Roboto, Arial, sans-serif;-webkit-font-smoothing:antialiased}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,#dff6ff 0%,#87CEEB 36%,#e6f7e9 100%);font-family:Segoe UI, Roboto, Arial, sans-serif;-webkit-font-smoothing:antialiased}
 :root{
   --hud-backdrop-opacity:0.96;
 }
@@ -611,10 +611,10 @@ html::before {
   z-index: 0; /* behind HUD and overlays */
   mix-blend-mode: screen;
   /* Slightly stronger atmospheric highlights to make the background feel more alive while keeping it subtle */
-  opacity: 0.98;
+  opacity: 1;
   background:
     radial-gradient(circle at 18% 22%, rgba(255,255,255,0.08), rgba(255,255,255,0) 30%),
-    radial-gradient(circle at 82% 78%, rgba(76,175,80,0.06), rgba(255,255,255,0) 24%);
+    radial-gradient(circle at 82% 78%, rgba(76,175,80,0.08), rgba(255,255,255,0) 24%);
   background-size: 120% 120%, 120% 120%;
   /* Use small pointer-driven offsets (via --atmo-x / --atmo-y) to create a subtle parallax feel.
      Defaults to 0 when the variables are not set. Respects reduced-motion by leaving animation in place. */
