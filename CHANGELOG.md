@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.67.0
 - Levels: spawn a Shield on wave clear when the player is low on lives to aid recovery and improve beatability (tiny) — 2026-03-23
 
 ## 8.66.0
