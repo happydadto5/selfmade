@@ -644,15 +644,15 @@ html::before {
     left: 0; top: 0; right: 0; bottom: 0;
     pointer-events: none;
     z-index: 10001;
-    /* radial gradient anchored at the hit location -- greener garden tint and slightly brighter so hits read clearly */
-    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(220,255,200,1), rgba(120,255,160,1) 44%, rgba(120,255,160,0) 82%);
+    /* radial gradient anchored at the hit location -- slightly brighter, greener garden tint so hits read more clearly */
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(240,255,210,1), rgba(140,255,170,1) 40%, rgba(140,255,170,0) 82%);
     opacity: 1;
     mix-blend-mode: screen; /* keep additive brightness for clarity */
-    /* crisper bloom for clearer, garden-like hit feedback (milder blur for a slightly sharper pop) */
-    box-shadow: 0 0 220px rgba(56,200,22,0.85);
+    /* stronger, but still soft bloom for clearer, thematic hit feedback */
+    box-shadow: 0 0 280px rgba(56,200,22,0.95);
     filter: blur(1px);
-    /* snappier fade for more immediate feedback */
-    animation: hitPopFade 520ms ease-out forwards;
+    /* slightly longer fade so the brighter pop has enough time to register while remaining subtle */
+    animation: hitPopFade 640ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {

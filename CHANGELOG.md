@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.89.0
+- Visual/UI: slightly brighter garden hit-pop overlay and stronger petal particles on enemy hits (tiny)
+
 ## 9.88.0
 - Levels/UI: show current wave and total in Wave HUD (tiny) — 2026-03-23
 
