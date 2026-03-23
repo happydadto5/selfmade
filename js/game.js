@@ -5663,8 +5663,9 @@ let hitPopTimeout = null;
         const cy = (typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45);
         const maxR = Math.max(cw, ch) * 0.7;
         const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
-        grad.addColorStop(0, 'rgba(232,255,186,' + (0.45 * alpha).toFixed(3) + ')');
-        grad.addColorStop(0.6, 'rgba(232,255,186,' + (0.18 * alpha).toFixed(3) + ')');
+        // Slightly increase the inner and mid stop opacities for a brighter, clearer hit flash (tiny, conservative)
+        grad.addColorStop(0, 'rgba(232,255,186,' + (0.60 * alpha).toFixed(3) + ')');
+        grad.addColorStop(0.6, 'rgba(232,255,186,' + (0.30 * alpha).toFixed(3) + ')');
         grad.addColorStop(1, 'rgba(232,255,186,0)');
         ctx.globalCompositeOperation = 'lighter';
         ctx.fillStyle = grad;
