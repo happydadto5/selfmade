@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.53.0
+- Visual/UI: add subtle leafy background overlays for stronger garden atmosphere (tiny)
+
 ## 9.52.0
 - Visual/UI: live inter-wave countdown with fractional seconds and clearer auto-advance pacing (tiny) — 2026-03-23
 
