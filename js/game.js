@@ -790,7 +790,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.23.0';
+  const version = '9.24.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2448,7 +2448,8 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
           return;
         }
       } catch (e) { /* ignore hasFocus check errors */ }
-      if (pausedByFocus && !gameOver) {
+      var wasPausedByFocus = pausedByFocus;
+      if (wasPausedByFocus && !gameOver) {
         paused = false;
       }
       pausedByFocus = false;
@@ -2459,6 +2460,19 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
         }
         suspendedAudioByFocus = false;
       }
+      // Announce resume with a small transient toast and ARIA announcement when auto-resuming due to visibility change
+      try {
+        if (wasPausedByFocus && !gameOver) {
+          try { showWaveToast('Resumed — Wave ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + ' • Score ' + (typeof score !== 'undefined' ? score : 0)); } catch(e) {}
+          try {
+            let ap = document.getElementById('autopause-announcer');
+            if (!ap) {
+              ap = document.createElement('div'); ap.id = 'autopause-announcer'; ap.style.position = 'absolute'; ap.style.left = '-9999px'; ap.style.width = '1px'; ap.style.height = '1px'; ap.setAttribute('aria-live','assertive'); ap.setAttribute('aria-atomic','true'); try{ document.body.appendChild(ap); } catch(e) {}
+            }
+            try { ap.textContent = 'Resumed'; } catch(e) {}
+          } catch(e) {}
+        }
+      } catch(e) {}
       if (typeof overlay !== 'undefined' && overlay) {
         setOverlayVisible(paused || gameOver);
         updateOverlayMessage();

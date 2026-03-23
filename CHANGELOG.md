@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.24.0
+- Accessibility: announce and show transient 'Resumed' toast when auto-resuming after visibility change (tiny) — 2026-03-23
+
 ## 9.23.0
 - Levels/UI: responsive wave HUD sizing for improved mobile readability (tiny) — 2026-03-23
 
