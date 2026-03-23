@@ -4449,13 +4449,23 @@ let hitPopTimeout = null;
             nw.style.transition = 'opacity 200ms ease, transform 200ms ease';
             document.body.appendChild(nw);
           }
-          try { nw.textContent = 'Next wave in ' + Math.ceil(remainingMs/1000) + 's'; nw.style.opacity = '1'; nw.style.transform = 'translateY(0)'; } catch(e){}
+          // Update countdown with fractional seconds and refresh regularly so players see live pacing feedback
+          const updateCountdown = function(){
+            try {
+              const rem = Math.max(0, interWaveDelay - (Date.now() - lastSpawn));
+              nw.textContent = 'Next wave in ' + (rem/1000).toFixed(1) + 's';
+              nw.style.opacity = '1';
+              nw.style.transform = 'translateY(0)';
+            } catch(e){}
+          };
+          try { updateCountdown(); } catch(e){}
+          try { if (!nw._countdownInterval) nw._countdownInterval = setInterval(updateCountdown, 200); } catch(e){}
         } else {
           // ready to spawn: only proceed if current wave enemies have been cleared.
           try {
             const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
             if (present === 0) {
-              const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
+              const nw = document.getElementById('next-wave-countdown'); if (nw) { try { if (nw._countdownInterval) { clearInterval(nw._countdownInterval); nw._countdownInterval = null; } } catch(e){} if (nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){} }
               // If this was the final configured wave, trigger a victory state so runs feel beatable
               try {
                 if (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves) {
@@ -4497,7 +4507,7 @@ let hitPopTimeout = null;
             }
           } catch(e) {
             // Fallback: remove countdown and spawn if errors occur
-            const nw = document.getElementById('next-wave-countdown'); if (nw && nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){}
+            const nw = document.getElementById('next-wave-countdown'); if (nw) { try { if (nw._countdownInterval) { clearInterval(nw._countdownInterval); nw._countdownInterval = null; } } catch(e){} if (nw.parentNode) try { nw.parentNode.removeChild(nw); } catch(e){} }
             lastSpawn = Date.now(); spawnWave();
           }
         }

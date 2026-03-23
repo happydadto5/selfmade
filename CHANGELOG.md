@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: live inter-wave countdown with fractional seconds and clearer auto-advance pacing (tiny) — 2026-03-23
+
 ## 9.51.0
 - Gameplay: Shield now briefly slows nearby enemies when it absorbs a hit (tiny) — 2026-03-23
 
