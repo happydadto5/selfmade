@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.48.0
+- Visual: localized radial garden hit flash centered on hit location for clearer feedback (tiny) — 2026-03-23
+
 ## 8.47.0
 - Accessibility: add role=status to auto-pause announcer for better screen-reader compatibility (tiny)
 

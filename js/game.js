@@ -724,7 +724,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.47.0';
+  const version = '8.48.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -5527,9 +5527,16 @@ let hitPopTimeout = null;
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
         const alpha = Math.max(0, Math.min(1, remaining / 200)); // slightly longer fade for clearer hit feedback
         ctx.save();
-        // soft pale green tint that blends gently with the garden palette
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.fillStyle = 'rgba(246,255,208,' + (0.36 * alpha).toFixed(3) + ')'; // warmer, stronger garden tint (increased)
+        // localized radial garden tint centered on last hit position for clearer, less obtrusive feedback
+        const cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
+        const cy = (typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45);
+        const maxR = Math.max(cw, ch) * 0.7;
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+        grad.addColorStop(0, 'rgba(232,255,186,' + (0.45 * alpha).toFixed(3) + ')');
+        grad.addColorStop(0.6, 'rgba(232,255,186,' + (0.18 * alpha).toFixed(3) + ')');
+        grad.addColorStop(1, 'rgba(232,255,186,0)');
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fillStyle = grad;
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }
