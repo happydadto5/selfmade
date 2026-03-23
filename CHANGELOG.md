@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.56.0
 - Levels: show a clear "Continue (Next Level)" button on victory overlay so players can advance to the next level without keyboard shortcuts (tiny) — 2026-03-23
 
 ## 9.55.0
