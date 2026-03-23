@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 8.62.0
 - Stability: resume auto-paused game on pageshow (bfcache restore) to avoid stuck paused state on some mobile browsers (tiny) — 2026-03-23
 
 ## 8.60.0
