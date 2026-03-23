@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.73.0
+- Visual/UI: sync body-level hit-pop duration with JS (900ms) so the body-level hit flash aligns with canvas hit timing (tiny)
+
 ## 9.72.0
 - Levels: increase default waves per level to 8 to improve pacing and give players clearer progression (tiny) — 2026-03-23
 
