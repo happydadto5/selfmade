@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.55.0
 - Visual/UI: stronger garden hit flash (longer and punchier) for clearer hit feedback (tiny) — 2026-03-23
 
 ## 8.54.0
