@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: clear timeouts and pause on pagehide to avoid stray spawns during navigation (tiny) — 2026-03-23
+
 ## 9.73.0
 - Visual/UI: sync body-level hit-pop duration with JS (900ms) so the body-level hit flash aligns with canvas hit timing (tiny)
 

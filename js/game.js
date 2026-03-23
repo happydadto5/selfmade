@@ -339,6 +339,20 @@
             if (_wasRunningBeforeHide) { togglePause(false, 'focus'); }
           } catch(e) {}
         }, { passive: true });
+        // Also handle pagehide to clear timers and pause when the page is being unloaded or put into bfcache
+        try {
+          window.addEventListener('pagehide', function(ev){
+            try {
+              // Clear pending spawn/blur/highscore timeouts to avoid stray callbacks during unload/navigation
+              try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch(e){}
+              try { if (typeof blurTimeout !== 'undefined' && blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch(e){}
+              try { if (typeof _highScoreSaveTimeout !== 'undefined' && _highScoreSaveTimeout) { clearTimeout(_highScoreSaveTimeout); _highScoreSaveTimeout = null; } } catch(e){}
+              // Pause and suspend audio for a clean unload
+              try { togglePause(true, 'pagehide'); } catch(e){}
+              try { if (audioCtx && audioCtx.state === 'running') { audioCtx.suspend().catch(()=>{}); suspendedAudioByFocus = true; } } catch(e){}
+            } catch(e){}
+          }, { passive: true });
+        } catch(e){ /* ignore pagehide errors */ }
       } catch(e) { /* ignore blur/focus errors */ }
     }
   } catch (e) { /* ignore visibility handling errors */ }
