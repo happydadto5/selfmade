@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.47.0
 - Gameplay: change garden background toggle from 'B' to 'V' to avoid conflict with shield key (tiny)
 
 ## 9.46.0
