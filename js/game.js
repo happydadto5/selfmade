@@ -867,7 +867,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.59.0';
+  const version = '9.60.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4462,9 +4462,9 @@ let hitPopTimeout = null;
       let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
       // Reduce delay for the first three waves so new players see clearer progression quickly
       // Give players a bit more breathing room on the first few waves for better beatability.
-      // Previously early waves used a very short 600ms delay; increase early delay to at least 900ms
+      // Previously early waves used a very short 600ms delay; increase early delay to at least 1400ms for better recovery between waves
       // and reduce the aggressive subtraction so early pacing feels less abrupt.
-      try { if (waveNumber <= 3) interWaveDelay = Math.max(900, interWaveDelay - 400); } catch (e) {}
+      try { if (waveNumber <= 3) interWaveDelay = Math.max(1400, interWaveDelay - 400); } catch (e) {}
       // If the player is low on lives, extend the inter-wave delay to provide extra recovery time.
       try { if (typeof lives === 'number' && lives <= 1) interWaveDelay += 1200; } catch (e) {}
        // Auto-schedule a short auto-advance to the next wave shortly after a clear to improve pacing (1.2s respite).
@@ -4472,7 +4472,7 @@ let hitPopTimeout = null;
        try {
          if (!gameOver && (typeof maxWaves !== 'number' || waveNumber < maxWaves)) {
            if (!scheduledSpawnTimeout) {
-             scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 900);
+             scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 1400);
            }
          }
        } catch(e) {}
@@ -4543,7 +4543,7 @@ let hitPopTimeout = null;
                   // Schedule the next wave after a short pause so players get a clear recovery window
                   try {
                     if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
-                    scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(900, Math.min(interWaveDelay, 3500)));
+                    scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(1400, Math.min(interWaveDelay, 3500)));
                   } catch(e){}
                 }
               } catch(e){}
@@ -5644,7 +5644,7 @@ let hitPopTimeout = null;
         try { playSound('blip'); } catch (e) {}
         // Advance to the next wave after a short moment — show a brief countdown so players know when the next wave starts
         (function(){
-          const delay = (typeof interWaveDelayMs === 'number' ? interWaveDelayMs : ((waveNumber <= 2) ? 1400 : 900));
+          const delay = (typeof interWaveDelayMs === 'number' ? interWaveDelayMs : ((waveNumber <= 2) ? 1400 : 1400));
           const start = Date.now();
           let el = null;
           try {

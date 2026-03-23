@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.60.0
+- Levels: increase inter-wave pause to improve pacing and give players a short recovery window (tiny) — 2026-03-23
+
 ## 9.59.0
 - Visual/UI: show Shield badge in Lives HUD to display active shield charges and improve pickup discoverability (tiny) — 2026-03-23
 
