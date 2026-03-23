@@ -926,7 +926,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.122.0';
+  const version = '9.123.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4102,7 +4102,7 @@ let hitPopTimeout = null;
                   }
                 }
               }
-              try { if (e && e.type === 'weevil' && Math.random() < 0.45) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } if (e && e.type === 'snail' && Math.random() < 0.30) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } } catch(e) {}
+              try { if (e && e.type === 'weevil' && Math.random() < 0.45) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } if (e && e.type === 'snail' && Math.random() < 0.30) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } if (e && e.type === 'beetle' && Math.random() < 0.35) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } } catch(e) {}
             } catch (err) { /* ignore powerup spawn errors */ }
           }
           break;

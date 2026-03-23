@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.123.0
+- Gameplay: Beetles occasionally drop mulch power-ups on defeat (small)
+
 ## 9.122.0
 - Stability: debounce auto-pause on window blur to avoid accidental pauses when quickly switching apps (tiny)
 
