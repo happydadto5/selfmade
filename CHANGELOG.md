@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.98.0
 - Levels: increase early-wave grace period slightly so the first waves feel easier and more beatable (tiny) — 2026-03-23
 
 ## 9.97.0
