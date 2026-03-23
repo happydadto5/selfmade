@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 9.11.0
 - Gameplay: collecting a Shield while a shield is active now extends its duration by 8s (was 6s) to make recovery more noticeable (tiny) — 2026-03-23
 
 ## 9.9.0
