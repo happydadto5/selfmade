@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.94.0
 - Visual/UI: add subtle red HUD glow when player is low on lives to improve urgency and readability (tiny)
 
 ## 9.93.0
