@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.79.0
 - Gameplay/UI: show shield active ambient glow and near-expiry warning; Lives HUD displays shield charges and remaining seconds (tiny)
 
 ## 9.78.0
