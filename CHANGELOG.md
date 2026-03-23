@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: highlight wave progress bar when nearing completion (>75%) and add brief pulse to improve beatability/readability (tiny) — 2026-03-23
+
 ## 9.15.0
 - Stability: add togglePause helper to centralize pause/resume logic and avoid undefined function calls on blur/visibility (tiny) — 2026-03-23
 

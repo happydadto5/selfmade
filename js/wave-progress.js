@@ -12,6 +12,16 @@
         const fill = wp.querySelector('.wave-bar-fill') || wp.querySelector('.wave-progress-bar');
         if(fill) {
           try { fill.style.width = pct + '%'; } catch(e){}
+          // Add a "near-complete" class when the wave is almost finished to draw player attention.
+          try {
+            if (pct >= 75) {
+              fill.classList.add('near-complete');
+              wp.setAttribute('aria-label', 'Wave progress: ' + pct + ' percent — nearly complete');
+            } else {
+              fill.classList.remove('near-complete');
+              wp.setAttribute('aria-label', 'Wave progress: ' + pct + ' percent');
+            }
+          } catch(e){}
         }
       }
     }catch(e){}

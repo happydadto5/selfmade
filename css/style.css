@@ -94,6 +94,12 @@ body[data-mulch-active="false"]{box-shadow:none}
 /* Small visual progress bar under the Wave HUD showing defeated / total enemies for quick readability */
 #ui #wave-progress .wave-bar { margin-top:6px; width: clamp(120px, 36vw, 220px); height:14px; background: rgba(0,0,0,0.14); border-radius:8px; overflow:hidden; box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); border:1px solid rgba(0,0,0,0.08); }
 #ui #wave-progress .wave-bar-fill { height:100%; width:0%; background: linear-gradient(90deg,#e8ffb8,#3f8f3a); box-shadow: inset 0 4px 12px rgba(0,0,0,0.18), 0 8px 22px rgba(46,125,50,0.22); transition: width 160ms ease-out; }
+/* When a wave is nearly complete, tint the fill to a warmer color and briefly pulse to draw attention. Respects prefers-reduced-motion. */
+#ui #wave-progress .wave-bar-fill.near-complete { background: linear-gradient(90deg,#fff59d,#ffb74d); box-shadow: inset 0 4px 12px rgba(0,0,0,0.18), 0 10px 26px rgba(255,149,0,0.18); }
+@media (prefers-reduced-motion: no-preference) {
+  #ui #wave-progress .wave-bar-fill.near-complete { animation: nearCompletePulse 900ms ease-in-out 1; }
+  @keyframes nearCompletePulse { 0% { transform: scaleX(1); } 50% { transform: scaleX(1.03); } 100% { transform: scaleX(1); } }
+}
 
 /* Brief HUD hit pulse: score briefly scales and warms on enemy hits (respects reduced-motion) */
 @media (prefers-reduced-motion: no-preference) {
