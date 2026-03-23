@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.116.0
+- Visual/UI: slightly increased background leaf visibility (larger leaves, stronger alpha) for improved atmosphere (tiny)
+
 ## 9.115.0
 - Levels: show Next Wave button when a wave clears and pause progression until the player advances (tiny)
 

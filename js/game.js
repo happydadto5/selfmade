@@ -258,14 +258,14 @@
           x: Math.random() * cw,
           y: Math.random() * ch,
           vx: (Math.random() * 0.6 - 0.3),
-          vy: 0.12 + Math.random() * 0.28,
-          r: 6 + Math.random() * 10,
+          vy: 0.14 + Math.random() * 0.34, // slightly faster descent for more visible motion
+          r: 8 + Math.random() * 14, // larger leaves for stronger silhouette
           angle: Math.random() * Math.PI * 2,
-          spin: (Math.random() - 0.5) * 0.02,
+          spin: (Math.random() - 0.5) * 0.03,
           // Broaden the palette with warmer garden tones so the background feels more varied and lively
           color: ['#8BC34A', '#66BB6A', '#A5D6A7', '#FFD54F', '#FFCC80'][Math.floor(Math.random() * 5)],
-          // Slightly increase alpha range so leaves are a bit more visible without overpowering foreground
-          alpha: 0.12 + Math.random() * 0.10
+          // Increase alpha range so leaves are more visible on busy backgrounds without overpowering foreground
+          alpha: 0.18 + Math.random() * 0.14
         });
       }
     } catch (e) { /* ignore bg leaf init errors */ }
@@ -912,7 +912,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.115.0';
+  const version = '9.116.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
