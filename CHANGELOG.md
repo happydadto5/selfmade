@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.130.0
 - Accessibility: improved paused overlay readability (stronger text stroke and shadow) for clearer paused state on busy backgrounds (tiny)
 
 ## 9.129.0
