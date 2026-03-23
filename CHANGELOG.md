@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.49.0
 - Visual: stronger Shield pickup pulse and halo to improve discoverability (tiny) — 2026-03-23
 
 ## 8.48.0
