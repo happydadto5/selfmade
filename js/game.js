@@ -326,16 +326,30 @@
           }
         } catch(e) {}
       }, { passive: true });
-      // Also handle window blur/focus events so switching to another app/window pauses immediately on desktop OSes
+      // Also handle window blur/focus events so switching to another app/window pauses, but debounce to avoid accidental pauses on quick switches
       try {
         window.addEventListener('blur', function(){
           try {
             _wasRunningBeforeHide = (typeof running !== 'undefined' ? running : false);
-            if (typeof running !== 'undefined' && running) { togglePause(true, 'blur'); try { const ap = getAutopauseAnnouncer(); if (ap) ap.textContent = 'Game paused'; } catch(e) {} }
+            if (typeof running !== 'undefined' && running) {
+              try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch(e) {}
+              // Debounce actual auto-pause to avoid pausing during quick transient app switches
+              try {
+                blurTimeout = setTimeout(function(){
+                  try {
+                    togglePause(true, 'blur');
+                    try { const ap = getAutopauseAnnouncer(); if (ap) ap.textContent = 'Game paused'; } catch(e) {}
+                  } catch(e) {}
+                  try { blurTimeout = null; } catch(e) {}
+                }, AUTO_PAUSE_DEBOUNCE);
+              } catch(e) {}
+            }
           } catch(e) {}
         }, { passive: true });
         window.addEventListener('focus', function(){
           try {
+            // If a debounced blur pause was scheduled, cancel it on focus so the game does not auto-pause unnecessarily
+            try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch(e) {}
             if (_wasRunningBeforeHide) { togglePause(false, 'focus'); }
           } catch(e) {}
         }, { passive: true });
@@ -912,7 +926,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.121.0';
+  const version = '9.122.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

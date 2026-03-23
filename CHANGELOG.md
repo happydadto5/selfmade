@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.122.0
+- Stability: debounce auto-pause on window blur to avoid accidental pauses when quickly switching apps (tiny)
+
 ## 9.121.0
 - Visual/UI: slightly stronger garden hit flash and longer fade for clearer hit feedback (tiny)
 
