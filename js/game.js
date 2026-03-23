@@ -256,8 +256,10 @@
           r: 6 + Math.random() * 10,
           angle: Math.random() * Math.PI * 2,
           spin: (Math.random() - 0.5) * 0.02,
-          color: ['#8BC34A', '#66BB6A', '#A5D6A7'][Math.floor(Math.random() * 3)],
-          alpha: 0.10 + Math.random() * 0.18
+          // Broaden the palette with warmer garden tones so the background feels more varied and lively
+          color: ['#8BC34A', '#66BB6A', '#A5D6A7', '#FFD54F', '#FFCC80'][Math.floor(Math.random() * 5)],
+          // Slightly increase alpha range so leaves are a bit more visible without overpowering foreground
+          alpha: 0.12 + Math.random() * 0.10
         });
       }
     } catch (e) { /* ignore bg leaf init errors */ }
