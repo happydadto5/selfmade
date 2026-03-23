@@ -46,6 +46,41 @@
     }catch(e){ return null; }
   }
   try { getAutopauseAnnouncer(); } catch(e) {}
+  // Subtle pointer-driven atmosphere parallax: gently shift the html::before highlights based on pointer position
+  // This is intentionally low-impact and respects prefers-reduced-motion and touch devices.
+  try {
+    (function(){
+      var _atmoPending = false, _lastAtmoEv = null;
+      try {
+        var _prefersReduced = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      } catch(e) { var _prefersReduced = false; }
+      if (!_prefersReduced) {
+        window.addEventListener('pointermove', function(ev){
+          try {
+            if (isTouch) return; // avoid pointer-driven motion on touch devices
+            _lastAtmoEv = ev;
+            if (_atmoPending) return;
+            _atmoPending = true;
+            requestAnimationFrame(function(){
+              try {
+                if (!_lastAtmoEv) { _atmoPending = false; return; }
+                var cx = Math.max(1, window.innerWidth || document.documentElement.clientWidth || 1);
+                var cy = Math.max(1, window.innerHeight || document.documentElement.clientHeight || 1);
+                var dx = ((_lastAtmoEv.clientX || (cx*0.5)) - (cx*0.5)) / (cx*0.5); // -1..1
+                var dy = ((_lastAtmoEv.clientY || (cy*0.5)) - (cy*0.5)) / (cy*0.5);
+                var maxX = 18; var maxY = 12; var rot = dx * 2;
+                try { document.documentElement.style.setProperty('--atmo-x', (dx * maxX).toFixed(2) + 'px'); } catch(e) {}
+                try { document.documentElement.style.setProperty('--atmo-y', (dy * maxY).toFixed(2) + 'px'); } catch(e) {}
+                try { document.documentElement.style.setProperty('--atmo-rot', (rot.toFixed(2) + 'deg')); } catch(e) {}
+              } catch(e) {}
+              _atmoPending = false;
+            });
+          } catch(e) {}
+        }, { passive: true });
+        window.addEventListener('pointerleave', function(){ try { document.documentElement.style.removeProperty('--atmo-x'); document.documentElement.style.removeProperty('--atmo-y'); document.documentElement.style.removeProperty('--atmo-rot'); } catch(e){} }, { passive: true });
+      }
+    })();
+  } catch(e) {}
   // Show a one-time session tip toast on first session load. Guarded by sessionStorage
   try {
     if (typeof sessionStorage !== 'undefined' && !sessionStorage.getItem('selfmade_seen_session_toast')) {
@@ -689,7 +724,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.44.0';
+  const version = '8.45.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
