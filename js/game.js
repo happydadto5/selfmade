@@ -670,7 +670,7 @@
                   let remaining = 0, total = 1000;
                   if (player && now < (player.shieldUntil || 0)) {
                     remaining = Math.max(0, (player.shieldUntil || 0) - now);
-                    total = (player._shieldDuration && player._shieldDuration > 0) ? player._shieldDuration : 22000;
+                    total = (player._shieldDuration && player._shieldDuration > 0) ? player._shieldDuration : 26000;
                   } else if (player && now < (player.fireRateUntil || 0)) {
                     remaining = Math.max(0, (player.fireRateUntil || 0) - now);
                     total = Math.max(remaining, 6000);
@@ -4059,9 +4059,9 @@ let hitPopTimeout = null;
                   try { playSound('blip'); } catch(e) {}
                 } else {
                   // new shield
-                  player.shieldUntil = Date.now() + 22000; // 22 seconds (tuned for balance)
+                  player.shieldUntil = Date.now() + 26000; // 26 seconds (tuned for balance)
                   // record the total duration for HUD progress
-                  try { player._shieldDuration = 22000; } catch(e) { player._shieldDuration = 22000; }
+                  try { player._shieldDuration = 26000; } catch(e) { player._shieldDuration = 26000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
