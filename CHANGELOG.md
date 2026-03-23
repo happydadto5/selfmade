@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.62.0
+- UI: make Auto-Pause button state clearer (tiny) — 2026-03-23
+
 ## 9.61.0
 - Visual/UI: tweak enemy hit glow to greener garden tones for clearer hit feedback (tiny) — 2026-03-23
 

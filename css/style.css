@@ -154,6 +154,7 @@ button:focus, button:focus-visible, [role="button"]:focus, [role="button"]:focus
 #hudBtn{position:fixed;right:12px;top:92px;font-size:16px;background:transparent;border:none;cursor:pointer;padding:6px}
 #changesBtn{position:fixed;right:12px;top:64px;font-size:16px;background:transparent;border:none;cursor:pointer;padding:6px}
 #autopauseBtn{position:fixed;right:12px;top:120px;font-size:14px;background:transparent;border:none;cursor:pointer;padding:6px;border-radius:6px}
+#autopauseBtn[aria-pressed="false"]{background:transparent;border:1px solid rgba(0,0,0,0.06);color:#5f6b6b;padding:6px 8px}
 #autopauseBtn[aria-pressed="true"]{background:#e8f5e9;border:1px solid #66bb6a;color:#1b5e20;padding:6px 8px}
 /* Improve Next Wave button touch target and mobile discoverability: larger padding and minimum width for easier tapping */
 #nextWaveBtn{
