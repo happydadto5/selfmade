@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Visual/UI: tweak enemy hit glow to greener garden tones for clearer hit feedback (tiny) — 2026-03-23
+
 ## 9.60.0
 - Levels: increase inter-wave pause to improve pacing and give players a short recovery window (tiny) — 2026-03-23
 

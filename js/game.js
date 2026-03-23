@@ -5431,11 +5431,12 @@ let hitPopTimeout = null;
           // If hit flash is active, draw a brief radial glow under the enemy for stronger hit feedback
           try {
             if (e.hitFlashUntil && Date.now() < e.hitFlashUntil && !prefersReducedMotion) {
-              const flashRadius = Math.max(e.w, e.h) * 1.9;
+              // Garden-tinted hit glow: shift warm orange to green tones for clearer, thematic feedback
+              const flashRadius = Math.max(e.w, e.h) * 1.6;
               const grad = ctx.createRadialGradient(0,0,0,0,0,flashRadius);
-              grad.addColorStop(0, 'rgba(255,255,220,0.96)');
-              grad.addColorStop(0.28, 'rgba(255,200,80,0.54)');
-              grad.addColorStop(1, 'rgba(255,200,80,0)');
+              grad.addColorStop(0, 'rgba(220,255,210,0.96)');
+              grad.addColorStop(0.28, 'rgba(160,220,140,0.54)');
+              grad.addColorStop(1, 'rgba(160,220,140,0)');
               ctx.fillStyle = grad;
               ctx.beginPath(); ctx.arc(0,0,flashRadius,0,Math.PI*2); ctx.fill();
             }
