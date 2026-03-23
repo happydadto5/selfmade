@@ -315,8 +315,9 @@ body.show-touch-guides::after {
   text-align: center;
   font-weight: 700;
   /* stronger shadow + subtle text-stroke for improved readability on bright backgrounds */
-  text-shadow: 0 2px 4px rgba(0,0,0,0.7);
-  -webkit-text-stroke: 0.8px rgba(0,0,0,0.6);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+  -webkit-text-stroke: 1px rgba(0,0,0,0.7);
+  text-stroke: 1px rgba(0,0,0,0.7);
   margin: 0 12px 8px 12px;
   /* Increased contrast for better readability against game backgrounds */
   background: rgba(0,0,0,0.78);

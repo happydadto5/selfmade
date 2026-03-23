@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: improved paused overlay readability (stronger text stroke and shadow) for clearer paused state on busy backgrounds (tiny)
+
 ## 9.129.0
 - Visual/UI: slightly increase canvas hit-flash duration for clearer damage feedback (tiny)
 
