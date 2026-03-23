@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/Gameplay: stronger enemy-death feedback — slightly more particles and explosion SFX (tiny) — 2026-03-23
+
 ## 9.100.0
 - Stability: reliably focus the Resume button when the overlay appears (accessibility/keyboard users) — 2026-03-23
 

@@ -3877,7 +3877,7 @@ let hitPopTimeout = null;
             try { scorePopups.push({ x: e.x, y: e.y, text: '+3', vy: -0.06, life: 900, totalLife: 900, color: '#fff9c4' }); } catch (sperr) {}
             // small explosion particle burst on enemy death (garden-themed petals)
             try {
-              const pc = Math.min(14, 6 + Math.round(Math.random()*8));
+              const pc = Math.min(18, 8 + Math.round(Math.random()*10));
               for (let p=0;p<pc;p++) {
                 const ang = Math.random()*Math.PI*2;
                 const spd = 0.6 + Math.random()*2.2;
