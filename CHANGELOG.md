@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.26.0
+- Gameplay: Add 'B' key to manually activate a stored Shield charge (consumes one charge, grants ~6s shield) — 2026-03-23
+
 ## 9.25.0
 - Progression: keyboard 'N' now only advances when the current wave is cleared to prevent accidental skipping (tiny)
 
