@@ -4811,8 +4811,8 @@ let hitPopTimeout = null;
         const radius = Math.max(cw, ch) * 0.65;
         try {
           const g2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-          g2.addColorStop(0, 'rgba(160,240,160,' + (Math.min(1, alpha * 1.08)).toFixed(3) + ')');
-          g2.addColorStop(0.35, 'rgba(255,235,140,' + (alpha * 0.82).toFixed(3) + ')');
+          g2.addColorStop(0, 'rgba(100,220,130,' + (Math.min(1, alpha * 1.18)).toFixed(3) + ')');
+          g2.addColorStop(0.35, 'rgba(180,240,150,' + (alpha * 0.92).toFixed(3) + ')');
           g2.addColorStop(1, 'rgba(0,0,0,0)');
           ctx.save();
           // use 'screen' for a slightly stronger, crisper blend on varied backgrounds

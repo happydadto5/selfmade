@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: stronger garden hit flash (greener, slightly brighter) — tiny — 2026-03-23
+
 ## 9.76.0
 - Levels: show total waves in Wave HUD (display as N/Max) so players see level progression (tiny) — 2026-03-23
 
