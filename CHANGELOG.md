@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: increase HUD backdrop opacity for improved contrast and readability (tiny) — 2026-03-23
+
 ## 8.63.0
 - UI: expose wave progress as accessible label for screen readers (tiny) — 2026-03-23
 
