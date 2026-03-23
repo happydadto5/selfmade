@@ -912,7 +912,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.116.0';
+  const version = '9.117.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2087,6 +2087,8 @@ if (overlay) {
   function setOverlayVisible(show) {
     if (!overlay) return;
     overlay.setAttribute('aria-hidden', show ? 'false' : 'true');
+    // Hide the canvas from assistive tech while the overlay is visible to avoid duplicate/live updates being read
+    try { if (canvas && typeof canvas.setAttribute === 'function') { if (show) canvas.setAttribute('aria-hidden', 'true'); else canvas.removeAttribute('aria-hidden'); } } catch (e) {}
     if (show) {
       overlay.setAttribute('role', 'dialog');
       overlay.setAttribute('aria-modal', 'true');

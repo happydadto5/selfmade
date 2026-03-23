@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.117.0
+- Accessibility: hide main canvas from assistive tech while overlay is visible to avoid duplicate announcements and improve screen-reader behavior (tiny)
+
 ## 9.116.0
 - Visual/UI: slightly increased background leaf visibility (larger leaves, stronger alpha) for improved atmosphere (tiny)
 
