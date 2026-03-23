@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: slightly reduce enemy homing/aggression when player is low on lives to improve beatability and pacing (tiny)
+
 ## 9.105.0
 - Gameplay: show a small HUD hint when player has stored Shield charges ("Press B to use") to improve discoverability of shield usage.
 

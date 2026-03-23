@@ -3266,7 +3266,8 @@ let hitPopTimeout = null;
           // Small homing component: when the player is present, moths gently steer toward the player's X
           // This is kept subtle so moths remain visually swaying but feel slightly more purposeful
           const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
-          const homing = 0.0016 + Math.min(0.006, waveNumber * 0.00035);
+          const homingBase = 0.0016 + Math.min(0.006, waveNumber * 0.00035);
+            const homing = (typeof lives === 'number' && lives <= 1) ? homingBase * 0.7 : homingBase;
           e.vx = ((e.vx || 0) * 0.88) + Math.max(-1.2, Math.min(1.2, dx * homing));
           // small glowing petal trail to make moths more noticeable (increased frequency and occasional larger petal)
           if (Math.random() < 0.12) {
@@ -3343,7 +3344,8 @@ let hitPopTimeout = null;
       if (e.type === 'bee') {
         try {
           const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
-          const homing = 0.006 + Math.min(0.02, waveNumber*0.002);
+          const homingBase = 0.006 + Math.min(0.02, waveNumber*0.002);
+            const homing = (typeof lives === 'number' && lives <= 1) ? homingBase * 0.7 : homingBase;
           e.vx = ((e.vx || 0) * 0.92) + Math.max(-2, Math.min(2, dx * homing));
           // gentle vertical smoothing so bees don't jitter; they already have a fast base vy from spawn
           e.vy = (e.vy || 1) * 0.98;
