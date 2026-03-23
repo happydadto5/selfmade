@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.71.0
+- Gameplay: clearer enemy health bars above multi-HP enemies (color ramp and thin outline) — tiny — 2026-03-23
+
 ## 9.70.0
 - UI: show pause hint in version HUD ("Press P to pause") (tiny) — 2026-03-23
 

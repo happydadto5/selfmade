@@ -869,7 +869,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.70.0';
+  const version = '9.71.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -5573,15 +5573,26 @@ let hitPopTimeout = null;
       try {
         if ((typeof e.maxHp === "number" ? e.maxHp : e.hp) > 1) {
           const barW = e.w * 0.8;
-          const barH = 5;
+          const barH = 6;
           const barX = -barW/2;
           const barY = -e.h/2 - barH - 6;
-          ctx.fillStyle = 'rgba(0,0,0,0.45)';
+          // background for readability
+          ctx.fillStyle = 'rgba(0,0,0,0.55)';
           ctx.fillRect(barX, barY, barW, barH);
           const maxHp = (typeof e.maxHp === 'number' ? e.maxHp : e.hp);
           const pct = Math.max(0, Math.min(1, e.hp / maxHp));
-          ctx.fillStyle = '#66bb6a';
-          ctx.fillRect(barX + 1, barY + 1, Math.max(2, (barW - 2) * pct), barH - 2);
+          // color ramp: green -> yellow -> red for quick readability
+          let fillColor = pct > 0.6 ? '#66bb6a' : (pct > 0.3 ? '#ffd54f' : '#ef5350');
+          // respect colorblind mode by using blue/orange ramp when enabled
+          try { if (document && document.body && document.body.classList.contains('colorblind-mode')) { fillColor = pct > 0.6 ? '#42a5f5' : (pct > 0.3 ? '#ffb74d' : '#ff7043'); } } catch(e) {}
+          const fillW = Math.max(2, (barW - 4) * pct);
+          ctx.fillStyle = fillColor;
+          ctx.fillRect(barX + 2, barY + 2, fillW, barH - 4);
+          // subtle rounded border for separation from busy backgrounds
+          ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+          ctx.lineWidth = 1;
+          pathRoundedRect(barX, barY, barW, barH, 3);
+          ctx.stroke();
         }
       } catch (err) { /* ignore health bar errors */ }
       if (!drewEnemySprite) {
