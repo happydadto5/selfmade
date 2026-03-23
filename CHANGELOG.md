@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.107.0
+- Visual/UI: add subtle vignette overlay above the canvas to increase depth and improve foreground readability (tiny)
+
 ## 9.106.0
 - Levels: slightly reduce enemy homing/aggression when player is low on lives to improve beatability and pacing (tiny)
 
