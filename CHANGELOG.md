@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.113.0
+- UI: Fix nested media queries so mobile HUD styles apply correctly; improves HUD readability on small screens.
+
 ## 9.111.0
 - UI: Adjust HUD layout on small screens: center HUD at bottom and increase font/padding for better mobile readability.
 
