@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: show an in-canvas wave progress ring (percent defeated) next to the wave banner to improve level progression clarity (tiny)
+
 ## 9.123.0
 - Gameplay: Beetles occasionally drop mulch power-ups on defeat (small)
 

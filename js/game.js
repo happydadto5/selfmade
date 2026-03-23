@@ -4950,6 +4950,38 @@ let hitPopTimeout = null;
       ctx.strokeText(waveText + ' 🌱', tx, ty);
       ctx.fillStyle = 'rgba(255,255,255,0.95)';
       ctx.fillText(waveText + ' 🌱', tx, ty);
+
+      // Draw a small circular progress ring showing percent of current wave defeated (subtle, garden green)
+      try {
+        const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+        const total = (typeof currentWaveEnemyCount !== 'undefined' ? currentWaveEnemyCount : 0);
+        const defeated = Math.max(0, total - present);
+        const pct = (total > 0 ? (defeated / total) : 0);
+        const ringR = 12;
+        const ringCx = rx + rw + 18; // place to the right of the banner
+        const ringCy = ry + rh / 2;
+        // subtle circular background
+        ctx.beginPath();
+        ctx.arc(ringCx, ringCy, ringR, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,0,0,0.22)';
+        ctx.fill();
+        // progress arc
+        ctx.beginPath();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'rgba(139,195,74,0.95)';
+        ctx.lineCap = 'round';
+        const start = -Math.PI / 2;
+        const end = start + (Math.PI * 2) * pct;
+        if (pct > 0) ctx.arc(ringCx, ringCy, ringR, start, end);
+        ctx.stroke();
+        // percentage text inside ring
+        ctx.fillStyle = 'rgba(255,255,255,0.92)';
+        ctx.font = '11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(Math.round(pct * 100) + '%', ringCx, ringCy);
+      } catch (ee) { /* ignore progress ring errors */ }
+
       ctx.restore();
     } catch (e) {}
 
