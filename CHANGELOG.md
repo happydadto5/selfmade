@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.66.0
+- Stability: clear scheduled spawn timers when auto-paused on visibility to prevent enemies spawning while the game is backgrounded (tiny)
+
 ## 9.65.0
 - Visual/UI: brighter garden hit feedback — increased petal/leaf particles and richer colors on enemy hits (tiny) — 2026-03-23
 
