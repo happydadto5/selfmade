@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: show Shield badge in Lives HUD to display active shield charges and improve pickup discoverability (tiny) — 2026-03-23
+
 ## 9.58.0
 - Accessibility: pause game when page becomes hidden (document.visibilitychange) to improve auto-pause reliability (tiny) — 2026-03-23
 
