@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.39.0
 - Audio: play shield expire chime when Shield expires (tiny) — 2026-03-23
 
 ## 9.38.0
