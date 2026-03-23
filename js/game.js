@@ -895,7 +895,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.89.0';
+  const version = '9.90.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2456,7 +2456,25 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
   // switching tabs or on mobile are more likely to notice the paused state. Use a MutationObserver
   // on the overlay (which is toggled when pausing) so this is small and non-invasive.
   const originalTitle = (typeof document !== 'undefined' && document.title) ? document.title : 'Selfmade';
-  function setTitlePaused() { try { document.title = (typeof pausedByFocus !== 'undefined' && pausedByFocus) ? 'Paused (lost focus) — ' + originalTitle : 'Paused — ' + originalTitle; } catch (e) { /* ignore title errors */ } }
+  // Update document.title to reflect paused state or active run info (wave and score) for better discoverability
+  function setTitlePaused() {
+    try {
+      if (typeof pausedByFocus !== 'undefined' && pausedByFocus) {
+        document.title = 'Paused (lost focus) — ' + originalTitle;
+        return;
+      }
+      if (typeof paused !== 'undefined' && paused) {
+        document.title = 'Paused — ' + originalTitle;
+        return;
+      }
+      // When playing, show concise run info: Wave X • Score Y — OriginalTitle
+      var parts = [];
+      try { if (typeof waveNumber !== 'undefined' && waveNumber !== null) parts.push('Wave ' + waveNumber); } catch (e) {}
+      try { if (typeof score !== 'undefined' && score !== null) parts.push('Score ' + score); } catch (e) {}
+      if (parts.length) document.title = parts.join(' • ') + ' — ' + originalTitle;
+      else document.title = originalTitle;
+    } catch (e) { /* ignore title errors */ }
+  }
   function restoreTitle() { try { document.title = originalTitle; } catch (e) { /* ignore title errors */ } }
   if (overlay) {
     try {
