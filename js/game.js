@@ -346,7 +346,8 @@
       try { el.textContent = String(msg); } catch(e) {}
       try { el.classList.add('show'); } catch(e) {}
       // Auto-hide after a short duration; keep accessible but non-intrusive
-      setTimeout(function(){ try { el.classList.remove('show'); } catch(e) {} }, 1400);
+      // Slightly longer so the toast is more noticeable on small screens
+      setTimeout(function(){ try { el.classList.remove('show'); } catch(e) {} }, 1800);
     } catch(e) { /* ignore */ }
   }
 
