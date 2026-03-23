@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: increase HUD backdrop opacity for improved contrast on busy backgrounds (tiny)
+
 ## 9.89.0
 - Visual/UI: slightly brighter garden hit-pop overlay and stronger petal particles on enemy hits (tiny)
 
