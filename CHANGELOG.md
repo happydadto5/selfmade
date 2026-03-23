@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.15.0
+- Stability: add togglePause helper to centralize pause/resume logic and avoid undefined function calls on blur/visibility (tiny) — 2026-03-23
+
 ## 9.14.0
 - Gameplay: increase Mulch power-up duration to 18s (from 12s) so the score-multiplier lasts longer (tiny)
 

@@ -788,7 +788,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.14.0';
+  const version = '9.15.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2068,6 +2068,38 @@ if (overlay) {
   let suspendedAudioByFocus = false;
   let blurTimeout = null;
   let autoPauseHandlersAttached = false;
+  // Centralized pause/resume helper used by blur/visibility handlers to avoid undefined function calls
+  // and ensure consistent behavior (clear inputs, manage overlay, and suspend/resume audio when appropriate).
+  function togglePause(forcePaused, reason) {
+    try {
+      const shouldPause = !!forcePaused;
+      if (shouldPause) {
+        // Enter paused state
+        paused = true;
+        if (reason === 'blur' || reason === 'visibility' || reason === 'pagehide') pausedByFocus = true;
+        try { clearInputs(); } catch (e) {}
+        try { pointerActive = false; } catch (e) {}
+        try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
+        try { document.body.classList.add('auto-paused'); } catch (e) {}
+        // Try to suspend audio for autoplay-friendly behavior
+        try {
+          if (audioCtx && audioCtx.state === 'running') { audioCtx.suspend().catch(()=>{}); suspendedAudioByFocus = true; }
+        } catch (e) {}
+      } else {
+        // Exit paused state (only auto-resume if pausedByFocus was set by a focus/visibility pause)
+        paused = false;
+        pausedByFocus = false;
+        try { document.body.classList.remove('auto-paused'); } catch (e) {}
+        try {
+          if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+            if (soundEnabled) { try { audioCtx.resume(); } catch (e) {} }
+            suspendedAudioByFocus = false;
+          }
+        } catch (e) {}
+      }
+      try { if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); } } catch (e) {}
+    } catch (e) { /* swallow to avoid introducing runtime errors */ }
+  }
   // Track whether a pointer/touch is currently active (prevents auto-pausing while user is holding touch or pointer)
   let pointerActive = false;
   // When a touch is first detected, show low-contrast dashed guides for a short time so touch zones are discoverable.
