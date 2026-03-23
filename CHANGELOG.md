@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.131.0
+- UI: increase wave toast duration for better visibility on small screens (tiny)
+
 ## 9.130.0
 - Accessibility: improved paused overlay readability (stronger text stroke and shadow) for clearer paused state on busy backgrounds (tiny)
 
