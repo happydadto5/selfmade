@@ -1012,7 +1012,23 @@
     } catch (e) { /* ignore DOM errors */ }
   }
   // Also clear inputs on window blur to avoid stuck movement/fire when the page loses focus
-  try { window.addEventListener('blur', () => { try { clearInputs(); pointerActive = false; } catch(e){} }, { passive: true }); window.addEventListener('focusout', () => { try { clearInputs(); pointerActive = false; } catch(e){} }, { passive: true }); } catch (e) { /* ignore */ }
+  try {
+    window.addEventListener('blur', () => {
+      try {
+        clearInputs(); pointerActive = false;
+        // Auto-pause on blur when enabled so gameplay doesn't continue when user switches tabs or apps
+        try {
+          if (typeof autoPauseEnabled !== 'undefined' && autoPauseEnabled && typeof paused !== 'undefined' && !paused && typeof gameOver !== 'undefined' && !gameOver) {
+            paused = true;
+            pausedByFocus = true;
+            try { document.body.classList.add('auto-paused'); } catch(e) { /* ignore */ }
+            if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+          }
+        } catch (e) { /* ignore */ }
+      } catch(e){}
+    }, { passive: true });
+    window.addEventListener('focusout', () => { try { clearInputs(); pointerActive = false; } catch(e){} }, { passive: true });
+  } catch (e) { /* ignore */ }
 
   // Bind on-screen touch-control buttons so tapping them triggers the same inputs as full-screen zones.
   // This improves discoverability and ensures keyboard activation works for accessibility.

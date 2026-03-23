@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: auto-pause when window loses focus to avoid continued gameplay when the page loses focus (tiny) — 2026-03-23
+
 ## 8.42.0
 - UI: add semi-transparent background to HUD and overlays to improve readability (tiny) — 2026-03-22
 
