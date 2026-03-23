@@ -779,6 +779,29 @@
                       overlayMessage.textContent = 'Victory! You beat the garden — Final Score: ' + score + ' — Press R to play again or L to continue to next level';
                       try { setOverlayVisible(true); } catch(e){}
                       try { if (replayBtn) replayBtn.focus(); } catch(e){}
+                      // Also show an explicit Continue button on the overlay so mobile and keyboard users have a discoverable control to advance to the next level.
+                      try {
+                        let cont = document.getElementById('continueBtn');
+                        if (!cont) {
+                          cont = document.createElement('button');
+                          cont.id = 'continueBtn';
+                          cont.type = 'button';
+                          cont.textContent = 'Continue (Next Level)';
+                          cont.title = 'Continue to next level';
+                          cont.style.marginLeft = '8px';
+                          cont.style.padding = '8px 12px';
+                          cont.style.borderRadius = '10px';
+                          cont.style.background = 'linear-gradient(135deg,#ffd54f,#ffb300)';
+                          cont.style.color = '#2b2b00';
+                          cont.style.border = 'none';
+                          cont.style.fontWeight = '700';
+                          cont.style.cursor = 'pointer';
+                          try { overlay.appendChild(cont); } catch(e) {}
+                          cont.addEventListener('click', function(){ try { continueToNextLevel(); } catch(e){} }, { passive: true });
+                        } else {
+                          try { cont.style.display = ''; } catch(e) {}
+                        }
+                      } catch(e) {}
                     }
                   } catch(e) {}
                 }

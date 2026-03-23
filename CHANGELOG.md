@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: show a clear "Continue (Next Level)" button on victory overlay so players can advance to the next level without keyboard shortcuts (tiny) — 2026-03-23
+
 ## 9.55.0
 - Gameplay: show shield charges on mobile fire button for clearer mobile feedback (tiny) — 2026-03-23
 
