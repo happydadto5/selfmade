@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.46.0
 - Accessibility: focus canvas on first tap/pointer so keyboard controls work immediately (tiny) — 2026-03-23
 
 ## 9.45.0
