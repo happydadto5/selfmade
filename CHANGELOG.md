@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.43.0
 - Stability: auto-pause when window loses focus to avoid continued gameplay when the page loses focus (tiny) — 2026-03-23
 
 ## 8.42.0
