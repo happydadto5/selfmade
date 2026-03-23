@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.13.0
+- Visual/UI: increase hit-pop visibility — sharpen overlay, boost bloom, and strengthen canvas shake (tiny)
+
 ## 9.12.0
 - Levels: improve wave progression visibility — clearer Wave HUD with current/total, accessible progress bar, and Next Wave button on wave clear (tiny) — 2026-03-23
 

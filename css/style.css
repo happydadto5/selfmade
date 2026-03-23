@@ -614,8 +614,8 @@ html::before {
     opacity: 1;
     mix-blend-mode: screen; /* brighter blend to improve visibility */
     /* add stronger bloom and sharpened hit-pop for clearer, garden-like hit feedback */
-    box-shadow: 0 0 200px rgba(144,238,144,0.50);
-    filter: blur(8px);
+    box-shadow: 0 0 280px rgba(144,238,144,0.65);
+    filter: blur(4px);
     /* slightly longer fade for a more noticeable, satisfying hit feel */
     animation: hitPopFade 900ms ease-out forwards;
   }
@@ -688,32 +688,32 @@ body.colorblind-mode.hit-pop::after {
 @media (prefers-reduced-motion: no-preference) {
   /* Default hit shake (used for normal hits) */
   body.hit-pop #game {
-    animation: hitShake 440ms cubic-bezier(.2,.8,.2,1);
+    animation: hitShake 520ms cubic-bezier(.2,.8,.2,1);
     transform-origin: center center;
     will-change: transform;
   }
   /* Stronger hit shake when the player is low on lives to increase perceived urgency and focus.
      This remains disabled when users prefer reduced motion. */
   body[data-low-lives="true"].hit-pop #game {
-    animation: hitShakeStrong 640ms cubic-bezier(.18,.9,.24,1);
+    animation: hitShakeStrong 800ms cubic-bezier(.18,.9,.24,1);
     transform-origin: center center;
     will-change: transform;
   }
   @keyframes hitShake {
     0% { transform: translate3d(0,0,0) rotate(0deg); }
-    20% { transform: translate3d(-6px,-2px,0) rotate(-0.8deg); }
-    40% { transform: translate3d(5px,2px,0) rotate(0.6deg); }
-    60% { transform: translate3d(-3px,1px,0) rotate(-0.4deg); }
-    80% { transform: translate3d(2px,-1px,0) rotate(0.2deg); }
+    20% { transform: translate3d(-8px,-3px,0) rotate(-1.0deg); }
+    40% { transform: translate3d(6px,3px,0) rotate(0.8deg); }
+    60% { transform: translate3d(-4px,2px,0) rotate(-0.6deg); }
+    80% { transform: translate3d(3px,-2px,0) rotate(0.3deg); }
     100% { transform: translate3d(0,0,0) rotate(0deg); }
   }
   /* Stronger, slightly longer shake for 'low lives' state */
   @keyframes hitShakeStrong {
     0% { transform: translate3d(0,0,0) rotate(0deg); }
-    15% { transform: translate3d(-10px,-4px,0) rotate(-1.2deg); }
-    35% { transform: translate3d(9px,5px,0) rotate(1deg); }
-    55% { transform: translate3d(-6px,3px,0) rotate(-0.6deg); }
-    75% { transform: translate3d(4px,-2px,0) rotate(0.3deg); }
+    15% { transform: translate3d(-14px,-6px,0) rotate(-1.6deg); }
+    35% { transform: translate3d(12px,6px,0) rotate(1.2deg); }
+    55% { transform: translate3d(-8px,4px,0) rotate(-0.8deg); }
+    75% { transform: translate3d(6px,-3px,0) rotate(0.5deg); }
     100% { transform: translate3d(0,0,0) rotate(0deg); }
   }
 }
