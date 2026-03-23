@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.75.0
 - UI: shield HUD uses recorded shield duration for accurate timer and ring progress (tiny)
 
 ## 9.74.0
