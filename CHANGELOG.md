@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.74.0
 - Stability: clear timeouts and pause on pagehide to avoid stray spawns during navigation (tiny) — 2026-03-23
 
 ## 9.73.0
