@@ -4402,7 +4402,28 @@ let hitPopTimeout = null;
             try { activePowerEl.style.background = ''; activePowerEl.style.color = ''; } catch (e) {}
           }
           // Also expose shield active status on the document body so CSS can apply a consistent global tint when Shield is active
-          try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', (now < (player.shieldUntil || 0)) ? 'true' : 'false'); document.body.setAttribute('data-mulch-active', (now < (player.mulchUntil || 0)) ? 'true' : 'false'); try { var _rem = (player && player.shieldUntil) ? ((player.shieldUntil || 0) - now) : 0; if (now < (player.shieldUntil || 0) && _rem <= 4000) { document.body.setAttribute('data-shield-warning','true'); } else { document.body.setAttribute('data-shield-warning','false'); } } catch(e) {} } } catch(e) {}
+          try {
+            if (typeof document !== 'undefined' && document.body) {
+              const shieldActive = (now < (player.shieldUntil || 0));
+              document.body.setAttribute('data-shield-active', shieldActive ? 'true' : 'false');
+              document.body.setAttribute('data-mulch-active', (now < (player.mulchUntil || 0)) ? 'true' : 'false');
+              try {
+                var _rem = (player && player.shieldUntil) ? ((player.shieldUntil || 0) - now) : 0;
+                if (shieldActive && _rem <= 4000) { document.body.setAttribute('data-shield-warning','true'); }
+                else { document.body.setAttribute('data-shield-warning','false'); }
+                // Announce near-expiry to assistive tech once when the shield is about to expire
+                if (shieldActive && _rem > 0 && _rem <= 3000) {
+                  if (!player._shieldWarned) {
+                    try { var _pa2 = document.getElementById('powerup-announcer'); if (_pa2) _pa2.textContent = 'Shield expiring'; } catch(e){}
+                    try { player._shieldWarned = true; } catch(e){}
+                  }
+                } else {
+                  try { player._shieldWarned = false; } catch(e){}
+                }
+              } catch(e) {}
+            }
+          } catch(e) {}
+
         } catch (e) { /* ignore HUD update errors */ }
       }
     } catch (e) { /* ignore active power HUD errors */ }

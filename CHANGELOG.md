@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: announce near-expiry Shield warning to assistive tech (tiny) — 2026-03-23
+
 ## 9.108.0
 - Accessibility: show transient auto-pause toast when toggling auto-pause (press O) for better discoverability (tiny)
 
