@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: increase Mulch power-up duration to 18s (from 12s) so the score-multiplier lasts longer (tiny)
+
 ## 9.13.0
 - Visual/UI: increase hit-pop visibility — sharpen overlay, boost bloom, and strengthen canvas shake (tiny)
 

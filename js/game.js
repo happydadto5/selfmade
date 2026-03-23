@@ -3887,7 +3887,8 @@ let hitPopTimeout = null;
                 const now = Date.now();
                 // If already have mulch active, stack slightly (up to 2.0), else start at 1.5
                 try { player.scoreMultiplier = (typeof player.scoreMultiplier === 'number' ? Math.min(2.0, player.scoreMultiplier + 0.25) : 1.5); } catch(e) { player.scoreMultiplier = 1.5; }
-                player.mulchUntil = now + 12000; // 12 seconds
+                player.mulchUntil = now + 18000; // 18 seconds
+                try { if (player) player._mulchDuration = 18000; } catch(e) {}
                 try { player._mulchWarned = false; } catch(e){}
               } catch(e){}
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = '🌿 Mulch collected: score bonus'; } catch (e) {}
@@ -4025,7 +4026,7 @@ let hitPopTimeout = null;
                   else if (now < (player.fireRateUntil || 0)) { remaining = Math.max(0, (player.fireRateUntil || 0) - now); total = 18000; }
                   else if (now < (player.spreadUntil || 0)) { remaining = Math.max(0, (player.spreadUntil || 0) - now); total = 12000; }
                   else if (now < (player.pierceUntil || 0)) { remaining = Math.max(0, (player.pierceUntil || 0) - now); total = 12000; }
-                  else if (now < (player.mulchUntil || 0)) { remaining = Math.max(0, (player.mulchUntil || 0) - now); total = player._mulchDuration || 12000; }
+                  else if (now < (player.mulchUntil || 0)) { remaining = Math.max(0, (player.mulchUntil || 0) - now); total = player._mulchDuration || 18000; }
                   else if (now < (player.slowUntil || 0)) { remaining = Math.max(0, (player.slowUntil || 0) - now); total = 8000; }
                   const pct = Math.max(0, Math.min(100, Math.round((remaining / Math.max(1,total)) * 100)));
                   try { timer.style.width = pct + '%'; } catch(e) {}
