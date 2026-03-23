@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.101.0
 - Visual/Gameplay: stronger enemy-death feedback — slightly more particles and explosion SFX (tiny) — 2026-03-23
 
 ## 9.100.0
