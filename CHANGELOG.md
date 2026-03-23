@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: ensure only a single Next Wave button exists to avoid duplicate DOM nodes and handlers (tiny) — 2026-03-23
+
 ## 9.41.0
 - Visual: enhance garden hit flash — brighter, more focused radial flash for clearer hit feedback (tiny) — 2026-03-23
 

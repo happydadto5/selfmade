@@ -2277,6 +2277,14 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
     // Initialize the button UI
     try { updateAutoPauseUI(); } catch (e) { /* ignore */ }
 
+    // Ensure only a single Next Wave button exists (avoid duplicates created by legacy and HUD code)
+    try {
+      const nodes = document.querySelectorAll('#nextWaveBtn');
+      if (nodes && nodes.length > 1) {
+        for (let i = 1; i < nodes.length; i++) { try { nodes[i].parentNode && nodes[i].parentNode.removeChild(nodes[i]); } catch(e) {} }
+      }
+    } catch (e) { /* ignore */ }
+
     // Add a small 'Next Wave' button to the HUD to allow manual wave advancement if progression stalls.
     try {
       let nextBtn = document.getElementById('nextWaveBtn');
