@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.52.0
 - Chore: Read scripts/prompt.txt, suggestion.txt, and future.md; captured garden-theme guidance in roadmap. — 2026-03-23
 
 ## 8.51.0
