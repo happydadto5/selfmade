@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.77.0
 - Visual/UI: stronger garden hit flash (greener, slightly brighter) — tiny — 2026-03-23
 
 ## 9.76.0
