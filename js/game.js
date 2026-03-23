@@ -4366,7 +4366,7 @@ let hitPopTimeout = null;
        try {
          if (!gameOver && (typeof maxWaves !== 'number' || waveNumber < maxWaves)) {
            if (!scheduledSpawnTimeout) {
-             scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 3000);
+             scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 900);
            }
          }
        } catch(e) {}
@@ -4427,7 +4427,7 @@ let hitPopTimeout = null;
                   // Schedule the next wave after a short pause so players get a clear recovery window
                   try {
                     if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
-                    scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(3000, Math.min(interWaveDelay, 3500)));
+                    scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(900, Math.min(interWaveDelay, 3500)));
                   } catch(e){}
                 }
               } catch(e){}

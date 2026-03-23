@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: shorten inter-wave auto-advance delay so cleared waves advance faster, improving pacing and beatability (tiny) — 2026-03-23
+
 ## 9.39.0
 - Audio: play shield expire chime when Shield expires (tiny) — 2026-03-23
 
