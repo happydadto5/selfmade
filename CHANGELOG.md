@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Visual/UI: add subtle translucent halo behind HUD to improve readability on bright backgrounds (tiny) — 2026-03-23
+
 ## 9.20.0
 - UI: Help overlay mentions 'U' key to activate stored Shield charge (tiny) — 2026-03-23
 
