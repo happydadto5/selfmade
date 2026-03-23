@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.14.0
 - Gameplay: increase Mulch power-up duration to 18s (from 12s) so the score-multiplier lasts longer (tiny)
 
 ## 9.13.0
