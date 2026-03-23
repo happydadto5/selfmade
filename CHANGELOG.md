@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.57.0
+- UI: increase overlay button size on touch devices for easier tapping (tiny) — 2026-03-23
+
 ## 8.56.0
 - Visual/UI: draw centered, pulsing Shield ring around the player when Shield is active to improve clarity (tiny) — 2026-03-23
 
