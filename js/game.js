@@ -883,7 +883,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.86.0';
+  const version = '9.87.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -5412,6 +5412,45 @@ let hitPopTimeout = null;
         ctx.restore();
       }
     } catch (e) { /* ignore hit marker draw errors */ }
+    // Show a one-time keyboard hint when player has shield charges to improve discoverability
+    try {
+      let _showShieldHint = false;
+      try { _showShieldHint = (typeof player !== 'undefined') && (player && (player.shieldCharges > 0)) && (typeof localStorage !== 'undefined') && (localStorage.getItem('seenShieldUseHintV1') !== '1'); } catch(e) { _showShieldHint = (typeof player !== 'undefined') && (player && (player.shieldCharges > 0)); }
+      if (_showShieldHint) {
+        try {
+          const hintText = 'Press B to use Shield';
+          const fontSize = Math.max(12, Math.min(18, Math.floor((cw || 320) * 0.022)));
+          ctx.save();
+          ctx.font = fontSize + 'px sans-serif';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          const pad = 12;
+          const textW = ctx.measureText(hintText).width;
+          const boxW = Math.min((cw || 320) - 40, textW + pad * 2);
+          const boxH = fontSize + pad;
+          const bx = ((cw || 320) - boxW) / 2;
+          const by = (ch || 480) - 56;
+          const r = 8;
+          // rounded rect background
+          ctx.beginPath();
+          ctx.moveTo(bx + r, by);
+          ctx.lineTo(bx + boxW - r, by);
+          ctx.quadraticCurveTo(bx + boxW, by, bx + boxW, by + r);
+          ctx.lineTo(bx + boxW, by + boxH - r);
+          ctx.quadraticCurveTo(bx + boxW, by + boxH, bx + boxW - r, by + boxH);
+          ctx.lineTo(bx + r, by + boxH);
+          ctx.quadraticCurveTo(bx, by + boxH, bx, by + boxH - r);
+          ctx.lineTo(bx, by + r);
+          ctx.quadraticCurveTo(bx, by, bx + r, by);
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(0,0,0,0.62)'; ctx.fill();
+          ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1; ctx.stroke();
+          ctx.fillStyle = 'white'; ctx.fillText(hintText, bx + boxW / 2, by + boxH / 2);
+          ctx.restore();
+          try { if (typeof localStorage !== 'undefined') localStorage.setItem('seenShieldUseHintV1','1'); } catch(e) {}
+        } catch(e) {}
+      }
+    } catch(e) {}
+
     // bullets
     ctx.fillStyle = '#fff';
     try {
