@@ -769,6 +769,18 @@
             }
           } catch (e) {}
           waveProgressEl.textContent = progressText;
+          // Update compact Wave HUD numbers if present (wave-number and wave-total spans in index.html)
+          try {
+            const waveNumEl = document.getElementById('wave-number');
+            const waveTotalEl = document.getElementById('wave-total');
+            if (waveNumEl) try { waveNumEl.textContent = String(typeof waveNumber !== 'undefined' ? waveNumber : 0); } catch(e){}
+            if (waveTotalEl) {
+              try {
+                if (typeof maxWaves === 'number' && maxWaves > 0) waveTotalEl.textContent = '/' + String(maxWaves);
+                else waveTotalEl.textContent = '';
+              } catch(e){}
+            }
+          } catch(e){}
           // If the current wave has just been cleared, show a brief toast so players notice the pause between waves and get a recovery moment.
           try {
             if (total > 0 && remaining === 0 && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
@@ -883,7 +895,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.87.0';
+  const version = '9.88.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

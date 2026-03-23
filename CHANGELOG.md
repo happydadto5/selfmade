@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.88.0
+- Levels/UI: show current wave and total in Wave HUD (tiny) — 2026-03-23
+
 ## 9.87.0
 - UI: Show one-time hint 'Press B to use Shield' when player has shield charges to improve discoverability (tiny) — 2026-03-23
 
