@@ -808,7 +808,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.33.0';
+  const version = '9.34.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1798,8 +1798,8 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
         if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
           const now = Date.now();
           // grant ~8s of shield and decrement charges
-          player.shieldUntil = Math.max(now, player.shieldUntil || 0) + 8000;
-          try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 8000; }
+          player.shieldUntil = Math.max(now, player.shieldUntil || 0) + 10000;
+          try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 10000; }
           player.shieldCharges = Math.max(0, player.shieldCharges - 1);
           try { scorePopups.push({ x: player.x, y: player.y - 20, text: '🛡 Shield activated', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield activated'; } catch(e){}
@@ -3939,11 +3939,11 @@ let hitPopTimeout = null;
               try {
                 const now = Date.now();
                 if (player && now < (player.shieldUntil || 0)) {
-                  // already has shield: add one charge up to 3 and extend by 8s
+                  // already has shield: add one charge up to 3 and extend by 10s
                   try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
-                  player.shieldUntil = (player.shieldUntil || now) + 8000;
+                  player.shieldUntil = (player.shieldUntil || now) + 10000;
                   // record the total duration for HUD progress (remaining from now)
-                  try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 8000; }
+                  try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 10000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};

@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.34.0
+- Gameplay: slightly increase Shield active duration to 10s for better recovery (tiny) — 2026-03-23
+
 ## 9.33.0
 - Visual/UI: strengthen subtle atmospheric highlights and slow parallax drift for clearer background depth (tiny) — 2026-03-23
 
