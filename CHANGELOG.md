@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.47.0
 - Accessibility: add role=status to auto-pause announcer for better screen-reader compatibility (tiny)
 
 ## 8.46.0
