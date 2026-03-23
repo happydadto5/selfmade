@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.124.0
 - Visual/UI: show an in-canvas wave progress ring (percent defeated) next to the wave banner to improve level progression clarity (tiny)
 
 ## 9.123.0
