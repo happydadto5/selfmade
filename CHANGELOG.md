@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.22.0
 - Visual: slightly longer enemy-death white flash for clearer kill feedback (tiny) — 2026-03-23
 
 ## 9.21.0
