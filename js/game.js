@@ -2877,7 +2877,7 @@ let hitPopTimeout = null;
     // Give players a short grace period at the start of each wave where enemies move slightly slower to improve beatability
     try {
       // Slightly longer grace for very early waves so new players have more reaction time
-      let graceMs = (typeof waveNumber === 'number' && waveNumber <= 3) ? 2000 : 1100;
+      let graceMs = (typeof waveNumber === 'number' && waveNumber <= 3) ? 2600 : 1100;
       // If this is the configured final wave, give an extra grace moment so the finale feels achievable
       try { if (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves) { graceMs += 1200; } } catch (e) {}
       // Extra breathing room when player is critically low on lives to improve beatability

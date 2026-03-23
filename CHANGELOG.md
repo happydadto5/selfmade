@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: increase early-wave grace period slightly so the first waves feel easier and more beatable (tiny) — 2026-03-23
+
 ## 9.97.0
 - Stability: pause on window blur/visibility shows a prominent paused overlay and reliably suspends audio/timers/inputs (tiny) — 2026-03-23
 
