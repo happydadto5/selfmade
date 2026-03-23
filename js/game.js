@@ -689,7 +689,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.43.0';
+  const version = '8.44.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2682,6 +2682,31 @@ let hitPopTimeout = null;
           }
         }
       } catch (e) { /* ignore spawn tweak errors */ }
+
+      // Small, additional gameplay tweak: every 3rd wave spawn a guaranteed Mulch power-up to support recovery and garden theme.
+      try {
+        if (typeof waveNumber === 'number' && waveNumber > 0 && (waveNumber % 3) === 0) {
+          const mSpawnX = Math.max(60, Math.min(cw - 60, Math.floor(cw / 2 + (Math.random() - 0.5) * 140)));
+          const mSpawnY = -18;
+          const nearbyMulch = powerups.some(p => p && p.type === 'mulch' && Math.abs((p.x||0) - mSpawnX) < 48 && Math.abs((p.y||0) - mSpawnY) < 48);
+          if (!nearbyMulch) {
+            if (powerups.length < 6) {
+              powerups.push({ x: mSpawnX, y: mSpawnY, vy: 0.06, type: 'mulch', born: Date.now(), life: 12000 });
+              if (powerups.length > 8) powerups.shift();
+              try { scorePopups.push({ x: mSpawnX, y: mSpawnY - 12, text: '🌱 Mulch', vy: -0.04, life: 900, totalLife: 900, color: '#8BC34A' }); } catch(e){}
+              try {
+                // subtle particle hint so Mulch is noticeable without being distracting
+                for (let k = 0; k < 6; k++) particles.push({ x: mSpawnX + (Math.random()-0.5)*10, y: mSpawnY + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*0.8, vy: -0.6 - Math.random()*0.6, r: 2 + Math.random()*2, life: 360 + Math.random()*220, born: Date.now(), color: '#c8e6c9', leaf: true });
+              } catch(e) {}
+            } else {
+              // replace oldest power-up to ensure Mulch appears without growing arrays
+              try { powerups.shift(); } catch(e){}
+              powerups.push({ x: mSpawnX, y: mSpawnY, vy: 0.06, type: 'mulch', born: Date.now(), life: 12000 });
+              try { scorePopups.push({ x: mSpawnX, y: mSpawnY - 12, text: '🌱 Mulch', vy: -0.04, life: 900, totalLife: 900, color: '#8BC34A' }); } catch(e){}
+            }
+          }
+        }
+      } catch (e) { /* ignore mulch spawn errors */ }
 
     } catch (e) { /* ignore toast errors */ }
   }
