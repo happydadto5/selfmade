@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.126.0
+- Gameplay/UI: add brief haptic vibration when Shield absorbs an enemy to improve mobile feedback (tiny)
+
 ## 9.125.0
 - Visual/UI: slightly strengthened atmospheric overlay for improved garden presence and HUD contrast (tiny)
 
