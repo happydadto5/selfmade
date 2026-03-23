@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility/stability: pause game on window blur and resume on focus (honors auto-pause preference)
+
 ## 9.27.0
 - Visual/UI: add in-canvas wave counter to improve on-screen progression visibility (tiny) — 2026-03-23
 

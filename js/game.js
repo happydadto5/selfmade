@@ -305,6 +305,20 @@
           }
         } catch(e) {}
       }, { passive: true });
+      // Also handle window blur/focus events so switching to another app/window pauses immediately on desktop OSes
+      try {
+        window.addEventListener('blur', function(){
+          try {
+            _wasRunningBeforeHide = (typeof running !== 'undefined' ? running : false);
+            if (typeof running !== 'undefined' && running) { togglePause(true, 'blur'); }
+          } catch(e) {}
+        }, { passive: true });
+        window.addEventListener('focus', function(){
+          try {
+            if (_wasRunningBeforeHide) { togglePause(false, 'focus'); }
+          } catch(e) {}
+        }, { passive: true });
+      } catch(e) { /* ignore blur/focus errors */ }
     }
   } catch (e) { /* ignore visibility handling errors */ }
 
