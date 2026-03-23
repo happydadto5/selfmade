@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.106.0
 - Levels: slightly reduce enemy homing/aggression when player is low on lives to improve beatability and pacing (tiny)
 
 ## 9.105.0
