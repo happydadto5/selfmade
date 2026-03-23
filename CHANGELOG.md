@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 9.67.0
 - Gameplay: snail enemies can drop Mulch on death (30% chance) to support recovery and reinforce garden theme (tiny)
 
 ## 9.66.0
