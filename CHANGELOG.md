@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: slightly stronger garden hit flash and longer fade for clearer hit feedback (tiny)
+
 ## 9.119.0
 - UI: show percentage inside wave progress bar for clearer progression feedback (tiny)
 
