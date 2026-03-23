@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.65.0
 - Visual/UI: brighter garden hit feedback — increased petal/leaf particles and richer colors on enemy hits (tiny) — 2026-03-23
 
 ## 9.64.0
