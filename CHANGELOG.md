@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: show shield charge icons next to Lives HUD for clearer shield status (tiny) — 2026-03-23
+
 ## 8.52.0
 - Chore: Read scripts/prompt.txt, suggestion.txt, and future.md; captured garden-theme guidance in roadmap. — 2026-03-23
 

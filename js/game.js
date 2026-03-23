@@ -5299,16 +5299,34 @@ let hitPopTimeout = null;
             existingBadge.className = 'shield-badge';
             existingBadge.setAttribute('aria-hidden', 'true');
             existingBadge.style.marginLeft = '8px';
+            existingBadge.style.display = 'inline-flex';
+            existingBadge.style.alignItems = 'center';
+            existingBadge.style.gap = '6px';
             livesEl.appendChild(existingBadge);
           }
-          // Update badge text and aria label each refresh to keep timer and charges accurate and avoid duplicates
+          // Update badge children to show per-charge icons (max 3) and a small timer
           try {
-            const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
-            existingBadge.textContent = ' 🛡 ' + secShield + 's' + (charges ? (' ' + charges.trim()) : '');
-            existingBadge.style.color = '#42a5f5';
+            const chargesNum = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? Math.min(3, player.shieldCharges) : 0;
+            // clear previous icons/timer
+            while (existingBadge.firstChild) existingBadge.removeChild(existingBadge.firstChild);
+            for (let s = 0; s < chargesNum; s++) {
+              const ic = document.createElement('span');
+              ic.textContent = '🛡';
+              ic.style.color = '#42a5f5';
+              ic.style.fontSize = '14px';
+              ic.setAttribute('aria-hidden', 'true');
+              existingBadge.appendChild(ic);
+            }
+            const timerSpan = document.createElement('span');
+            timerSpan.textContent = ' ' + secShield + 's';
+            timerSpan.style.color = '#42a5f5';
+            timerSpan.style.marginLeft = '4px';
+            timerSpan.style.fontSize = '12px';
+            timerSpan.setAttribute('aria-hidden', 'true');
+            existingBadge.appendChild(timerSpan);
             try { existingBadge.classList.toggle('pulse', ((player.shieldUntil || 0) - Date.now()) > 4000); } catch(e) {}
             // include shield status and charges in the accessible label
-            livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + (secShield ? (', shield ' + secShield + 's' + (charges ? (', ' + charges.trim()) : '')) : ', shield'));
+            livesEl.setAttribute('aria-label', lives + (lives === 1 ? ' life' : ' lives') + (secShield ? (', shield ' + secShield + 's' + (chargesNum ? (', ' + chargesNum + ' charges') : '')) : ', shield'));
           } catch(e) { /* ignore badge update errors */ }
         } else {
           // Remove existing badge when shield expires to avoid duplicates
