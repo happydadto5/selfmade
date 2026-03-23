@@ -4160,6 +4160,24 @@ let hitPopTimeout = null;
                     try { localStorage.setItem('seenShieldTipV1', '1'); } catch(e){}
                   }
                 } catch(e) {}
+                // Small, transient hint to draw attention to the spawned shield: pulse the Lives HUD and show a brief toast
+                try {
+                  shieldNearbyHintUntil = Date.now() + 2200;
+                  try { if (typeof livesEl !== 'undefined' && livesEl) { livesEl.classList.add('shield-spawn-pulse'); setTimeout(function(){ try { livesEl.classList.remove('shield-spawn-pulse'); } catch(e){} }, 1800); } } catch(e){}
+                  try {
+                    let st = document.getElementById('shield-nearby-toast');
+                    if (!st) {
+                      st = document.createElement('div');
+                      st.id = 'shield-nearby-toast';
+                      st.setAttribute('role','status'); st.setAttribute('aria-live','polite');
+                      st.style.position = 'fixed'; st.style.left = '50%'; st.style.top = '60px'; st.style.transform = 'translateX(-50%)';
+                      st.style.background = 'rgba(0,0,0,0.72)'; st.style.color = '#fff'; st.style.padding = '6px 10px'; st.style.borderRadius = '8px'; st.style.zIndex = '10002'; st.style.pointerEvents = 'none';
+                      document.body.appendChild(st);
+                    }
+                    try { st.textContent = 'Shield nearby!'; } catch(e){}
+                    setTimeout(function(){ try { if (st && st.parentNode) st.parentNode.removeChild(st); } catch(e){} }, 2200);
+                  } catch(e) {}
+                } catch(e) {}
               } else {
                 // if full, rotate oldest out to keep variety
                 powerups.shift();

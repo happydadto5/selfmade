@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UX: Improve shield discoverability: brief Lives HUD pulse and transient toast when a guaranteed Shield spawns (tiny) — 2026-03-23
+
 ## 8.65.0
 - Accessibility/Stability: auto-pause when the page is hidden (visibilitychange) to avoid losing progress when switching tabs or apps — tiny
 

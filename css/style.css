@@ -67,6 +67,10 @@ body[data-mulch-active="false"]{box-shadow:none}
 @keyframes shieldPulse { 0% { transform: scale(1); box-shadow:0 4px 12px rgba(33,150,243,0.14);} 50% { transform: scale(1.06); box-shadow:0 8px 22px rgba(33,150,243,0.22);} 100% { transform: scale(1); box-shadow:0 4px 12px rgba(33,150,243,0.14);} }
 @media (prefers-reduced-motion: no-preference) {
   #ui #lives .shield-badge.pulse { animation: shieldPulse 1.6s ease-in-out infinite; }
+  /* brief pulse applied to the Lives HUD when a Shield spawns to improve discoverability */
+  #ui #lives.shield-spawn-pulse { animation: shieldSpawnPulse 1.2s ease-in-out; }
+  #ui #lives.shield-spawn-pulse .shield-badge { animation: shieldPulse 1.6s ease-in-out 1; }
+  @keyframes shieldSpawnPulse { 0% { transform: scale(1); } 40% { transform: scale(1.06); } 100% { transform: scale(1); } }
 }
 
 /* Active power-up HUD: subtle blue glow when Shield is active for clearer visibility. Respects reduced-motion preference. */
