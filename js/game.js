@@ -790,7 +790,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.19.0';
+  const version = '9.20.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1396,9 +1396,27 @@
         if (helpOpen) {
           if (replayBtn) try { replayBtn.style.display = 'none'; } catch (err) {}
           if (typeof overlay !== 'undefined' && overlay) { overlay.setAttribute('aria-label', 'Help'); setOverlayVisible(true); updateOverlayMessage(); }
+          // Add a small help hint about manual Shield activation for discoverability
+          try {
+            let he = document.getElementById('help-extra-u');
+            if (!he) {
+              he = document.createElement('div');
+              he.id = 'help-extra-u';
+              he.textContent = 'Tip: Press U to activate a stored Shield charge.';
+              he.style.marginTop = '6px';
+              he.style.fontSize = '14px';
+              he.style.opacity = '0.92';
+              he.style.color = '#fff';
+              try { overlay.appendChild(he); } catch(e){}
+            } else {
+              he.textContent = 'Tip: Press U to activate a stored Shield charge.';
+            }
+          } catch(e) {}
         } else {
           if (replayBtn) try { replayBtn.style.display = ''; } catch (err) {}
           if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+          // Remove help-extra hint when help closes
+          try { const he = document.getElementById('help-extra-u'); if (he && he.parentNode) he.parentNode.removeChild(he); } catch(e) {}
         }
       } catch (e) { /* ignore */ }
     });

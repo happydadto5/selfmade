@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.20.0
+- UI: Help overlay mentions 'U' key to activate stored Shield charge (tiny) — 2026-03-23
+
 ## 9.19.0
 - Chore: Read guidance files (scripts/prompt.txt, suggestion.txt, future.md); captured roadmap guidance for next iterations. — 2026-03-23
 
