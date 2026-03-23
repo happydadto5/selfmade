@@ -4390,16 +4390,19 @@ let hitPopTimeout = null;
     try {
       if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
-        const dur = 260; // shorter, punchier flash
+        // Slightly longer, punchier garden hit flash for clearer feedback while keeping it brief.
+        const dur = 360; // increased duration (ms)
         const t = Math.max(0, Math.min(1, remaining / dur));
-        const alpha = Math.max(0, Math.min(0.95, 0.85 * Math.sqrt(t)));
+        // Use a gentler falloff curve to bias toward a stronger initial flash, capped at full opacity.
+        const alpha = Math.max(0, Math.min(1.0, 0.98 * Math.pow(Math.max(0, t), 0.6)));
         const cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
         const cy = (typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45);
         const radius = Math.max(cw, ch) * 0.9;
         try {
           const g2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-          g2.addColorStop(0, 'rgba(122,215,122,' + (alpha * 0.9).toFixed(3) + ')');
-          g2.addColorStop(0.35, 'rgba(255,220,120,' + (alpha * 0.65).toFixed(3) + ')');
+          // Slightly increase the inner stop alpha for a brighter core and preserve the garden tint
+          g2.addColorStop(0, 'rgba(122,215,122,' + (Math.min(1, alpha * 1.05)).toFixed(3) + ')');
+          g2.addColorStop(0.35, 'rgba(255,220,120,' + (alpha * 0.72).toFixed(3) + ')');
           g2.addColorStop(1, 'rgba(0,0,0,0)');
           ctx.save();
           ctx.globalCompositeOperation = 'lighter';

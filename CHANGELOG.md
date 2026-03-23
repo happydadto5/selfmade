@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: stronger garden hit flash (longer and punchier) for clearer hit feedback (tiny) — 2026-03-23
+
 ## 8.54.0
 - Gameplay: spawn guaranteed Shield every 2 waves to improve pacing (tiny) — 2026-03-23
 
