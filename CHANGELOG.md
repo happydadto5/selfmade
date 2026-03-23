@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: add short, player-controlled pause after clearing a wave — show Next Wave affordance and auto-advance fallback after ~2.8s (tiny)
+
 ## 9.92.0
 - Gameplay: slightly increase power-up pickup radius on non-touch devices so shields and pickups are easier to collect (tiny)
 

@@ -441,6 +441,9 @@
       try {
         const present = (typeof enemies !== 'undefined' ? enemies.filter(function(e){ try { return e && e.wave === waveNumber; } catch(err){ return false; } }).length : 0);
         if (present === 0 && !gameOver) {
+          // Player chose to advance: cancel the awaiting state and any fallback timer, then spawn
+          try { awaitingNextWave = false; } catch(e){}
+          try { if (nextWaveFallbackTimeout) { clearTimeout(nextWaveFallbackTimeout); nextWaveFallbackTimeout = null; } } catch(e){}
           try { if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch(e){}
           try { lastSpawn = Date.now(); } catch(e){}
           try { spawnWave(); } catch(e){}
@@ -798,6 +801,18 @@
                   particles.push({ x: cx, y: cy, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2 + Math.random()*4, life: 360 + Math.random()*360, born: Date.now(), color: (Math.random() < 0.5 ? '#ffd54f' : '#a5d6a7'), petal: true });
                 }
               } catch(e){}
+
+              // Small pacing improvement: pause automatic progression and offer the player a clear recovery moment.
+              try {
+                awaitingNextWave = true; // prevent automatic spawning until the player advances or the fallback timer fires
+                try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch(e){}
+                try { if (nextWaveFallbackTimeout) { clearTimeout(nextWaveFallbackTimeout); nextWaveFallbackTimeout = null; } } catch(e){}
+                // Fallback: if the player doesn't press Next Wave, auto-advance after a short delay (2.8s)
+                try {
+                  nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !gameOver) { awaitingNextWave = false; lastSpawn = Date.now(); spawnWave(); } } catch(e){}; }, 2800);
+                } catch(e){}
+              } catch(e){}
+
               // If this was the configured final wave, pause progression and show a clear victory overlay so the run feels beatable
               try {
                 if (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves) {
@@ -2413,6 +2428,9 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
         nextBtn.addEventListener('click', () => {
           try {
             if (gameOver) return;
+            // If a manual next-wave pause is active, cancel fallback and allow player action to take precedence
+            try { if (awaitingNextWave) { awaitingNextWave = false; } } catch(e){}
+            try { if (nextWaveFallbackTimeout) { clearTimeout(nextWaveFallbackTimeout); nextWaveFallbackTimeout = null; } } catch(e){}
             // Clear remaining enemies and spawn the next wave immediately
             enemies.length = 0;
             lastSpawn = 0;
@@ -2810,7 +2828,7 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
   let powerupPulseUntil = 0;
   let shieldNearbyHintUntil = 0;
   let lastPowerupColor = '';
-  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 8; let levelNumber = 1; let scheduledSpawnTimeout = null;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 8; let levelNumber = 1; let scheduledSpawnTimeout = null; let awaitingNextWave = false; let nextWaveFallbackTimeout = null;
   // Clean up pending timers on page unload to avoid timers firing after unload (stability)
   try {
     window.addEventListener('beforeunload', () => {
@@ -4529,7 +4547,7 @@ let hitPopTimeout = null;
        try {
          if (!gameOver && (typeof maxWaves !== 'number' || waveNumber < maxWaves)) {
            if (!scheduledSpawnTimeout) {
-             scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, 1400);
+             scheduledSpawnTimeout = setTimeout(function(){ try { if (!awaitingNextWave) { lastSpawn = Date.now(); spawnWave(); } scheduledSpawnTimeout = null; } catch(e){} }, 1400);
            }
          }
        } catch(e) {}
@@ -4600,7 +4618,7 @@ let hitPopTimeout = null;
                   // Schedule the next wave after a short pause so players get a clear recovery window
                   try {
                     if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
-                    scheduledSpawnTimeout = setTimeout(function(){ try { lastSpawn = Date.now(); spawnWave(); scheduledSpawnTimeout = null; } catch(e){} }, Math.max(1400, Math.min(interWaveDelay, 3500)));
+                    scheduledSpawnTimeout = setTimeout(function(){ try { if (!awaitingNextWave) { lastSpawn = Date.now(); spawnWave(); } scheduledSpawnTimeout = null; } catch(e){} }, Math.max(1400, Math.min(interWaveDelay, 3500)));
                   } catch(e){}
                 }
               } catch(e){}
