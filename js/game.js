@@ -3444,6 +3444,25 @@ let hitPopTimeout = null;
                     }, 900);
                   }
                 } catch(e){}
+
+                // Small area effect: briefly slow nearby enemies to give the player a moment to recover (garden-themed vine tangle)
+                try {
+                  const now2 = Date.now();
+                  const slowRadius = 120;
+                  for (let ei = enemies.length - 1; ei >= 0; ei--) {
+                    try {
+                      const en = enemies[ei];
+                      const dx = (en.x || 0) - (player.x || 0);
+                      const dy = (en.y || 0) - (player.y || 0);
+                      if (Math.sqrt(dx*dx + dy*dy) <= slowRadius) {
+                        en.slowUntil = now2 + 900; // 0.9s slow
+                        en.slowFactor = 0.55; // slow to 55% speed
+                        for (let mp=0; mp<4; mp++) particles.push({ x: en.x + (Math.random()-0.5)*8, y: en.y + (Math.random()-0.5)*8, vx: (Math.random()-0.5)*1.2, vy: -Math.random()*1.2, r: 1.2 + Math.random()*1.8, life: 300 + Math.random()*200, born: now2, color:'#90caf9', leaf: true });
+                      }
+                    } catch(ex){}
+                  }
+                } catch(ex){}
+
                 // skip life loss
                 continue;
               }

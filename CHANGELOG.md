@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: Shield now briefly slows nearby enemies when it absorbs a hit (tiny) — 2026-03-23
+
 ## 9.50.0
 - Stability: migrate pause-on-blur preference to 'selfmade_autopause' and support legacy key (tiny) — 2026-03-23
 
