@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 8.63.0
 - UI: expose wave progress as accessible label for screen readers (tiny) — 2026-03-23
 
 ## 8.62.0
