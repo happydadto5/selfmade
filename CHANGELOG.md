@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.27.0
+- Visual/UI: add in-canvas wave counter to improve on-screen progression visibility (tiny) — 2026-03-23
+
 ## 9.26.0
 - Gameplay: Add 'B' key to manually activate a stored Shield charge (consumes one charge, grants ~6s shield) — 2026-03-23
 

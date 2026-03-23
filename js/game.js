@@ -790,7 +790,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.26.0';
+  const version = '9.27.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4587,6 +4587,46 @@ let hitPopTimeout = null;
         ctx.restore();
       }
     } catch (e) { /* ignore HUD visibility check errors */ }
+
+    // In-canvas large wave counter (always visible near top-center) — small, readable, garden-themed
+    try {
+      const waveText = 'Wave ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + (typeof maxWaves === 'number' && maxWaves > 0 ? ('/' + maxWaves) : '');
+      ctx.save();
+      ctx.font = '20px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      const tx = Math.max(12, cw / 2);
+      const ty = 12;
+      // subtle backdrop
+      const metrics2 = ctx.measureText ? ctx.measureText(waveText) : { width: waveText.length * 10 };
+      const pad2 = 10;
+      const rw = Math.ceil(metrics2.width) + pad2 * 2;
+      const rh = 26;
+      ctx.fillStyle = 'rgba(0,0,0,0.32)';
+      // rounded rect
+      const rx = tx - rw / 2;
+      const ry = ty - 4;
+      const rr = 10;
+      ctx.beginPath();
+      ctx.moveTo(rx + rr, ry);
+      ctx.arcTo(rx + rw, ry, rx + rw, ry + rh, rr);
+      ctx.arcTo(rx + rw, ry + rh, rx, ry + rh, rr);
+      ctx.arcTo(rx, ry + rh, rx, ry, rr);
+      ctx.arcTo(rx, ry, rx + rw, ry, rr);
+      ctx.closePath();
+      ctx.fill();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+      ctx.stroke();
+      // wave text with outline
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+      ctx.strokeText(waveText + ' 🌱', tx, ty);
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.fillText(waveText + ' 🌱', tx, ty);
+      ctx.restore();
+    } catch (e) {}
+
     // Brief red flash overlay when a life is lost to increase clarity of life loss (respects reduced-motion)
     try {
       if (Date.now() < livesFlashUntil && !prefersReducedMotion) {
