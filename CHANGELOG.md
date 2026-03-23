@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: add role=status to auto-pause announcer for better screen-reader compatibility (tiny)
+
 ## 8.46.0
 - Visual/UI: increase HUD backdrop opacity to improve HUD readability on busy backgrounds (tiny) — 2026-03-23
 
