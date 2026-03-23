@@ -2229,6 +2229,27 @@ if (overlay) {
       }
     }, { passive: true });
   } catch (e) { /* ignore pagehide availability issues */ }
+  try {
+    // pageshow complements pagehide and visibilitychange; it fires when a page is restored from bfcache
+    // Resume auto-paused games when the page is shown again and the document/window has focus.
+    window.addEventListener('pageshow', (ev) => {
+      if (!autoPauseEnabled) return;
+      if (pointerActive) return; // don't change state while user is interacting
+      try { if (blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch (e) {}
+      // Only auto-resume if we previously auto-paused due to focus/visibility loss
+      if (pausedByFocus && !gameOver) {
+        paused = false;
+        pausedByFocus = false;
+        try { document.body.classList.remove('auto-paused'); } catch (e) { /* ignore */ }
+        // Resume audio if we suspended it due to auto-pause
+        if (suspendedAudioByFocus && audioCtx && audioCtx.state === 'suspended') {
+          if (soundEnabled) { try { audioCtx.resume(); } catch (e) {} }
+          suspendedAudioByFocus = false;
+        }
+        if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+      }
+    }, { passive: true });
+  } catch (e) { /* ignore pageshow availability issues */ }
   // Allow pointer/click to resume when auto-paused due to focus loss (helpful for touch users)
   try {
     window.addEventListener('pointerdown', () => {

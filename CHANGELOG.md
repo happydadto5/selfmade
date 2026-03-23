@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Stability: resume auto-paused game on pageshow (bfcache restore) to avoid stuck paused state on some mobile browsers (tiny) — 2026-03-23
+
 ## 8.60.0
 - UI: increase on-screen touch control button size and hit area for easier tapping (tiny) — 2026-03-23
 
