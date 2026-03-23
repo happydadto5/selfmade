@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: include defeated/total counts in wave progress ARIA label for screen readers (tiny) — 2026-03-23
+
 ## 9.67.0
 - Gameplay: snail enemies can drop Mulch on death (30% chance) to support recovery and reinforce garden theme (tiny)
 

@@ -15,15 +15,22 @@
           // Add a "near-complete" class when the wave is almost finished to draw player attention.
           try {
             const waveEl = document.getElementById('wave');
-            if (pct >= 75) {
-              fill.classList.add('near-complete');
-              if (waveEl) try { waveEl.classList.add('near-complete'); } catch(e){}
-              wp.setAttribute('aria-label', 'Wave progress: ' + pct + ' percent — nearly complete');
-            } else {
-              fill.classList.remove('near-complete');
-              if (waveEl) try { waveEl.classList.remove('near-complete'); } catch(e){}
-              wp.setAttribute('aria-label', 'Wave progress: ' + pct + ' percent');
-            }
+            // Build a more descriptive ARIA label including defeated/total counts for assistive tech
+            try {
+              const parts = [];
+              try { parts.push('Wave progress: ' + defeated + ' of ' + total + ' defeated'); } catch(e){}
+              try { parts.push('(' + pct + '%)'); } catch(e){}
+              const ariaText = parts.join(' ');
+              if (pct >= 75) {
+                fill.classList.add('near-complete');
+                if (waveEl) try { waveEl.classList.add('near-complete'); } catch(e){}
+                wp.setAttribute('aria-label', ariaText + ' — nearly complete');
+              } else {
+                fill.classList.remove('near-complete');
+                if (waveEl) try { waveEl.classList.remove('near-complete'); } catch(e){}
+                wp.setAttribute('aria-label', ariaText);
+              }
+            } catch(e){}
           } catch(e){}
         }
       }
