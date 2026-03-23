@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 9.17.0
 - Visual/UI: enrich background leaf colors and slightly increase leaf visibility to improve garden atmosphere (tiny) — 2026-03-23
 
 ## 9.16.0
