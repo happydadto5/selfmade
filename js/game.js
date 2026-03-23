@@ -781,8 +781,12 @@
               bar.setAttribute('aria-valuemin', '0');
               bar.setAttribute('aria-valuemax', String(typeof total === 'number' ? total : 0));
               bar.setAttribute('aria-valuenow', String(typeof defeated === 'number' ? defeated : 0));
-              // Provide an explicit, readable label for screen readers describing current wave progress
-              try { bar.setAttribute('aria-label', 'Wave progress: ' + defeated + ' of ' + total); } catch (e) {}
+              // Provide an explicit, readable label for screen readers describing current wave progress and remaining waves when configured
+              try {
+                var wavesLeftLabel = '';
+                try { if (typeof maxWaves === 'number' && maxWaves > 0) { wavesLeftLabel = ' • Waves left: ' + Math.max(0, maxWaves - (typeof waveNumber === 'number' ? waveNumber : 0)); } } catch(e) {}
+                bar.setAttribute('aria-label', 'Wave progress: ' + defeated + ' of ' + total + wavesLeftLabel);
+              } catch (e) {}
               bar.setAttribute('aria-hidden', 'false');
               const inner = document.createElement('div');
               inner.className = 'wave-bar-fill';

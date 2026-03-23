@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: include waves-left in Wave HUD ARIA label and progress bar for screen readers (tiny) — 2026-03-23
+
 ## 9.30.0
 - UI: highlight Wave HUD when progress is near-complete (>=75%) to draw player attention (tiny) — 2026-03-23
 
