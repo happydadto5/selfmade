@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: increase HUD backdrop opacity to improve HUD readability on busy backgrounds (tiny) — 2026-03-23
+
 ## 8.44.0
 - Gameplay: spawn a guaranteed Mulch power-up every 3 waves to support recovery and reinforce the garden theme (tiny) — 2026-03-23
 

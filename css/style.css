@@ -1,6 +1,6 @@
 html,body{height:100%;margin:0;background:linear-gradient(180deg,#a0d8ff 0%,#87CEEB 40%,#eafbe8 100%);font-family:Segoe UI, Roboto, Arial, sans-serif;-webkit-font-smoothing:antialiased}
 :root{
-  --hud-backdrop-opacity:0.82;
+  --hud-backdrop-opacity:0.90;
 }
 
 /* Increase HUD opacity when users request higher contrast */
