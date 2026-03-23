@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.0.0
 - Visual/UI: slightly increase garden hit flash brightness for clearer hit feedback (tiny) — 2026-03-23
 
 ## 8.67.0
