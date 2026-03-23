@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Chore: Read guidance files (scripts/prompt.txt, suggestion.txt, future.md); captured roadmap guidance for next iterations. — 2026-03-23
+
 ## 9.18.0
 - Gameplay: Add 'U' key to manually activate a stored Shield charge (consumes one charge, grants ~8s shield) — tiny
 
