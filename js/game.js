@@ -2194,7 +2194,7 @@ if (overlay) {
   const prefersReducedMotion = (typeof window !== 'undefined') && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Preference: allow the user to disable auto-pause on blur/visibility (toggled with O). Defaults to enabled for safety.
   // Persist preference in localStorage ('1' = enabled, '0' = disabled)
-  let autoPauseEnabled = (function(){ try { const v = localStorage.getItem('selfmade_autopause'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
+  let autoPauseEnabled = (function(){ try { /* Read new key first, fall back to legacy key and migrate if needed */ const vNew = localStorage.getItem('selfmade_autopause'); if (vNew !== null) return vNew === '1'; const vOld = localStorage.getItem('selfmade_pause_on_blur'); if (vOld !== null) { try { localStorage.setItem('selfmade_autopause', vOld); } catch(e){} return vOld === '1'; } return true; } catch (e) { return true; } })();
   // HUD visibility flag (toggle with H). When false both DOM HUD and in-canvas HUD are hidden for a distraction-free mode.
   let hudVisible = (function(){ try { const v = localStorage.getItem('selfmade_hud_visible'); if (v === null) return true; return v === '1'; } catch (e) { return true; } })();
   // Apply persisted HUD preference to DOM HUD immediately so initial UI matches user preference
