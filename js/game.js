@@ -910,7 +910,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.104.0';
+  const version = '9.105.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4304,28 +4304,37 @@ let hitPopTimeout = null;
       if (activePowerEl) {
         const now = Date.now();
         let label = '';
-        if (now < (player.shieldUntil || 0)) {
-          const sec = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
-          const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
-          // Show a shield emoji to make the active Shield power-up more immediately visible in the HUD
-          label = '🛡 Shield' + charges + ' — ' + sec + 's';
-        } else if (now < (player.fireRateUntil || 0)) {
-          const sec = Math.ceil(((player.fireRateUntil || 0) - now) / 1000);
-          label = 'Rapid — ' + sec + 's';
-        } else if (now < (player.spreadUntil || 0)) {
-          const sec = Math.ceil(((player.spreadUntil || 0) - now) / 1000);
-          label = 'Spread — ' + sec + 's';
-        } else if (now < (player.pierceUntil || 0)) {
-          const sec = Math.ceil(((player.pierceUntil || 0) - now) / 1000);
-          label = 'Pierce — ' + sec + 's';
-        } else if (now < (player.mulchUntil || 0)) {
-          // Mulch is a gardening-themed score multiplier; show remaining time in the HUD when active
-          const sec = Math.ceil(((player.mulchUntil || 0) - now) / 1000);
-          label = '🌿 Mulch — ' + sec + 's';
-        } else if (now < (player.slowUntil || 0)) {
-          const sec = Math.ceil(((player.slowUntil || 0) - now) / 1000);
-          label = 'Vine — ' + sec + 's';
-        } else {
+        // Show a brief, discoverable hint when the player has stored Shield charges but no timed power-up is active.
+        try {
+          const hasStoredShield = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0);
+          const anyTimedActive = (now < (player.shieldUntil || 0)) || (now < (player.fireRateUntil || 0)) || (now < (player.spreadUntil || 0)) || (now < (player.pierceUntil || 0)) || (now < (player.mulchUntil || 0)) || (now < (player.slowUntil || 0));
+          if (hasStoredShield && !anyTimedActive) {
+            label = '🛡 Press B to use — x' + (player.shieldCharges || 0);
+          } else if (now < (player.shieldUntil || 0)) {
+            const sec = Math.ceil(((player.shieldUntil || 0) - now) / 1000);
+            const charges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? (' x' + player.shieldCharges) : '';
+            // Show a shield emoji to make the active Shield power-up more immediately visible in the HUD
+            label = '🛡 Shield' + charges + ' — ' + sec + 's';
+          } else if (now < (player.fireRateUntil || 0)) {
+            const sec = Math.ceil(((player.fireRateUntil || 0) - now) / 1000);
+            label = 'Rapid — ' + sec + 's';
+          } else if (now < (player.spreadUntil || 0)) {
+            const sec = Math.ceil(((player.spreadUntil || 0) - now) / 1000);
+            label = 'Spread — ' + sec + 's';
+          } else if (now < (player.pierceUntil || 0)) {
+            const sec = Math.ceil(((player.pierceUntil || 0) - now) / 1000);
+            label = 'Pierce — ' + sec + 's';
+          } else if (now < (player.mulchUntil || 0)) {
+            // Mulch is a gardening-themed score multiplier; show remaining time in the HUD when active
+            const sec = Math.ceil(((player.mulchUntil || 0) - now) / 1000);
+            label = '🌿 Mulch — ' + sec + 's';
+          } else if (now < (player.slowUntil || 0)) {
+            const sec = Math.ceil(((player.slowUntil || 0) - now) / 1000);
+            label = 'Vine — ' + sec + 's';
+          } else {
+            label = '';
+          }
+        } catch (err) {
           label = '';
         }
         try {

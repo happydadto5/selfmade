@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.105.0
+- Gameplay: show a small HUD hint when player has stored Shield charges ("Press B to use") to improve discoverability of shield usage.
+
 ## 9.104.0
 - Accessibility/UI: add short pause/resume tones and subtle haptic feedback when pausing/resuming (tiny) — 2026-03-23
 
