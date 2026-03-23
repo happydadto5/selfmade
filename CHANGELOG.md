@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.36.0
 - Levels: increase inter-wave delay by ~0.4s when player is critically low on lives to improve beatability and recovery (tiny) — 2026-03-23
 
 ## 9.35.0
