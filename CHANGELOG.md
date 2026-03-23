@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.16.0
 - Levels: highlight wave progress bar when nearing completion (>75%) and add brief pulse to improve beatability/readability (tiny) — 2026-03-23
 
 ## 9.15.0
