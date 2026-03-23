@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.128.0
 - Levels: use dynamic inter-wave delay for auto-advance so pacing respects low-life recovery (tiny)
 
 ## 9.127.0
