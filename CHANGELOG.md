@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.100.0
 - Stability: reliably focus the Resume button when the overlay appears (accessibility/keyboard users) — 2026-03-23
 
 ## 9.99.0
