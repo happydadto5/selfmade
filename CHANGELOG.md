@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Gameplay: collecting a Shield while a shield is active now extends its duration by 8s (was 6s) to make recovery more noticeable (tiny) — 2026-03-23
+
 ## 9.9.0
 - UI: increase wave toast duration to 1.8s for better visibility (tiny) — 2026-03-23
 
