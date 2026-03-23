@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: ensure autopause announcer has explicit role=status for assistive tech (tiny) — 2026-03-23
+
 ## 9.53.0
 - Visual/UI: add subtle leafy background overlays for stronger garden atmosphere (tiny)
 
