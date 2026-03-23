@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 9.115.0
 - Levels: show Next Wave button when a wave clears and pause progression until the player advances (tiny)
 
 ## 9.114.0
