@@ -2057,7 +2057,7 @@ if (overlay) {
       overlay.setAttribute('tabindex', '-1');
       try { overlay.focus(); } catch (e) { /* ignore focus errors */ }
       // Accessibility: when showing overlay due to pause, focus the Resume button so keyboard and touch users can quickly resume
-      try { if (show && !gameOver && typeof resumeBtn !== 'undefined' && resumeBtn) { resumeBtn.focus(); } } catch (e) { /* ignore focus errors */ }
+      try { if (show && !gameOver) { const _rb = document.getElementById('resumeBtn'); if (_rb) try { _rb.focus(); } catch(e){} } } catch (e) { /* ignore focus errors */ }
       // Small accessibility/UX hook: add a class to the document body when the overlay is visible
       // so CSS can style the paused state (e.g., dimming, cursor changes). Keep this defensive.
       try { document.body.classList.add('paused'); } catch (e) { /* ignore */ }

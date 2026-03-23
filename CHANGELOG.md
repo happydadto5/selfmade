@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: reliably focus the Resume button when the overlay appears (accessibility/keyboard users) — 2026-03-23
+
 ## 9.99.0
 - Visual/UI: slightly stronger garden hit-pop overlay (brighter bloom) for clearer hit feedback (tiny) — 2026-03-23
 
