@@ -808,7 +808,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.31.0';
+  const version = '9.32.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1271,6 +1271,8 @@
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
       o.start(now);
       o.stop(now + 0.34);
+      // Brief vibration on shield absorb for touch devices (respect prefers-reduced-motion)
+      try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(14); } catch (e) {}
       return;
     }
     else if (type === 'powerup') {
@@ -1283,6 +1285,8 @@
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
       o.start(now);
       o.stop(now + 0.28);
+      // Brief vibration on power-up collect for touch devices (respect prefers-reduced-motion)
+      try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(18); } catch (e) {}
       return;
     }
     else if (type === 'explode') {

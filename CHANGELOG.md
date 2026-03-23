@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.32.0
+- Audio: add brief vibration feedback on power-up collection and shield absorb for touch devices (tiny) — 2026-03-23
+
 ## 9.31.0
 - UI: include waves-left in Wave HUD ARIA label and progress bar for screen readers (tiny) — 2026-03-23
 
