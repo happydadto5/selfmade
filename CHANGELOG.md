@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.49.0
+- Visual/UI: add subtle vignette to background to improve depth and focus (tiny) — 2026-03-23
+
 ## 9.48.0
 - Levels: grant 1 extra life every 5 waves (was every 3 waves) to improve pacing (tiny) — 2026-03-23
 
