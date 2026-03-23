@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.35.0
 - Accessibility: improve keyboard focus outlines for all buttons and role="button" elements to aid keyboard navigation (tiny) — 2026-03-23
 
 ## 9.34.0
