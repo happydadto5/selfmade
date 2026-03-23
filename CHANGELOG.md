@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Visual: brighten garden hit flash for clearer hit feedback (tiny) — 2026-03-23
 
 ## 9.28.0
 - Accessibility/stability: pause game on window blur and resume on focus (honors auto-pause preference)
