@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.109.0
 - Accessibility: announce near-expiry Shield warning to assistive tech (tiny) — 2026-03-23
 
 ## 9.108.0
