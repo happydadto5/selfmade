@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.69.0
+- Visual/UI: stronger garden hit-pop overlay for clearer hit feedback (tiny) — 2026-03-23
+
 ## 9.68.0
 - UI: include defeated/total counts in wave progress ARIA label for screen readers (tiny) — 2026-03-23
 
