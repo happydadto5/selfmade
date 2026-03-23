@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Gameplay: snail enemies can drop Mulch on death (30% chance) to support recovery and reinforce garden theme (tiny)
+
 ## 9.66.0
 - Stability: clear scheduled spawn timers when auto-paused on visibility to prevent enemies spawning while the game is backgrounded (tiny)
 
