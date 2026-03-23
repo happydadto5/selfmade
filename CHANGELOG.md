@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.82.0
+- 2026-03-23: Small accessibility/UI polish: clarified auto-pause handling and ensured pause-on-blur behaviors (tiny)
+
 ## 9.81.0
 - Visual/UI: crisper garden hit feedback pop (brighter, faster fade) — tiny — 2026-03-23
 
