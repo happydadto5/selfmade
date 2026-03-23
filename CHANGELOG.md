@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.7.0
+- Audio/UI: play a short chime when a new wave starts to make progression clearer (tiny) — 2026-03-23
+
 ## 9.6.0
 - UI: briefly pulse Lives HUD when a Shield power-up spawns so players notice shields (tiny) — 2026-03-23
 

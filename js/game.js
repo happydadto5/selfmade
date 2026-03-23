@@ -537,6 +537,8 @@
                 }
                 // Show a brief transient toast to make wave transitions more visible (non-intrusive and accessible)
                 try { showWaveToast('Wave ' + n + (typeof maxWaves === 'number' && maxWaves > 0 ? '/' + maxWaves : '') + ' starting'); } catch(e) {}
+                // Audible chime for wave start to make progression more noticeable (respect soundEnabled and autoplay policies)
+                try { if (typeof soundEnabled !== 'undefined' && soundEnabled) { try { ensureAudio(); } catch(e) {} try { playSound('wave'); } catch(e) {} } } catch(e) {}
               }
             } catch (e) { /* ignore pulse errors */ }
           } catch (e) { /* ignore DOM errors */ }
@@ -785,7 +787,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.6.0';
+  const version = '9.7.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
