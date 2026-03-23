@@ -910,7 +910,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.96.0';
+  const version = '9.97.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2063,6 +2063,8 @@ if (overlay) {
       try { document.body.classList.add('paused'); } catch (e) { /* ignore */ }
       // Visual polish: apply a subtle dim/filter to the game canvas to make paused state more obvious.
       try { if (canvas && typeof canvas.style !== 'undefined') { canvas.style.filter = 'brightness(0.72) saturate(0.92)'; } } catch (e) { /* ignore */ }
+      // Ensure CSS paused heading appears reliably by syncing data-paused attribute with current paused state.
+      try { if (typeof paused !== 'undefined' && paused) { overlay.setAttribute('data-paused', 'true'); } else { overlay.removeAttribute('data-paused'); } } catch (e) { /* ignore */ }
     } else {
       overlay.setAttribute('role', 'status');
       overlay.removeAttribute('aria-modal');

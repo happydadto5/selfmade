@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.97.0
+- Stability: pause on window blur/visibility shows a prominent paused overlay and reliably suspends audio/timers/inputs (tiny) — 2026-03-23
+
 ## 9.96.0
 - Accessibility: announce auto-pause to assistive tech when the game auto-pauses on blur/visibility (tiny)
 
