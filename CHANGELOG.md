@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.99.0
 - Visual/UI: slightly stronger garden hit-pop overlay (brighter bloom) for clearer hit feedback (tiny) — 2026-03-23
 
 ## 9.98.0
