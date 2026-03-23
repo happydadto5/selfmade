@@ -534,6 +534,13 @@
                   if (becomingVisible) {
                     const ann = getAutopauseAnnouncer();
                     if (ann) ann.textContent = 'Next wave available';
+                    // Add a brief pulse animation to draw attention to the Next Wave button (respects reduced-motion via CSS)
+                    try {
+                      if (nextWaveBtn && nextWaveBtn.classList) {
+                        nextWaveBtn.classList.add('next-wave-pulse');
+                        setTimeout(function(){ try { nextWaveBtn.classList.remove('next-wave-pulse'); } catch(e) {} }, 900);
+                      }
+                    } catch(e){}
                   }
                 } catch(e){}
                 nextWaveBtn._wasVisible = (!gameOver && total > 0 && present === 0);

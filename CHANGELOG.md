@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: add brief pulse animation to Next Wave button when it becomes available to improve discoverability (tiny) — 2026-03-23
+
 ## 8.49.0
 - Visual: stronger Shield pickup pulse and halo to improve discoverability (tiny) — 2026-03-23
 

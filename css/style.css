@@ -134,6 +134,16 @@ body[data-mulch-active="false"]{box-shadow:none}
 }
 #nextWaveBtn:focus,#nextWaveBtn:focus-visible{outline:3px solid rgba(30,136,229,0.55);outline-offset:4px}
 
+@media (prefers-reduced-motion: no-preference) {
+  /* Brief pulse when Next Wave becomes available to improve discoverability without violating reduced-motion prefs */
+  #nextWaveBtn.next-wave-pulse { animation: nextWavePulse 900ms ease; }
+  @keyframes nextWavePulse {
+    0% { transform: translateY(0) scale(1); box-shadow:0 8px 18px rgba(0,0,0,0.18); }
+    40% { transform: translateY(-6px) scale(1.06); box-shadow:0 18px 36px rgba(46,125,50,0.28); }
+    100% { transform: translateY(0) scale(1); box-shadow:0 8px 18px rgba(0,0,0,0.18); }
+  }
+}
+
 @media (pointer: coarse) {
   /* Show on-screen touch buttons only on touch-capable devices */
   #touch-controls{display:flex}
