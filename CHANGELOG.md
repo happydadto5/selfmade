@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.1.0
+- Stability: synchronize auto-pause preference keys (selfmade_autopause & selfmade_pause_on_blur) to avoid inconsistent user settings across versions (tiny)
+
 ## 9.0.0
 - Visual/UI: slightly increase garden hit flash brightness for clearer hit feedback (tiny) — 2026-03-23
 
