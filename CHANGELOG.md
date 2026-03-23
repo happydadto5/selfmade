@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.108.0
+- Accessibility: show transient auto-pause toast when toggling auto-pause (press O) for better discoverability (tiny)
+
 ## 9.107.0
 - Visual/UI: add subtle vignette overlay above the canvas to increase depth and improve foreground readability (tiny)
 

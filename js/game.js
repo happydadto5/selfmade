@@ -910,7 +910,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.107.0';
+  const version = '9.108.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1732,6 +1732,34 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
       try { if (typeof refreshVersionHUD === 'function') refreshVersionHUD(); } catch (e) { /* ignore */ }
       // Ensure the Auto-Pause toggle button updates when the preference is changed via the keyboard shortcut
       try { if (typeof updateAutoPauseUI === 'function') updateAutoPauseUI(); } catch (e) { /* ignore */ }
+
+      // Small UX: show a transient toast so users get immediate visual feedback when toggling auto-pause.
+      try {
+        let t = document.getElementById('autopause-toast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'autopause-toast';
+          t.setAttribute('role', 'status');
+          t.setAttribute('aria-live', 'polite');
+          try { t.setAttribute('tabindex', '0'); } catch(e){}
+          t.style.position = 'fixed';
+          t.style.left = '50%';
+          t.style.bottom = '18px';
+          t.style.transform = 'translateX(-50%)';
+          t.style.background = 'rgba(0,0,0,0.74)';
+          t.style.color = '#fff';
+          t.style.padding = '8px 12px';
+          t.style.borderRadius = '10px';
+          t.style.zIndex = '10003';
+          t.style.pointerEvents = 'auto';
+          try { document.body.appendChild(t); } catch(e) {}
+        }
+        try { t.textContent = autoPauseEnabled ? 'Auto-pause enabled (press O to toggle)' : 'Auto-pause disabled (press O to toggle)'; } catch(e) {}
+        // Allow click to focus the canvas so keyboard users can resume quickly; keep behavior conservative.
+        try { t.addEventListener('click', function(){ try{ if (canvas && typeof canvas.focus === 'function') canvas.focus(); }catch(e){} }); } catch(e) {}
+        // Auto-remove after a short delay
+        try { setTimeout(function(){ try { const nt = document.getElementById('autopause-toast'); if (nt && nt.parentNode) nt.parentNode.removeChild(nt); } catch(e){}; }, 2600); } catch(e) {}
+      } catch(e) { /* ignore toast errors */ }
     }
 
     // 'N' advances to the next wave (developer/testing)
