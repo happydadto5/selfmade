@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.3.0
+- Levels: increase start-of-wave grace when player is low on lives to improve beatability (tiny) — 2026-03-23
+
 ## 9.2.0
 - Gameplay: increase Rapid power-up duration to 18s for a snappier, more satisfying feel (tiny) — 2026-03-23
 

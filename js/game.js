@@ -783,7 +783,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.2.0';
+  const version = '9.3.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2584,6 +2584,8 @@ let hitPopTimeout = null;
       let graceMs = (typeof waveNumber === 'number' && waveNumber <= 3) ? 1800 : 900;
       // If this is the configured final wave, give an extra grace moment so the finale feels achievable
       try { if (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves) { graceMs += 1200; } } catch (e) {}
+      // Extra breathing room when player is critically low on lives to improve beatability
+      try { if (typeof lives === 'number' && lives <= 1) { graceMs += 800; } } catch (e) {}
       waveStartGraceUntil = Date.now() + graceMs;
     } catch (e) {}
   // small, optional screen shake to emphasize wave start (skip for reduced-motion users)
