@@ -728,6 +728,24 @@
                   } catch(e) {}
                 }
               } catch(e) {}
+
+              // Small pacing tweak: if player is low on lives, spawn a Shield near the player to aid recovery.
+              try {
+                if (typeof lives === 'number' && lives <= 1) {
+                  const now = Date.now();
+                  const hasShield = (player && now < (player.shieldUntil || 0));
+                  if (!hasShield) {
+                    const sx = (player && typeof player.x === 'number') ? player.x : Math.floor(cw/2);
+                    const sy = Math.max(40, (player && typeof player.y === 'number') ? (player.y - 120) : Math.floor(ch * 0.2));
+                    const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - sx) < 48 && Math.abs((p.y||0) - sy) < 48);
+                    if (!nearbyShield) {
+                      try { powerups.push({ x: sx, y: sy, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 }); } catch(e){}
+                      try { scorePopups.push({ x: sx, y: sy - 12, text: '🛡 Shield', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
+                      try { playSound('shield'); } catch(e){}
+                    }
+                  }
+                }
+              } catch(e) {}
             }
           } catch(e) {}
 
