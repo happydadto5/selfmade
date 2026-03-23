@@ -1682,6 +1682,14 @@
           try { clearInputs(); } catch (e) {}
           // Also clear any scheduled spawn timer so enemies don't unexpectedly spawn while paused
           try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
+          // Play a short pause tone to give audible feedback when the user manually pauses
+          try { if (typeof playSound === 'function') { try { playSound('blip'); } catch(e){} } } catch(e) {}
+          // Provide brief haptic feedback on supported devices when manually pausing (respect reduced-motion)
+          try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(18); } catch (e) {}
+        } else {
+          // Play a short resume tone when unpausing
+          try { if (typeof playSound === 'function') { try { playSound('powerup'); } catch(e){} } } catch(e) {}
+          try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(10); } catch (e) {}
         }
         // If an auto-pause timeout was pending (blur/visibility debounce), clear it so manual toggle takes precedence
         if (typeof blurTimeout !== 'undefined' && blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; }

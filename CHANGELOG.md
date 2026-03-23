@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility/UI: add short pause/resume tones and subtle haptic feedback when pausing/resuming (tiny) — 2026-03-23
+
 ## 9.103.0
 - Visual/UI: livelier background leaves — increased count, warmer palette and subtle motion to improve atmosphere (tiny) — 2026-03-23
 
