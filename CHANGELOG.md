@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels/UI: show waves-left hint in Wave HUD for clearer progression (tiny) — 2026-03-23
+
 ## 8.57.0
 - UI: increase overlay button size on touch devices for easier tapping (tiny) — 2026-03-23
 

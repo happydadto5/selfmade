@@ -483,6 +483,18 @@
             try { emoji.setAttribute('aria-hidden','true'); } catch (e) {}
             emoji.style.marginLeft = '6px';
             try { waveEl.appendChild(emoji); } catch(e) { /* ignore */ }
+            // Small, always-visible waves-left hint appended to the Wave HUD so players immediately see progression toward the level goal.
+            try {
+              if (typeof maxWaves === 'number' && maxWaves > 0 && n < maxWaves) {
+                const leftSpan = document.createElement('span');
+                leftSpan.textContent = ' • ' + (maxWaves - n) + ' waves left';
+                leftSpan.style.marginLeft = '8px';
+                leftSpan.style.fontSize = '0.9em';
+                try { leftSpan.setAttribute('aria-hidden','true'); } catch (e) {}
+                try { waveEl.appendChild(leftSpan); } catch (e) {}
+              }
+            } catch(e) {}
+
             try {
               let ariaLabel = 'Wave: ' + n;
               try { if (typeof maxWaves === 'number' && maxWaves > 0) ariaLabel = 'Wave: ' + n + ' of ' + maxWaves + (n === maxWaves ? ' (Final)' : ''); } catch(e){}
