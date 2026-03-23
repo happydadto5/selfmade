@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: briefly pulse Lives HUD when a Shield power-up spawns so players notice shields (tiny) — 2026-03-23
+
 ## 9.5.0
 - Stability: use togglePause on window blur to ensure timers, audio, and spawn timers are suspended cleanly (tiny) — 2026-03-23
 
