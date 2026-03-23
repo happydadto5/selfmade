@@ -735,6 +735,15 @@
                 const bonusToast = 10 + (typeof lives === 'number' ? (lives * 5) : 0);
                 try { showWaveToast('Wave ' + waveNumber + ' cleared! +' + bonusToast + ' pts'); } catch(e) {}
               } catch(e) {}
+              try {
+                // Celebratory flourish: brief screen shake + leaf/petal particles to make wave clear feel satisfying
+                screenShake = Math.max(screenShake || 0, 6);
+                const cx = (player && typeof player.x === 'number') ? player.x : Math.floor(cw/2);
+                const cy = (player && typeof player.y === 'number') ? player.y - 20 : Math.floor(ch/2);
+                for (let k = 0; k < 12; k++) {
+                  particles.push({ x: cx, y: cy, vx: (Math.random()-0.5)*2.4, vy: -Math.random()*2, r: 2 + Math.random()*4, life: 360 + Math.random()*360, born: Date.now(), color: (Math.random() < 0.5 ? '#ffd54f' : '#a5d6a7'), petal: true });
+                }
+              } catch(e){}
               // If this was the configured final wave, pause progression and show a clear victory overlay so the run feels beatable
               try {
                 if (typeof maxWaves === 'number' && maxWaves > 0 && waveNumber >= maxWaves) {

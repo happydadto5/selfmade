@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: celebratory flourish on wave clear — brief screen shake and particles to improve feedback (tiny) — 2026-03-23
+
 ## 9.43.0
 - Gameplay: slightly increase bee speed so fast enemies feel more threatening (tiny) — 2026-03-23
 
