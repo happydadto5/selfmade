@@ -867,7 +867,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.57.0';
+  const version = '9.58.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1207,6 +1207,27 @@
       } catch(e){}
     }, { passive: true });
     window.addEventListener('focusout', () => { try { clearInputs(); pointerActive = false; } catch(e){} }, { passive: true });
+
+    // Also pause when the document becomes hidden (visibilitychange). This catches cases where blur
+    // may not fire (mobile app switching, some browsers' tab handling). Only pause; do not auto-resume
+    // here to avoid surprising the player when they return.
+    try {
+      document.addEventListener('visibilitychange', function() {
+        try {
+          if (document.hidden) {
+            try { clearInputs(); pointerActive = false; } catch(e){}
+            try {
+              if (typeof autoPauseEnabled !== 'undefined' && autoPauseEnabled && typeof paused !== 'undefined' && !paused && typeof gameOver !== 'undefined' && !gameOver) {
+                try { togglePause(true, 'visibility'); } catch(e) {
+                  try { paused = true; pausedByFocus = true; document.body.classList.add('auto-paused'); } catch(e2){}
+                  try { if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); } } catch(e2){}
+                }
+              }
+            } catch(e){}
+          }
+        } catch(e){}
+      }, { passive: true });
+    } catch(e) {}
   } catch (e) { /* ignore */ }
 
   // Bind on-screen touch-control buttons so tapping them triggers the same inputs as full-screen zones.

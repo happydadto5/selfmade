@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.58.0
+- Accessibility: pause game when page becomes hidden (document.visibilitychange) to improve auto-pause reliability (tiny) — 2026-03-23
+
 ## 9.57.0
 - Visual/UI: strengthen garden background highlights and hit-flash subtlety (tiny) — 2026-03-23
 
