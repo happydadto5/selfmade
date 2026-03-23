@@ -316,7 +316,7 @@
           if (document.hidden) {
             // remember if game was running so we can restore state
             try { _wasRunningBeforeHide = (typeof running !== 'undefined' ? running : false); } catch(e) { _wasRunningBeforeHide = false; }
-            try { if (typeof running !== 'undefined' && running) { togglePause(true, 'visibility'); } } catch(e) {}
+            try { if (typeof running !== 'undefined' && running) { togglePause(true, 'visibility'); try { const ap = getAutopauseAnnouncer(); if (ap) ap.textContent = 'Game paused'; } catch(e) {} } } catch(e) {}
             // Clear any pending scheduled spawn timeout to avoid enemies spawning while the page is hidden.
             try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
           } else {
@@ -331,7 +331,7 @@
         window.addEventListener('blur', function(){
           try {
             _wasRunningBeforeHide = (typeof running !== 'undefined' ? running : false);
-            if (typeof running !== 'undefined' && running) { togglePause(true, 'blur'); }
+            if (typeof running !== 'undefined' && running) { togglePause(true, 'blur'); try { const ap = getAutopauseAnnouncer(); if (ap) ap.textContent = 'Game paused'; } catch(e) {} }
           } catch(e) {}
         }, { passive: true });
         window.addEventListener('focus', function(){
@@ -910,7 +910,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.95.0';
+  const version = '9.96.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

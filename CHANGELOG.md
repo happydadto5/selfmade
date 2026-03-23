@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.96.0
+- Accessibility: announce auto-pause to assistive tech when the game auto-pauses on blur/visibility (tiny)
+
 ## 9.94.0
 - Visual/UI: add subtle red HUD glow when player is low on lives to improve urgency and readability (tiny)
 
