@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: change garden background toggle from 'B' to 'V' to avoid conflict with shield key (tiny)
+
 ## 9.46.0
 - Accessibility: focus canvas on first tap/pointer so keyboard controls work immediately (tiny) — 2026-03-23
 

@@ -1711,8 +1711,8 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
       } catch (e) { /* ignore */ }
     }
 
-    // 'B' toggles the garden background on/off (persisted). Useful for accessibility or performance on low-end devices.
-    if (e.key === 'b' || e.key === 'B') {
+    // 'V' toggles the garden background on/off (persisted). Useful for accessibility or performance on low-end devices.
+    if (e.key === 'v' || e.key === 'V') {
       try {
         const currently = (canvas && canvas.dataset && canvas.dataset.bgVisible === 'true');
         const show = !currently;
