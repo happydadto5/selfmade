@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.78.0
 - Stability: ensure scheduled spawn timers are cleared and audio is suspended when auto-pausing on blur/visibility fallback (tiny)
 
 ## 9.77.0
