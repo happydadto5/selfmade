@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.81.0
+- Visual/UI: crisper garden hit feedback pop (brighter, faster fade) — tiny — 2026-03-23
+
 ## 9.80.0
 - UI: show per-wave remaining/total enemies in HUD (tiny)
 

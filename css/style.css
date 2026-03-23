@@ -644,17 +644,15 @@ html::before {
     left: 0; top: 0; right: 0; bottom: 0;
     pointer-events: none;
     z-index: 10001;
-    /* radial gradient anchored at the hit location -- garden-tinted so hits feel thematic and remain visible */
-    /* slightly increased mid-tone opacity and radius for clearer, more satisfying hit feedback */
-    /* make the pop broader and a bit greener so hits read better on busy backgrounds */
-    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,230,1), rgba(180,255,170,1) 46%, rgba(180,255,170,0) 86%);
+    /* radial gradient anchored at the hit location -- garden-tinted and slightly brighter so hits read clearly */
+    background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(255,255,230,1), rgba(200,255,190,1) 44%, rgba(200,255,190,0) 82%);
     opacity: 1;
-    mix-blend-mode: screen; /* brighter blend to improve visibility */
-    /* stronger, crisper bloom for clearer, garden-like hit feedback */
-    box-shadow: 0 0 320px rgba(124,252,0,0.72);
-    filter: blur(2px);
-    /* slightly longer fade for a more noticeable, satisfying hit feel */
-    animation: hitPopFade 900ms ease-out forwards;
+    mix-blend-mode: screen; /* keep additive brightness for clarity */
+    /* crisper bloom for clearer, garden-like hit feedback (reduced radius and blur for sharper pop) */
+    box-shadow: 0 0 200px rgba(124,252,0,0.72);
+    filter: blur(1px);
+    /* slightly faster fade for snappier feedback */
+    animation: hitPopFade 700ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {
