@@ -824,7 +824,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.47.0';
+  const version = '9.48.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4308,7 +4308,7 @@ let hitPopTimeout = null;
       // Add a short recovery window between waves so players get a brief respite.
       // Reward milestone: grant 1 extra life every 5 waves to give players a clear progression milestone.
       try {
-        if (typeof waveNumber === 'number' && waveNumber > 0 && waveNumber % 3 === 0) {
+        if (typeof waveNumber === 'number' && waveNumber > 0 && waveNumber % 5 === 0) {
           try {
             if (typeof lives === 'number') {
               // cap lives to avoid runaway growth

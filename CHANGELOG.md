@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.48.0
+- Levels: grant 1 extra life every 5 waves (was every 3 waves) to improve pacing (tiny) — 2026-03-23
+
 ## 9.47.0
 - Gameplay: change garden background toggle from 'B' to 'V' to avoid conflict with shield key (tiny)
 
