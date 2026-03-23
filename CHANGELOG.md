@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.55.0
+- Gameplay: show shield charges on mobile fire button for clearer mobile feedback (tiny) — 2026-03-23
+
 ## 9.54.0
 - Accessibility: ensure autopause announcer has explicit role=status for assistive tech (tiny) — 2026-03-23
 

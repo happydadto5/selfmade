@@ -713,7 +713,15 @@
                 if (text) {
                   // Prepend the power-up emoji to the fire button while preserving water icon
                   const emoji = (String(text).split(' ')[0] || '');
-                  touchFireBtn.textContent = '💧' + ' ' + emoji;
+                  // If Shield is active, also include its charge count (e.g. "x2") so mobile players see how many absorbs remain
+                  let suffix = '';
+                  try {
+                    if (String(text).trim().indexOf('🛡') === 0) {
+                      const m = String(text).match(/x(\d+)/);
+                      if (m && m[0]) suffix = ' ' + m[0];
+                    }
+                  } catch(e){}
+                  touchFireBtn.textContent = '💧' + ' ' + emoji + (suffix ? (' ' + suffix.trim()) : '');
                   try { touchFireBtn.setAttribute('aria-label', 'Water / Fire — ' + text); } catch(e){}
                   try { touchFireBtn.title = 'Water plants' + ' · ' + text; } catch(e){}
                   // Add or remove a visual "shield-active" class on the touch fire button when Shield is active
@@ -836,7 +844,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.54.0';
+  const version = '9.55.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
