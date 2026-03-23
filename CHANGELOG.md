@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.59.0
 - Visual/UI: tweak garden hit flash blending for stronger, warmer effect (tiny) — 2026-03-23
 
 ## 8.58.0
