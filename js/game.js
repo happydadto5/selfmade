@@ -722,6 +722,8 @@
               bar.setAttribute('aria-valuemin', '0');
               bar.setAttribute('aria-valuemax', String(typeof total === 'number' ? total : 0));
               bar.setAttribute('aria-valuenow', String(typeof defeated === 'number' ? defeated : 0));
+              // Provide an explicit, readable label for screen readers describing current wave progress
+              try { bar.setAttribute('aria-label', 'Wave progress: ' + defeated + ' of ' + total); } catch (e) {}
               bar.setAttribute('aria-hidden', 'false');
               const inner = document.createElement('div');
               inner.className = 'wave-bar-fill';
@@ -733,7 +735,7 @@
               const fill = bar.querySelector('.wave-bar-fill');
               const pct = total > 0 ? Math.round((defeated / total) * 100) : 0;
               if (fill) fill.style.width = pct + '%';
-              try { bar.setAttribute('aria-valuenow', String(typeof defeated === 'number' ? defeated : 0)); bar.setAttribute('aria-valuemax', String(typeof total === 'number' ? total : 0)); } catch (e) {}
+              try { bar.setAttribute('aria-valuenow', String(typeof defeated === 'number' ? defeated : 0)); bar.setAttribute('aria-valuemax', String(typeof total === 'number' ? total : 0)); bar.setAttribute('aria-label', 'Wave progress: ' + defeated + ' of ' + total); } catch (e) {}
             } catch (e) { /* ignore fill update errors */ }
           } catch (e) { /* ignore progress bar DOM errors */ }
         } catch (e) { /* ignore DOM errors */ }
