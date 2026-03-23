@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.85.0
 - 2026-03-23: Visual/UI: crisper, greener hit-pop overlay for snappier hit feedback (tiny)
 
 ## 9.84.0
