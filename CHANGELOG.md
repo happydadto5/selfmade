@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.70.0
+- UI: show pause hint in version HUD ("Press P to pause") (tiny) — 2026-03-23
+
 ## 9.69.0
 - Visual/UI: stronger garden hit-pop overlay for clearer hit feedback (tiny) — 2026-03-23
 
