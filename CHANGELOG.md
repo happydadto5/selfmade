@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.119.0
 - UI: show percentage inside wave progress bar for clearer progression feedback (tiny)
 
 ## 9.118.0
