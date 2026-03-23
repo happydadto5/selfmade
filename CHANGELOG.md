@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UI: Improve HUD layout on small screens (center HUD, larger font/padding) — improves mobile readability.
+
 ## 9.109.0
 - Accessibility: announce near-expiry Shield warning to assistive tech (tiny) — 2026-03-23
 

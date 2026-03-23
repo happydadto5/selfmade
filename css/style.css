@@ -6,6 +6,13 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#dff6ff 0%,#87C
 /* Increase HUD opacity when users request higher contrast */
 @media (prefers-contrast: more) {
   :root{ --hud-backdrop-opacity:0.98; }
+
+/* Mobile HUD improvements: larger, centered HUD on small screens for readability */
+@media (max-width: 480px) {
+  #ui { left: 50% !important; transform: translateX(-50%) !important; top: 8px !important; font-size: 18px !important; padding: 10px 14px !important; border-radius: 10px !important; }
+  #ui #wave { font-size:20px; padding:6px 10px; }
+  #ui #wave-progress .wave-bar { width: clamp(140px, 60vw, 260px); }
+}
 }
 
 #game{display:block;width:100%;height:100vh;touch-action:none;-ms-touch-action:none;-webkit-user-select:none;user-select:none;position:relative;z-index:1;will-change:transform}
