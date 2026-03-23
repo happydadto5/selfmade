@@ -5172,7 +5172,8 @@ let hitPopTimeout = null;
         } catch (e) { try { ctx.translate(player.x, player.y); } catch (e2) {} }
         // Show a subtle pulse and alpha change based on remaining shield time so players can see when it will expire
         const _remaining = Math.max(0, (player.shieldUntil || 0) - Date.now());
-        const _frac = Math.max(0, Math.min(1, _remaining / 20000)); // fraction of 20s duration remaining
+        const _total = (player && player._shieldDuration) ? player._shieldDuration : 20000;
+        const _frac = Math.max(0, Math.min(1, _remaining / Math.max(1, _total)));
         const _pulse = 1 + 0.08 * Math.sin(Date.now() * 0.02);
         // soft halo behind the shield for stronger visual clarity (additive blend)
         try {

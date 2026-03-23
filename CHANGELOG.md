@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: shield HUD uses recorded shield duration for accurate timer and ring progress (tiny)
+
 ## 9.74.0
 - Stability: clear timeouts and pause on pagehide to avoid stray spawns during navigation (tiny) — 2026-03-23
 
