@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: slightly increase power-up pickup radius on non-touch devices so shields and pickups are easier to collect (tiny)
+
 ## 9.91.0
 - UI: increase HUD backdrop opacity for improved contrast on busy backgrounds (tiny)
 
