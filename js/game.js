@@ -1113,10 +1113,11 @@
         // Auto-pause on blur when enabled so gameplay doesn't continue when user switches tabs or apps
         try {
           if (typeof autoPauseEnabled !== 'undefined' && autoPauseEnabled && typeof paused !== 'undefined' && !paused && typeof gameOver !== 'undefined' && !gameOver) {
-            paused = true;
-            pausedByFocus = true;
-            try { document.body.classList.add('auto-paused'); } catch(e) { /* ignore */ }
-            if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); }
+            try { togglePause(true, 'blur'); } catch(e) {
+              // Fallback: in rare cases where togglePause is unavailable, set paused flags conservatively
+              try { paused = true; pausedByFocus = true; document.body.classList.add('auto-paused'); } catch(e2) {}
+              try { if (typeof overlay !== 'undefined' && overlay) { setOverlayVisible(paused || gameOver); updateOverlayMessage(); } } catch(e2) {}
+            }
           }
         } catch (e) { /* ignore */ }
       } catch(e){}

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Stability: use togglePause on window blur to ensure timers, audio, and spawn timers are suspended cleanly (tiny) — 2026-03-23
+
 ## 9.4.0
 - Visual/UI: add semi-opaque rounded backdrops behind pause and game-over secondary text for improved readability (tiny) — 2026-03-23
 
