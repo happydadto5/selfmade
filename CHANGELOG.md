@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 9.4.0
 - Visual/UI: add semi-opaque rounded backdrops behind pause and game-over secondary text for improved readability (tiny) — 2026-03-23
 
 ## 9.3.0
