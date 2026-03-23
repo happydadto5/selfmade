@@ -4359,7 +4359,7 @@ let hitPopTimeout = null;
       // and reduce the aggressive subtraction so early pacing feels less abrupt.
       try { if (waveNumber <= 3) interWaveDelay = Math.max(900, interWaveDelay - 400); } catch (e) {}
       // If the player is low on lives, extend the inter-wave delay to provide extra recovery time.
-      try { if (typeof lives === 'number' && lives <= 1) interWaveDelay += 800; } catch (e) {}
+      try { if (typeof lives === 'number' && lives <= 1) interWaveDelay += 1200; } catch (e) {}
        // Auto-schedule a short auto-advance to the next wave shortly after a clear to improve pacing (1.2s respite).
        // This is small, respects the existing Next Wave button, and only runs when not on the final configured wave.
        try {

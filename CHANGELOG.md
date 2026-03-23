@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: increase inter-wave delay by ~0.4s when player is critically low on lives to improve beatability and recovery (tiny) — 2026-03-23
+
 ## 9.35.0
 - Accessibility: improve keyboard focus outlines for all buttons and role="button" elements to aid keyboard navigation (tiny) — 2026-03-23
 
