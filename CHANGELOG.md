@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.64.0
 - Visual/UI: increase HUD backdrop opacity for improved contrast and readability (tiny) — 2026-03-23
 
 ## 8.63.0
