@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.58.0
 - Levels/UI: show waves-left hint in Wave HUD for clearer progression (tiny) — 2026-03-23
 
 ## 8.57.0
