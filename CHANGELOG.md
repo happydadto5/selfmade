@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.28.0
 - Accessibility/stability: pause game on window blur and resume on focus (honors auto-pause preference)
 
 ## 9.27.0
