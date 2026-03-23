@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.84.0
+- 2026-03-23: UI: show current level in version HUD so players see progression (small)
+
 ## 9.83.0
 - 2026-03-23: UX: touch guides now stay visible longer on touch devices (12s) — small
 
