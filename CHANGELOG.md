@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: slightly increase wave start grace period (+200ms) to improve beatability for early and later waves — 2026-03-23
+
 ## 9.63.0
 - Gameplay: increase Shield duration to 26s to improve usefulness (tiny) — 2026-03-23
 
