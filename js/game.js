@@ -807,9 +807,11 @@
                 awaitingNextWave = true; // prevent automatic spawning until the player advances or the fallback timer fires
                 try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch(e){}
                 try { if (nextWaveFallbackTimeout) { clearTimeout(nextWaveFallbackTimeout); nextWaveFallbackTimeout = null; } } catch(e){}
+                // Show Next Wave button for discoverability (mobile and keyboard users)
+                try { if (nextWaveBtn) { nextWaveBtn.style.display = ''; nextWaveBtn.setAttribute('aria-hidden','false'); try { nextWaveBtn.focus(); } catch(e){} } } catch(e){}
                 // Fallback: if the player doesn't press Next Wave, auto-advance after a short delay (2.8s)
                 try {
-                  nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !gameOver) { awaitingNextWave = false; lastSpawn = Date.now(); spawnWave(); } } catch(e){}; }, 2800);
+                  nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !gameOver) { awaitingNextWave = false; if (nextWaveBtn) try { nextWaveBtn.style.display = 'none'; nextWaveBtn.setAttribute('aria-hidden','true'); } catch(e){} lastSpawn = Date.now(); spawnWave(); } } catch(e){}; }, 2800);
                 } catch(e){}
               } catch(e){}
 
@@ -2908,6 +2910,8 @@ let hitPopTimeout = null;
     waveNumber++;
     try { lastSpawn = Date.now(); } catch (e) {}
     try { waveSpawnWatchdog = Date.now(); } catch (e) {}
+    // Hide the manual Next Wave button when a new wave begins so it doesn't distract players
+    try { if (nextWaveBtn) { nextWaveBtn.style.display = 'none'; nextWaveBtn.setAttribute('aria-hidden','true'); } } catch(e){}
     // briefly show a wave banner so players notice wave transitions
     wavePulseUntil = Date.now() + 1200;
     // Give players a short grace period at the start of each wave where enemies move slightly slower to improve beatability

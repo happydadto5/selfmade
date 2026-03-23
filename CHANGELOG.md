@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Levels: show Next Wave button when a wave clears and pause progression until the player advances (tiny)
+
 ## 9.114.0
 - Visual: increase shield pickup visibility (larger icon and stronger halo) — small polish
 
