@@ -4215,6 +4215,8 @@ let hitPopTimeout = null;
         }
       } catch(e){}
       const shieldActive = remainingShieldMs > 0;
+      // Reflect shield state in body attributes so CSS can apply global tint and warning visuals
+      try { if (typeof document !== 'undefined' && document.body) { document.body.setAttribute('data-shield-active', shieldActive ? 'true' : 'false'); document.body.setAttribute('data-shield-warning', (remainingShieldMs > 0 && remainingShieldMs <= 3000) ? 'true' : 'false'); } } catch(e){}
       if (shieldActive && Math.random() < 0.06) {
         // small, short-lived sparkles that orbit near the player
         particles.push({ x: player.x + (Math.random()-0.5)*(player.w*1.2), y: player.y + (Math.random()-0.5)*(player.h*1.2), vx: (Math.random()-0.5)*0.6, vy: -Math.random()*0.6, r: 1 + Math.random()*1.4, life: 300 + Math.random()*200, born: now, color: '#bbdefb' });

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay/UI: show shield active ambient glow and near-expiry warning; Lives HUD displays shield charges and remaining seconds (tiny)
+
 ## 9.78.0
 - Stability: ensure scheduled spawn timers are cleared and audio is suspended when auto-pausing on blur/visibility fallback (tiny)
 
