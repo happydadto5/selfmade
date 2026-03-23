@@ -285,6 +285,26 @@
   try { canvas.addEventListener('contextmenu', e => { e.preventDefault(); }); document.addEventListener('contextmenu', e => { try { if (e.target && (e.target === canvas || canvas.contains(e.target))) { e.preventDefault(); } } catch (err) { /* ignore */ } }, { passive: false }); } catch (e) { /* ignore */ }
   // Improve accessibility: focus the canvas on pointer interaction so keyboard controls work after tap/click
   try { canvas.addEventListener('pointerdown', () => { try { canvas.focus(); } catch (e) {} }, { passive: true }); } catch (e) { /* ignore */ }
+  // Pause the game when the page becomes hidden to avoid player losing progress when switching tabs or apps.
+  try {
+    var _visibilityPref = (function(){ try { return localStorage.getItem('selfmade_pause_on_blur'); } catch(e){ return null; } })();
+    // Default to enabled unless user explicitly set to '0'
+    if (_visibilityPref !== '0') {
+      var _wasRunningBeforeHide = false;
+      document.addEventListener('visibilitychange', function(){
+        try {
+          if (document.hidden) {
+            // remember if game was running so we can restore state
+            try { _wasRunningBeforeHide = (typeof running !== 'undefined' ? running : false); } catch(e) { _wasRunningBeforeHide = false; }
+            try { if (typeof running !== 'undefined' && running) { togglePause(true, 'blur'); } } catch(e) {}
+          } else {
+            // when returning, only auto-resume if it was running before
+            try { if (_wasRunningBeforeHide) { togglePause(false, 'focus'); } } catch(e) {}
+          }
+        } catch(e) {}
+      }, { passive: true });
+    }
+  } catch (e) { /* ignore visibility handling errors */ }
 
   // Global helper: draw text with a dark outline for readability on busy backgrounds
   function drawOutlinedText(ctxArg, text, x, y, fillStyle) {

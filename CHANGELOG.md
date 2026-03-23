@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility/Stability: auto-pause when the page is hidden (visibilitychange) to avoid losing progress when switching tabs or apps — tiny
+
 ## 8.64.0
 - Visual/UI: increase HUD backdrop opacity for improved contrast and readability (tiny) — 2026-03-23
 
