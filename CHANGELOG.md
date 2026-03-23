@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.2.0
+- Gameplay: increase Rapid power-up duration to 18s for a snappier, more satisfying feel (tiny) — 2026-03-23
+
 ## 9.1.0
 - Stability: synchronize auto-pause preference keys (selfmade_autopause & selfmade_pause_on_blur) to avoid inconsistent user settings across versions (tiny)
 

@@ -783,7 +783,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.1.0';
+  const version = '9.2.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3788,7 +3788,7 @@ let hitPopTimeout = null;
             // handle different power-up types
             if (pu.type === 'rapid') {
               player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel
-              player.fireRateUntil = Date.now() + 15000; // 15 seconds
+              player.fireRateUntil = Date.now() + 18000; // 18 seconds
               // small celebratory feedback
               try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
               try { playSound('blip'); } catch (e) {}
@@ -4014,7 +4014,7 @@ let hitPopTimeout = null;
                 if (timer) {
                   let remaining = 0, total = 1;
                   if (now < (player.shieldUntil || 0) && player._shieldDuration) { remaining = Math.max(0, (player.shieldUntil || 0) - now); total = player._shieldDuration || 18000; }
-                  else if (now < (player.fireRateUntil || 0)) { remaining = Math.max(0, (player.fireRateUntil || 0) - now); total = 15000; }
+                  else if (now < (player.fireRateUntil || 0)) { remaining = Math.max(0, (player.fireRateUntil || 0) - now); total = 18000; }
                   else if (now < (player.spreadUntil || 0)) { remaining = Math.max(0, (player.spreadUntil || 0) - now); total = 12000; }
                   else if (now < (player.pierceUntil || 0)) { remaining = Math.max(0, (player.pierceUntil || 0) - now); total = 12000; }
                   else if (now < (player.mulchUntil || 0)) { remaining = Math.max(0, (player.mulchUntil || 0) - now); total = player._mulchDuration || 12000; }
