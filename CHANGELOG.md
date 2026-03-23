@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.25.0
 - Progression: keyboard 'N' now only advances when the current wave is cleared to prevent accidental skipping (tiny)
 
 ## 9.24.0
