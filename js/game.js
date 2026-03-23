@@ -5758,14 +5758,74 @@ let hitPopTimeout = null;
       ctx.textAlign = 'center';
       drawOutlinedText(ctx, gameOver ? 'Game Over' : (pausedByFocus ? 'Paused (focus lost)' : 'Paused'), cw/2, ch/2, 'rgba(255,255,255,0.98)');
       if (!gameOver) {
+        // Draw a semi-opaque rounded backdrop behind the resume hint for improved readability on busy backgrounds
         ctx.font = '18px sans-serif';
-        ctx.fillText(pausedByFocus ? 'Paused due to focus loss — tap, Space, or press P to resume' : 'Press P, Esc, or Space to resume', cw/2, ch/2 + 48);
+        const resumeText = pausedByFocus ? 'Paused due to focus loss — tap, Space, or press P to resume' : 'Press P, Esc, or Space to resume';
+        const resumeW = ctx.measureText(resumeText).width;
+        const padX = 14, padY = 8;
+        const rectW = resumeW + padX * 2;
+        const rectH = 28;
+        const rectX = Math.round(cw/2 - rectW/2);
+        const rectY = Math.round(ch/2 + 48 - rectH + 6);
+        ctx.save();
+        ctx.fillStyle = 'rgba(0,0,0,0.62)';
+        const rr = 6;
+        ctx.beginPath();
+        ctx.moveTo(rectX + rr, rectY);
+        ctx.arcTo(rectX + rectW, rectY, rectX + rectW, rectY + rectH, rr);
+        ctx.arcTo(rectX + rectW, rectY + rectH, rectX, rectY + rectH, rr);
+        ctx.arcTo(rectX, rectY + rectH, rectX, rectY, rr);
+        ctx.arcTo(rectX, rectY, rectX + rectW, rectY, rr);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        ctx.fillStyle = '#fff';
+        ctx.fillText(resumeText, cw/2, ch/2 + 48);
       } else {
+        // Draw semi-opaque rounded backdrop behind the final score for improved readability
         ctx.font = '20px sans-serif';
-        ctx.fillText('Final Score: ' + score, cw/2, ch/2 + 48);
-        // Keyboard hint to restart the game for accessibility/clarity
+        const scoreText = 'Final Score: ' + score;
+        const scoreW = ctx.measureText(scoreText).width;
+        const padX = 12, padY = 8;
+        const rectW = scoreW + padX * 2;
+        const rectH = 36;
+        const rectX = Math.round(cw/2 - rectW/2);
+        const rectY = Math.round(ch/2 + 48 - rectH + 6);
+        ctx.save();
+        ctx.fillStyle = 'rgba(0,0,0,0.62)';
+        const rr = 6;
+        ctx.beginPath();
+        ctx.moveTo(rectX + rr, rectY);
+        ctx.arcTo(rectX + rectW, rectY, rectX + rectW, rectY + rectH, rr);
+        ctx.arcTo(rectX + rectW, rectY + rectH, rectX, rectY + rectH, rr);
+        ctx.arcTo(rectX, rectY + rectH, rectX, rectY, rr);
+        ctx.arcTo(rectX, rectY, rectX + rectW, rectY, rr);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        ctx.fillStyle = '#fff';
+        ctx.fillText(scoreText, cw/2, ch/2 + 48);
+        // Keyboard hint to restart the game for accessibility/clarity (also draw a small backdrop)
         ctx.font = '16px sans-serif';
-        ctx.fillText('Press R to restart', cw/2, ch/2 + 84);
+        const restartText = 'Press R to restart';
+        const restartW = ctx.measureText(restartText).width;
+        const rectW2 = restartW + padX * 2;
+        const rectH2 = 30;
+        const rectX2 = Math.round(cw/2 - rectW2/2);
+        const rectY2 = Math.round(ch/2 + 84 - rectH2 + 6);
+        ctx.save();
+        ctx.fillStyle = 'rgba(0,0,0,0.62)';
+        ctx.beginPath();
+        ctx.moveTo(rectX2 + rr, rectY2);
+        ctx.arcTo(rectX2 + rectW2, rectY2, rectX2 + rectW2, rectY2 + rectH2, rr);
+        ctx.arcTo(rectX2 + rectW2, rectY2 + rectH2, rectX2, rectY2 + rectH2, rr);
+        ctx.arcTo(rectX2, rectY2 + rectH2, rectX2, rectY2, rr);
+        ctx.arcTo(rectX2, rectY2, rectX2 + rectW2, rectY2, rr);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        ctx.fillStyle = '#fff';
+        ctx.fillText(restartText, cw/2, ch/2 + 84);
       }
     }
     if (typeof overlay !== 'undefined' && overlay) {

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Visual/UI: add semi-opaque rounded backdrops behind pause and game-over secondary text for improved readability (tiny) — 2026-03-23
+
 ## 9.3.0
 - Levels: increase start-of-wave grace when player is low on lives to improve beatability (tiny) — 2026-03-23
 
