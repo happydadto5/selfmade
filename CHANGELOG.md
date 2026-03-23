@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.102.0
+- Levels: spawn a recovery Shield after clearing a wave when the player is low on lives to improve beatability (tiny)
+
 ## 9.101.0
 - Visual/Gameplay: stronger enemy-death feedback — slightly more particles and explosion SFX (tiny) — 2026-03-23
 

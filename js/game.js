@@ -910,7 +910,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.101.0';
+  const version = '9.102.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4480,6 +4480,28 @@ let hitPopTimeout = null;
             }
           } catch(e){}
         }
+      } catch(e){}
+
+      // Small beatability tweak: if player is low on lives after clearing a wave, spawn an immediate Shield nearby to aid recovery.
+      try {
+        try {
+          if (typeof lives === 'number' && lives <= 1) {
+            const spawnX = (player && typeof player.x === 'number') ? player.x : cw / 2;
+            const spawnY = Math.max(40, (player && typeof player.y === 'number') ? player.y - 120 : ch * 0.2);
+            const nearbyShield2 = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x || 0) - spawnX) < 48 && Math.abs((p.y || 0) - spawnY) < 48);
+            if (!nearbyShield2) {
+              if (powerups.length < 6) {
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+              } else {
+                // rotate oldest out to keep array bounded but ensure a shield appears
+                try { powerups.shift(); } catch(e){}
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+              }
+              try { scorePopups.push({ x: spawnX, y: spawnY - 12, text: '🛡 Shield (recovery)', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
+              try { playSound('shield'); } catch(e){}
+            }
+          }
+        } catch(e){}
       } catch(e){}
 
       // Pacing aid: spawn a guaranteed Shield power-up every 2 waves to aid recovery and pacing.
