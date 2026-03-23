@@ -5830,7 +5830,7 @@ let hitPopTimeout = null;
       const prefersReducedMotion = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
-        const alpha = Math.max(0, Math.min(1, remaining / 200)); // slightly longer fade for clearer hit feedback
+        const alpha = Math.max(0, Math.min(1, remaining / 240)); // slightly longer fade for clearer hit feedback
         ctx.save();
         // localized radial garden tint centered on last hit position for clearer, less obtrusive feedback
         const cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
@@ -5838,8 +5838,8 @@ let hitPopTimeout = null;
         const maxR = Math.max(cw, ch) * 0.7;
         const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
         // Slightly increase the inner and mid stop opacities for a brighter, clearer hit flash (tiny, conservative)
-        grad.addColorStop(0, 'rgba(232,255,186,' + (0.60 * alpha).toFixed(3) + ')');
-        grad.addColorStop(0.6, 'rgba(232,255,186,' + (0.30 * alpha).toFixed(3) + ')');
+        grad.addColorStop(0, 'rgba(232,255,186,' + (0.72 * alpha).toFixed(3) + ')');
+        grad.addColorStop(0.6, 'rgba(232,255,186,' + (0.36 * alpha).toFixed(3) + ')');
         grad.addColorStop(1, 'rgba(232,255,186,0)');
         ctx.globalCompositeOperation = 'lighter';
         ctx.fillStyle = grad;
