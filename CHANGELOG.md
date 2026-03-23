@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.118.0
+- Gameplay: increase manual Shield (B) duration from 6s to 9s to improve recovery options (small)
+
 ## 9.117.0
 - Accessibility: hide main canvas from assistive tech while overlay is visible to avoid duplicate announcements and improve screen-reader behavior (tiny)
 

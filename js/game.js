@@ -912,7 +912,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.117.0';
+  const version = '9.118.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1783,7 +1783,7 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
         if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
           player.shieldCharges = Math.max(0, player.shieldCharges - 1);
           // grant a short immediate shield and brief invulnerability for clarity
-          player.shieldUntil = Math.max(Date.now(), player.shieldUntil || 0) + 6000; // +6s
+          player.shieldUntil = Math.max(Date.now(), player.shieldUntil || 0) + 9000; // +9s
           player.invulnerableUntil = Date.now() + 1400;
           shieldPulseUntil = Date.now() + 800; shieldPulseX = player.x; shieldPulseY = player.y;
           try { playSound('shield'); } catch (e) {}
