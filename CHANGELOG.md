@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.51.0
+- Visual/UI: slightly extend canvas white hit-pop duration for clearer hit feedback (tiny) — 2026-03-23
+
 ## 8.50.0
 - UI: add brief pulse animation to Next Wave button when it becomes available to improve discoverability (tiny) — 2026-03-23
 

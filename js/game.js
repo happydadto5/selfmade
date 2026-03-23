@@ -731,7 +731,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '8.50.0';
+  const version = '8.51.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -5551,7 +5551,7 @@ let hitPopTimeout = null;
       try {
         if (Date.now() < (canvasWhiteFlashUntil || 0) && !prefersReducedMotion) {
           const remW = (canvasWhiteFlashUntil || 0) - Date.now();
-          const durW = 120;
+          const durW = 160;
           const alphaW = Math.max(0, Math.min(1, remW / durW));
           // center the white pop on the last hit location (fall back to center)
           const cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
