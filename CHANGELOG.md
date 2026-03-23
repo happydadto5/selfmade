@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Audio: play shield expire chime when Shield expires (tiny) — 2026-03-23
+
 ## 9.38.0
 - Stability: migrate legacy localStorage key 'selfmade_pause_on_blur' to 'selfmade_autopause' so auto-pause preference is preserved across updates (tiny) — 2026-03-23
 

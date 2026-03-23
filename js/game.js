@@ -4094,7 +4094,7 @@ let hitPopTimeout = null;
         if (lastShieldActive && !shieldActive) {
           // shield just expired
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield expired'; } catch(e){}
-          try { playSound('blip'); } catch(e){}
+          try { playSound('shield'); } catch(e){}
           try { player._shieldWarned = false; } catch(e){}
           try {
             for (let k=0;k<12;k++) particles.push({ x: player.x, y: player.y, vx: (Math.random()-0.5)*2.2, vy: -Math.random()*2.0, r: 2+Math.random()*4, life: 400+Math.random()*300, born: now, color: '#90caf9' });
