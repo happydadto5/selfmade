@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.127.0
+- Slightly strengthen canvas hit flash for clearer damage feedback (tiny visual polish).
+
 ## 9.126.0
 - Gameplay/UI: add brief haptic vibration when Shield absorbs an enemy to improve mobile feedback (tiny)
 

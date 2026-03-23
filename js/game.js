@@ -926,7 +926,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.126.0';
+  const version = '9.127.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -6257,8 +6257,8 @@ let hitPopTimeout = null;
             ctx.save();
             ctx.globalCompositeOperation = 'lighter';
             const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
-            g.addColorStop(0, 'rgba(255,255,255,' + (0.95 * alphaW).toFixed(3) + ')');
-            g.addColorStop(0.5, 'rgba(255,255,255,' + (0.30 * alphaW).toFixed(3) + ')');
+            g.addColorStop(0, 'rgba(255,255,255,' + (1.05 * alphaW).toFixed(3) + ')');
+            g.addColorStop(0.5, 'rgba(255,255,255,' + (0.45 * alphaW).toFixed(3) + ')');
             g.addColorStop(1, 'rgba(255,255,255,0)');
             ctx.fillStyle = g;
             // draw only the affected region for minimal overdraw
