@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.50.0
 - UI: add brief pulse animation to Next Wave button when it becomes available to improve discoverability (tiny) — 2026-03-23
 
 ## 8.49.0
