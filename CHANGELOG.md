@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: slightly longer enemy-death white flash for clearer kill feedback (tiny) — 2026-03-23
+
 ## 9.21.0
 - Visual/UI: add subtle translucent halo behind HUD to improve readability on bright backgrounds (tiny) — 2026-03-23
 
