@@ -3606,7 +3606,7 @@ let hitPopTimeout = null;
                   particles.push({ x: player.x, y: player.y, vx: 0, vy: 0, r: 8, life: 160, born: Date.now(), color: '#fff9c4', flash: true });
                 } catch(e){}
                 try { screenShake = Math.min(20, (screenShake||0) + 4); } catch(e){}
-                try { canvasWhiteFlashUntil = Date.now() + 380; canvasHitFlashUntil = Date.now() + 520; } catch(e){}
+                try { canvasWhiteFlashUntil = Date.now() + 580; canvasHitFlashUntil = Date.now() + 720; } catch(e){}
                 try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
                 try {
                   if (activePowerEl) {
@@ -3722,7 +3722,7 @@ let hitPopTimeout = null;
             try { hitStopUntil = performance.now() + 60; } catch (err) { hitStopUntil = Date.now() + 60; }
             try { shieldPulseUntil = Date.now() + 800; shieldPulseX = player.x; shieldPulseY = player.y; } catch(e){}
             try { screenShake = Math.min(20, (screenShake||0) + 6); } catch(e){}
-            try { canvasWhiteFlashUntil = Date.now() + 340; canvasHitFlashUntil = Date.now() + 420; } catch(e){}
+            try { canvasWhiteFlashUntil = Date.now() + 540; canvasHitFlashUntil = Date.now() + 620; } catch(e){}
             try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield absorbed'; } catch (e) {}
             try {
               if (activePowerEl) {
@@ -3833,7 +3833,7 @@ let hitPopTimeout = null;
           try { e.hitFlashUntil = Date.now() + 320; } catch (err) { /* ignore */ }
           try { hitMarkers.push({ x: e.x, y: e.y, until: Date.now() + 160 }); } catch (err) { /* ignore */ }
           // Canvas-wide warm flash to make hits more visually obvious (respects reduced-motion)
-          try { canvasHitFlashUntil = Date.now() + 360; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
+          try { canvasHitFlashUntil = Date.now() + 560; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } catch (err) { /* ignore */ }
           try { canvasWhiteFlashUntil = Date.now() + 220; } catch (err) { /* ignore */ }
           try { screenShake = Math.min(20, (screenShake || 0) + 2); } catch (err) { /* ignore */ }
           // Trigger body-level hit-pop overlay (CSS) for stronger, thematic hit feedback.
@@ -3954,7 +3954,7 @@ let hitPopTimeout = null;
               }
               try { screenShake = Math.min(20, (screenShake||0) + 10); } catch(e){}
               // Stronger flash and extra bright particles for enemy death to improve clarity (respects reduced-motion)
-              try { if (!prefersReducedMotion) { canvasWhiteFlashUntil = Date.now() + 640; canvasHitFlashUntil = Date.now() + 780; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
+              try { if (!prefersReducedMotion) { canvasWhiteFlashUntil = Date.now() + 840; canvasHitFlashUntil = Date.now() + 980; canvasHitFlashX = e.x; canvasHitFlashY = e.y; } } catch(e) {}
                try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(22); } catch(e) {}
               try {
                 for (let q=0;q<16;q++) particles.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (Math.random()-0.5)*10, vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3, r: 0.8 + Math.random()*2.6, life: 220 + Math.random()*260, born: Date.now(), color: '#fff59d', blend: 'lighter' });

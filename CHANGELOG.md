@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: slightly increase canvas hit-flash duration for clearer damage feedback (tiny)
+
 ## 9.128.0
 - Levels: use dynamic inter-wave delay for auto-advance so pacing respects low-life recovery (tiny)
 
