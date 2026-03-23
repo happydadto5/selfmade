@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 8.66.0
 - UX: Improve shield discoverability: brief Lives HUD pulse and transient toast when a guaranteed Shield spawns (tiny) — 2026-03-23
 
 ## 8.65.0
