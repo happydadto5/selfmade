@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.91.0
 - UI: increase HUD backdrop opacity for improved contrast on busy backgrounds (tiny)
 
 ## 9.89.0
