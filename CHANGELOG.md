@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.59.0
 - Visual/UI: show Shield badge in Lives HUD to display active shield charges and improve pickup discoverability (tiny) — 2026-03-23
 
 ## 9.58.0
