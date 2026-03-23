@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.12.0
+- Levels: improve wave progression visibility — clearer Wave HUD with current/total, accessible progress bar, and Next Wave button on wave clear (tiny) — 2026-03-23
+
 ## 9.11.0
 - Gameplay: collecting a Shield while a shield is active now extends its duration by 8s (was 6s) to make recovery more noticeable (tiny) — 2026-03-23
 
