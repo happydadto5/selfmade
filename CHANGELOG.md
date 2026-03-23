@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 8.53.0
 - UI: show shield charge icons next to Lives HUD for clearer shield status (tiny) — 2026-03-23
 
 ## 8.52.0
