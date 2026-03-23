@@ -41,6 +41,13 @@ body[data-mulch-active="false"]{box-shadow:none}
   outline-offset: 4px;
   border-radius: 6px;
 }
+
+/* Small accessibility improvement: visible focus outlines for all buttons and role="button" elements to improve keyboard navigation */
+button:focus, button:focus-visible, [role="button"]:focus, [role="button"]:focus-visible {
+  outline: 3px solid rgba(30,136,229,0.55);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
 #ui{position:fixed;left:12px;top:8px;color:#111;font-size:21px;font-weight:700;background:rgba(255,255,255,var(--hud-backdrop-opacity));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:8px 12px;border-radius:8px;box-shadow:0 3px 12px rgba(0,0,0,0.16);border:1px solid rgba(0,0,0,0.06);text-shadow:-1px -1px 0 rgba(0,0,0,0.24), 1px -1px 0 rgba(0,0,0,0.24), -1px 1px 0 rgba(0,0,0,0.24), 1px 1px 0 rgba(0,0,0,0.24), 0 1px 0 rgba(255,255,255,0.6), 0 2px 6px rgba(0,0,0,0.06);-webkit-text-stroke:0.5px rgba(0,0,0,0.28);text-stroke:0.5px rgba(0,0,0,0.28);z-index:10000;position:fixed}
 /* Subtle translucent halo behind the HUD to improve contrast on very bright or busy backgrounds. Keeps pointer-events disabled and respects reduced-motion preferences. */
 #ui::before{content:"";position:absolute;left:-8px;top:-8px;right:-8px;bottom:-8px;border-radius:12px;background:rgba(0,0,0,0.10);pointer-events:none;z-index:-1;filter:blur(8px);}

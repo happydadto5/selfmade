@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Accessibility: improve keyboard focus outlines for all buttons and role="button" elements to aid keyboard navigation (tiny) — 2026-03-23
+
 ## 9.34.0
 - Gameplay: slightly increase Shield active duration to 10s for better recovery (tiny) — 2026-03-23
 
