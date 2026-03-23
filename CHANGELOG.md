@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 9.61.0
 - Visual/UI: tweak enemy hit glow to greener garden tones for clearer hit feedback (tiny) — 2026-03-23
 
 ## 9.60.0
