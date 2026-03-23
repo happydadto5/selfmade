@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.104.0
 - Accessibility/UI: add short pause/resume tones and subtle haptic feedback when pausing/resuming (tiny) — 2026-03-23
 
 ## 9.103.0
