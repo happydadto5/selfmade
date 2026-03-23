@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.121.0
 - Visual/UI: slightly stronger garden hit flash and longer fade for clearer hit feedback (tiny)
 
 ## 9.119.0
