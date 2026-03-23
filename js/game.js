@@ -5865,8 +5865,8 @@ let hitPopTimeout = null;
         const maxR = Math.max(cw, ch) * 0.7;
         const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
         // Slightly increase the inner and mid stop opacities for a brighter, clearer hit flash (tiny, conservative)
-        grad.addColorStop(0, 'rgba(232,255,186,' + (0.72 * alpha).toFixed(3) + ')');
-        grad.addColorStop(0.6, 'rgba(232,255,186,' + (0.36 * alpha).toFixed(3) + ')');
+        grad.addColorStop(0, 'rgba(232,255,186,' + (0.88 * alpha).toFixed(3) + ')');
+        grad.addColorStop(0.6, 'rgba(232,255,186,' + (0.52 * alpha).toFixed(3) + ')');
         grad.addColorStop(1, 'rgba(232,255,186,0)');
         ctx.globalCompositeOperation = 'lighter';
         ctx.fillStyle = grad;

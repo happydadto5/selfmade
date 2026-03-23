@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: increase garden hit flash brightness and mid-tone for clearer hit feedback (tiny) — 2026-03-23
+
 ## 9.44.0
 - Visual: celebratory flourish on wave clear — brief screen shake and particles to improve feedback (tiny) — 2026-03-23
 
