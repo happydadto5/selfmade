@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Progression: keyboard 'N' now only advances when the current wave is cleared to prevent accidental skipping (tiny)
+
 ## 9.24.0
 - Accessibility: announce and show transient 'Resumed' toast when auto-resuming after visibility change (tiny) — 2026-03-23
 

@@ -1579,7 +1579,16 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
 
     // 'N' advances to the next wave (developer/testing)
     if ((e.key === 'n' || e.key === 'N') && !gameOver) {
-      try { spawnWave(); } catch (e) { /* ignore */ }
+      try {
+        const present = (typeof enemies !== 'undefined' ? enemies.filter(function(en){ try { return en && en.wave === waveNumber; } catch(err){ return false; } }).length : 0);
+        if (present === 0) {
+          try { if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch(e){}
+          try { lastSpawn = Date.now(); } catch(e){}
+          try { spawnWave(); } catch (e) { /* ignore */ }
+        } else {
+          try { showWaveToast('Next wave unavailable — enemies remain'); } catch(e) {}
+        }
+      } catch(e) {}
     }
     // 'H' toggles HUD visibility (keyboard shortcut) — mirror HUD button behavior
     if (e.key === 'h' || e.key === 'H') {
