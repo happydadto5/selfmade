@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.50.0
+- Stability: migrate pause-on-blur preference to 'selfmade_autopause' and support legacy key (tiny) — 2026-03-23
+
 ## 9.49.0
 - Visual/UI: add subtle vignette to background to improve depth and focus (tiny) — 2026-03-23
 

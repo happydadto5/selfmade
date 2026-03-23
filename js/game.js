@@ -295,7 +295,19 @@
   try { canvas.addEventListener('pointerdown', () => { try { canvas.focus(); } catch (e) {} }, { passive: true }); } catch (e) { /* ignore */ }
   // Pause the game when the page becomes hidden to avoid player losing progress when switching tabs or apps.
   try {
-    var _visibilityPref = (function(){ try { return localStorage.getItem('selfmade_pause_on_blur'); } catch(e){ return null; } })();
+    // Read autopause preference with backward-compatibility for the legacy key. Migrate legacy value to the new key when present.
+    var _visibilityPref = (function(){
+      try {
+        var v = null;
+        try { v = localStorage.getItem('selfmade_autopause'); } catch (e) { v = null; }
+        if (v === null || v === undefined) {
+          try { v = localStorage.getItem('selfmade_pause_on_blur'); } catch (e) { v = null; }
+          // migrate legacy key to new canonical key so future reads use the new name
+          try { if (v !== null && v !== undefined) { localStorage.setItem('selfmade_autopause', v); try { localStorage.removeItem('selfmade_pause_on_blur'); } catch(e) {} } } catch(e) {}
+        }
+        return v;
+      } catch(e) { return null; }
+    })();
     // Default to enabled unless user explicitly set to '0'
     if (_visibilityPref !== '0') {
       var _wasRunningBeforeHide = false;
@@ -824,7 +836,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.49.0';
+  const version = '9.50.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
