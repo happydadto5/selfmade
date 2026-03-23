@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: add subtle red HUD glow when player is low on lives to improve urgency and readability (tiny)
+
 ## 9.93.0
 - Gameplay: add short, player-controlled pause after clearing a wave — show Next Wave affordance and auto-advance fallback after ~2.8s (tiny)
 

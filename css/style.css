@@ -540,6 +540,19 @@ body.show-touch-guides {
 /* Ensure the HUD keeps its stacking context and allows the pseudo-element to position correctly */
 #ui { position: fixed; overflow: visible; }
 
+/* Low-lives HUD urgent glow: when player is low on lives, tint the HUD with a subtle red glow to increase visibility and urgency while remaining readable. Respects prefers-reduced-motion. */
+@media (prefers-reduced-motion: no-preference) {
+  body[data-low-lives="true"] #ui {
+    box-shadow: 0 12px 36px rgba(255,82,82,0.14);
+    border: 1px solid rgba(255,82,82,0.14);
+    transform: translateZ(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-low-lives="true"] #ui { box-shadow: 0 8px 20px rgba(255,82,82,0.10); }
+}
+
+
 /* High-contrast HUD override: increase text contrast and slightly darken HUD backdrop for improved readability on busy backgrounds */
 #ui {
   background: rgba(6,38,20,0.74); /* slightly darker garden-tinted backdrop for improved HUD readability */
