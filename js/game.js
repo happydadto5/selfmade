@@ -809,7 +809,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.40.0';
+  const version = '9.41.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4664,27 +4664,28 @@ let hitPopTimeout = null;
     try {
       if (Date.now() < (canvasHitFlashUntil || 0) && !prefersReducedMotion) {
         const remaining = (canvasHitFlashUntil || 0) - Date.now();
-        // Slightly longer, punchier garden hit flash for clearer feedback while keeping it brief.
-        const dur = 360; // increased duration (ms)
+        // Slightly more focused, brighter radial flash for clearer feedback while keeping it brief.
+        const dur = 420; // a touch longer so the peak is visible
         const t = Math.max(0, Math.min(1, remaining / dur));
-        // Use a gentler falloff curve to bias toward a stronger initial flash, capped at full opacity.
-        const alpha = Math.max(0, Math.min(1.0, 0.98 * Math.pow(Math.max(0, t), 0.6)));
+        // Slight ease curve to emphasize the initial peak
+        const alpha = Math.max(0, Math.min(1.0, 1.0 * Math.pow(Math.max(0, t), 0.55)));
         const cx = (typeof canvasHitFlashX === 'number' && canvasHitFlashX) ? canvasHitFlashX : (cw * 0.5);
         const cy = (typeof canvasHitFlashY === 'number' && canvasHitFlashY) ? canvasHitFlashY : (ch * 0.45);
-        const radius = Math.max(cw, ch) * 0.9;
+        // use a smaller radius so the flash feels more local and punchy
+        const radius = Math.max(cw, ch) * 0.65;
         try {
           const g2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-          // Slightly increase the inner stop alpha for a brighter core and preserve the garden tint
-          g2.addColorStop(0, 'rgba(122,215,122,' + (Math.min(1, alpha * 1.05)).toFixed(3) + ')');
-          g2.addColorStop(0.35, 'rgba(255,220,120,' + (alpha * 0.72).toFixed(3) + ')');
+          g2.addColorStop(0, 'rgba(160,240,160,' + (Math.min(1, alpha * 1.08)).toFixed(3) + ')');
+          g2.addColorStop(0.35, 'rgba(255,235,140,' + (alpha * 0.82).toFixed(3) + ')');
           g2.addColorStop(1, 'rgba(0,0,0,0)');
           ctx.save();
-          ctx.globalCompositeOperation = 'lighter';
+          // use 'screen' for a slightly stronger, crisper blend on varied backgrounds
+          ctx.globalCompositeOperation = 'screen';
           ctx.fillStyle = g2;
           ctx.fillRect(0,0,cw,ch);
           ctx.restore();
-        } catch (innerE) { /* ignore gradient/create errors and fallback to solid flash */
-          try { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = 'rgba(255,220,120,' + alpha.toFixed(3) + ')'; ctx.fillRect(0,0,cw,ch); ctx.restore(); } catch (e) { /* ignore fallback errors */ }
+        } catch (innerE) {
+          try { ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = 'rgba(255,235,140,' + alpha.toFixed(3) + ')'; ctx.fillRect(0,0,cw,ch); ctx.restore(); } catch (e) { /* ignore fallback errors */ }
         }
       }
     } catch (e) { /* ignore hit flash errors */ }
