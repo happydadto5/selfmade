@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.86.0
+- Stability: update document title when auto-pausing/resuming to reflect paused state (tiny)
+
 ## 9.85.0
 - 2026-03-23: Visual/UI: crisper, greener hit-pop overlay for snappier hit feedback (tiny)
 
