@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.93.0
 - Gameplay: add short, player-controlled pause after clearing a wave — show Next Wave affordance and auto-advance fallback after ~2.8s (tiny)
 
 ## 9.92.0
