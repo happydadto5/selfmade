@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: stronger Shield pickup pulse and halo to improve discoverability (tiny) — 2026-03-23
+
 ## 8.48.0
 - Visual: localized radial garden hit flash centered on hit location for clearer feedback (tiny) — 2026-03-23
 

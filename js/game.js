@@ -4888,18 +4888,18 @@ let hitPopTimeout = null;
         try {
           if (!(typeof prefersReducedMotion !== 'undefined' && prefersReducedMotion)) {
             const t = Date.now();
-            const base = isShield ? 18 : 14;
-            // increase shield pulse strength and halo for better discoverability
-            const pulse = 1 + (isShield ? 0.18 : 0.10) * Math.sin(t / (isShield ? 180 : 220) + ((pu.born||0) / 330));
+            const base = isShield ? 20 : 14;
+            // increase shield pulse strength, halo alpha, and base size for better discoverability
+            const pulse = 1 + (isShield ? 0.26 : 0.10) * Math.sin(t / (isShield ? 180 : 220) + ((pu.born||0) / 330));
             ctx.lineWidth = isShield ? 3 : 2;
             const ringAlpha = Math.max(0, Math.min(0.95, (isShield ? 0.55 : 0.40) + (isShield ? 0.42 : 0.30) * Math.sin(t / (isShield ? 260 : 300) + ((pu.born||0) / 420))));
             // For shield, draw a slightly stronger tinted halo behind the ring for clearer pickup feedback
             if (isShield) {
               try {
                 ctx.save();
-                ctx.globalAlpha = Math.min(alpha * 0.95, 0.85);
-                ctx.fillStyle = 'rgba(41,182,246,0.18)';
-                ctx.beginPath(); ctx.arc(pu.x, pu.y, base * pulse * 1.3, 0, Math.PI*2); ctx.fill();
+                ctx.globalAlpha = Math.min(alpha * 0.95, 0.9);
+                ctx.fillStyle = 'rgba(41,182,246,0.26)';
+                ctx.beginPath(); ctx.arc(pu.x, pu.y, base * pulse * 1.35, 0, Math.PI*2); ctx.fill();
                 ctx.restore();
               } catch (e) { /* ignore halo draw errors */ }
             }
