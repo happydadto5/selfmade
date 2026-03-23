@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.54.0
 - Accessibility: ensure autopause announcer has explicit role=status for assistive tech (tiny) — 2026-03-23
 
 ## 9.53.0
