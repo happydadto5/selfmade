@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.63.0
 - Gameplay: increase Shield duration to 26s to improve usefulness (tiny) — 2026-03-23
 
 ## 9.62.0
