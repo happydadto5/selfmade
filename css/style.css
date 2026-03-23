@@ -596,21 +596,24 @@ body.garden-grid::before {
 html::before {
   content: "";
   position: fixed;
-  left: -20%;
-  top: -10%;
-  width: 140%;
-  height: 140%;
+  left: -25%;
+  top: -15%;
+  width: 150%;
+  height: 150%;
   pointer-events: none;
   z-index: 0; /* behind HUD and overlays */
   mix-blend-mode: screen;
-  opacity: 0.92;
+  /* Slightly stronger atmospheric highlights to make the background feel more alive while keeping it subtle */
+  opacity: 0.98;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), rgba(255,255,255,0) 25%),
-    radial-gradient(circle at 80% 80%, rgba(76,175,80,0.04), rgba(255,255,255,0) 20%);
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,0.08), rgba(255,255,255,0) 30%),
+    radial-gradient(circle at 82% 78%, rgba(76,175,80,0.06), rgba(255,255,255,0) 24%);
+  background-size: 120% 120%, 120% 120%;
   /* Use small pointer-driven offsets (via --atmo-x / --atmo-y) to create a subtle parallax feel.
      Defaults to 0 when the variables are not set. Respects reduced-motion by leaving animation in place. */
   transform: translate3d(var(--atmo-x, 0px), var(--atmo-y, 0px), 0) rotate(var(--atmo-rot, 0deg));
-  animation: atmosphereDrift 18s linear infinite;
+  /* Slow the drift so the background feels more relaxed and less busy while still providing depth */
+  animation: atmosphereDrift 32s linear infinite;
 }
 @keyframes atmosphereDrift {
   0% { transform: translate3d(0,0,0) rotate(0deg); }

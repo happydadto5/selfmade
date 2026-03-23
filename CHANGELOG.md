@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: strengthen subtle atmospheric highlights and slow parallax drift for clearer background depth (tiny) — 2026-03-23
+
 ## 9.32.0
 - Audio: add brief vibration feedback on power-up collection and shield absorb for touch devices (tiny) — 2026-03-23
 
