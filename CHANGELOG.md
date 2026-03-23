@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.76.0
+- Levels: show total waves in Wave HUD (display as N/Max) so players see level progression (tiny) — 2026-03-23
+
 ## 9.75.0
 - UI: shield HUD uses recorded shield duration for accurate timer and ring progress (tiny)
 
