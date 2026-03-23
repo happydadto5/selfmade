@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.44.0
 - Visual: celebratory flourish on wave clear — brief screen shake and particles to improve feedback (tiny) — 2026-03-23
 
 ## 9.43.0
