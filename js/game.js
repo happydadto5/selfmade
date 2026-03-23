@@ -2889,9 +2889,9 @@ let hitPopTimeout = null;
         const _rapid = Date.now() < (player.fireRateUntil || 0);
         const _bv_center = _rapid ? -11 : -10;
         const _bv_angled = _rapid ? -10 : -9;
-        bullets.push({x:player.x, y:player.y-28, vy:_bv_center, r:6});
-        bullets.push({x:player.x - 8, y:player.y-28, vx:-1.6, vy:_bv_angled, r:5});
-        bullets.push({x:player.x + 8, y:player.y-28, vx:1.6, vy:_bv_angled, r:5});
+        bullets.push({x:player.x, y:player.y-28, vy:_bv_center, r: (_rapid ? 7 : 6)});
+        bullets.push({x:player.x - 8, y:player.y-28, vx:-1.6, vy:_bv_angled, r: (_rapid ? 7 : 6)});
+        bullets.push({x:player.x + 8, y:player.y-28, vx:1.6, vy:_bv_angled, r: (_rapid ? 7 : 6)});
         // Rapid fire muzzle/trail particles for stronger feedback
         if (_rapid) {
           try {
@@ -2904,7 +2904,7 @@ let hitPopTimeout = null;
         // adjust bullet speed when Rapid power-up is active
         const _rapid = Date.now() < (player.fireRateUntil || 0);
         const _bv = _rapid ? -11 : -10;
-        bullets.push({x:player.x, y:player.y-28, vy:_bv, r:6});
+        bullets.push({x:player.x, y:player.y-28, vy:_bv, r: (_rapid ? 6 : 5)});
         // Rapid fire muzzle/trail particles for stronger feedback
         if (_rapid) {
           try {
