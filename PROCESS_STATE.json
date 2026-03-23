@@ -1,8 +1,8 @@
 {
   "metaReviewEvery": 10,
-  "lastMetaReviewReleaseCount": 414,
-  "lastMetaReviewVersion": "9.20.0",
-  "lastMetaReviewAt": "2026-03-23T07:12:11.181Z",
+  "lastMetaReviewReleaseCount": 425,
+  "lastMetaReviewVersion": "9.31.0",
+  "lastMetaReviewAt": "2026-03-23T08:47:02.648Z",
   "uiReviewEvery": 20,
   "lastUiReviewReleaseCount": null,
   "lastUiReviewVersion": "",
@@ -13,7 +13,7 @@
     "lastMessage": "",
     "lastHint": "none",
     "lastSource": "",
-    "updatedAt": "2026-03-23T08:35:39.826Z",
+    "updatedAt": "2026-03-23T08:47:04.220Z",
     "recent": []
   }
 }
