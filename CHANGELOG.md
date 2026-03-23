@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- 2026-03-23: Visual/UI: crisper, greener hit-pop overlay for snappier hit feedback (tiny)
+
 ## 9.84.0
 - 2026-03-23: UI: show current level in version HUD so players see progression (small)
 
