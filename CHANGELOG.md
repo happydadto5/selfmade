@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: highlight Wave HUD when progress is near-complete (>=75%) to draw player attention (tiny) — 2026-03-23
+
 ## 9.29.0
 - Visual: brighten garden hit flash for clearer hit feedback (tiny) — 2026-03-23
 

@@ -14,11 +14,14 @@
           try { fill.style.width = pct + '%'; } catch(e){}
           // Add a "near-complete" class when the wave is almost finished to draw player attention.
           try {
+            const waveEl = document.getElementById('wave');
             if (pct >= 75) {
               fill.classList.add('near-complete');
+              if (waveEl) try { waveEl.classList.add('near-complete'); } catch(e){}
               wp.setAttribute('aria-label', 'Wave progress: ' + pct + ' percent — nearly complete');
             } else {
               fill.classList.remove('near-complete');
+              if (waveEl) try { waveEl.classList.remove('near-complete'); } catch(e){}
               wp.setAttribute('aria-label', 'Wave progress: ' + pct + ' percent');
             }
           } catch(e){}
