@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.80.0
+- UI: show per-wave remaining/total enemies in HUD (tiny)
+
 ## 9.79.0
 - Gameplay/UI: show shield active ambient glow and near-expiry warning; Lives HUD displays shield charges and remaining seconds (tiny)
 

@@ -12,6 +12,13 @@
         const fill = wp.querySelector('.wave-bar-fill') || wp.querySelector('.wave-progress-bar');
         if(fill) {
           try { fill.style.width = pct + '%'; } catch(e){}
+          // Also update the Enemies HUD to show remaining / total for the current wave (small UX improvement)
+          try {
+            const enemiesEl = document.getElementById('enemies');
+            if (enemiesEl) {
+              try { enemiesEl.textContent = 'Enemies: ' + Math.max(0, total - defeated) + ' / ' + total; } catch(e){}
+            }
+          } catch(e){}
           // Add a "near-complete" class when the wave is almost finished to draw player attention.
           try {
             const waveEl = document.getElementById('wave');
