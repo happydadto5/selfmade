@@ -566,6 +566,14 @@ body.show-touch-guides {
 /* Ensure the HUD keeps its stacking context and allows the pseudo-element to position correctly */
 #ui { position: fixed; overflow: visible; }
 
+/* Mobile: center HUD at bottom and increase font/padding for better touch readability on narrow viewports */
+@media (max-width: 480px), (max-height: 640px) {
+  #ui { left: 50% !important; transform: translateX(-50%) !important; top: auto !important; bottom: 10px !important; font-size: 18px !important; padding: 12px 16px !important; border-radius: 12px !important; }
+  #ui div { font-size: 18px !important; }
+  #ui button { font-size: 18px !important; }
+  #ui #wave-progress .wave-bar { width: clamp(160px, 72vw, 320px) !important; }
+}
+
 /* Low-lives HUD urgent glow: when player is low on lives, tint the HUD with a subtle red glow to increase visibility and urgency while remaining readable. Respects prefers-reduced-motion. */
 @media (prefers-reduced-motion: no-preference) {
   body[data-low-lives="true"] #ui {
