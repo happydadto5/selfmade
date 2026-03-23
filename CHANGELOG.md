@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: show percentage inside wave progress bar for clearer progression feedback (tiny)
+
 ## 9.118.0
 - Gameplay: increase manual Shield (B) duration from 6s to 9s to improve recovery options (small)
 

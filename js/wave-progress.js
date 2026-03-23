@@ -12,6 +12,25 @@
         const fill = wp.querySelector('.wave-bar-fill') || wp.querySelector('.wave-progress-bar');
         if(fill) {
           try { fill.style.width = pct + '%'; } catch(e){}
+
+          // Update or create a centered percent label inside the bar for clearer feedback
+          try {
+            let pctLabel = wp.querySelector('.wave-bar-label');
+            if (!pctLabel) {
+              pctLabel = document.createElement('span');
+              pctLabel.className = 'wave-bar-label';
+              // place label inside the bar's container so it overlays the fill
+              const bar = wp.querySelector('.wave-bar');
+              if (bar) {
+                // prefer appending to the bar so label is positioned absolutely
+                try { bar.appendChild(pctLabel); } catch(e) { if (wp) try { wp.appendChild(pctLabel); } catch(e){} }
+              } else {
+                try { wp.appendChild(pctLabel); } catch(e){}
+              }
+            }
+            try { pctLabel.textContent = pct + '%'; } catch(e){}
+          } catch(e){}
+
           // Also update the Enemies HUD to show remaining / total for the current wave (small UX improvement)
           try {
             const enemiesEl = document.getElementById('enemies');
@@ -19,6 +38,7 @@
               try { enemiesEl.textContent = 'Enemies: ' + Math.max(0, total - defeated) + ' / ' + total; } catch(e){}
             }
           } catch(e){}
+
           // Add a "near-complete" class when the wave is almost finished to draw player attention.
           try {
             const waveEl = document.getElementById('wave');
