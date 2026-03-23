@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.68.0
 - UI: include defeated/total counts in wave progress ARIA label for screen readers (tiny) — 2026-03-23
 
 ## 9.67.0
