@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.72.0
+- Levels: increase default waves per level to 8 to improve pacing and give players clearer progression (tiny) — 2026-03-23
+
 ## 9.71.0
 - Gameplay: clearer enemy health bars above multi-HP enemies (color ramp and thin outline) — tiny — 2026-03-23
 

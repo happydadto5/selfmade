@@ -869,7 +869,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.71.0';
+  const version = '9.72.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2761,7 +2761,7 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
   let powerupPulseUntil = 0;
   let shieldNearbyHintUntil = 0;
   let lastPowerupColor = '';
-  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 6; let levelNumber = 1; let scheduledSpawnTimeout = null;
+  let lastSpawn = 0; let waveNumber = 0; let currentWaveEnemyCount = 0; let lastClearedWave = 0; let waveSpawnWatchdog = 0; let waveStartGraceUntil = 0; let maxWaves = 8; let levelNumber = 1; let scheduledSpawnTimeout = null;
   // Clean up pending timers on page unload to avoid timers firing after unload (stability)
   try {
     window.addEventListener('beforeunload', () => {
