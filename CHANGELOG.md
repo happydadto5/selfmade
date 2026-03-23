@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Chore: Read scripts/prompt.txt, suggestion.txt, and future.md; captured garden-theme guidance in roadmap. — 2026-03-23
+
 ## 8.51.0
 - Visual/UI: slightly extend canvas white hit-pop duration for clearer hit feedback (tiny) — 2026-03-23
 
