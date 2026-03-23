@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.129.0
 - Visual/UI: slightly increase canvas hit-flash duration for clearer damage feedback (tiny)
 
 ## 9.128.0
