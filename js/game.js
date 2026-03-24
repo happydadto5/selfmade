@@ -1002,7 +1002,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.11.0';
+  const version = '10.12.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4333,7 +4333,7 @@ let hitPopTimeout = null;
         try {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
-          const pickupRadius = (typeof isTouch !== 'undefined' && isTouch) ? 220 : 200; // larger radius on touch devices to aid collection; slightly increased non-touch radius (200) for better pickup feel
+          const pickupRadius = (typeof isTouch !== 'undefined' && isTouch) ? 220 : 210; // larger radius on touch devices to aid collection; slightly increased non-touch radius (210) for better pickup feel
 
           if (Math.sqrt(dx*dx + dy*dy) < pickupRadius) {
             try {

@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.12.0
+- UX: slightly increase non-touch power-up pickup radius for better pickup feel (tiny) — 2026-03-24
+
 ## 10.11.0
 - Gameplay: tune Shield durations — new shield now lasts 30s; collecting while active extends it by 12s (small) — 2026-03-24
 
