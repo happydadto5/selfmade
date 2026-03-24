@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: shorten hit-pop overlay removal delay to make rapid hits feel snappier (tiny) — 2026-03-24
+
 ## 10.19.0
 - Gameplay: add a touch "Use Shield" button so touch players can manually activate stored Shield charges (tiny) — 2026-03-24
 

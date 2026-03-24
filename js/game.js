@@ -4069,7 +4069,7 @@ let hitPopTimeout = null;
                   }
                   try { hitAnn.textContent = 'Enemy hit'; } catch(e){}
                 } catch(e){}
-                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} try { hitPopTimeout = null; } catch(e){} }, 900);
+                hitPopTimeout = setTimeout(function(){ try { document.body.classList.remove('hit-pop'); } catch (e) {} try { hitPopTimeout = null; } catch(e){} }, 700);
               }
             }
           } catch (err) { /* ignore overlay errors */ }
