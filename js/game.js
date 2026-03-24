@@ -4200,7 +4200,9 @@ let hitPopTimeout = null;
             // Add a small screen-shake and hit sound/vibration for non-lethal enemy hits to improve feedback
             try {
               // Slightly stronger screen shake for clearer hit feedback (small, capped)
-              screenShake = Math.min(12, (screenShake || 0) + 4);
+              screenShake = Math.min(14, (screenShake || 0) + 6);
+              // tiny extra petal to make hits more noticeable (very low cost)
+              particles.push({ x: e.x + (Math.random()-0.5)*4, y: e.y + (Math.random()-0.5)*4, vx: (Math.random()-0.5)*1.2, vy: -0.6 - Math.random()*0.6, r: 1 + Math.random()*1.6, life: 180 + Math.random()*120, born: Date.now(), color: '#fff59d', petal: true });
               // very brief hit-stop (freeze-frame) to improve perceived impact
               try { hitStopUntil = performance.now() + 80; } catch (err) { hitStopUntil = Date.now() + 80; }
               try { playSound('hit'); } catch (e) { /* ignore sound errors */ }
