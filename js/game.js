@@ -6181,6 +6181,30 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
             ctx.lineTo(player.x, player.y);
             ctx.stroke();
             ctx.setLineDash([]);
+
+            // Small pulsing leaf indicator that travels along the telegraph line to better highlight the incoming dash
+            try {
+              const pct = Math.max(0, Math.min(1, 1 - (e.huntTimer / 360)));
+              const lx = e.x + (player.x - e.x) * pct;
+              const ly = e.y + (player.y - e.y) * pct;
+              ctx.save();
+              // subtle pulsing and rotation based on time to give the indicator life
+              const leafPulse = 0.9 + 0.18 * Math.sin(Date.now() / 120 + pct * Math.PI * 2);
+              const angle = Math.atan2(player.y - e.y, player.x - e.x) + 0.18 * Math.sin(Date.now() / 220);
+              ctx.translate(lx, ly);
+              ctx.rotate(angle);
+              ctx.scale(leafPulse, leafPulse);
+              // draw two small mirrored leaf ellipses for a garden feel
+              ctx.fillStyle = 'rgba(139,195,74,' + alpha.toFixed(3) + ')';
+              ctx.beginPath(); ctx.ellipse(-6, 0, 6, 3.2, -0.6, 0, Math.PI * 2); ctx.fill();
+              ctx.beginPath(); ctx.ellipse(6, 0, 6, 3.2, 0.6, 0, Math.PI * 2); ctx.fill();
+              // light inner highlight for readability
+              ctx.fillStyle = 'rgba(255,255,255,' + (0.07 * alpha).toFixed(3) + ')';
+              ctx.beginPath(); ctx.ellipse(-3, 0, 2.4, 1.2, -0.6, 0, Math.PI * 2); ctx.fill();
+              ctx.beginPath(); ctx.ellipse(3, 0, 2.4, 1.2, 0.6, 0, Math.PI * 2); ctx.fill();
+              ctx.restore();
+            } catch (leafErr) { /* ignore leaf draw errors */ }
+
           } catch(e2){}
           ctx.restore();
         }
