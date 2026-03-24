@@ -1002,7 +1002,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.14.0';
+  const version = '10.15.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2231,7 +2231,7 @@ if (overlay) {
       if (typeof changesOpen !== 'undefined' && changesOpen) {
         overlayMessage.textContent = 'Recent changes — click or press Esc to close';
       } else if (typeof helpOpen !== 'undefined' && helpOpen) {
-        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space, K, or Z to fire; On touch, tap left/right edges to move and tap center to fire; P to pause; I or H to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode, G toggles garden grid, N advances to the next wave (developer/testing). Collect 🛡 shield power-ups to absorb enemy collisions for a short time.';
+        overlayMessage.textContent = 'Help: ←/A and →/D to move; Space, K, or Z to fire; On touch, tap left/right edges to move and tap center to fire; P to pause; I or H to toggle this help. Also: O toggles auto-pause, M toggles sound, C toggles colorblind mode, G toggles garden grid, N advances to the next wave (developer/testing). Collect 🛡 shield power-ups to absorb enemy collisions for a short time. Press B or U to activate a stored shield charge.';
       } else if (gameOver) {
         // If the player has completed the configured set of waves, offer to continue to a harder loop
         if (typeof maxWaves !== 'undefined' && maxWaves > 0 && waveNumber >= maxWaves) {

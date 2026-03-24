@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.15.0
+- Help: mention manual Shield activation (press B or U) in the help overlay (tiny) — 2026-03-24
+
 ## 10.14.0
 - UX: increase non-touch power-up pickup radius to 230px for easier pickup (tiny) — 2026-03-24
 
