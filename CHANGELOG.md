@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase weevil spawn chance from 12% to 16% (tiny) — 2026-03-24
 - Gameplay: slightly increased weevil spawn chance to add enemy variety (tiny) — 2026-03-24
 - Gameplay: slightly increased bee homing so bees feel more threatening (tiny) — 2026-03-24
 - Controls: reduce touch hold firing delay to 60ms for snappier mobile hold-to-fire (tiny) — 2026-03-24
