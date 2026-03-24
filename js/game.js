@@ -1018,7 +1018,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.20.0';
+  const version = '10.21.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1439,7 +1439,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
       try {
         if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
           player.shieldCharges = Math.max(0, player.shieldCharges - 1);
-          player.shieldUntil = Math.max(Date.now(), player.shieldUntil || 0) + 12000; // +12s
+          player.shieldUntil = Math.max(Date.now(), player.shieldUntil || 0) + 10000; // +10s
           player.invulnerableUntil = Date.now() + 1800;
           shieldPulseUntil = Date.now() + 800; shieldPulseX = player.x; shieldPulseY = player.y;
           try { playSound('shield'); } catch (e) {}
@@ -1921,7 +1921,7 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
         if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
           player.shieldCharges = Math.max(0, player.shieldCharges - 1);
           // grant a short immediate shield and brief invulnerability for clarity
-          player.shieldUntil = Math.max(Date.now(), player.shieldUntil || 0) + 12000; // +12s
+          player.shieldUntil = Math.max(Date.now(), player.shieldUntil || 0) + 10000; // +10s
           player.invulnerableUntil = Date.now() + 1800;
           shieldPulseUntil = Date.now() + 800; shieldPulseX = player.x; shieldPulseY = player.y;
           try { playSound('shield'); } catch (e) {}
@@ -2100,9 +2100,9 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
       try {
         if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
           const now = Date.now();
-          // grant ~12s of shield and decrement charges
-          player.shieldUntil = Math.max(now, player.shieldUntil || 0) + 12000;
-          try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 12000; }
+          // grant ~10s of shield and decrement charges
+          player.shieldUntil = Math.max(now, player.shieldUntil || 0) + 10000;
+          try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 10000; }
           player.shieldCharges = Math.max(0, player.shieldCharges - 1);
           try { scorePopups.push({ x: player.x, y: player.y - 20, text: '🛡 Shield activated', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
           try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield activated'; } catch(e){}
@@ -4396,9 +4396,9 @@ let hitPopTimeout = null;
                 if (player && now < (player.shieldUntil || 0)) {
                   // already has shield: add one charge up to 4 and extend by 12s
                   try { player.shieldCharges = Math.min(4, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
-                  player.shieldUntil = (player.shieldUntil || now) + 12000;
+                  player.shieldUntil = (player.shieldUntil || now) + 10000;
                   // record the total duration for HUD progress (remaining from now)
-                  try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 12000; }
+                  try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 10000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
@@ -4407,9 +4407,9 @@ let hitPopTimeout = null;
                   try { playSound('blip'); } catch(e) {}
                 } else {
                   // new shield
-                  player.shieldUntil = Date.now() + 20000; // 20 seconds (tuned for pacing)
+                  player.shieldUntil = Date.now() + 15000; // 15 seconds (tuned for pacing)
                   // record the total duration for HUD progress
-                  try { player._shieldDuration = 20000; } catch(e) { player._shieldDuration = 20000; }
+                  try { player._shieldDuration = 15000; } catch(e) { player._shieldDuration = 15000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
@@ -5625,7 +5625,7 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
         } catch (e) { try { ctx.translate(player.x, player.y); } catch (e2) {} }
         // Show a subtle pulse and alpha change based on remaining shield time so players can see when it will expire
         const _remaining = Math.max(0, (player.shieldUntil || 0) - Date.now());
-        const _total = (player && player._shieldDuration) ? player._shieldDuration : 20000;
+        const _total = (player && player._shieldDuration) ? player._shieldDuration : 15000;
         const _frac = Math.max(0, Math.min(1, _remaining / Math.max(1, _total)));
         const _pulse = 1 + 0.08 * Math.sin(Date.now() * 0.02);
         // soft halo behind the shield for stronger visual clarity (additive blend)

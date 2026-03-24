@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.21.0
+- Gameplay: tune Shield durations — new shield 15s, collecting while active extends by 10s, manual activation grants +10s (tiny) — 2026-03-24
+
 ## 10.20.0
 - Visual/UI: shorten hit-pop overlay removal delay to make rapid hits feel snappier (tiny) — 2026-03-24
 

@@ -1,10 +1,12 @@
 # Future roadmap
 
+- 2026-03-24: Tuned Shield power-up durations: new shields last 15s; collecting while active extends by 10s; manual activation grants +10s. Captured in changelog.
+
 - 2026-03-22: Increased moth spawn rate and added a small glowing petal trail so the sinuous 'moth' enemy is more noticeable. Next: consider a simple gardening-themed power-up (Shield or Mulch).
 
 - 2026-03-16: Implemented discoverable full-screen touch zones and subtle vertical separators in-canvas (tiny UX improvement).
 
-Last updated: 2026-03-23 — beetle enemy added; Rapid power-up duration slightly increased (18s)
+Last updated: 2026-03-24 — Tuned Shield durations and HUD polish
 
 Meta-review: 2026-03-21 — quick roadmap/process check completed. Implemented a small pacing/beatability tweak: enemy speed slightly reduced when player is low on lives. Next: consider a gardening-themed power-up or subtle background art.
 
