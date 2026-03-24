@@ -899,7 +899,7 @@
                 // Fallback: if the player doesn't press Next Wave, auto-advance after a short delay (2.8s)
                 try {
                   // Auto-advance fallback: give low-life players slightly more time to prepare before the next wave
-nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !gameOver) { awaitingNextWave = false; if (nextWaveBtn) try { nextWaveBtn.style.display = 'none'; nextWaveBtn.setAttribute('aria-hidden','true'); } catch(e){} lastSpawn = Date.now(); spawnWave(); } } catch(e){}; }, (function(){ try{ var base = 2800; if (typeof lives === 'number' && lives <= 1) return base + 1200; return base; }catch(e){ return 2800; } })());
+nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !gameOver) { awaitingNextWave = false; if (nextWaveBtn) try { nextWaveBtn.style.display = 'none'; nextWaveBtn.setAttribute('aria-hidden','true'); } catch(e){} lastSpawn = Date.now(); spawnWave(); } } catch(e){}; }, (function(){ try{ var base = 2800; var extra = 0; try { extra = (typeof waveNumber === 'number' ? Math.min(2000, waveNumber * 150) : 0); } catch(e){}; if (typeof lives === 'number' && lives <= 1) return base + 1200 + extra; return base + extra; }catch(e){ return 2800; } })());
                 } catch(e){}
               } catch(e){}
 

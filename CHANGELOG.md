@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: slightly increase inter-wave auto-advance delay by a small per-wave amount so later waves grant players a touch more recovery time (tiny) — 2026-03-24
+
 ## 10.24.0
 - Stability: save high score to localStorage when the game auto-pauses to reduce risk of losing progress on quick navigations or bfcache (tiny) — 2026-03-24
 
