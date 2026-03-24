@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: subtle audio and HUD pulse when Shield is near expiry to improve discoverability (tiny)
+
 ## 9.155.0
 - Performance: cap particle pool to 300 (was 400) to reduce CPU during long runs (tiny)
 

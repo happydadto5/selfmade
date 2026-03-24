@@ -4596,6 +4596,9 @@ let hitPopTimeout = null;
                   if (!player._shieldWarned) {
                     try { var _pa2 = document.getElementById('powerup-announcer'); if (_pa2) _pa2.textContent = 'Shield expiring'; } catch(e){}
                     try { player._shieldWarned = true; } catch(e){}
+                    try { if (typeof playSound === 'function') { try { playSound('shield-warning'); } catch(e){} } } catch(e){}
+                    try { livesPulseUntil = Date.now() + 700; } catch(e){}
+                    try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(20); } catch(e){}
                   }
                 } else {
                   try { player._shieldWarned = false; } catch(e){}
