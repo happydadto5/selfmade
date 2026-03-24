@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.155.0
+- Performance: cap particle pool to 300 (was 400) to reduce CPU during long runs (tiny)
+
 ## 9.154.0
 - Visual/UI: add background toggle button (BG) to let players enable/disable the garden background (small)
 
