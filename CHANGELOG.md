@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.133.0
+- Stability: pause game when a connected gamepad disconnects to avoid runaway input when controllers disconnect.
+
 ## 9.132.0
 - Prevent auto-resume when help or changes overlays are open, or when the game is over
 

@@ -933,7 +933,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.132.0';
+  const version = '9.133.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1275,6 +1275,22 @@
       } catch(e){}
     }, { passive: true });
     window.addEventListener('focusout', () => { try { clearInputs(); pointerActive = false; } catch(e){} }, { passive: true });
+
+    // Pause when a connected gamepad disconnects to avoid runaway input when controllers are removed
+    try {
+      window.addEventListener('gamepaddisconnected', function(ev) {
+        try {
+          clearInputs(); pointerActive = false;
+          if (typeof autoPauseEnabled !== 'undefined' && autoPauseEnabled && typeof paused !== 'undefined' && !paused && typeof gameOver !== 'undefined' && !gameOver) {
+            try { togglePause(true, 'gamepad'); } catch(e) {
+              try { paused = true; pausedByFocus = true; document.body.classList.add('auto-paused'); } catch(e2){}
+            }
+            try { const ap = getAutopauseAnnouncer(); if (ap) ap.textContent = 'Game paused — controller disconnected'; } catch(e){}
+          }
+        } catch(e){}
+      }, { passive: true });
+    } catch(e) {}
+
 
     // Also pause when the document becomes hidden (visibilitychange). This catches cases where blur
     // may not fire (mobile app switching, some browsers' tab handling). Only pause; do not auto-resume
