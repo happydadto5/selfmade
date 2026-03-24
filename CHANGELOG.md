@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.156.0
 - Gameplay: subtle audio and HUD pulse when Shield is near expiry to improve discoverability (tiny)
 
 ## 9.155.0
