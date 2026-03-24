@@ -1558,6 +1558,17 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
       try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(18); } catch (e) {}
       return;
     }
+    else if (type === 'explode-big') {
+      // Deeper, longer oscillator for multi-HP enemy death (more weight)
+      o.type = 'square';
+      o.frequency.setValueAtTime(220, now);
+      o.frequency.linearRampToValueAtTime(420, now + 0.10);
+      g.gain.setValueAtTime(0.05, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.26);
+      o.start(now);
+      o.stop(now + 0.28);
+      return;
+    }
     else if (type === 'explode') {
       // Short sharp oscillator for enemy death (satisfying, lightweight)
       o.type = 'square';
