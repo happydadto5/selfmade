@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.149.0
+- Visual: add procedural flower player sprite fallback when external player image is missing (small) — 2026-03-24
+
 ## 9.148.0
 - Fix: accept 'B' as a shortcut to activate Shield (UI hinted 'Press B' — now both B and U work) — 2026-03-24
 

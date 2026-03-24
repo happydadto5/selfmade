@@ -220,6 +220,36 @@
     playerSprite = playerSpriteAsset.image;
     enemySprite = enemySpriteAsset.image;
   } catch (e) { /* ignore background image loading errors */ }
+
+  // Procedural fallback: if the player sprite failed to load, create a small flower-like sprite
+  try {
+    const needFallback = (!playerSprite) || (playerSprite && playerSprite.width && playerSprite.width < 8);
+    if (needFallback) {
+      const ps = document.createElement('canvas');
+      ps.width = 64; ps.height = 64;
+      const pctx = ps.getContext('2d');
+      pctx.clearRect(0,0,ps.width,ps.height);
+      const cx = ps.width/2, cy = ps.height/2 - 6;
+      for (let i = 0; i < 8; i++) {
+        pctx.save();
+        pctx.translate(cx, cy);
+        pctx.rotate(i * (Math.PI * 2 / 8));
+        pctx.fillStyle = (i % 2 === 0) ? '#ff8a80' : '#ffcc80';
+        pctx.beginPath();
+        pctx.ellipse(0, -10, 8, 14, 0, 0, Math.PI * 2);
+        pctx.fill();
+        pctx.restore();
+      }
+      pctx.fillStyle = '#ffeb3b';
+      pctx.beginPath();
+      pctx.arc(cx, cy, 7, 0, Math.PI * 2);
+      pctx.fill();
+      // stem
+      pctx.fillStyle = '#66bb6a';
+      pctx.fillRect(cx - 2, cy + 8, 4, 14);
+      playerSprite = ps;
+    }
+  } catch (e) { /* ignore */ }
   function resize() {
     // Support high-DPI / Retina displays by scaling the canvas backing store using devicePixelRatio
     const dpr = Math.max(1, window.devicePixelRatio || 1);
@@ -935,7 +965,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.148.0';
+  const version = '9.149.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
