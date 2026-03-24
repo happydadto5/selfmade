@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.152.0
 - Visual: add celebratory petal burst and victory chime when final wave is cleared (tiny)
 
 ## 9.151.0
