@@ -3258,6 +3258,8 @@ let hitPopTimeout = null;
     try { if (player.fireRate > 1 && Date.now() > (player.fireRateUntil || 0)) { player.fireRate = 1; player.fireRateUntil = 0; } } catch (e) {}
     // Performance: cap particle count to avoid runaway particle growth during long runs
     try { if (particles && particles.length > 400) particles.splice(0, particles.length - 400); } catch (e) { }
+    // Stability: cap power-ups to a reasonable maximum to prevent unbounded growth during very long runs
+    try { if (powerups && powerups.length > 12) powerups.splice(0, powerups.length - 12); } catch (e) { }
     try {
       if (bgLeaves) {
         for (const l of bgLeaves) {

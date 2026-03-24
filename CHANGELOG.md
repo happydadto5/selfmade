@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Stability: cap power-ups to prevent unbounded growth during very long runs (tiny)
+
 ## 9.149.0
 - Visual: add procedural flower player sprite fallback when external player image is missing (small) — 2026-03-24
 
