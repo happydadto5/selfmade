@@ -14,6 +14,7 @@
 - Gameplay: Rapid Fire pickups now extend active Rapid duration by 10s when collected while active (cap 30s); otherwise grants 18s Rapid (tiny) — 2026-03-24
 - Visual: add subtle bullet particle trail to make firing feel snappier (tiny) — 2026-03-24
 - Gameplay: increase moth petal trail frequency so sinuous moth enemies are more noticeable (tiny) — 2026-03-24
+- Gameplay: increased 'hopper' lateral hop strength so zigging enemies are more noticeable and lively (tiny) — 2026-03-24
 - Gameplay: increase 'hopper' enemy presence (higher spawn chance) so a new zigging enemy is more noticeable (tiny) — 2026-03-24
 - Gameplay: slightly increased 'snatcher' enemy spawn chance so dashing enemies are more common (tiny) — 2026-03-24
 - Visual: stronger enemy-death particle burst for clearer, more satisfying feedback (tiny) — 2026-03-24
