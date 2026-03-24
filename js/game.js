@@ -4333,7 +4333,7 @@ let hitPopTimeout = null;
         try {
           const dx = pu.x - player.x;
           const dy = pu.y - player.y;
-          const pickupRadius = (typeof isTouch !== 'undefined' && isTouch) ? 220 : 210; // larger radius on touch devices to aid collection; slightly increased non-touch radius (210) for better pickup feel
+          const pickupRadius = (typeof isTouch !== 'undefined' && isTouch) ? 220 : 230; // larger radius on touch devices to aid collection; slightly increased non-touch radius (230) for better pickup feel
 
           if (Math.sqrt(dx*dx + dy*dy) < pickupRadius) {
             try {
