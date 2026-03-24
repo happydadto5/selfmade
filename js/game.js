@@ -3357,7 +3357,7 @@ let hitPopTimeout = null;
           const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - spawnX) < 48 && Math.abs((p.y||0) - spawnY) < 48);
           if (!nearbyShield) {
             if (powerups.length < 6) {
-              powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+              powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 15000 });
               if (powerups.length > 8) powerups.shift();
               try { playSound('shield'); } catch(e){}
               try { scorePopups.push({ x: spawnX, y: spawnY - 12, text: '🛡 Shield', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
@@ -3371,7 +3371,7 @@ let hitPopTimeout = null;
             } else {
               // Replace the oldest to avoid growing the array while ensuring a shield appears
               try { powerups.shift(); } catch(e){}
-              powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+              powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 15000 });
               try { playSound('shield'); } catch(e){}
               try { scorePopups.push({ x: spawnX, y: spawnY - 12, text: '🛡 Shield', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
             }
@@ -4934,11 +4934,11 @@ let hitPopTimeout = null;
             const nearbyShield2 = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x || 0) - spawnX) < 48 && Math.abs((p.y || 0) - spawnY) < 48);
             if (!nearbyShield2) {
               if (powerups.length < 6) {
-                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 15000 });
               } else {
                 // rotate oldest out to keep array bounded but ensure a shield appears
                 try { powerups.shift(); } catch(e){}
-                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 15000 });
               }
               try { scorePopups.push({ x: spawnX, y: spawnY - 12, text: '🛡 Shield (recovery)', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
               try { playSound('shield'); } catch(e){}
@@ -4959,7 +4959,7 @@ let hitPopTimeout = null;
               const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - spawnX) < 48 && Math.abs((p.y||0) - spawnY) < 48);
               if (nearbyShield) return;
               if (powerups.length < 6) {
-                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 15000 });
                 // Defensive: keep powerup count bounded to avoid pathological growth during long runs
                 if (powerups.length > 8) powerups.shift();
                 try {
@@ -4990,7 +4990,7 @@ let hitPopTimeout = null;
               } else {
                 // if full, rotate oldest out to keep variety
                 powerups.shift();
-                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 });
+                powerups.push({ x: spawnX, y: spawnY, vy: 0.06, type: 'shield', born: Date.now(), life: 15000 });
               }
             })();
             try { playSound('shield'); } catch(e){}
@@ -6969,6 +6969,7 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
 
 
 })();
+
 
 
 
