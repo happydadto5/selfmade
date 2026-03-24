@@ -1592,14 +1592,14 @@
             if (!he) {
               he = document.createElement('div');
               he.id = 'help-extra-u';
-              he.textContent = 'Tip: Press U to activate a stored Shield charge.';
+              he.textContent = 'Tip: Press B to activate a stored Shield charge.';
               he.style.marginTop = '6px';
               he.style.fontSize = '14px';
               he.style.opacity = '0.92';
               he.style.color = '#fff';
               try { overlay.appendChild(he); } catch(e){}
             } else {
-              he.textContent = 'Tip: Press U to activate a stored Shield charge.';
+              he.textContent = 'Tip: Press B to activate a stored Shield charge.';
             }
           } catch(e) {}
         } else {

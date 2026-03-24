@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix: help overlay key hint corrected to show 'B' for Shield activation (matches shortcut)
+
 ## 9.140.0
 - Gameplay: spawn a Shield power-up on the first wave and every 2 waves to improve early discoverability (tiny)
 
