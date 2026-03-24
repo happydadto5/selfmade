@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: small petal burst animation when a new wave starts to make wave transitions more noticeable (tiny) — 2026-03-24
+
 ## 10.2.0
 - UX: show transient 'Press B to activate Shield' toast when Shield is collected to improve discoverability (tiny) — 2026-03-24
 

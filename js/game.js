@@ -3098,6 +3098,25 @@ let hitPopTimeout = null;
     }
   } catch (e) { /* ignore DOM errors */ }
 
+  // Subtle petal burst at wave start to make transitions feel more satisfying (respects reduced-motion)
+  try {
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (let k = 0; k < 10; k++) {
+        particles.push({
+          x: (cw/2) + (Math.random() - 0.5) * 140,
+          y: 36 + (Math.random() - 0.5) * 18,
+          vx: (Math.random() - 0.5) * 0.9,
+          vy: 0.5 + Math.random() * 0.9,
+          r: 2 + Math.random() * 3,
+          life: 380 + Math.random() * 320,
+          born: Date.now(),
+          color: ['#F8BBD0','#FCE4EC','#FFF59D','#C8E6C9'][Math.floor(Math.random()*4)],
+          petal: true
+        });
+      }
+    }
+  } catch (e) { /* ignore particle errors */ }
+
     // Play a short chime to audibly signal the new wave (WebAudio oscillator only)
     try { playSound('wave'); } catch(e) { /* ignore audio errors */ }
     // Accessibility: announce new wave to assistive tech via an aria-live region
