@@ -4809,7 +4809,8 @@ let hitPopTimeout = null;
 
       // Base inter-wave delay (ms). Shortened slightly to make runs feel more complete and snappier
       // Tweak: reduce base and growth slightly for snappier pacing and better beatability
-      let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
+      const nextWaveAutoAdvanceExtra = 1200;
+let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
       try { if (lastShieldActive) interWaveDelay += 800; } catch (e) {}
       // Reduce delay for the first three waves so new players see clearer progression quickly
       // Give players a bit more breathing room on the first few waves for better beatability.
@@ -4823,7 +4824,7 @@ let hitPopTimeout = null;
        try {
          if (!gameOver && (typeof maxWaves !== 'number' || waveNumber < maxWaves)) {
            if (!scheduledSpawnTimeout) {
-             scheduledSpawnTimeout = setTimeout(function(){ try { if (!awaitingNextWave) { lastSpawn = Date.now(); spawnWave(); } scheduledSpawnTimeout = null; } catch(e){} }, interWaveDelay);
+             scheduledSpawnTimeout = setTimeout(function(){ try { if (!awaitingNextWave) { lastSpawn = Date.now(); spawnWave(); } scheduledSpawnTimeout = null; } catch(e){} }, interWaveDelay + nextWaveAutoAdvanceExtra);
            }
          }
        } catch(e) {}
@@ -4894,7 +4895,7 @@ let hitPopTimeout = null;
                   // Schedule the next wave after a short pause so players get a clear recovery window
                   try {
                     if (scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; }
-                    scheduledSpawnTimeout = setTimeout(function(){ try { if (!awaitingNextWave) { lastSpawn = Date.now(); spawnWave(); } scheduledSpawnTimeout = null; } catch(e){} }, Math.max(1400, Math.min(interWaveDelay, 3500)));
+                    scheduledSpawnTimeout = setTimeout(function(){ try { if (!awaitingNextWave) { lastSpawn = Date.now(); spawnWave(); } scheduledSpawnTimeout = null; } catch(e){} }, Math.max(1400 + nextWaveAutoAdvanceExtra, Math.min(interWaveDelay + nextWaveAutoAdvanceExtra, 3500 + nextWaveAutoAdvanceExtra)));
                   } catch(e){}
                 }
               } catch(e){}

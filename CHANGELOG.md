@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: increase auto-advance delay after clearing a wave so Next Wave button is more noticeable (tiny)
+
 ## 9.156.0
 - Gameplay: subtle audio and HUD pulse when Shield is near expiry to improve discoverability (tiny)
 
