@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.24.0
+- Stability: save high score to localStorage when the game auto-pauses to reduce risk of losing progress on quick navigations or bfcache (tiny) — 2026-03-24
+
 ## 10.23.0
 - Performance: reduce particle cap to 180 to lower CPU on low-end devices (tiny) — 2026-03-24
 
