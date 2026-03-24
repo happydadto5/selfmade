@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.136.0
+- Visual: show a telegraph line from snatchers to the player when a snatcher is about to dash (tiny)
+
 ## 9.135.0
 - Gameplay: slightly increase inter-wave delay while Shield is active to give players breathing room (small)
 

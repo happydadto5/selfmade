@@ -933,7 +933,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.135.0';
+  const version = '9.136.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -5876,6 +5876,25 @@ let hitPopTimeout = null;
         ctx.fillStyle='#600'; ctx.fillRect(-e.w/4,-e.h/8,e.w/2,e.h/4);
       }
       ctx.restore();
+      // Snatcher telegraph: draw a dashed, garden-tinted line to the player when a snatcher is about to dash
+      try {
+        if (e.type === 'snatcher' && typeof e.huntTimer === 'number' && e.huntTimer <= 360 && typeof player !== 'undefined' && player) {
+          ctx.save();
+          try {
+            ctx.globalCompositeOperation = 'lighter';
+            const alpha = Math.max(0.18, Math.min(0.72, 0.72 * (1 - (e.huntTimer / 360))));
+            ctx.strokeStyle = 'rgba(102,187,106,' + alpha.toFixed(3) + ')';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6,6]);
+            ctx.beginPath();
+            ctx.moveTo(e.x, e.y);
+            ctx.lineTo(player.x, player.y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+          } catch(e2){}
+          ctx.restore();
+        }
+      } catch(e3){}
     }
 
     if (scoreEl) scoreEl.textContent = 'Score: ' + score;
