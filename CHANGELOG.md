@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.142.0
 - Visual: slightly stronger enemy-death particle glow for clearer kill feedback (tiny)
 
 ## 9.141.0
