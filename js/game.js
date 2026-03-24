@@ -968,7 +968,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
                     const sy = Math.max(40, (player && typeof player.y === 'number') ? (player.y - 120) : Math.floor(ch * 0.2));
                     const nearbyShield = powerups.some(p => p && p.type === 'shield' && Math.abs((p.x||0) - sx) < 48 && Math.abs((p.y||0) - sy) < 48);
                     if (!nearbyShield) {
-                      try { powerups.push({ x: sx, y: sy, vy: 0.06, type: 'shield', born: Date.now(), life: 12000 }); } catch(e){}
+                      try { powerups.push({ x: sx, y: sy, vy: 0.06, type: 'shield', born: Date.now(), life: 15000 }); } catch(e){}
                       // Visual cue: briefly pulse the Lives HUD to draw attention to the newly spawned Shield
                       try { if (livesEl) { livesEl.classList.add('shield-spawn-pulse'); setTimeout(function(){ try{ livesEl.classList.remove('shield-spawn-pulse'); }catch(e){} }, 1000); } } catch(e){}
                       try { scorePopups.push({ x: sx, y: sy - 12, text: '🛡 Shield', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
