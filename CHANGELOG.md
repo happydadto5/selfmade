@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.157.0
 - UX: increase auto-advance delay after clearing a wave so Next Wave button is more noticeable (tiny)
 
 ## 9.156.0
