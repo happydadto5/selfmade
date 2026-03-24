@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UI: improve wave HUD aria-label and tooltip to announce current wave, progress, and waves-left (tiny) — 2026-03-24
+
 ## 9.152.0
 - Visual: add celebratory petal burst and victory chime when final wave is cleared (tiny)
 

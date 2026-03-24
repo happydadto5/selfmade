@@ -835,6 +835,24 @@
               } catch(e){}
             }
           } catch(e){}
+
+          // Improve Wave HUD accessibility and tooltip: set a descriptive aria-label and title on the compact #wave element
+          try {
+            const waveEl = document.getElementById('wave');
+            if (waveEl) {
+              try {
+                const totalWaves = (typeof maxWaves === 'number' && maxWaves > 0) ? maxWaves : null;
+                const wavesLeft = (totalWaves !== null) ? Math.max(0, totalWaves - (typeof waveNumber === 'number' ? waveNumber : 0)) : null;
+                const ariaParts = [];
+                ariaParts.push('Wave ' + (typeof waveNumber !== 'undefined' ? waveNumber : 0) + (totalWaves ? (' of ' + totalWaves) : ''));
+                ariaParts.push('Progress ' + defeated + ' of ' + total + (total > 0 ? (' (' + Math.round((defeated/total)*100) + '%)') : ''));
+                if (wavesLeft !== null) ariaParts.push(wavesLeft + ' waves left');
+                const ariaText = ariaParts.join(' — ');
+                try { waveEl.setAttribute('aria-label', ariaText); } catch(e){}
+                try { waveEl.title = ariaText; } catch(e){}
+              } catch(e){}
+            }
+          } catch(e){}
           // If the current wave has just been cleared, show a brief toast so players notice the pause between waves and get a recovery moment.
           try {
             if (total > 0 && remaining === 0 && (typeof lastClearedWave === 'undefined' || lastClearedWave !== waveNumber)) {
