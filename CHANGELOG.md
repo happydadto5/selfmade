@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: add subtle parallax leaf silhouettes at screen bottom for stronger garden atmosphere (tiny)
+
 ## 9.137.0
 - Accessibility: announce spawned Shield to assistive tech and briefly pulse Lives HUD when a Shield appears (tiny)
 
