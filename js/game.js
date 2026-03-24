@@ -965,7 +965,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.150.0';
+  const version = '9.151.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4102,7 +4102,7 @@ let hitPopTimeout = null;
               }
             } catch (e) { /* ignore highscore UI errors */ }
             // spawn simple particles for a little explosion effect (garden-themed: mix leaf and debris)
-            const pc = 12;
+            const pc = 16;
             for (let p=0;p<pc;p++) {
               const angle = Math.random() * Math.PI * 2;
               const speed = 1 + Math.random() * 3;
@@ -4119,6 +4119,16 @@ let hitPopTimeout = null;
                 leaf: isLeaf
               });
             }
+            // small snappy freeze-frame to make kills feel weightier
+            try { hitStopUntil = performance.now() + 40; } catch (err) { hitStopUntil = Date.now() + 40; }
+            // add a brief bright ring of particles for clearer death feedback
+            try {
+              const nowAng = ((Date.now() % 1000) / 1000) * Math.PI * 2;
+              for (let r = 0; r < 6; r++) {
+                const a = nowAng + (r / 6) * Math.PI * 2;
+                particles.push({ x: e.x + Math.cos(a) * 18, y: e.y + Math.sin(a) * 18, vx: Math.cos(a) * 0.6, vy: Math.sin(a) * 0.6 - 0.2, r: 4, life: 380, born: Date.now(), color: '#fff9c4', flash: true });
+              }
+            } catch(e) {}
             screenShake = Math.min(16, screenShake + 8);
             playSound('hit');
             try { if (scoreEl) { scoreEl.classList.add('hud-hit'); setTimeout(() => { try { scoreEl.classList.remove('hud-hit'); } catch (e) {} }, 280); } } catch (e) {}

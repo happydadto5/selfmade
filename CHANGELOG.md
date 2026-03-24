@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.151.0
+- Visual: stronger enemy-death burst and short freeze-frame for snappier kill feedback (tiny)
+
 ## 9.150.0
 - Stability: cap power-ups to prevent unbounded growth during very long runs (tiny)
 
