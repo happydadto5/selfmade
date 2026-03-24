@@ -888,6 +888,8 @@
                       try { if (livesEl) { livesEl.classList.add('shield-spawn-pulse'); setTimeout(function(){ try{ livesEl.classList.remove('shield-spawn-pulse'); }catch(e){} }, 1000); } } catch(e){}
                       try { scorePopups.push({ x: sx, y: sy - 12, text: '🛡 Shield', vy: -0.04, life: 900, totalLife: 900, color: '#a5d6a7' }); } catch(e){}
                       try { playSound('shield'); } catch(e){}
+                      // Accessibility: announce Shield spawn for assistive tech so screen readers are aware
+                      try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield spawned'; } catch(e){}
                     }
                   }
                 }
@@ -933,7 +935,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.136.0';
+  const version = '9.137.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

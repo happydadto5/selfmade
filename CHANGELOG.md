@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.137.0
+- Accessibility: announce spawned Shield to assistive tech and briefly pulse Lives HUD when a Shield appears (tiny)
+
 ## 9.136.0
 - Visual: show a telegraph line from snatchers to the player when a snatcher is about to dash (tiny)
 
