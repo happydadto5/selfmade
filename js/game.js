@@ -1019,7 +1019,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.28.0';
+  const version = '10.29.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4145,7 +4145,8 @@ let hitPopTimeout = null;
             try { scorePopups.push({ x: e.x, y: e.y, text: '+3', vy: -0.06, life: 900, totalLife: 900, color: '#fff9c4' }); } catch (sperr) {}
             // small explosion particle burst on enemy death (garden-themed petals)
             try {
-              const pc = Math.min(18, 8 + Math.round(Math.random()*10));
+              // Slightly stronger death burst for clearer feedback
+              const pc = Math.min(26, 12 + Math.round(Math.random()*12));
               for (let p=0;p<pc;p++) {
                 const ang = Math.random()*Math.PI*2;
                 const spd = 0.6 + Math.random()*2.2;
