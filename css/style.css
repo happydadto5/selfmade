@@ -726,11 +726,11 @@ html::after {
     background: radial-gradient(circle at var(--hit-x,50%) var(--hit-y,45%), rgba(240,255,210,1), rgba(140,255,170,1) 40%, rgba(140,255,170,0) 82%);
     opacity: 1;
     mix-blend-mode: screen; /* keep additive brightness for clarity */
-    /* stronger, but still soft bloom for clearer, thematic hit feedback */
-    box-shadow: 0 0 320px rgba(56,210,36,1);
+    /* slightly stronger, but still soft bloom for clearer, thematic hit feedback */
+    box-shadow: 0 0 420px rgba(56,210,36,1);
     filter: blur(1px);
-    /* slightly longer fade so the brighter pop has enough time to register while remaining subtle */
-    animation: hitPopFade 640ms ease-out forwards;
+    /* lengthened fade so the brighter pop registers more clearly while remaining subtle */
+    animation: hitPopFade 720ms ease-out forwards;
   }
 }
 @keyframes hitPopFade {

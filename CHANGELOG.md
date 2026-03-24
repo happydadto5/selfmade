@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.147.0
+- Visual/UI: slightly stronger hit-pop overlay for clearer hit feedback (tiny) — 2026-03-24
+
 ## 9.146.0
 - UI: show 'Press B to use' in shield badge tooltip and screen-reader label when shield charges available (tiny) — 2026-03-24
 
