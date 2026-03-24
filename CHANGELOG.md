@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.3.0
 - Visual/UI: small petal burst animation when a new wave starts to make wave transitions more noticeable (tiny) — 2026-03-24
 
 ## 10.2.0
