@@ -5,6 +5,7 @@
 - Visual: add subtle bullet particle trail to make firing feel snappier (tiny) — 2026-03-24
 - Gameplay: increase moth petal trail frequency so sinuous moth enemies are more noticeable (tiny) — 2026-03-24
 - Gameplay: increase 'hopper' enemy presence (higher spawn chance) so a new zigging enemy is more noticeable (tiny) — 2026-03-24
+- Gameplay: slightly increased 'snatcher' enemy spawn chance so dashing enemies are more common (tiny) — 2026-03-24
 - Visual: stronger enemy-death particle burst for clearer, more satisfying feedback (tiny) — 2026-03-24
 - Fix: remove stray escaped characters in js/game.js that caused a syntax error preventing the game from loading (reliability) — 2026-03-24
 - Stability: persist high score when auto-pausing (blur/visibility/pagehide) to reduce data-loss risk (tiny) — 2026-03-24

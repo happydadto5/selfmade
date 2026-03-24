@@ -3203,7 +3203,8 @@ let hitPopTimeout = null;
       // Small chance for a slow, short-burst "beetle" enemy: slightly tougher scuttling bug
       const isBeetle = Math.random() < Math.min(0.20, 0.02 + waveNumber*0.012);
       // Small chance for a "snatcher" enemy: medium enemy that periodically dashes toward the player
-      const isSnatcher = Math.random() < Math.min(0.08, 0.02 + waveNumber*0.01);
+      // Slightly increased base spawn chance so snatchers (telegraphed dash enemies) are more noticeable without changing difficulty much
+      const isSnatcher = Math.random() < Math.min(0.14, 0.03 + waveNumber*0.012);
       if (isZig) {
         const hpVal = 1 + Math.floor(waveNumber/3);
         enemies.push({x:ex,y:ey,w:34,h:30,vy:speed*0.9, hp:hpVal, maxHp:hpVal, type:'zig', t: Math.random()*1000});
