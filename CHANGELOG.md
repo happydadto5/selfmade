@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: tune Shield durations — new shield now lasts 30s; collecting while active extends it by 12s (small) — 2026-03-24
+
 ## 10.10.0
 - Gameplay: increase maximum Shield charges to 4 and slightly tune Shield pickups so they grant one extra charge when collected while active (small) — 2026-03-24
 
