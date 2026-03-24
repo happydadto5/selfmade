@@ -1020,7 +1020,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.54.0';
+  const version = '10.55.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -1567,6 +1567,8 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.26);
       o.start(now);
       o.stop(now + 0.28);
+      // Haptic feedback for supported devices on enemy death (respect prefers-reduced-motion)
+      try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(22); } catch(e) {}
       return;
     }
     else if (type === 'explode') {
@@ -1578,6 +1580,8 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
       o.start(now);
       o.stop(now + 0.18);
+      // Haptic feedback for supported devices on enemy death (respect prefers-reduced-motion)
+      try { if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function' && !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) navigator.vibrate(14); } catch(e) {}
       return;
     }
     else { o.type='sine'; o.frequency.setValueAtTime(440, now); g.gain.setValueAtTime(0.02, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.1); }
