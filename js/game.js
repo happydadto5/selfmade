@@ -882,7 +882,8 @@
                 try { if (nextWaveBtn) { nextWaveBtn.style.display = ''; nextWaveBtn.setAttribute('aria-hidden','false'); try { nextWaveBtn.focus(); } catch(e){} } } catch(e){}
                 // Fallback: if the player doesn't press Next Wave, auto-advance after a short delay (2.8s)
                 try {
-                  nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !gameOver) { awaitingNextWave = false; if (nextWaveBtn) try { nextWaveBtn.style.display = 'none'; nextWaveBtn.setAttribute('aria-hidden','true'); } catch(e){} lastSpawn = Date.now(); spawnWave(); } } catch(e){}; }, 2800);
+                  // Auto-advance fallback: give low-life players slightly more time to prepare before the next wave
+nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !gameOver) { awaitingNextWave = false; if (nextWaveBtn) try { nextWaveBtn.style.display = 'none'; nextWaveBtn.setAttribute('aria-hidden','true'); } catch(e){} lastSpawn = Date.now(); spawnWave(); } } catch(e){}; }, (function(){ try{ var base = 2800; if (typeof lives === 'number' && lives <= 1) return base + 1200; return base; }catch(e){ return 2800; } })());
                 } catch(e){}
               } catch(e){}
 
@@ -1001,7 +1002,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.6.0';
+  const version = '10.7.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;

@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.7.0
+- Levels: increase inter-wave auto-advance delay by 1.2s when player is low on lives to improve beatability and give recovery time (tiny)
+
 ## 10.6.0
 - Gameplay: Slightly buff Mulch power-up — increase radius to 140px and duration to 20s (small) — 2026-03-24
 
