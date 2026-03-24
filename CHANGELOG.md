@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.13.0
+- Gameplay: increase manual Shield activation duration to 12s and slightly extend invulnerability on activation (tiny) — 2026-03-24
+
 ## 10.12.0
 - UX: slightly increase non-touch power-up pickup radius for better pickup feel (tiny) — 2026-03-24
 
