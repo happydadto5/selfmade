@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Controls: reduce touch hold firing delay to 60ms for snappier mobile hold-to-fire (tiny) — 2026-03-24
 - UI: show brief Combo badge in HUD when chaining quick kills (small gameplay/UI) — 2026-03-24
 - Visual: pulsing leaf indicator added along snatcher telegraph line to better highlight incoming dashes (tiny) — 2026-03-24
 - Gameplay: Spawn a tougher 'snail' mini-enemy every 5 waves to add visible enemy variety (tiny) — 2026-03-24
