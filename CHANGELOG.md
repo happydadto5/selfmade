@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.22.0
+- Visual/UI: in-canvas wave progress ring color shifts to indicate near-complete waves (green → amber → orange) to improve clarity (tiny) — 2026-03-24
+
 ## 10.21.0
 - Gameplay: tune Shield durations — new shield 15s, collecting while active extends by 10s, manual activation grants +10s (tiny) — 2026-03-24
 
