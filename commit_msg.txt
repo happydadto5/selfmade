@@ -1,3 +1,0 @@
-Fix: accept B or U for Shield activation (UI hinted 'Press B' — now both B and U work) — 2026-03-24
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
