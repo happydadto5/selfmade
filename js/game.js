@@ -358,7 +358,7 @@
     if (_wasRunningBeforeHide && document.hasFocus && document.hasFocus()) {
         // Only resume when no overlays are open and the game isn't over
         if (!helpOpen && !changesOpen && !gameOver) {
-            togglePause(false, 'visibility');
+            if (typeof togglePause === 'function') { try { togglePause(false, 'visibility'); } catch(e) { /* ignore */ } }
         }
     }
 } catch(e) {}
