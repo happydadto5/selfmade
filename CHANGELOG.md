@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.139.0
+- Accessibility/Stability: show a clear "Paused" overlay message when the game is auto-paused or manually paused; improves clarity when switching tabs or apps (tiny)
+
 ## 9.138.0
 - Visual/UI: add subtle parallax leaf silhouettes at screen bottom for stronger garden atmosphere (tiny)
 
