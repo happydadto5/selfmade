@@ -25,6 +25,8 @@
 - Visual: align petal particles to their motion so enemy explosions read more clearly (tiny) — 2026-03-24
 - Gameplay: increased mulch drop chance from snail enemies so mulch power-ups are more common (tiny) — 2026-03-24
 
+- Gameplay: add new 'spore' enemy that drifts and occasionally emits small pests to increase enemy variety (tiny) — 2026-03-24
+
 ## 10.25.0
 - Levels: slightly increase inter-wave auto-advance delay by a small per-wave amount so later waves grant players a touch more recovery time (tiny) — 2026-03-24
 

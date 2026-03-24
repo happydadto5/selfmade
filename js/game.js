@@ -3206,6 +3206,8 @@ let hitPopTimeout = null;
       // Small chance for a "moth" enemy that sways horizontally in a sinuous pattern
       // Increased base chance and cap so moths are more noticeable without changing difficulty much
       const isMoth = Math.random() < Math.min(0.55, 0.18 + waveNumber*0.035);
+      // Small chance for a drifting "spore" enemy: slow, garden-themed, occasionally releases small pests (adds visible gameplay variety)
+      const isSpore = Math.random() < Math.min(0.16, 0.04 + waveNumber*0.02);
       // Small chance for a "sprout" enemy (small garden sprout, low HP, green-themed)
       const isSprout = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
@@ -3234,6 +3236,9 @@ let hitPopTimeout = null;
       } else if (isMoth) {
         // moth: medium descent, sinuous horizontal motion for visual variety
         enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:12 + Math.random()*8, swayFreq: 0.01 + Math.random()*0.012, t: Math.random()*1000});
+      } else if (isSpore) {
+        // spore: slow drifting enemy that occasionally releases small pests to increase wave variety
+        enemies.push({x:ex,y:ey,w:24,h:22,vy:speed*0.72, vx:(Math.random()-0.5)*0.5, hp:1, maxHp:1, type:'spore', sporeBurstTimer: 700 + Math.random()*1400, t: Math.random()*1000});
       } else if (isHopper) {
         // hopper: medium descent, performs lateral hops for visual and gameplay variety
         enemies.push({x:ex,y:ey,w:28,h:24,vy:speed*0.9, vx:0, hp:1, maxHp:1, type:'hopper', hopTimer: 360 + Math.random()*420, hopStrength: 2.4 + Math.random()*1.8, t: Math.random()*1000});
@@ -3578,6 +3583,27 @@ let hitPopTimeout = null;
             }
           }
         } catch (err) { /* ignore moth update errors */ }
+      }
+      // Spore behavior: slow drifting spawn that occasionally emits a small pest to add visible variety
+      if (e.type === 'spore') {
+        try {
+          // gentle horizontal wobble and slight damping
+          e.vx = ((e.vx || 0) * 0.94) + Math.sin(e.t * 0.022) * 0.7;
+          e.vy = (typeof e.vy === 'number') ? e.vy : (0.72);
+          if (typeof e.sporeBurstTimer === 'undefined') e.sporeBurstTimer = 700 + Math.random() * 1400;
+          e.sporeBurstTimer -= dt;
+          if (e.sporeBurstTimer <= 0) {
+            e.sporeBurstTimer = 700 + Math.random() * 1400;
+            // Emit a small pest-mini that drops faster to pressure the player (cap total enemies for performance)
+            try {
+              if (enemies.length < 220) {
+                enemies.push({ x: e.x + (Math.random()-0.5)*10, y: e.y + (e.h||18)/2 + 6, w: 14, h: 12, vy: 1.1 + Math.random()*0.4, hp:1, maxHp:1, type:'pest-mini', t: Math.random()*1000 });
+              }
+              // small petal/dust burst to make the emission readable visually
+              for (let p=0;p<4;p++) particles.push({ x: e.x + (Math.random()-0.5)*8, y: e.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*0.8, vy: -0.3 - Math.random()*0.4, r: 1.2 + Math.random()*1.6, life: 260 + Math.random()*240, born: Date.now(), color: '#ffe082', petal: true });
+            } catch (emitErr) { }
+          }
+        } catch (err) { /* ignore spore update errors */ }
       }
       // Charger behavior: drift towards player and occasionally perform a short high-speed downward charge
       if (e.type === 'charger') {
