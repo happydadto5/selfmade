@@ -4323,7 +4323,7 @@ let hitPopTimeout = null;
                   }
                 }
               }
-              try { if (e && e.type === 'weevil' && Math.random() < 0.45) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } if (e && e.type === 'snail' && Math.random() < 0.30) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } if (e && e.type === 'beetle' && Math.random() < 0.35) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } } catch(e) {}
+              try { if (e && e.type === 'weevil' && Math.random() < 0.45) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } if (e && e.type === 'snail' && Math.random() < 0.45) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } if (e && e.type === 'beetle' && Math.random() < 0.35) { if (powerups.length < 6) powerups.push({ x: e.x, y: e.y, vy: -0.4, type: 'mulch', born: Date.now(), life: 14000 }); } } catch(e) {}
             } catch (err) { /* ignore powerup spawn errors */ }
           }
           break;
