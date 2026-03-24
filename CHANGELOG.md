@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.150.0
 - Stability: cap power-ups to prevent unbounded growth during very long runs (tiny)
 
 ## 9.149.0
