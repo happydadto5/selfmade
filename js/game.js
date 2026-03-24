@@ -457,6 +457,7 @@
   }
 
   const scoreEl = document.getElementById('score');
+  const comboEl = document.getElementById('combo-badge');
   const versionEl = document.getElementById('version');
   const livesEl = document.getElementById('lives');
   const waveEl = document.getElementById('wave');
@@ -4220,6 +4221,21 @@ let hitPopTimeout = null;
                 try { scorePopups.push({ x: e.x, y: e.y - 18, text: 'Combo x' + killCombo + ' +' + comboBonus, vy: -0.08, life: 900, totalLife: 900, color: '#ffd54f' }); } catch (e) {}
                 try { if (scoreEl) { scoreEl.classList.add('hud-combo'); setTimeout(function(){ try { scoreEl.classList.remove('hud-combo'); } catch(e){} }, 520); } } catch(e) {}
               }
+              // Small UI improvement: briefly show a Combo badge in the HUD when the player chains quick kills
+              try {
+                if (typeof comboEl !== 'undefined' && comboEl) {
+                  if (killCombo > 1) {
+                    comboEl.textContent = 'Combo x' + killCombo;
+                    comboEl.style.display = 'inline-block';
+                    comboEl.classList.add('show');
+                    // hide after a short time unless another combo extends it
+                    setTimeout(function(){ try { comboEl.classList.remove('show'); if (killCombo <= 1) comboEl.style.display = 'none'; } catch(e){} }, 900);
+                  } else {
+                    comboEl.classList.remove('show'); comboEl.style.display = 'none';
+                  }
+                }
+              } catch (e) {}
+              
             } catch(e) {}
             // pest split: spawn two small mini-pests at the death location when a pest dies
             try {

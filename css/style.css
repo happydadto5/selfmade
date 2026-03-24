@@ -153,6 +153,14 @@ button:focus, button:focus-visible, [role="button"]:focus, [role="button"]:focus
 @media (prefers-reduced-motion: reduce) { #ui #score.hud-hit, #ui #score.hud-combo { transition: none !important; } }
 /* Score HUD: increase prominence for readability without changing layout (tiny) */
 #ui #score { font-size:22px; font-weight:800; color:#0b3f12; margin-bottom:4px; text-shadow:0 1px 0 rgba(255,255,255,0.85), 0 3px 8px rgba(0,0,0,0.18); }
+
+/* Combo badge: briefly displays when the player chains quick kills (combo). Small, non-intrusive, and respects reduced-motion. */
+#ui #combo-badge { display:none; margin-top:4px; font-size:13px; padding:6px 10px; border-radius:8px; background: linear-gradient(90deg,#fff8e1,#ffe082); color:#5d3a00; font-weight:900; box-shadow:0 6px 18px rgba(0,0,0,0.12); border:1px solid rgba(0,0,0,0.06); }
+@media (prefers-reduced-motion: no-preference) {
+  #ui #combo-badge.show { animation: comboPop 540ms cubic-bezier(.2,.9,.2,1); }
+  @keyframes comboPop { 0% { transform: translateY(0) scale(0.98); opacity:0.0 } 40% { transform: translateY(-6px) scale(1.06); opacity:1 } 100% { transform: translateY(0) scale(1); opacity:1 } }
+}
+@media (prefers-reduced-motion: reduce) { #ui #combo-badge.show { transition: none !important; } }
 #version{position:fixed;right:12px;top:8px;color:#222;font-size:14px}
 #touch-controls{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);display:none;gap:12px}
 #touch-controls button{font-size:26px;padding:20px 22px;min-width:72px;border-radius:14px;background:rgba(255,255,255,0.98);border:1px solid #ddd;box-shadow:0 4px 12px rgba(0,0,0,0.08);touch-action:manipulation;}

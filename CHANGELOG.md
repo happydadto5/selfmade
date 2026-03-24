@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- UI: show brief Combo badge in HUD when chaining quick kills (small gameplay/UI) — 2026-03-24
 - Visual: pulsing leaf indicator added along snatcher telegraph line to better highlight incoming dashes (tiny) — 2026-03-24
 - Gameplay: Spawn a tougher 'snail' mini-enemy every 5 waves to add visible enemy variety (tiny) — 2026-03-24
 - Gameplay: Rapid Fire pickups now extend active Rapid duration by 10s when collected while active (cap 30s); otherwise grants 18s Rapid (tiny) — 2026-03-24
