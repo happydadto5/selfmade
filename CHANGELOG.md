@@ -20,6 +20,7 @@
 - Gameplay: increase 'hopper' enemy presence (higher spawn chance) so a new zigging enemy is more noticeable (tiny) — 2026-03-24
 - Gameplay: slightly increased 'snatcher' enemy spawn chance so dashing enemies are more common (tiny) — 2026-03-24
 - Visual: stronger enemy-death particle burst for clearer, more satisfying feedback (tiny) — 2026-03-24
+- Visual: add larger radial petal ring on enemy death for clearer, more satisfying feedback (tiny) — 2026-03-24
 - UX: add brief haptic feedback on enemy deaths (vibration) for supported touch devices (tiny) — 2026-03-24
 - Fix: remove stray escaped characters in js/game.js that caused a syntax error preventing the game from loading (reliability) — 2026-03-24
 - Stability: persist high score when auto-pausing (blur/visibility/pagehide) to reduce data-loss risk (tiny) — 2026-03-24

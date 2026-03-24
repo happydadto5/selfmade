@@ -1020,7 +1020,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.57.0';
+  const version = '10.58.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4382,6 +4382,29 @@ let hitPopTimeout = null;
                 const a = nowAng + (r / 6) * Math.PI * 2;
                 particles.push({ x: e.x + Math.cos(a) * 18, y: e.y + Math.sin(a) * 18, vx: Math.cos(a) * 0.6, vy: Math.sin(a) * 0.6 - 0.2, r: 4, life: 380, born: Date.now(), color: '#fff9c4', flash: true });
               }
+              // Add a short, larger translucent petal ring for more satisfying kills (respects reduced-motion)
+              try {
+                const prefersReducedMotionLocal = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+                if (!prefersReducedMotionLocal) {
+                  const ringCount = 10;
+                  const ringRadius = 22;
+                  for (let s = 0; s < ringCount; s++) {
+                    const a = nowAng + (s / ringCount) * Math.PI * 2;
+                    particles.push({
+                      x: e.x + Math.cos(a) * ringRadius,
+                      y: e.y + Math.sin(a) * ringRadius,
+                      vx: Math.cos(a) * (0.9 + Math.random() * 0.8),
+                      vy: Math.sin(a) * (0.9 + Math.random() * 0.8) - 0.2,
+                      r: 5 + Math.random() * 5,
+                      life: 420 + Math.random() * 220,
+                      born: Date.now(),
+                      color: '#ffd8b1',
+                      blend: 'lighter',
+                      petal: true
+                    });
+                  }
+                }
+              } catch(e) {}
             } catch(e) {}
             screenShake = Math.min(16, screenShake + 8);
             playSound('hit');
