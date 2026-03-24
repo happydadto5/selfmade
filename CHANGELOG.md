@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.146.0
+- UI: show 'Press B to use' in shield badge tooltip and screen-reader label when shield charges available (tiny) — 2026-03-24
+
 ## 9.145.0
 - Visual/UI: improve HUD backdrop opacity for stronger contrast on busy backgrounds (tiny) — 2026-03-24
 
