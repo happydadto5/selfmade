@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: slightly stronger enemy-death particle glow for clearer kill feedback (tiny)
+
 ## 9.141.0
 - Fix: help overlay key hint corrected to show 'B' for Shield activation (matches shortcut)
 

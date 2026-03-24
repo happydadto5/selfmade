@@ -5474,6 +5474,13 @@ let hitPopTimeout = null;
       if (p.blend) {
         try { ctx.globalCompositeOperation = p.blend; } catch (e) { /* ignore */ }
       }
+      // give bright/additive particles a soft glow to improve visibility (respects reduced-motion)
+      try {
+        if ((p.blend === 'lighter' || p.flash) && !(typeof prefersReducedMotion !== 'undefined' && prefersReducedMotion)) {
+          ctx.shadowBlur = 12;
+          ctx.shadowColor = p.color || '#ffffff';
+        }
+      } catch (e) { /* ignore shadow errors */ }
       ctx.globalAlpha = alpha;
       if (p.leaf) {
         try {
