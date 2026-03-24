@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix: remove stray escaped characters in js/game.js that caused a syntax error preventing the game from loading (reliability) — 2026-03-24
 - Stability: persist high score when auto-pausing (blur/visibility/pagehide) to reduce data-loss risk (tiny) — 2026-03-24
 - Reliability: guard auto-resume call to togglePause during visibility restore to avoid runtime errors if togglePause is not available (tiny) — 2026-03-24
 - Gameplay: weevils now telegraph their dart with a brief dust/petal trail when they burst (tiny) — 2026-03-24
