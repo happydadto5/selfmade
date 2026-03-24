@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: add a touch "Use Shield" button so touch players can manually activate stored Shield charges (tiny) — 2026-03-24
+
 ## 10.18.0
 - Gameplay: shorten newly-collected Shield duration to 20s (was 30s) to improve pacing (tiny) — 2026-03-24
 

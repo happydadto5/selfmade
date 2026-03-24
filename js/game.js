@@ -781,6 +781,7 @@
             // Also update on-screen touch fire button to show active power-up icon for mobile discoverability.
             try {
               const touchFireBtn = document.getElementById('touch-fire');
+              const touchShieldBtn = document.getElementById('touch-shield');
               if (touchFireBtn) {
                 if (text) {
                   // Prepend the power-up emoji to the fire button while preserving water icon
@@ -804,6 +805,21 @@
                   try { touchFireBtn.title = 'Water plants'; } catch(e){}
                   try { touchFireBtn.classList.remove('shield-active'); } catch(e){}
                 }
+              }
+              // Show or hide a dedicated shield button for touch users when shields are available
+              if (touchShieldBtn) {
+                try {
+                  const hasShieldCharges = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0);
+                  if (hasShieldCharges) {
+                    touchShieldBtn.style.display = 'inline-block';
+                    touchShieldBtn.setAttribute('aria-hidden', 'false');
+                    try { touchShieldBtn.textContent = '🛡' + (player.shieldCharges ? (' x' + player.shieldCharges) : ''); } catch(e){}
+                    try { touchShieldBtn.title = 'Use Shield (' + player.shieldCharges + ' charges)'; } catch(e){}
+                  } else {
+                    touchShieldBtn.style.display = 'none';
+                    touchShieldBtn.setAttribute('aria-hidden', 'true');
+                  }
+                } catch(e){}
               }
             } catch(e){}
             // Track last shield active timestamp for next update tick
@@ -1389,6 +1405,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
   // This improves discoverability and ensures keyboard activation works for accessibility.
   try {
     const touchLeftBtn = document.getElementById('touch-left');
+    const touchShieldBtn = document.getElementById('touch-shield');
     const touchFireBtn = document.getElementById('touch-fire');
     const touchRightBtn = document.getElementById('touch-right');
     const bindTouchControl = (btn, downHandler) => {
@@ -1418,6 +1435,21 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
     bindTouchControl(touchLeftBtn, () => { keys.left = true; keys.right = false; keys.fire = false; try { canvas.focus(); } catch(e){} });
     bindTouchControl(touchRightBtn, () => { keys.right = true; keys.left = false; keys.fire = false; try { canvas.focus(); } catch(e){} });
     bindTouchControl(touchFireBtn, () => { keys.fire = true; keys.left = false; keys.right = false; try { playSound('fire'); } catch(e){} try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(20); } catch(e){} try { canvas.focus(); } catch(e){} });
+    bindTouchControl(touchShieldBtn, () => {
+      try {
+        if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
+          player.shieldCharges = Math.max(0, player.shieldCharges - 1);
+          player.shieldUntil = Math.max(Date.now(), player.shieldUntil || 0) + 12000; // +12s
+          player.invulnerableUntil = Date.now() + 1800;
+          shieldPulseUntil = Date.now() + 800; shieldPulseX = player.x; shieldPulseY = player.y;
+          try { playSound('shield'); } catch (e) {}
+          try { if (navigator && typeof navigator.vibrate === 'function') navigator.vibrate(36); } catch(e){}
+          try { showWaveToast('Shield activated'); } catch(e){}
+        } else {
+          try { showWaveToast('No shield charges'); } catch(e){}
+        }
+      } catch (e) {}
+    });
   } catch (e) { /* ignore touch-control wiring errors */ }
 
   // Transient controls hint: shows briefly on startup (ms)
