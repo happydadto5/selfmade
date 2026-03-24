@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Levels: show a "Final wave incoming" toast and a subtle HUD cue when only one wave remains to improve beatability and clarity (tiny) — 2026-03-24
+
 ## 10.15.0
 - Help: mention manual Shield activation (press B or U) in the help overlay (tiny) — 2026-03-24
 

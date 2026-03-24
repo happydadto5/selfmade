@@ -83,6 +83,13 @@ button:focus, button:focus-visible, [role="button"]:focus, [role="button"]:focus
   @keyframes waveNearComplete { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
 }
 
+/* When the final wave is imminent (only one wave remains), give a stronger, distinct visual cue so players understand the run is near completion. Tiny and subtle. */
+#ui #wave.final-imminent { box-shadow: 0 8px 26px rgba(255,235,59,0.12); border-left-color: rgba(255,193,7,0.28); background: linear-gradient(90deg, rgba(255,250,205,0.95), rgba(255,243,170,0.8)); }
+@media (prefers-reduced-motion: no-preference) {
+  #ui #wave.final-imminent { transform-origin: left center; animation: finalIncoming 900ms ease 1; }
+  @keyframes finalIncoming { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
+}
+
 /* Active power-up HUD: small badge under the wave counter showing current power-up and remaining time */
 #ui #active-powerup { margin-top:6px; font-size:14px; color:#063f0d; font-weight:800; background: linear-gradient(180deg, rgba(230,252,238,0.98), rgba(200,245,220,0.94)); padding:8px 12px; border-radius:10px; border:1px solid rgba(46,125,50,0.18); display:inline-block; box-shadow: 0 8px 22px rgba(46,125,50,0.14); transition: transform 180ms ease, box-shadow 180ms ease, opacity 200ms ease; }
 #ui #active-powerup .power-label { display:inline-block; margin-right:8px; }

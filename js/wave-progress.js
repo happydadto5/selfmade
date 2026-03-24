@@ -58,6 +58,26 @@
                 wp.setAttribute('aria-label', ariaText);
               }
             } catch(e){}
+
+            // Small, low-risk enhancement: when only one wave remains (final wave incoming), give a subtle HUD cue and a brief toast to make beatability obvious.
+            try {
+              const currentWave = (typeof waveNumber !== 'undefined' ? waveNumber : 0);
+              const totalWaves = (typeof maxWaves === 'number' && maxWaves > 0) ? maxWaves : null;
+              const wavesLeft = (totalWaves !== null) ? Math.max(0, totalWaves - currentWave) : null;
+              // Only announce once per wave transition to avoid repeated toasts.
+              if (totalWaves !== null && wavesLeft === 1) {
+                try {
+                  if (typeof window._lastFinalImminentWave === 'undefined') window._lastFinalImminentWave = null;
+                  if (window._lastFinalImminentWave !== currentWave) {
+                    window._lastFinalImminentWave = currentWave;
+                    try { if (typeof showWaveToast === 'function') showWaveToast('Final wave incoming!'); } catch(e){}
+                    try { if (waveEl) waveEl.classList.add('final-imminent'); } catch(e){}
+                  }
+                } catch(e){}
+              } else {
+                try { if (waveEl) waveEl.classList.remove('final-imminent'); } catch(e){}
+              }
+            } catch(e){}
           } catch(e){}
         }
       }
