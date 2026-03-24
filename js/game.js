@@ -3617,7 +3617,7 @@ let hitPopTimeout = null;
              e.burstTimer = 900 + Math.random() * 1200;
              const dir = (player && typeof player.x === 'number') ? Math.sign(player.x - e.x) : (Math.random() < 0.5 ? -1 : 1);
              e.vx = dir * (1.8 + Math.random() * 1.2 + Math.min(1.2, waveNumber * 0.02));
-             e.vy = (typeof e.baseVy === 'number' ? e.baseVy : (e.vy || 0.9)) * 1.05;
+             e.vy = (typeof e.baseVy === 'number' ? e.baseVy : (e.vy || 0.9)) * 1.05;\n              // small visual cue: spawn a brief dust trail opposite the burst direction so players can better react\n              try { for (let p = 0; p < 6; p++) { particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + (Math.random()-0.5)*6, vx: -dir * (0.6 + Math.random()*0.8) + (Math.random()-0.5)*0.2, vy: -0.2 - Math.random()*0.4, r: 1 + Math.random()*1.8, life: 240 + Math.random()*220, born: Date.now(), color: '\'#8d6e63\'' }); } } catch (pe) {}
            } else if (e.bursting && e.t > (e.burstEnd || 0)) {
              e.bursting = false;
              e.vx = (Math.random() - 0.5) * 0.6;
@@ -6840,6 +6840,7 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
 
 
 })();
+
 
 
 
