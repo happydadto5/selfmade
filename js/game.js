@@ -933,7 +933,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.134.0';
+  const version = '9.135.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4670,6 +4670,7 @@ let hitPopTimeout = null;
       // Base inter-wave delay (ms). Shortened slightly to make runs feel more complete and snappier
       // Tweak: reduce base and growth slightly for snappier pacing and better beatability
       let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
+      try { if (lastShieldActive) interWaveDelay += 800; } catch (e) {}
       // Reduce delay for the first three waves so new players see clearer progression quickly
       // Give players a bit more breathing room on the first few waves for better beatability.
       // Previously early waves used a very short 600ms delay; increase early delay to at least 1400ms for better recovery between waves

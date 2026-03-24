@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.135.0
+- Gameplay: slightly increase inter-wave delay while Shield is active to give players breathing room (small)
+
 ## 9.133.0
 - Stability: pause game when a connected gamepad disconnects to avoid runaway input when controllers disconnect.
 
