@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.132.0
+- Prevent auto-resume when help or changes overlays are open, or when the game is over
+
 ## 9.131.0
 - UI: increase wave toast duration for better visibility on small screens (tiny)
 

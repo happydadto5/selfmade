@@ -322,7 +322,14 @@
           } else {
             // when returning, only auto-resume if it was running before AND the document actually has focus.
             // Some platforms fire visibilitychange during transient transitions — require document.hasFocus() to avoid accidental auto-resume.
-            try { if (_wasRunningBeforeHide && document.hasFocus && document.hasFocus()) { togglePause(false, 'visibility'); } } catch(e) {}
+            try {
+    if (_wasRunningBeforeHide && document.hasFocus && document.hasFocus()) {
+        // Only resume when no overlays are open and the game isn't over
+        if (!helpOpen && !changesOpen && !gameOver) {
+            togglePause(false, 'visibility');
+        }
+    }
+} catch(e) {}
           }
         } catch(e) {}
       }, { passive: true });
@@ -926,7 +933,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.131.0';
+  const version = '9.132.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
