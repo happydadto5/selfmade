@@ -3498,6 +3498,22 @@ let hitPopTimeout = null;
     for (let i=bullets.length-1;i>=0;i--) {
       bullets[i].x += (bullets[i].vx || 0);
       bullets[i].y += bullets[i].vy;
+      // subtle particle trail to make firing feel snappier (low-cost, occasional)
+      try {
+        if (Math.random() < 0.22) {
+          const b = bullets[i];
+          particles.push({
+            x: b.x + (Math.random()-0.5)*2,
+            y: b.y + (Math.random()-0.5)*2,
+            vx: (b.vx||0)*0.2 + (Math.random()-0.5)*0.2,
+            vy: (b.vy||-10)*0.02 + (Math.random()-0.5)*0.2,
+            r: 0.6 + Math.random()*0.8,
+            life: 120 + Math.random()*140,
+            born: Date.now(),
+            color: '#fff9c4'
+          });
+        }
+      } catch (e) {}
       if (bullets[i].y < -10 || bullets[i].x < -20 || bullets[i].x > cw + 20) bullets.splice(i,1);
     }
     // Stability: cap bullets to avoid runaway growth during very long runs
