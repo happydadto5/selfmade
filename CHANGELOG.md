@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.143.0
 - UI: Slightly increase wave toast duration for better noticeability on small screens (tiny) — 2026-03-24
 
 ## 9.142.0
