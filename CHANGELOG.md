@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Stability: persist high score when auto-pausing (blur/visibility/pagehide) to reduce data-loss risk (tiny) — 2026-03-24
 - Gameplay: weevils now telegraph their dart with a brief dust/petal trail when they burst (tiny) — 2026-03-24
 
 ## 10.25.0

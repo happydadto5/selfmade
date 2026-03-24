@@ -348,7 +348,7 @@
           if (document.hidden) {
             // remember if game was running so we can restore state
             try { _wasRunningBeforeHide = (typeof running !== 'undefined' ? running : false); } catch(e) { _wasRunningBeforeHide = false; }
-            try { if (typeof running !== 'undefined' && running) { togglePause(true, 'visibility'); try { const ap = getAutopauseAnnouncer(); if (ap) ap.textContent = 'Game paused'; } catch(e) {} } } catch(e) {}
+            try { if (typeof running !== 'undefined' && running) { togglePause(true, 'visibility'); try { saveHighScoreDebounced(highScore); } catch(e) {} try { const ap = getAutopauseAnnouncer(); if (ap) ap.textContent = 'Game paused'; } catch(e) {} } } catch(e) {}
             // Clear any pending scheduled spawn timeout to avoid enemies spawning while the page is hidden.
             try { if (typeof scheduledSpawnTimeout !== 'undefined' && scheduledSpawnTimeout) { clearTimeout(scheduledSpawnTimeout); scheduledSpawnTimeout = null; } } catch (e) {}
           } else {
@@ -377,6 +377,7 @@
                 blurTimeout = setTimeout(function(){
                   try {
                     togglePause(true, 'blur');
+                    try { saveHighScoreDebounced(highScore); } catch(e) {}
                     try { const ap = getAutopauseAnnouncer(); if (ap) ap.textContent = 'Game paused'; } catch(e) {}
                   } catch(e) {}
                   try { blurTimeout = null; } catch(e) {}
@@ -401,7 +402,7 @@
               try { if (typeof blurTimeout !== 'undefined' && blurTimeout) { clearTimeout(blurTimeout); blurTimeout = null; } } catch(e){}
               try { if (typeof _highScoreSaveTimeout !== 'undefined' && _highScoreSaveTimeout) { clearTimeout(_highScoreSaveTimeout); _highScoreSaveTimeout = null; } } catch(e){}
               // Pause and suspend audio for a clean unload
-              try { togglePause(true, 'pagehide'); } catch(e){}
+              try { togglePause(true, 'pagehide'); } catch(e){} try { saveHighScoreDebounced(highScore); } catch(e){}
               try { if (audioCtx && audioCtx.state === 'running') { audioCtx.suspend().catch(()=>{}); suspendedAudioByFocus = true; } } catch(e){}
             } catch(e){}
           }, { passive: true });
