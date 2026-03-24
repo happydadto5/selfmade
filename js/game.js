@@ -4372,6 +4372,36 @@ let hitPopTimeout = null;
               // Accessibility: keep keyboard focus on canvas so keyboard users can continue playing after pickup
               try { const c = document.getElementById('game'); if (c && typeof c.focus === 'function') c.focus(); } catch (e) {}
               try { for (let k=0;k<10;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*2.6, vy: -Math.random()*1.8, r: 2+Math.random()*3, life: 420+Math.random()*320, born: Date.now(), color: '#a5d6a7', leaf: true, spin: (Math.random()-0.5)*0.12 }); } catch (e) {}
+              // Small transient hint to help discover manual activation: show once per minute
+              try {
+                if (player && (typeof player.shieldCharges === 'number' && player.shieldCharges > 0) && Date.now() > (shieldUseHintUntil || 0)) {
+                  try { shieldUseHintUntil = Date.now() + 60000; } catch(e) { shieldUseHintUntil = Date.now() + 60000; }
+                  let st = document.getElementById('shield-use-toast');
+                  if (!st) {
+                    st = document.createElement('div');
+                    st.id = 'shield-use-toast';
+                    st.setAttribute('role','status');
+                    st.setAttribute('aria-live','polite');
+                    st.style.position = 'fixed';
+                    st.style.left = '50%';
+                    st.style.top = '12px';
+                    st.style.transform = 'translateX(-50%) translateY(-6px)';
+                    st.style.background = 'rgba(0,0,0,0.72)';
+                    st.style.color = '#fff';
+                    st.style.padding = '6px 10px';
+                    st.style.borderRadius = '8px';
+                    st.style.zIndex = '10001';
+                    st.style.fontSize = '13px';
+                    st.style.pointerEvents = 'none';
+                    st.style.opacity = '0';
+                    st.style.transition = 'opacity 160ms ease, transform 220ms ease';
+                    document.body.appendChild(st);
+                  }
+                  try { st.textContent = 'Press B to activate Shield — x' + (player.shieldCharges||0); st.style.opacity = '1'; st.style.transform = 'translateX(-50%) translateY(0)'; } catch(e){}
+                  setTimeout(() => { try { st.style.opacity = '0'; } catch(e){} }, 2200);
+                  setTimeout(() => { try { if (st && st.parentNode) st.parentNode.removeChild(st); } catch(e){} }, 3000);
+                }
+              } catch(e){}
             } else if (pu.type === 'spread') {
               // grant a temporary spread shot that fires three angled pellets
               player.spreadUntil = Date.now() + 12000; // 12 seconds

@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UX: show transient 'Press B to activate Shield' toast when Shield is collected to improve discoverability (tiny) — 2026-03-24
+
 ## 10.1.0
 - Stability: visibility auto-pause now respects runtime Auto-Pause preference (O) to avoid unexpected pauses when users disable auto-pause (tiny) — 2026-03-24
 
