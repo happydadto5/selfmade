@@ -3824,7 +3824,8 @@ let hitPopTimeout = null;
             // No shield: apply normal life loss feedback
             lives--;
             livesPulseUntil = Date.now() + 700;
-            livesFlashUntil = Date.now() + 260;
+            // Slightly increase life-loss flash duration so the hit registers more clearly on small screens
+            livesFlashUntil = Date.now() + 360;
             try { player.hitFlashUntil = Date.now() + 320; } catch (e) {}
             try { canvasPlayerHitFlashUntil = Date.now() + 360; } catch (e) {}
             lives = Math.max(0, lives);
@@ -5209,7 +5210,8 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
     try {
       if (Date.now() < livesFlashUntil && !prefersReducedMotion) {
         ctx.save();
-        ctx.fillStyle = 'rgba(255,56,56,0.18)';
+        // Increase opacity for clearer life-loss feedback while keeping it subtle and thematic
+        ctx.fillStyle = 'rgba(255,56,56,0.28)';
         ctx.fillRect(0,0,cw,ch);
         ctx.restore();
       }

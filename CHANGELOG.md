@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: strengthened life-loss feedback — increased red flash opacity and slightly lengthened duration so hits register more clearly on small screens (tiny) — 2026-03-24
+
 ## 10.16.0
 - Levels: show a "Final wave incoming" toast and a subtle HUD cue when only one wave remains to improve beatability and clarity (tiny) — 2026-03-24
 
