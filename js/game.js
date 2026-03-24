@@ -3515,7 +3515,7 @@ let hitPopTimeout = null;
         }
       }
       player.cooldown = Math.max(30, Math.round(180 / (player.fireRate || 1))); // ms (respect player's fireRate, min cap)
-      lastFireFlashUntil = Date.now() + 120; // brief muzzle flash for firing feedback
+      lastFireFlashUntil = Date.now() + 180; // brief muzzle flash for firing feedback (extended slightly for clearer fire feedback)
       try {
         if (!prefersReducedMotion) { player.recoilUntil = Date.now() + 90; player.recoilX = (Math.random() - 0.5) * 6; player.recoilY = - (1 + Math.random() * 2); } else { player.recoilUntil = 0; player.recoilX = 0; player.recoilY = 0; }
       } catch (e) {}
@@ -5562,12 +5562,12 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
     // Brief muzzle flash when firing to improve feedback on touch and keyboard/mouse
     try {
       if (Date.now() < lastFireFlashUntil) {
-        const flashRemaining = Math.max(0, (lastFireFlashUntil - Date.now()) / 120);
-        const flashAlpha = 0.9 * flashRemaining;
+        const flashRemaining = Math.max(0, (lastFireFlashUntil - Date.now()) / 180);
+        const flashAlpha = 1.0 * flashRemaining;
         ctx.beginPath();
-        ctx.fillStyle = 'rgba(255,210,140,' + flashAlpha.toFixed(3) + ')';
-        // draw a small glowing arc slightly above and to the right of the player to simulate a muzzle
-        ctx.arc(12, -6, 8 * (0.8 + flashRemaining * 0.6), 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,230,160,' + flashAlpha.toFixed(3) + ')';
+        // draw a slightly larger glowing arc above the player to make firing feel snappier
+        ctx.arc(12, -6, 10 * (0.9 + flashRemaining * 0.4), 0, Math.PI * 2);
         ctx.fill();
       }
     } catch (e) { /* ignore flash drawing errors */ }
