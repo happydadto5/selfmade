@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.6.0
 - Gameplay: Slightly buff Mulch power-up — increase radius to 140px and duration to 20s (small) — 2026-03-24
 
 ## 10.5.0
