@@ -4357,12 +4357,12 @@ let hitPopTimeout = null;
               // Accessibility: announce Rapid power-up collection for screen readers (keeps HUD discoverable)
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
             } else if (pu.type === 'shield') {
-              // grant or refresh a temporary shield; collecting while active adds one charge (max 3) and extends duration
+              // grant or refresh a temporary shield; collecting while active adds one charge (max 4) and extends duration
               try {
                 const now = Date.now();
                 if (player && now < (player.shieldUntil || 0)) {
-                  // already has shield: add one charge up to 3 and extend by 10s
-                  try { player.shieldCharges = Math.min(3, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
+                  // already has shield: add one charge up to 4 and extend by 10s
+                  try { player.shieldCharges = Math.min(4, (typeof player.shieldCharges === 'number' ? player.shieldCharges : 0) + 1); } catch(e) { player.shieldCharges = 1; }
                   player.shieldUntil = (player.shieldUntil || now) + 10000;
                   // record the total duration for HUD progress (remaining from now)
                   try { player._shieldDuration = Math.max(0, (player.shieldUntil || 0) - now); } catch(e) { player._shieldDuration = 10000; }
@@ -4380,7 +4380,7 @@ let hitPopTimeout = null;
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};
-                  try { player.shieldCharges = 3; } catch(e) { player.shieldCharges = 3; }
+                  try { player.shieldCharges = 4; } catch(e) { player.shieldCharges = 4; }
                 }
               } catch(e) {}
               try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Shield collected'; } catch (e) {}
@@ -5640,7 +5640,7 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
               const _recoilY = (player && Date.now() < (player.recoilUntil || 0) && !prefersReducedMotion) ? (player.recoilY || 0) : 0;
               ctx.translate((player && typeof player.x === 'number' ? player.x : 0) + _recoilX, (player && typeof player.y === 'number' ? player.y : 0) + _recoilY);
             } catch (e) { try { ctx.translate(player.x, player.y); } catch (e2) {} }
-            const charges = Math.min(3, player.shieldCharges);
+            const charges = Math.min(4, player.shieldCharges);
             const spacing = 14;
             for (let si = 0; si < charges; si++) {
               const ox = (si - (charges - 1) / 2) * spacing;
@@ -6229,7 +6229,7 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
           }
           // Update badge children to show per-charge icons (max 3) and a small timer
           try {
-            const chargesNum = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? Math.min(3, player.shieldCharges) : 0;
+            const chargesNum = (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) ? Math.min(4, player.shieldCharges) : 0;
             // clear previous icons/timer
             while (existingBadge.firstChild) existingBadge.removeChild(existingBadge.firstChild);
             for (let s = 0; s < chargesNum; s++) {

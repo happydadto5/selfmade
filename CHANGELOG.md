@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Gameplay: increase maximum Shield charges to 4 and slightly tune Shield pickups so they grant one extra charge when collected while active (small) — 2026-03-24
+
 ## 10.9.0
 - Meta: quick roadmap/process update (2026-03-24) — captured meta-review and prioritized a small visible gameplay polish (Shield power-up tuning) and a minor roadmap refresh.
 
