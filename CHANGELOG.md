@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: Slightly increase wave toast duration for better noticeability on small screens (tiny) — 2026-03-24
+
 ## 9.142.0
 - Visual: slightly stronger enemy-death particle glow for clearer kill feedback (tiny)
 

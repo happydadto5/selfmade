@@ -419,7 +419,7 @@
       try { el.classList.add('show'); } catch(e) {}
       // Auto-hide after a short duration; keep accessible but non-intrusive
       // Slightly longer so the toast is more noticeable on small screens
-      setTimeout(function(){ try { el.classList.remove('show'); } catch(e) {} }, 2200);
+      setTimeout(function(){ try { el.classList.remove('show'); } catch(e) {} }, 2600);
     } catch(e) { /* ignore */ }
   }
 
