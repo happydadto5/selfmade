@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.20.0
 - Visual/UI: shorten hit-pop overlay removal delay to make rapid hits feel snappier (tiny) — 2026-03-24
 
 ## 10.19.0
