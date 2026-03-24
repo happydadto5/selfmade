@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.138.0
 - Visual/UI: add subtle parallax leaf silhouettes at screen bottom for stronger garden atmosphere (tiny)
 
 ## 9.137.0
