@@ -898,6 +898,22 @@
                           try { cont.style.display = ''; } catch(e) {}
                         }
                       } catch(e) {}
+
+                      // Celebratory flourish: larger petal burst and victory chime to make final wave feel satisfying and beatable
+                      try {
+                        // Larger burst of petals/leaf particles centered on screen
+                        const vxRange = 3.2;
+                        const spreadX = Math.min(360, Math.max(160, cw * 0.6));
+                        const spreadY = Math.min(160, Math.max(80, ch * 0.3));
+                        for (let k = 0; k < 36; k++) {
+                          particles.push({ x: (cw/2) + (Math.random() - 0.5) * spreadX, y: (ch/2) + (Math.random() - 0.5) * spreadY, vx: (Math.random() - 0.5) * vxRange, vy: -0.8 - Math.random() * 2.6, r: 2 + Math.random() * 6, life: 700 + Math.random() * 700, born: Date.now(), color: (Math.random() < 0.5 ? '#ffd54f' : '#a5d6a7'), petal: true });
+                        }
+                        // Make a satisfying screen shake (skip if prefers-reduced-motion)
+                        try { if (!prefersReducedMotion) screenShake = Math.max(screenShake || 0, 12); } catch(e){}
+                        // Play a short victory sound (compose existing chimes)
+                        try { if (typeof soundEnabled !== 'undefined' && soundEnabled) { try { ensureAudio(); } catch(e){} try { playSound('powerup'); } catch(e){} try { setTimeout(function(){ try { playSound('wave'); } catch(e){} }, 160); } catch(e){} } } catch(e){}
+                      } catch(e) {}
+
                     }
                   } catch(e) {}
                 }

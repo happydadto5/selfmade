@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual: add celebratory petal burst and victory chime when final wave is cleared (tiny)
+
 ## 9.151.0
 - Visual: stronger enemy-death burst and short freeze-frame for snappier kill feedback (tiny)
 
