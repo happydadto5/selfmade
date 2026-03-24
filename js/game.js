@@ -5104,7 +5104,7 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
             const rectX = x - rectW;
             const rectY = y - 4;
             const radius = 8;
-            ctx.fillStyle = 'rgba(0,0,0,0.28)';
+            ctx.fillStyle = 'rgba(0,0,0,0.36)';
             // rounded rect
             ctx.beginPath();
             ctx.moveTo(rectX + radius, rectY);
@@ -5116,8 +5116,11 @@ let interWaveDelay = 650 + Math.min(1000, Math.floor(waveNumber * 25));
             ctx.fill();
             // subtle border for separation
             ctx.lineWidth = 1;
-            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.strokeStyle = 'rgba(255,255,255,0.06)';
             ctx.stroke();
+            // improve text contrast with a small shadow (subtle)
+            ctx.shadowColor = 'rgba(0,0,0,0.8)';
+            ctx.shadowBlur = 6;
           } catch (be) { /* ignore backdrop drawing errors */ }
 
           // subtle outline for readability

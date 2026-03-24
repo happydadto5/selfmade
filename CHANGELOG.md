@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: increase compact HUD backdrop opacity and add subtle text shadow for readability (tiny) — 2026-03-24
+
 ## 10.7.0
 - Levels: increase inter-wave auto-advance delay by 1.2s when player is low on lives to improve beatability and give recovery time (tiny)
 
