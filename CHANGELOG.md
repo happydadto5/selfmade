@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: add temporary Speed power-up (💨 +35% move speed for 8s; collecting while active extends duration) (tiny) — 2026-03-24
 - Gameplay: stronger hit feedback — slightly larger particle burst and screen shake on enemy hit (tiny) — 2026-03-24
 - Audio: vary enemy-death tone for multi-HP enemies (explode-big) for deeper feedback (tiny) — 2026-03-24
 - Gameplay: increase Rapid Fire bullet speed for snappier firing feel (tiny) — 2026-03-24

@@ -3426,7 +3426,9 @@ let hitPopTimeout = null;
     if (rand < shieldThreshold + 0.10) return 'slow';
     if (rand < shieldThreshold + 0.15) return 'bomb';
     if (rand < shieldThreshold + 0.165) return 'mulch';
-    if (rand < shieldThreshold + 0.168) return 'pierce';
+    // small chance for a temporary speed boost power-up
+    if (rand < shieldThreshold + 0.17) return 'speed';
+    if (rand < shieldThreshold + 0.173) return 'pierce';
     return 'life';
   }
 
@@ -3436,8 +3438,17 @@ let hitPopTimeout = null;
     player.x = Math.max(20, Math.min(cw-20, player.x));
 
     player.cooldown = Math.max(0, player.cooldown - dt);
-    // expire temporary fire rate boosts
-    try { if (player.fireRate > 1 && Date.now() > (player.fireRateUntil || 0)) { player.fireRate = 1; player.fireRateUntil = 0; } } catch (e) {}
+    // expire temporary fire rate boosts and temporary movement speed
+    try {
+      if (player.fireRate > 1 && Date.now() > (player.fireRateUntil || 0)) {
+        player.fireRate = 1; player.fireRateUntil = 0;
+      }
+      // expire temporary speed and restore base speed when it ends
+      if (typeof player.moveSpeed === 'number' && Date.now() > (player.speedUntil || 0)) {
+        try { if (player._baseSpeed) player.moveSpeed = player._baseSpeed; else player.moveSpeed = 200; } catch(e) { player.moveSpeed = 200; }
+        player.speedUntil = 0;
+      }
+    } catch (e) {}
     // Performance: cap particle count to avoid runaway particle growth during long runs
     try { if (particles && particles.length > 180) particles.splice(0, particles.length - 180); } catch (e) { }
     // Stability: cap power-ups to a reasonable maximum to prevent unbounded growth during very long runs
@@ -4496,7 +4507,29 @@ let hitPopTimeout = null;
                   try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
                 }
               } catch(e) {}
-            } else if (pu.type === 'shield') {
+            } else if (pu.type === 'speed') {
+              // Temporary movement speed boost: extend if already active, or start a fresh duration
+              try {
+                const now = Date.now();
+                if (player && now < (player.speedUntil || 0)) {
+                  // extend by 5s, cap at 20s total
+                  player.speedUntil = Math.min(now + 20000, (player.speedUntil || now) + 5000);
+                  try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Speed extended!', vy: -0.05, life: 900, totalLife: 900, color: '#90caf9' }); } catch (e) {}
+                  try { playSound('blip'); } catch (e) {}
+                  try { for (let k=0;k<5;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.2, vy: -Math.random()*1.0, r: 2+Math.random()*2, life: 300+Math.random()*200, born: Date.now(), color: '#bbdefb' }); } catch (e) {}
+                } else {
+                  // first-time speed pick-up
+                  const base = (player && player.moveSpeed) ? player.moveSpeed : 200;
+                  if (!player._baseSpeed) player._baseSpeed = base;
+                  player.moveSpeed = (player._baseSpeed || 200) * 1.35; // +35% movement speed
+                  player.speedUntil = Date.now() + 8000; // 8 seconds
+                  try { scorePopups.push({ x: player.x, y: player.y - 20, text: '💨 Speed!', vy: -0.05, life: 900, totalLife: 900, color: '#90caf9' }); } catch (e) {}
+                  try { playSound('blip'); } catch (e) {}
+                  try { for (let k=0;k<7;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.8, vy: -Math.random()*1.4, r: 2+Math.random()*2, life: 420+Math.random()*280, born: Date.now(), color: '#bbdefb' }); } catch (e) {}
+                  try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Speed collected'; } catch (e) {}
+                }
+              } catch (e) {}
+            }else if (pu.type === 'shield') {
               // grant or refresh a temporary shield; collecting while active adds one charge (max 4) and extends duration
               try {
                 const now = Date.now();
@@ -4720,6 +4753,9 @@ let hitPopTimeout = null;
           } else if (now < (player.fireRateUntil || 0)) {
             const sec = Math.ceil(((player.fireRateUntil || 0) - now) / 1000);
             label = 'Rapid — ' + sec + 's';
+          } else if (now < (player.speedUntil || 0)) {
+            const sec = Math.ceil(((player.speedUntil || 0) - now) / 1000);
+            label = '💨 Speed — ' + sec + 's';
           } else if (now < (player.spreadUntil || 0)) {
             const sec = Math.ceil(((player.spreadUntil || 0) - now) / 1000);
             label = 'Spread — ' + sec + 's';
