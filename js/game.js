@@ -3262,6 +3262,11 @@ let hitPopTimeout = null;
         // caterpillar: slow, sinuous mover that sheds leaf particles occasionally
         const hpVal = 1;
         enemies.push({x:ex,y:ey,w:34,h:20,vy:speed*0.65, baseVy: speed*0.65, vx:0, hp:hpVal, maxHp:hpVal, type:'caterpillar', t: Math.random()*1000});
+      } else if (Math.random() < 0.08) {
+        // slug: slow, low-to-the-ground crawler that scuttles horizontally and requires two hits (2 HP)
+        // Adds immediate visible variety and a garden-y slow mover that hugs lower lanes.
+        const dir = (Math.random() < 0.5) ? -0.6 : 0.6;
+        enemies.push({x:ex,y:ey,w:36,h:18,vy:speed*0.35, vx: dir, hp:2, maxHp:2, type:'slug', t: Math.random()*1000});
       } else {
         const hpVal = 1 + Math.floor(waveNumber/4);
         if (Math.random() < Math.min(0.06, 0.02 + waveNumber*0.01)) { enemies.push({x:ex,y:ey,w:24,h:20,vy:speed*0.8, baseVy: speed*0.8, vx:0, hp:2, maxHp:2, type:'ladybug', hopTimer: 500 + Math.random()*700, t: Math.random()*1000}); }
@@ -3735,6 +3740,22 @@ let hitPopTimeout = null;
             e.scuttleEnd = 0;
           }
         } catch (err) { /* ignore beetle update errors */ }
+      }
+      // Slug behavior: slow crawler that hugs lower lanes and scuttles horizontally (new)
+      if (e.type === 'slug') {
+        try {
+          // Keep a gentle downward motion but favour horizontal movement; reverse at canvas edges
+          e.baseVy = (typeof e.baseVy !== 'undefined') ? e.baseVy : (e.vy || 0.35);
+          e.vy = e.baseVy;
+          if (typeof e.vx === 'undefined') e.vx = (Math.random() < 0.5 ? -0.6 : 0.6);
+          // gentle horizontal movement
+          e.x += (e.vx || 0) * 1;
+          // bounce at canvas edges to keep slug in play
+          if (e.x < 24) { e.x = 24; e.vx = Math.abs(e.vx || 0.6); }
+          if (e.x > cw - 24) { e.x = cw - 24; e.vx = -Math.abs(e.vx || 0.6); }
+          // occasional slime/dust particle for visual flavor (very low frequency)
+          if (Math.random() < 0.016) particles.push({ x: e.x + (Math.random()-0.5)*6, y: e.y + (Math.random()-0.5)*6, vx: (Math.random()-0.5)*0.6, vy: -0.2 - Math.random()*0.2, r: 1 + Math.random()*2, life: 240 + Math.random()*200, born: Date.now(), color: '#b0bec5' });
+        } catch (err) { /* ignore slug update errors */ }
       }
       // Hopper behavior: medium speed, periodic lateral hops (new)
       if (e.type === 'hopper') {

@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: add new 'slug' enemy that crawls horizontally near the ground (2 HP), slow and scuttling for visible variety (tiny) — 2026-03-24
 - Controls: allow U key to activate Shield (same as B) for consistency (tiny) — 2026-03-24
 - Gameplay: add temporary Speed power-up (💨 +35% move speed for 8s; collecting while active extends duration) (tiny) — 2026-03-24
 - Gameplay: stronger hit feedback — slightly larger particle burst and screen shake on enemy hit (tiny) — 2026-03-24
