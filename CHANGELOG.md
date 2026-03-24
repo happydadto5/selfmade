@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.9.0
+- Meta: quick roadmap/process update (2026-03-24) — captured meta-review and prioritized a small visible gameplay polish (Shield power-up tuning) and a minor roadmap refresh.
+
 ## 10.8.0
 - Visual/UI: increase compact HUD backdrop opacity and add subtle text shadow for readability (tiny) — 2026-03-24
 
