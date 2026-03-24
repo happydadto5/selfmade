@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.140.0
+- Gameplay: spawn a Shield power-up on the first wave and every 2 waves to improve early discoverability (tiny)
+
 ## 9.139.0
 - Accessibility/Stability: show a clear "Paused" overlay message when the game is auto-paused or manually paused; improves clarity when switching tabs or apps (tiny)
 
