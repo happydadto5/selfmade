@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- UI: improve wave progress percentage readability in HUD (larger, high-contrast percentage label) — tiny — 2026-03-24
+
 ## 9.143.0
 - UI: Slightly increase wave toast duration for better noticeability on small screens (tiny) — 2026-03-24
 
