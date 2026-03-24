@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.5.0
+- Performance: reduce particle cap to 300 to lower CPU during long runs (tiny) — 2026-03-24
+
 ## 10.4.0
 - Visual/UI: stronger HUD hit feedback (brighter glow and stronger pop) for clearer hit feedback (tiny) — 2026-03-24
 
