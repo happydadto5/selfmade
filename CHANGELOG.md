@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased
-
+## 9.153.0
 - UI: improve wave HUD aria-label and tooltip to announce current wave, progress, and waves-left (tiny) — 2026-03-24
 
 ## 9.152.0
