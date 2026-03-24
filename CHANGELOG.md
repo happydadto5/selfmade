@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.8.0
 - Visual/UI: increase compact HUD backdrop opacity and add subtle text shadow for readability (tiny) — 2026-03-24
 
 ## 10.7.0
