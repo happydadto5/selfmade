@@ -1019,7 +1019,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.32.0';
+  const version = '10.33.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3197,7 +3197,7 @@ let hitPopTimeout = null;
       // Small chance for a "sprout" enemy (small garden sprout, low HP, green-themed)
       const isSprout = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.015);
       // Small chance for a "hopper" enemy that performs lateral hops for visual variety
-      const isHopper = Math.random() < Math.min(0.22, 0.06 + waveNumber*0.015);
+      const isHopper = Math.random() < Math.min(0.30, 0.10 + waveNumber*0.018);
       const isPest = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
        const isCaterpillar = Math.random() < Math.min(0.1, 0.02 + waveNumber*0.01);
       // Small chance for a slow, short-burst "beetle" enemy: slightly tougher scuttling bug
