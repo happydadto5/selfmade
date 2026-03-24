@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: slightly increased bee homing so bees feel more threatening (tiny) — 2026-03-24
 - Controls: reduce touch hold firing delay to 60ms for snappier mobile hold-to-fire (tiny) — 2026-03-24
 - UI: show brief Combo badge in HUD when chaining quick kills (small gameplay/UI) — 2026-03-24
 - Visual: pulsing leaf indicator added along snatcher telegraph line to better highlight incoming dashes (tiny) — 2026-03-24

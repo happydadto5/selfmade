@@ -3630,7 +3630,7 @@ let hitPopTimeout = null;
       if (e.type === 'bee') {
         try {
           const dx = (player && typeof player.x === 'number') ? (player.x - e.x) : 0;
-          const homingBase = 0.006 + Math.min(0.02, waveNumber*0.002);
+          const homingBase = 0.008 + Math.min(0.03, waveNumber*0.0025);
             const homing = (typeof lives === 'number' && lives <= 1) ? homingBase * 0.7 : homingBase;
           e.vx = ((e.vx || 0) * 0.92) + Math.max(-2, Math.min(2, dx * homing));
           // gentle vertical smoothing so bees don't jitter; they already have a fast base vy from spawn
