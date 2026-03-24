@@ -4406,14 +4406,27 @@ let hitPopTimeout = null;
 
             // handle different power-up types
             if (pu.type === 'rapid') {
-              player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel
-              player.fireRateUntil = Date.now() + 18000; // 18 seconds
-              // small celebratory feedback
-              try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
-              try { playSound('blip'); } catch (e) {}
-              try { for (let k=0;k<6;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.6, vy: -Math.random()*1.2, r: 2+Math.random()*2, life: 400+Math.random()*300, born: Date.now(), color: '#fff59d' }); } catch (e) {}
-              // Accessibility: announce Rapid power-up collection for screen readers (keeps HUD discoverable)
-              try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
+              try {
+                const now = Date.now();
+                if (player && now < (player.fireRateUntil || 0)) {
+                  // already active: extend active Rapid by 10s, cap total remaining at 30s from now
+                  player.fireRateUntil = Math.min(now + 30000, (player.fireRateUntil || now) + 10000);
+                  player.fireRate = Math.max(player.fireRate || 1, 3); // ensure fireRate is set
+                  try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid extended!', vy: -0.05, life: 900, totalLife: 900, color: '#ffd54f' }); } catch (e) {}
+                  try { playSound('blip'); } catch (e) {}
+                  try { for (let k=0;k<5;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.2, vy: -Math.random()*1.0, r: 2+Math.random()*2, life: 300+Math.random()*200, born: Date.now(), color: '#fff59d' }); } catch (e) {}
+                  try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid extended'; } catch (e) {}
+                } else {
+                  player.fireRate = 3; // stronger rapid fire: 3x rate for a noticeably snappier feel
+                  player.fireRateUntil = Date.now() + 18000; // 18 seconds
+                  // small celebratory feedback
+                  try { scorePopups.push({ x: player.x, y: player.y - 20, text: 'Rapid Fire!', vy: -0.05, life: 900, totalLife: 900, color: '#ffe082' }); } catch (e) {}
+                  try { playSound('blip'); } catch (e) {}
+                  try { for (let k=0;k<6;k++) particles.push({ x: pu.x, y: pu.y, vx: (Math.random()-0.5)*1.6, vy: -Math.random()*1.2, r: 2+Math.random()*2, life: 400+Math.random()*300, born: Date.now(), color: '#fff59d' }); } catch (e) {}
+                  // Accessibility: announce Rapid power-up collection for screen readers (keeps HUD discoverable)
+                  try { var _pa = document.getElementById('powerup-announcer'); if (_pa) _pa.textContent = 'Rapid collected'; } catch (e) {}
+                }
+              } catch(e) {}
             } else if (pu.type === 'shield') {
               // grant or refresh a temporary shield; collecting while active adds one charge (max 4) and extends duration
               try {
