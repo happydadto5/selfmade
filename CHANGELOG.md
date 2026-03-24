@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Gameplay: increase Rapid Fire bullet speed for snappier firing feel (tiny) — 2026-03-24
 - Gameplay: shield pickups now remain on the ground 15s (was 12s) so they are easier to collect — 2026-03-24
 - Gameplay: increase weevil spawn chance from 12% to 16% (tiny) — 2026-03-24
 - Gameplay: slightly increased weevil spawn chance to add enemy variety (tiny) — 2026-03-24

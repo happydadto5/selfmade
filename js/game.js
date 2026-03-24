@@ -1020,7 +1020,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.47.0';
+  const version = '10.48.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3456,8 +3456,8 @@ let hitPopTimeout = null;
         // spread shot: center + two angled pellets
         // adjust bullet speed slightly when Rapid power-up is active for a snappier feel
         const _rapid = Date.now() < (player.fireRateUntil || 0);
-        const _bv_center = _rapid ? -11 : -10;
-        const _bv_angled = _rapid ? -10 : -9;
+        const _bv_center = _rapid ? -13 : -11;
+        const _bv_angled = _rapid ? -12 : -10;
         bullets.push({x:player.x, y:player.y-28, vy:_bv_center, r: (_rapid ? 7 : 6)});
         bullets.push({x:player.x - 8, y:player.y-28, vx:-1.6, vy:_bv_angled, r: (_rapid ? 7 : 6)});
         bullets.push({x:player.x + 8, y:player.y-28, vx:1.6, vy:_bv_angled, r: (_rapid ? 7 : 6)});
@@ -3472,7 +3472,7 @@ let hitPopTimeout = null;
       } else {
         // adjust bullet speed when Rapid power-up is active
         const _rapid = Date.now() < (player.fireRateUntil || 0);
-        const _bv = _rapid ? -11 : -10;
+        const _bv = _rapid ? -13 : -11;
         bullets.push({x:player.x, y:player.y-28, vy:_bv, r: (_rapid ? 6 : 5)});
         // Rapid fire muzzle/trail particles for stronger feedback
         if (_rapid) {
