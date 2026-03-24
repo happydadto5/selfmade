@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.0.0
+- Visual/UI: slightly richer garden background (subtle greener highlights) for improved atmosphere (tiny)
+
 ## 9.157.0
 - UX: increase auto-advance delay after clearing a wave so Next Wave button is more noticeable (tiny)
 
