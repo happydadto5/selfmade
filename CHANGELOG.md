@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.4.0
+- Visual/UI: stronger HUD hit feedback (brighter glow and stronger pop) for clearer hit feedback (tiny) — 2026-03-24
+
 ## 10.3.0
 - Visual/UI: small petal burst animation when a new wave starts to make wave transitions more noticeable (tiny) — 2026-03-24
 
