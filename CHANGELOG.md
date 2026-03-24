@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix: accept 'B' as a shortcut to activate Shield (UI hinted 'Press B' — now both B and U work) — 2026-03-24
+
 ## 9.147.0
 - Visual/UI: slightly stronger hit-pop overlay for clearer hit feedback (tiny) — 2026-03-24
 

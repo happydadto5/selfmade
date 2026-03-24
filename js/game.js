@@ -1995,9 +1995,9 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
       if (replayBtn) { try { replayBtn.click(); } catch (err) { /* ignore click errors */ } }
     }
   });
-  // Manual shield activation: press U to consume a stored shield charge and activate shield immediately
+  // Manual shield activation: press U or B to consume a stored shield charge and activate shield immediately
   window.addEventListener('keydown', e => {
-    if ((e.key === 'u' || e.key === 'U') && !gameOver) {
+    if ((e.key === 'u' || e.key === 'U' || e.key === 'b' || e.key === 'B') && !gameOver) {
       try {
         if (player && typeof player.shieldCharges === 'number' && player.shieldCharges > 0) {
           const now = Date.now();
