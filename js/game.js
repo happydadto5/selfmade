@@ -1002,7 +1002,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.17.0';
+  const version = '10.18.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -4375,9 +4375,9 @@ let hitPopTimeout = null;
                   try { playSound('blip'); } catch(e) {}
                 } else {
                   // new shield
-                  player.shieldUntil = Date.now() + 30000; // 30 seconds (tuned for balance)
+                  player.shieldUntil = Date.now() + 20000; // 20 seconds (tuned for pacing)
                   // record the total duration for HUD progress
-                  try { player._shieldDuration = 30000; } catch(e) { player._shieldDuration = 30000; }
+                  try { player._shieldDuration = 20000; } catch(e) { player._shieldDuration = 20000; }
                   // grant a very short invulnerability to avoid immediate follow-up hits after pickup
                   try { player.invulnerableUntil = Date.now() + 2000; } catch(e) {}
                   try { player._shieldWarned = false; } catch(e){};

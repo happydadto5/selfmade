@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.18.0
+- Gameplay: shorten newly-collected Shield duration to 20s (was 30s) to improve pacing (tiny) — 2026-03-24
+
 ## 10.17.0
 - Visual/UI: strengthened life-loss feedback — increased red flash opacity and slightly lengthened duration so hits register more clearly on small screens (tiny) — 2026-03-24
 
