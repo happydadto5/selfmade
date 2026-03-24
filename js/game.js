@@ -1018,7 +1018,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.22.0';
+  const version = '10.23.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3404,7 +3404,7 @@ let hitPopTimeout = null;
     // expire temporary fire rate boosts
     try { if (player.fireRate > 1 && Date.now() > (player.fireRateUntil || 0)) { player.fireRate = 1; player.fireRateUntil = 0; } } catch (e) {}
     // Performance: cap particle count to avoid runaway particle growth during long runs
-    try { if (particles && particles.length > 300) particles.splice(0, particles.length - 300); } catch (e) { }
+    try { if (particles && particles.length > 180) particles.splice(0, particles.length - 180); } catch (e) { }
     // Stability: cap power-ups to a reasonable maximum to prevent unbounded growth during very long runs
     try { if (powerups && powerups.length > 12) powerups.splice(0, powerups.length - 12); } catch (e) { }
     try {
@@ -3499,7 +3499,7 @@ let hitPopTimeout = null;
     // Stability: cap bullets to avoid runaway growth during very long runs
     try { if (bullets.length > 120) bullets.splice(0, bullets.length - 120); } catch (e) { }
     // Stability: cap particles to avoid runaway growth during very long runs (prevents memory/CPU spikes)
-    try { if (particles.length > 300) particles.splice(0, particles.length - 300); } catch (e) { }
+    try { if (particles.length > 180) particles.splice(0, particles.length - 180); } catch (e) { }
     
     for (let i=enemies.length-1;i>=0;i--) {
       const e = enemies[i];
@@ -4327,7 +4327,7 @@ let hitPopTimeout = null;
 
     // update particles
     // Cap particle count to avoid performance issues on low-end devices (tiny)
-    if (particles.length > 300) particles.splice(0, particles.length - 300);
+    if (particles.length > 180) particles.splice(0, particles.length - 180);
     for (let i=particles.length-1;i>=0;i--) {
       const p = particles[i];
       // initialize small spin for petals and leaves so they rotate subtly

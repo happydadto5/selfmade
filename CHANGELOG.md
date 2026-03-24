@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.23.0
+- Performance: reduce particle cap to 180 to lower CPU on low-end devices (tiny) — 2026-03-24
+
 ## 10.22.0
 - Visual/UI: in-canvas wave progress ring color shifts to indicate near-complete waves (green → amber → orange) to improve clarity (tiny) — 2026-03-24
 
