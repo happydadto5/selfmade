@@ -999,7 +999,7 @@
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '9.153.0';
+  const version = '9.154.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -2548,6 +2548,65 @@ try { localStorage.setItem('selfmade_pause_on_blur', autoPauseEnabled ? '1' : '0
     }
     // Initialize the button UI
     try { updateAutoPauseUI(); } catch (e) { /* ignore */ }
+
+    // Small visual/UI improvement: Add a Background Toggle button so players can enable/disable the garden background.
+    // This uses the same dynamic-creation pattern used elsewhere so it won't duplicate markup and respects the
+    // existing localStorage preference key 'selfmade_show_bg'. It is keyboard-accessible and respects users' choice.
+    try {
+      function updateBgUI() {
+        try {
+          let btn = document.getElementById('bgToggleBtn');
+          if (!btn) {
+            btn = document.createElement('button');
+            btn.id = 'bgToggleBtn';
+            try { btn.type = 'button'; } catch (e) {}
+            btn.style.marginLeft = '6px';
+            // Insert after fullscreen button when possible for consistent placement
+            const ref = document.getElementById('fullscreenBtn') || document.getElementById('muteBtn');
+            const container = document.getElementById('ui') || document.body;
+            try { if (ref && ref.parentNode) ref.parentNode.insertBefore(btn, ref.nextSibling); else container.appendChild(btn); } catch(e){}
+          }
+          const pref = (function(){ try { return localStorage.getItem('selfmade_show_bg'); } catch(e){ return null; } })();
+          const enabled = (pref !== '0');
+          btn.textContent = enabled ? 'BG: On' : 'BG: Off';
+          btn.title = enabled ? 'Background visible — click to hide' : 'Background hidden — click to show';
+          btn.setAttribute('aria-pressed', (!enabled).toString());
+          btn.setAttribute('aria-label', enabled ? 'Background on. Click to disable.' : 'Background off. Click to enable.');
+          btn.setAttribute('role','button');
+          btn.setAttribute('tabindex','0');
+          btn.onclick = function() {
+            try {
+              const newVal = (localStorage.getItem('selfmade_show_bg') === '0') ? '1' : '0';
+              try { localStorage.setItem('selfmade_show_bg', newVal); } catch(e){}
+              if (newVal === '0') {
+                try { canvas.style.backgroundImage = ''; canvas.dataset.bgVisible = 'false'; } catch(e){}
+              } else {
+                try {
+                  if (gardenBackground && gardenBackground.naturalWidth) {
+                    canvas.style.backgroundImage = 'url("assets/images/garden-background.jpg")';
+                    canvas.style.backgroundPosition = 'center top';
+                    canvas.style.backgroundSize = 'cover';
+                    canvas.dataset.bgVisible = 'true';
+                  } else {
+                    canvas.style.backgroundImage = 'linear-gradient(180deg, #e8f7ff 0%, #eafbe8 100%)';
+                    canvas.style.backgroundPosition = 'center top';
+                    canvas.style.backgroundSize = 'cover';
+                    canvas.dataset.bgVisible = 'false';
+                  }
+                } catch(e){}
+              }
+            } catch(e){}
+            try { updateBgUI(); } catch(e){}
+          };
+          // keyboard activation
+          if (!btn.dataset.keyboardInit) {
+            btn.addEventListener('keydown', function(evt){ if (evt.key === 'Enter' || evt.key === ' ' || evt.key === 'Spacebar') { evt.preventDefault(); try { btn.click(); } catch(e){} } });
+            btn.dataset.keyboardInit = '1';
+          }
+        } catch(e){}
+      }
+      try { updateBgUI(); } catch(e){}
+    } catch (e) { /* ignore bg toggle UI errors */ }
 
     // Ensure only a single Next Wave button exists (avoid duplicates created by legacy and HUD code)
     try {

@@ -1,5 +1,8 @@
 # Changelog
 
+## 9.154.0
+- Visual/UI: add background toggle button (BG) to let players enable/disable the garden background (small)
+
 ## 9.153.0
 - UI: improve wave HUD aria-label and tooltip to announce current wave, progress, and waves-left (tiny) — 2026-03-24
 
