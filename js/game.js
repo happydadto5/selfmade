@@ -3386,6 +3386,18 @@ let hitPopTimeout = null;
         }
       } catch (e) { /* ignore mulch spawn errors */ }
 
+      // New: every 5th wave spawn a tougher snail mini-enemy to add visible gameplay variety.
+      try {
+        if (typeof waveNumber === 'number' && waveNumber > 0 && (waveNumber % 5) === 0) {
+          const bossX = Math.max(60, Math.min(cw - 60, Math.floor(cw / 2 + (Math.random()-0.5)*80)));
+          const bossY = -60;
+          const bossHp = 2 + Math.floor(waveNumber/3);
+          enemies.push({ x: bossX, y: bossY, w: 46, h: 40, vy: 0.45, baseVy: 0.45, vx: 0, hp: bossHp, maxHp: bossHp, type: 'snail', t: Math.random()*1000 });
+          try { scorePopups.push({ x: bossX, y: bossY, text: '🐌 Big Snail', vy: -0.03, life: 1200, totalLife: 1200, color: '#d7ccc8' }); } catch(e){}
+          try { if (typeof playSound === 'function') playSound('spawn'); } catch(e){}
+        }
+      } catch(e) { /* ignore mini-boss spawn errors */ }
+
     } catch (e) { /* ignore toast errors */ }
   }
 
