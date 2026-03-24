@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.141.0
 - Fix: help overlay key hint corrected to show 'B' for Shield activation (matches shortcut)
 
 ## 9.140.0
