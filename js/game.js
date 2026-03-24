@@ -4345,6 +4345,9 @@ let hitPopTimeout = null;
       p.y += p.vy;
       p.vy += 0.05; // gravity
       if (p.leaf || p.petal) {
+        if (typeof p.angle === 'undefined') {
+          p.angle = Math.atan2(p.vy || 0, p.vx || 0);
+        }
         p.angle = (p.angle || 0) + (p.spin || 0);
       }
       p.life -= dt;
