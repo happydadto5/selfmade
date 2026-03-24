@@ -3526,7 +3526,7 @@ let hitPopTimeout = null;
             const homing = (typeof lives === 'number' && lives <= 1) ? homingBase * 0.7 : homingBase;
           e.vx = ((e.vx || 0) * 0.88) + Math.max(-1.2, Math.min(1.2, dx * homing));
           // small glowing petal trail to make moths more noticeable (increased frequency and occasional larger petal)
-          if (Math.random() < 0.12) {
+          if (Math.random() < 0.20) {
             // occasional larger petal for emphasis
             if (Math.random() < 0.18) {
               particles.push({ x: e.x, y: e.y, vx: (Math.random()-0.5)*0.6, vy: -0.3 - Math.random()*0.4, r: 2.4 + Math.random()*1.6, life: 380 + Math.random()*240, born: Date.now(), color: '#fff59d', petal: true, big: true });
