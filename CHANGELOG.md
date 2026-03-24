@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.17.0
 - Visual/UI: strengthened life-loss feedback — increased red flash opacity and slightly lengthened duration so hits register more clearly on small screens (tiny) — 2026-03-24
 
 ## 10.16.0
