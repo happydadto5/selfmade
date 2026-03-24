@@ -1019,7 +1019,7 @@ nextWaveFallbackTimeout = setTimeout(function(){ try { if (awaitingNextWave && !
 
   // Accessibility: announce wave changes to assistive tech
   if (waveEl) { try { waveEl.setAttribute('aria-live', 'polite'); waveEl.setAttribute('role', 'status'); } catch (e) {} }
-  const version = '10.30.0';
+  const version = '10.31.0';
   let score = 0;
   let highScore = (function(){ try { const v = parseInt(localStorage.getItem('selfmade_highscore')||'0', 10); return isNaN(v) ? 0 : Math.max(0, v); } catch (e) { return 0; } })();
   let lives = 3;
@@ -3220,7 +3220,7 @@ let hitPopTimeout = null;
         enemies.push({x:ex,y:ey,w:20,h:18,vy:speed*1.5, hp:1, maxHp:1, type:'bee', t: Math.random()*1000});
       } else if (isMoth) {
         // moth: medium descent, sinuous horizontal motion for visual variety
-        enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:10 + Math.random()*6, swayFreq: 0.01 + Math.random()*0.01, t: Math.random()*1000});
+        enemies.push({x:ex,y:ey,w:28,h:26,vy:speed*0.85, hp:1, maxHp:1, type:'moth', swayAmp:12 + Math.random()*8, swayFreq: 0.01 + Math.random()*0.012, t: Math.random()*1000});
       } else if (isHopper) {
         // hopper: medium descent, performs lateral hops for visual and gameplay variety
         enemies.push({x:ex,y:ey,w:28,h:24,vy:speed*0.9, vx:0, hp:1, maxHp:1, type:'hopper', hopTimer: 360 + Math.random()*420, hopStrength: 2.4 + Math.random()*1.8, t: Math.random()*1000});
@@ -3526,9 +3526,9 @@ let hitPopTimeout = null;
             const homing = (typeof lives === 'number' && lives <= 1) ? homingBase * 0.7 : homingBase;
           e.vx = ((e.vx || 0) * 0.88) + Math.max(-1.2, Math.min(1.2, dx * homing));
           // small glowing petal trail to make moths more noticeable (increased frequency and occasional larger petal)
-          if (Math.random() < 0.20) {
+          if (Math.random() < 0.30) {
             // occasional larger petal for emphasis
-            if (Math.random() < 0.18) {
+            if (Math.random() < 0.28) {
               particles.push({ x: e.x, y: e.y, vx: (Math.random()-0.5)*0.6, vy: -0.3 - Math.random()*0.4, r: 2.4 + Math.random()*1.6, life: 380 + Math.random()*240, born: Date.now(), color: '#fff59d', petal: true, big: true });
             } else {
               particles.push({ x: e.x, y: e.y, vx: (Math.random()-0.5)*0.45, vy: -0.2 - Math.random()*0.3, r: 0.8 + Math.random()*1.4, life: 220 + Math.random()*180, born: Date.now(), color: '#fff59d', petal: true });
