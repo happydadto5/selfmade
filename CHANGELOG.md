@@ -5,6 +5,7 @@
 - Stability: persist high score when auto-pausing (blur/visibility/pagehide) to reduce data-loss risk (tiny) — 2026-03-24
 - Reliability: guard auto-resume call to togglePause during visibility restore to avoid runtime errors if togglePause is not available (tiny) — 2026-03-24
 - Gameplay: weevils now telegraph their dart with a brief dust/petal trail when they burst (tiny) — 2026-03-24
+- Gameplay: slightly increased 'bee' enemy spawn chance so bees are more noticeable and add variety (tiny) — 2026-03-24
 
 ## 10.25.0
 - Levels: slightly increase inter-wave auto-advance delay by a small per-wave amount so later waves grant players a touch more recovery time (tiny) — 2026-03-24

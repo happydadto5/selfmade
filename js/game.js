@@ -3189,7 +3189,8 @@ let hitPopTimeout = null;
       // Small chance for a slow, high-HP "snail" enemy (garden-themed slow mover)
       const isSnail = Math.random() < Math.min(0.12, 0.02 + waveNumber*0.01);
       // Small chance for a "pest" enemy that splits into two mini pests on death
-      const isBee = Math.random() < Math.min(0.12, 0.03 + waveNumber*0.02);
+      // Slightly increase bee spawn chance so the new "bee" pest is more noticeable without changing difficulty much
+      const isBee = Math.random() < Math.min(0.20, 0.05 + waveNumber*0.025);
       // Small chance for a "moth" enemy that sways horizontally in a sinuous pattern
       // Increased base chance and cap so moths are more noticeable without changing difficulty much
       const isMoth = Math.random() < Math.min(0.55, 0.18 + waveNumber*0.035);
