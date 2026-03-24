@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Visual/UI: improve HUD backdrop opacity for stronger contrast on busy backgrounds (tiny) — 2026-03-24
+
 ## 9.144.0
 - UI: improve wave progress percentage readability in HUD (larger, high-contrast percentage label) — tiny — 2026-03-24
 
